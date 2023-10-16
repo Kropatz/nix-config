@@ -80,13 +80,14 @@ in
   users.users.kopatz = {
     isNormalUser = true;
     description = "kopatz";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     #password = "test";
     packages = with pkgs; [
 	#firefox
     #  thunderbird
       discord
       librewolf
+      ungoogled-chromium
     ];
   };
 
@@ -128,10 +129,19 @@ in
     kate
     keepassWithPlugins
     jetbrains.idea-ultimate
+    jetbrains.rider
+    dotnet-sdk_7
     neovim
     htop
-    busybox
     git
+    xfce.thunar
+    wpaperd
+    swww
+    wayland
+    killall
+    xclip
+    usbutils
+    #arion # docker
     #hyprland
     #hyprpaper
     #hyprpicker
@@ -147,6 +157,36 @@ in
     #xwayland
   ];
 
+  ### docker
+  virtualisation.docker.enable = true;
+
+  systemd.tmpfiles.rules = [
+    "d /docker-data 0755 kopatz docker"
+  ];
+
+  #virtualisation.oci-containers.containers.mssql = {
+  #  image = "mcr.microsoft.com/mssql/server:2022-latest";
+  #  volumes = [ "/docker-data/mssql/data:/var/opt/mssql/data" ];
+  #  environment = {
+  #    ACCEPT_EULA = "Y";
+  #    MSSQL_SA_PASSWORD="ufhaiufhashfshfklslwkhebwejhvtjhqwvrhp23508v3z8pt";
+  #  };
+  #};
+
+  #module = [ arion.nixosModules.arion ];
+  #virtualisation.arion = {
+  #  backend = "docker";
+  #  projects.mssql.settings = {
+  #    services.mssql.service = {
+  #      image = "mcr.microsoft.com/mssql/server:2022-latest";
+  #      restart = "unless-stopped";
+  #      #volumes = { /docker-data/mssql/data:/var/opt/mssql/data; };
+  #      environment = { ACCEPT_EULA = "Y"; MSSQL_SA_PASSWORD="ufhaiufhashfshfklslwkhebwejhvtjhqwvrhp23508v3z8pt"; };
+  #    };
+  #  };
+  #};
+
+  ### end docker
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

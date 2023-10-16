@@ -38,16 +38,20 @@
     wmctrl
     gnome.mutter
     gnome.adwaita-icon-theme
-    gnomeExtensions.appindicator
     gnome.gnome-settings-daemon
     gnome.gnome-tweaks
+    gnome.dconf-editor
     gruvbox-gtk-theme
     colloid-icon-theme
+    gnomeExtensions.appindicator
     gnomeExtensions.just-perfection
     gnomeExtensions.system-monitor
     gnomeExtensions.dash2dock-lite
     gnomeExtensions.dash-to-dock
     gnomeExtensions.vitals
+    gnomeExtensions.rounded-window-corners
+    gnomeExtensions.wallpaper-switcher
+    gnomeExtensions.backslide
     rofi
   ];
 }

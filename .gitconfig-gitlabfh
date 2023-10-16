@@ -16,6 +16,3 @@
 [user]
 	name = Kopatz
 	email = is221015@fhstp.ac.at
-	signingkey = C9FE26C362DB772E
-[commit]
-	gpgsign = true
