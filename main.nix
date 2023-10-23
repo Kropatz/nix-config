@@ -17,6 +17,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
 	./hardware-configuration.nix
+	./battery.nix
 	## -- set in flake.nix
 	#<nixos-hardware/dell/xps/15-7590/nvidia>
 	#<home-manager/nixos>
@@ -25,17 +26,12 @@ in
   # storage optimization
   nix.optimise.automatic = true;
 
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nix-laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
