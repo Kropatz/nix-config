@@ -56,5 +56,14 @@ in
     rofi-wayland
     libnotify
     networkmanagerapplet
+    wayland
+    #qt5.qtwayland
+    #qt6.qmake
+    #qt6.qtwayland
+    #waybar
+    #xdg-desktop-portal-hyprland
+    #xdg-desktop-portal-gtk
+    #xdg-utils
+    #xwayland
   ];
 }

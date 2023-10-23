@@ -16,9 +16,15 @@ in
 {
   imports =
     [ # Include the results of the hardware scan.
-	<nixos-hardware/dell/xps/15-7590/nvidia>
 	./hardware-configuration.nix
+	## -- set in flake.nix
+	#<nixos-hardware/dell/xps/15-7590/nvidia>
+	#<home-manager/nixos>
     ];
+
+  # storage optimization
+  nix.optimise.automatic = true;
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -33,6 +39,11 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  networking.extraHosts =
+  ''
+    82.218.12.28 kopatz.ddns.net
+  '';
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -88,8 +99,19 @@ in
       discord
       librewolf
       ungoogled-chromium
+      evolution-ews
     ];
   };
+
+    # home manager
+  #home-manager.useGlobalPkgs = true;
+
+ # home-manager.users.kopatz = { pkgs, ... }: {
+
+    # The state version is required and should stay at the version you
+    # originally installed.
+  #  system.stateVersion = "23.05";
+  #};
 
   programs.steam = {
     enable = true;
@@ -102,7 +124,7 @@ in
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
     nerdfonts
-    font-awesome
+    #font-awesome
   ];
 
   networking.firewall = {
@@ -131,37 +153,47 @@ in
     jetbrains.idea-ultimate
     jetbrains.rider
     dotnet-sdk_7
+    dotnet-runtime_7
     neovim
     htop
     git
     xfce.thunar
-    wpaperd
-    swww
-    wayland
     killall
     xclip
     usbutils
+    bun
+    insomnia
+    #podman-compose
     #arion # docker
-    #hyprland
-    #hyprpaper
-    #hyprpicker
-    #gtk3
     neofetch
-    #qt5.qtwayland
-    #qt6.qmake
-    #qt6.qtwayland
-    #waybar
-    #xdg-desktop-portal-hyprland
-    #xdg-desktop-portal-gtk
-    #xdg-utils
-    #xwayland
   ];
+
+  environment.sessionVariables = {
+    DOTNET_ROOT = "${pkgs.dotnet-sdk_7}";
+  };
 
   ### docker
   virtualisation.docker.enable = true;
 
+  ## podman
+  #virtualisation = {
+  #  podman = {
+  #    enable = false;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      #dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+  #    defaultNetwork.settings.dns_enabled = true;
+      # For Nixos version > 22.11
+      #defaultNetwork.settings = {
+      #  dns_enabled = true;
+      #};
+   # };
+  #};
+
   systemd.tmpfiles.rules = [
-    "d /docker-data 0755 kopatz docker"
+    "d /docker-data 0755 kopatz users"
   ];
 
   #virtualisation.oci-containers.containers.mssql = {
