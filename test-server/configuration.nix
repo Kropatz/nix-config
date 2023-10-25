@@ -8,13 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./modules/adguard.nix
-      ./modules/git.nix
-      ./modules/vmware-guest.nix
     ];
-
-  nix.optimise.automatic = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -108,6 +102,7 @@
     vim
     tcpdump
     dig
+    vscodium
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];
