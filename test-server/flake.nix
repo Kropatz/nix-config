@@ -1,9 +1,11 @@
 {
   description = "A very basic flake";
   inputs = {
+      # secrets management
+      agenix.url = "github:ryantm/agenix";
       nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
   };
-  outputs = { self, nixpkgs, ... }: {
+  outputs = { self, nixpkgs, agenix }@inputs: {
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
@@ -12,8 +14,11 @@
         ./modules/adguard.nix
         ./modules/git.nix
         ./modules/vmware-guest.nix
+        ./modules/github-runner.nix
         #./modules/home-assistant.nix idk dont like this
+        agenix.nixosModules.default
       ];
+      specialArgs = { inherit inputs; };
     };
   };
 }
