@@ -7,4 +7,5 @@ in
   "github-runner-pw.age".publicKeys = [ nix-test-vm ];
   "duckdns.age".publicKeys = [ nix-test-vm ];
   "nextcloud-admin.age".publicKeys = [ nix-test-vm ];
+  "restic-pw.age".publicKeys = [ nix-test-vm ];
 }
