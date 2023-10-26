@@ -24,6 +24,7 @@
         ./modules/ssh.nix
         ./modules/rdp.nix
         ./modules/docker.nix
+	./modules/wireguard.nix
         #./modules/dyndns.nix i think ddclient is deprecated
         #./modules/home-assistant.nix idk dont like this
         agenix.nixosModules.default

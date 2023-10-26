@@ -41,6 +41,10 @@
           "domain" = "inverter.local";
           "answer" = "192.168.0.9";
          }
+	 {
+	  "domain" = "nextcloud.local";
+	  "answer" = "192.168.0.6";
+	 }
         ];  
       };
       querylog = {

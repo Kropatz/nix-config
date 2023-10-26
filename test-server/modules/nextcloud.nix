@@ -15,9 +15,11 @@
 
         # Setup Nextcloud virtual host to listen on ports
         virtualHosts = {
-            "localhost" = {
+            "nextcloud.local" = {
+		serverAliases = [ "192.168.2.1" ];
                 ## Force HTTP redirect to HTTPS
                 #forceSSL = true;
+		#sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
                 ## LetsEncrypt
                 #enableACME = true;
             };
@@ -33,10 +35,10 @@
     services.nextcloud = {
         enable = true;
         package = pkgs.nextcloud27;
-        hostName = "localhost";
+        hostName = "nextcloud.local";
         config.adminpassFile = config.age.secrets.nextcloud-admin.path;
-
-        home = "/var/lib/nextcloud";
+	config.extraTrustedDomains = [ "192.168.2.1" ];
+        home = "/mnt/250ssd/nextcloud";
 
         extraApps = {
             spreed = pkgs.fetchNextcloudApp rec {
