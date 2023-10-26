@@ -1,7 +1,6 @@
 {
   networking = {
-    defaultGateway = "192.168.0.6";
-    hostname = "server";
+    defaultGateway = "192.168.0.1";
     useDHCP = false;
     firewall.enable = true;
     nameservers = [
@@ -9,13 +8,13 @@
       "1.1.1.1"
     ];
     interfaces = {
-      #"enp11s0" = {
-      #  name = "eth0";
-      #};
-      ens33.ipv4.addresses = [{
-        address = "192.168.0.6";
-        prefixLength = 24;
-      }];
+      "enp0s31f6" = {
+        name = "eth0";
+	      ipv4.addresses = [{
+          address = "192.168.0.6";
+          prefixLength = 24;
+        }];
+      };
     };
   };
 }

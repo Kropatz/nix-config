@@ -14,15 +14,15 @@
         # Setup Nextcloud virtual host to listen on ports
         virtualHosts = {
             "kopatz.ddns.net" = {
-                serverAliases = [
-                    "www.kopatz.ddns.net"
-                    "server.home"
-                    "server.local"
-                    "192.168.0.6"
-                ];
+                #serverAliases = [
+                #    "www.kopatz.ddns.net"
+                #    "server.home"
+                #    "server.local"
+                #    "192.168.0.6"
+                #];
                 root = "/var/www";
-                #forceSSL = true;
-                #enableACME = true;
+                forceSSL = true;
+                enableACME = true;
                 locations."~* \\.(jpg)$".extraConfig= ''
                     add_header Access-Control-Allow-Origin *;
                 '';

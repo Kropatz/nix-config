@@ -9,11 +9,12 @@
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
+	      ./modules/ip-server.nix
         ./configuration.nix 
         ./modules/nix-settings.nix
         ./modules/adguard.nix
         ./modules/git.nix
-        ./modules/vmware-guest.nix
+        #./modules/vmware-guest.nix
         ./modules/github-runner.nix
         ./modules/nextcloud.nix
         ./modules/acme.nix

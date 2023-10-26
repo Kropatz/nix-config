@@ -15,19 +15,13 @@ in{
     ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "server"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  #networking.networkmanager.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 53 80 443 ];
   networking.firewall.allowedUDPPorts = [ 53 ];
 
@@ -52,7 +46,7 @@ in{
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the KDE Desktop Environment.
+  # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
@@ -82,10 +76,6 @@ in{
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  virtualisation.docker.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.anon = {
     isNormalUser = true;
@@ -93,6 +83,7 @@ in{
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
+      kate
     #  thunderbird
     ];
   };
@@ -100,8 +91,6 @@ in{
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     kate
     wget

@@ -26,7 +26,7 @@
     ];
     services.github-runner = {
         enable = true;
-        name = "runner-oberprofis";
+        name = "nixos-server";
         tokenFile = config.age.secrets.github-runner-token.path;
         url = "https://github.com/oberprofis";
         user = "github-actions-runner";
