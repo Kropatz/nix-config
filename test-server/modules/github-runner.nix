@@ -33,7 +33,7 @@
         url = "https://github.com/oberprofis";
         user = "github-actions-runner";
         workDir = "/github-actions-runner";
-        extraPackages = with pkgs; [ rsync ];
+        extraPackages = with pkgs; [ rsync nodePackages.pnpm nodejs_18 ];
         serviceOverrides = {
             BindPaths= [ "/github-actions-runner" "/data/website" ];
             UMask = "022";

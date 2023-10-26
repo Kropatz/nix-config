@@ -26,6 +26,20 @@
                 locations."~* \\.(jpg)$".extraConfig= ''
                     add_header Access-Control-Allow-Origin *;
                 '';
+                locations."~ ^/(stash|resources|css)".extraConfig=''
+                	client_max_body_size    5000M;
+                	proxy_redirect          off;
+                	proxy_set_header        Host $host;
+                	proxy_set_header        X-Real-IP $remote_addr;
+                	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                	proxy_set_header        X-Forwarded-Proto $scheme;
+                	proxy_set_header        X-NginX-Proxy true;
+                	proxy_pass http://localhost:5091;
+                '';
+		        locations."/tracker-site" = {
+			        tryFiles = "$uri $uri/ /tracker-site/index.html =404";
+		        };
+                locations."/tracker-site/api".proxyPass = "http://127.0.0.1:8080";
             };
             "adguard.local" = {
                 locations."/".proxyPass = "http://127.0.0.1:3000";
