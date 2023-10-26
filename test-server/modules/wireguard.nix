@@ -12,7 +12,6 @@
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      dns = [ "192.168.2.1" ];
       listenPort = 51820;
       address = [
         "192.168.2.1/24"
