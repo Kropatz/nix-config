@@ -14,7 +14,7 @@
             paths = [
                 "/home"
             ];
-            repository = "/mnt/backup";
+            repository = "/mnt/2tb/restic";
         };
     };
   };
