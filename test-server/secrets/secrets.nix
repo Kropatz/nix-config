@@ -5,4 +5,6 @@ in
 {
   "github-runner-token.age".publicKeys = [ nix-test-vm ];
   "github-runner-pw.age".publicKeys = [ nix-test-vm ];
+  "duckdns.age".publicKeys = [ nix-test-vm ];
+  "nextcloud-admin.age".publicKeys = [ nix-test-vm ];
 }

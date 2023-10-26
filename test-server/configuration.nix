@@ -2,7 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, inputs, ... }:{
+{ config, pkgs, lib, inputs, ... }:
+
+let 
+shash = pkgs.writeShellScriptBin "shash" ''
+  nix hash to-sri --type sha256 $(nix-prefetch-url ''$1)
+'';
+in{
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -103,14 +109,15 @@
     vscodium
     inputs.agenix.packages."x86_64-linux".default
     btop
+    shash
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];
 
   services.openssh.enable = true;
 
-  networking.firewall.allowedTCPPorts = [ 22 ];
-  networking.firewall.allowedUDPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [ 22 53 80 443 ];
+  networking.firewall.allowedUDPPorts = [ 53 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

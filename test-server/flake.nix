@@ -15,6 +15,9 @@
         ./modules/git.nix
         ./modules/vmware-guest.nix
         ./modules/github-runner.nix
+        ./modules/nextcloud.nix
+        ./modules/acme.nix
+        #./modules/dyndns.nix i think ddclient is deprecated
         #./modules/home-assistant.nix idk dont like this
         agenix.nixosModules.default
       ];
