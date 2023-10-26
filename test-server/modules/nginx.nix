@@ -39,7 +39,12 @@
 		        locations."/tracker-site" = {
 			        tryFiles = "$uri $uri/ /tracker-site/index.html =404";
 		        };
-                locations."/tracker-site/api".proxyPass = "http://127.0.0.1:8080";
+                locations."/tracker-site/api" = {
+                    extraConfig =''
+                        rewrite /tracker-site/api/(.*) /$1 break;
+                    '';
+                    proxyPass = "http://127.0.0.1:8080";
+                };
             };
             "adguard.local" = {
                 locations."/".proxyPass = "http://127.0.0.1:3000";
