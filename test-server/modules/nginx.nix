@@ -20,7 +20,7 @@
                 #    "server.local"
                 #    "192.168.0.6"
                 #];
-                root = "/var/www";
+                root = "/data/website";
                 forceSSL = true;
                 enableACME = true;
                 locations."~* \\.(jpg)$".extraConfig= ''

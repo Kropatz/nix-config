@@ -23,6 +23,8 @@
     };
     systemd.tmpfiles.rules = [
         "d /github-actions-runner 0770 github-actions-runner github-actions-runner -"
+        "d /data 0770 github-actions-runner nginx -"
+        "d /data/website 0770 github-actions-runner nginx -"
     ];
     services.github-runner = {
         enable = true;
@@ -31,5 +33,10 @@
         url = "https://github.com/oberprofis";
         user = "github-actions-runner";
         workDir = "/github-actions-runner";
+        extraPackages = with pkgs; [ rsync ];
+        serviceOverrides = {
+            BindPaths= [ "/github-actions-runner" "/data/website" ];
+            UMask = "022";
+        };
     };
 }
