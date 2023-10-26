@@ -5,16 +5,43 @@
       users = [
         {
           name = "admin";
-          password = "$2y$15$3RPgWOXmeUU6NGo.XTx2LuL1oKS.YRrLOIa9VmINnzvtkHNY7A4hq";
+          password = "$2y$15$iPzjmUJPTwWUOsDp46GOPO/LYor/jDJjndwy2QlPddaKSD4QXvq9W";
         }
       ];
       dns = {
-        bind_hosts = [ "127.0.0.1" ];
+        bind_hosts = [ "127.0.0.1" "192.168.0.6" ];
         port = 53;
         protection_enabled = true;
         filtering_enabled = true;
-        upstream_dns = [ "quic://doh.tiar.app" "tls://getdnsapi.net"];
+        upstream_dns = [ 
+          "https://doh.tiar.app/dns-query"
+          "tls://getdnsapi.net"
+          "https://dns.adguard-dns.com/dns-query"
+          "tls://dot.seby.io"
+        ];
         use_http3_upstreams = true;
+        rewrites = [
+         {
+          "domain" = "kopatz.ddns.net";
+          "answer" = "192.168.0.6";
+         }
+         {
+          "domain" = "server.home";
+          "answer" = "192.168.0.6";
+         }
+         {
+          "domain" = "server.local";
+          "answer" = "192.168.0.6";
+         }
+        {
+          "domain" = "adguard.local";
+          "answer" = "192.168.0.6";
+         }
+         {
+          "domain" = "inverter.local";
+          "answer" = "192.168.0.9";
+         }
+        ];  
       };
       querylog = {
         enabled = false;
