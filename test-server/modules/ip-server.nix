@@ -2,7 +2,11 @@
   networking = {
     defaultGateway = "192.168.0.1";
     useDHCP = false;
-    firewall.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 22 53 80 443 ];
+      allowedUDPPorts = [ 53 ];
+    };
     nameservers = [
       "127.0.0.1"
       "1.1.1.1"

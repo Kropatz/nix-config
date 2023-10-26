@@ -22,8 +22,6 @@ in{
 
   # Enable networking
   #networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 53 80 443 ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -93,6 +91,7 @@ in{
 
   environment.systemPackages = with pkgs; [
     kate
+    nixos-option
     wget
     vim
     tcpdump
