@@ -17,6 +17,7 @@
         ./modules/github-runner.nix
         ./modules/nextcloud.nix
         ./modules/acme.nix
+        ./modules/samba.nix
         #./modules/dyndns.nix i think ddclient is deprecated
         #./modules/home-assistant.nix idk dont like this
         agenix.nixosModules.default
