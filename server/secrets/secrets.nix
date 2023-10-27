@@ -11,5 +11,6 @@ in
   "nextcloud-cert.age".publicKeys = [ nix-test-vm server ];
   "nextcloud-key.age".publicKeys = [ nix-test-vm server ];
   "restic-pw.age".publicKeys = [ nix-test-vm server ];
+  "restic-s3.age".publicKeys = [ nix-test-vm server ];
   "wireguard-private.age".publicKeys = [ nix-test-vm server ];
 }
