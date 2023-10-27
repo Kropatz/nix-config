@@ -13,4 +13,5 @@ in
   "restic-pw.age".publicKeys = [ nix-test-vm server ];
   "restic-s3.age".publicKeys = [ nix-test-vm server ];
   "wireguard-private.age".publicKeys = [ nix-test-vm server ];
+  "coturn-secret.age".publicKeys = [ nix-test-vm server ];
 }

@@ -17,6 +17,7 @@ in{
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  systemd.enableEmergencyMode = false;
 
   networking.hostName = "server"; # Define your hostname.
 
@@ -102,6 +103,7 @@ in{
     hdparm
     wireguard-tools
     openssl
+    unstable.e2fsprogs
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];

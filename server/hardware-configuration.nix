@@ -30,17 +30,20 @@
   fileSystems."/mnt/2tb" =
     { device = "/dev/disk/by-uuid/99954059-3801-4abb-a536-0e7802a3e6b4";
       fsType = "ext4";
+      options = ["defaults" "nofail"];
     };
   
   fileSystems."/mnt/1tb" =
     { device = "/dev/disk/by-uuid/fb0a94c2-95df-4f62-904e-695d372363e9";
       fsType = "ext4";
+      options = ["defaults" "nofail"];
     };
   
   fileSystems."/mnt/250ssd" =
     { device = "/dev/disk/by-uuid/80163cf9-2030-4757-ada2-03db96184961";
       fsType = "ext4";
-    };
+      options = ["defaults" "nofail"];
+     };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
