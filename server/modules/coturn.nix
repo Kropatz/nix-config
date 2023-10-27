@@ -2,23 +2,24 @@
 {
     age.secrets.coturn-secret = {
         file = ../secrets/coturn-secret.age;
+	owner = "turnserver";
+	group = "turnserver";
     };
 
   networking.firewall.allowedUDPPortRanges = [ { from = 49000; to=50000; } ];
-  networking.firewall.allowedUDPPorts = [ 3478 5349 ];
-  networking.firewall.allowedTCPPorts = [ 3478 5349 ];
+  networking.firewall.allowedUDPPorts = [ 3478 ]; #5349 ];
+  networking.firewall.allowedTCPPorts = [ 3478 ]; #5349 ];
 
 
   services.coturn = {
     enable = true;
     no-cli = true;
-    no-tcp-relay = true;
-    tls-listening-port = 5349;
+    #tls-listening-port = 5349;
     listening-port = 3478;
     min-port = 49000;
     max-port = 50000;
     use-auth-secret = true;
-    static-auth-secret = config.age.secrets.coturn-secret.path;
+    static-auth-secret-file = config.age.secrets.coturn-secret.path;
     relay-ips = [
 	"192.168.2.1"
     ];
@@ -26,9 +27,13 @@
 	"192.168.2.1"
     ];
     realm = "kopatz.ddns.net";
-    cert = "${config.security.acme.certs."kopatz.ddns.net".directory}/full.pem";
-    pkey = "${config.security.acme.certs."kopatz.ddns.net".directory}/key.pem";
+    #cert = "${config.security.acme.certs."kopatz.ddns.net".directory}/full.pem";
+    #pkey = "${config.security.acme.certs."kopatz.ddns.net".directory}/key.pem";
     extraConfig = ''
+      no-sslv3
+      no-tlsv1
+      no-tlsv1_1
+      no-tlsv1_2
       # for debugging
       verbose
       # ban private IP ranges
@@ -58,4 +63,11 @@
       denied-peer-ip=fe80::-febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff
     '';
   };
+
+  #systemd.services.coturn = {
+#	serviceConfig = {
+#	  User = lib.mkForce "root";
+#	  Group = lib.mkForce "root";
+#	};	 
+#  };
 }
