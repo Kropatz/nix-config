@@ -29,7 +29,7 @@
             "nextcloud.local" = {
 		serverAliases = [ "192.168.2.1" ];
                 ## Force HTTP redirect to HTTPS
-                #forceSSL = true;
+                forceSSL = true;
 		#sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 		sslCertificate = config.age.secrets.nextcloud-cert.path ;
 		sslCertificateKey = config.age.secrets.nextcloud-key.path ;	
@@ -47,6 +47,7 @@
     services.nextcloud = {
         enable = true;
         package = pkgs.nextcloud27;
+	https = true;
         hostName = "nextcloud.local";
         config.adminpassFile = config.age.secrets.nextcloud-admin.path;
 	config.extraTrustedDomains = [ "192.168.2.1" ];
