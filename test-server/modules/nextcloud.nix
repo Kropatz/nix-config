@@ -1,6 +1,17 @@
 { config, pkgs, lib, inputs, ... }:
 {
-        # Enable Nginx
+
+    age.secrets.nextcloud-cert = {
+        file = ../secrets/nextcloud-cert.age;
+        owner = "nginx";
+        group = "nginx";
+    };
+    age.secrets.nextcloud-key = {
+        file = ../secrets/nextcloud-key.age;
+        owner = "nginx";
+        group = "nginx";
+    };
+    # Enable Nginx
     services.nginx = {
         enable = true;
 
@@ -20,12 +31,13 @@
                 ## Force HTTP redirect to HTTPS
                 #forceSSL = true;
 		#sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+		sslCertificate = config.age.secrets.nextcloud-cert.path ;
+		sslCertificateKey = config.age.secrets.nextcloud-key.path ;	
                 ## LetsEncrypt
                 #enableACME = true;
             };
         };
     };
-
 
     age.secrets.nextcloud-admin = {
         file = ../secrets/nextcloud-admin.age;

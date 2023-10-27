@@ -8,6 +8,8 @@ in
   "github-runner-pw.age".publicKeys = [ nix-test-vm server ];
   "duckdns.age".publicKeys = [ nix-test-vm server ];
   "nextcloud-admin.age".publicKeys = [ nix-test-vm server ];
+  "nextcloud-cert.age".publicKeys = [ nix-test-vm server ];
+  "nextcloud-key.age".publicKeys = [ nix-test-vm server ];
   "restic-pw.age".publicKeys = [ nix-test-vm server ];
   "wireguard-private.age".publicKeys = [ nix-test-vm server ];
 }
