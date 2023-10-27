@@ -9,7 +9,7 @@
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
-	      ./modules/ip-server.nix
+	./modules/static-ip-server.nix
         ./configuration.nix 
         ./modules/nix-settings.nix
         ./modules/adguard.nix
