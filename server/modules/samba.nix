@@ -1,11 +1,11 @@
 {
-    services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
-    networking.firewall.allowedTCPPorts = [
-    5357 # wsdd
-    ];
-    networking.firewall.allowedUDPPorts = [
-    3702 # wsdd
-    ];
+    #services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
+    #networking.firewall.allowedTCPPorts = [
+    #5357 # wsdd
+    #];
+    #networking.firewall.allowedUDPPorts = [
+    #3702 # wsdd
+    #];
     services.samba.openFirewall = true;
     services.samba = {
         enable = true;
@@ -14,9 +14,10 @@
             "root"
         ];
         extraConfig = ''
+	    disable netbios = yes
+	    smb ports = 445
             workgroup = WORKGROUP
             server string = smbnix
-            netbios name = smbnix
             security = user 
             #use sendfile = yes
             #max protocol = smb2

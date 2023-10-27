@@ -24,6 +24,7 @@
         ./modules/git.nix
         #./modules/vmware-guest.nix
         ./modules/github-runner.nix
+	./modules/synapse.nix
 
         ./modules/nextcloud.nix
 	./modules/coturn.nix

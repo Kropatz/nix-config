@@ -37,14 +37,18 @@
           "domain" = "adguard.local";
           "answer" = "192.168.0.6";
          }
-         {
-          "domain" = "inverter.local";
-          "answer" = "192.168.0.9";
-         }
 	 {
 	  "domain" = "nextcloud.local";
 	  "answer" = "192.168.0.6";
 	 }
+	 {
+	  "domain" = "turnserver.local";
+	  "answer" = "192.168.2.1";
+	 }
+         {
+          "domain" = "inverter.local";
+          "answer" = "192.168.0.9";
+         }
         ];  
       };
       querylog = {
