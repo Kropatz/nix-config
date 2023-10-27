@@ -33,6 +33,14 @@
           endpoint = "kopatz.ddns.net:51820";
           publicKey = "Eg5ZS3zN05mJ/gct6wJlwVAHTlXpkhxFfUd7yscANV0=";
         }
+	{
+          allowedIPs = [
+            "192.168.2.4/32"
+          ];
+	  persistentKeepalive = 25;
+          endpoint = "kopatz.ddns.net:51820";
+          publicKey = "8Eigfs+k2k2WPaMn+SqDmlSHdMv+I+xcBr/2qhtpGzI=";
+        }
       ];
       privateKeyFile = config.age.secrets.wireguard-private.path;
     };
