@@ -11,7 +11,7 @@
         owner = "nginx";
         group = "nginx";
     };
-    # Enable Nginx
+   # Enable Nginx
     services.nginx = {
         enable = true;
 
@@ -30,9 +30,9 @@
 		serverAliases = [ "192.168.2.1" ];
                 ## Force HTTP redirect to HTTPS
                 forceSSL = true;
-		#sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-		sslCertificate = config.age.secrets.nextcloud-cert.path ;
-		sslCertificateKey = config.age.secrets.nextcloud-key.path ;	
+		        #sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+		        sslCertificate = config.age.secrets.nextcloud-cert.path;
+		        sslCertificateKey = config.age.secrets.nextcloud-key.path;
                 ## LetsEncrypt
                 #enableACME = true;
             };
