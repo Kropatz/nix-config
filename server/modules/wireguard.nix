@@ -63,7 +63,7 @@
           ];
 	        persistentKeepalive = 25;
           endpoint = "kopatz.ddns.net:51820";
-          publicKey = "/dIW7K49vB9HOgheXvcY7wu2utQltuv6RfgCbxZwlk=";
+          publicKey = "/dIW7K49vB9HOghFeXvcY7wu2utQltuv6RfgCbxZwlk=";
         }
 	      {
           allowedIPs = [
