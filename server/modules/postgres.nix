@@ -14,4 +14,9 @@
                 superuser_map      /^(.*)$   \1
         '';
     };
+   services.postgresqlBackup = {
+	enable = true;
+	location = "/var/backup/postgresql";
+	backupAll = true;
+   }; 
 }

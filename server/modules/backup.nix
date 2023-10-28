@@ -16,8 +16,31 @@
             passwordFile = config.age.secrets.restic-pw.path;
             paths = [
                 "/home"
+		"/var/backup/postgresql"
+		"/mnt/250ssd/matrix-synapse/media_store/"
+		"/mnt/250ssd/nextcloud"
+		"/mnt/250ssd/paperless"
             ];
             repository = "/mnt/2tb/restic";
+        };
+        localbackup-1tb = {
+            initialize = true;
+            passwordFile = config.age.secrets.restic-pw.path;
+            paths = [
+                "/home"
+		"/var/backup/postgresql"
+		"/mnt/250ssd/matrix-synapse/media_store/"
+		"/mnt/250ssd/nextcloud"
+		"/mnt/250ssd/paperless"
+            ];
+	    exclude = [
+                "/home/*/.cache"
+            ];
+            repository = "/mnt/1tb/restic";
+	    timerConfig = {
+		OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
+		Persistent = true;
+	    };
         };
         remotebackup = { 
 	    exclude = [
