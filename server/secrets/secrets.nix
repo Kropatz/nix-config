@@ -15,4 +15,5 @@ in
   "wireguard-private.age".publicKeys = [ nix-test-vm server ];
   "coturn-secret.age".publicKeys = [ nix-test-vm server ];
   "matrix-registration.age".publicKeys = [ nix-test-vm server ];
+  "paperless.age".publicKeys = [ nix-test-vm server ];
 }

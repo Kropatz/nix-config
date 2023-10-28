@@ -19,6 +19,7 @@
 	./modules/static-ip-server.nix
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./configuration.nix 
+	./modules/postgres.nix
 	./modules/fail2ban.nix
         ./modules/nix-settings.nix
         ./modules/adguard.nix
@@ -39,6 +40,7 @@
         ./modules/docker.nix
 	./modules/wireguard.nix
 	./modules/cron.nix
+	./modules/paperless.nix
         #./modules/dyndns.nix i think ddclient is deprecated
         #./modules/home-assistant.nix idk dont like this
         agenix.nixosModules.default

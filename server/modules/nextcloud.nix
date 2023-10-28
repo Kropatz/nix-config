@@ -1,6 +1,5 @@
 { config, pkgs, lib, inputs, ... }:
 {
-
     age.secrets.nextcloud-cert = {
         file = ../secrets/nextcloud-cert.age;
         owner = "nginx";
@@ -30,9 +29,12 @@
 		serverAliases = [ "192.168.2.1" ];
                 ## Force HTTP redirect to HTTPS
                 forceSSL = true;
-		        #sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-		        sslCertificate = config.age.secrets.nextcloud-cert.path;
-		        sslCertificateKey = config.age.secrets.nextcloud-key.path;
+		locations."~ ^\\/(?:index|remote|public|cron|core\\/ajax\\/update|status|ocs\\/v[12]|updater\\/.+|oc[s]-provider\\/.+|.+\\/richdocumentscode\\/proxy)\\.php(?:$|\\/)".extraConfig = ''
+			client_max_body_size 5G;
+		'';
+	        #sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+	        sslCertificate = config.age.secrets.nextcloud-cert.path;
+	        sslCertificateKey = config.age.secrets.nextcloud-key.path;
                 ## LetsEncrypt
                 #enableACME = true;
             };
@@ -50,6 +52,8 @@
 	https = true;
         hostName = "nextcloud.local";
         config.adminpassFile = config.age.secrets.nextcloud-admin.path;
+	config.dbtype = "pgsql";
+	database.createLocally = true;
 	config.extraTrustedDomains = [ "192.168.2.1" ];
         home = "/mnt/250ssd/nextcloud";
 
@@ -59,6 +63,11 @@
                 sha256 = "sha256-LaUG0maatc2YtWQjff7J54vadQ2RE4X6FcW8vFefBh8=";
             };
         };
+
+  	phpOptions = {
+    		upload_max_filesize = "5G";
+    		post_max_size = "5G";
+  	};
         extraAppsEnable = true;
         extraOptions.enabledPreviewProviders = [
             "OC\\Preview\\BMP"
