@@ -4,8 +4,7 @@
     useDHCP = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 53 80 443 ];
-      allowedUDPPorts = [ 53 5000 ];
+      allowedUDPPorts = [ 5000 ];
     };
     nameservers = [
       "127.0.0.1"
