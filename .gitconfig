@@ -27,8 +27,3 @@
     path = .gitconfig-gitlabfh
 [core]
 	editor = kate
-[gui]
-	recentrepo = D:/Stuff/work/evolit/TIS2020
-
-[credential "http://server.home:3000"]
-	provider = generic
