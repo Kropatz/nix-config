@@ -14,6 +14,7 @@
     # Official NixOS package source
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    agenix.url = "github:ryantm/agenix";
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
@@ -35,7 +36,7 @@
   #
   # The `@` syntax here is used to alias the attribute set of the
   # inputs's parameter, making it convenient to use inside the function.
-  outputs = { self, nixpkgs, nixos-hardware, ... }@inputs: {
+  outputs = { self, nixpkgs, nixos-hardware, agenix, ... }@inputs: {
     nixosConfigurations = {
       # By default, NixOS will try to refer the nixosConfiguration with
       # its hostname, so the system named `nixos-test` will use this one.
@@ -48,8 +49,8 @@
       # Run the following command in the flake's directory to
       # deploy this configuration on any NixOS system:
       #   sudo nixos-rebuild switch --flake .#nixos-test
-      "nix-laptop" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+      #"nix-laptop" = nixpkgs.lib.nixosSystem {
+      #  system = "x86_64-linux";
 
         # The Nix module system can modularize configuration,
         # improving the maintainability of configuration.
@@ -90,15 +91,15 @@
         # you must use `specialArgs` by uncomment the following line:
         #
         # specialArgs = {...};  # pass custom arguments into all sub module.
-        modules = [
+      #  modules = [
           # Import the configuration.nix here, so that the
           # old configuration file can still take effect.
           # Note: configuration.nix itself is also a Nix Module,
-          ./configuration.nix
-          nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
-
-        ];
-      };
+      #    ./configuration.nix
+      #    nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
+      #
+      #  ];
+      #};
       "nix-laptop-no-gpu" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -107,7 +108,9 @@
           # Note: configuration.nix itself is also a Nix Module,
           ./configuration.nix
           nixos-hardware.nixosModules.dell-xps-15-7590
+          agenix.nixosModules.default
         ];
+        specialArgs = { inherit inputs; };
       };
     };
   };

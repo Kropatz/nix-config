@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   keepassWithPlugins = pkgs.keepass.override {
@@ -17,7 +17,9 @@ in
   imports =
     [ # Include the results of the hardware scan.
 	./hardware-configuration.nix
-	./battery.nix
+	./modules/battery.nix
+	./modules/ssh.nix
+	#./modules/wireguard.nix
 	## -- set in flake.nix
 	#<nixos-hardware/dell/xps/15-7590/nvidia>
 	#<home-manager/nixos>
@@ -32,7 +34,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nix-laptop"; # Define your hostname.
+  networking.hostName = "nix-laptop-no-gpu"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
@@ -165,6 +167,7 @@ in
     xclip
     usbutils
     bun
+    inputs.agenix.packages."x86_64-linux".default
     insomnia
     #podman-compose
     #arion # docker
