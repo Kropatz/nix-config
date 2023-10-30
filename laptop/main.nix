@@ -120,11 +120,6 @@ in
 
   programs.kdeconnect.enable = true;
 
-  programs.evolution = {
-    enable = true;
-    plugins = [ pkgs.evolution-ews ];
-  };
-
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
     nerdfonts
@@ -175,6 +170,7 @@ in
     #arion # docker
     neofetch
     thunderbird
+    rofi
   ];
 
   environment.sessionVariables = {

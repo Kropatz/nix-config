@@ -53,6 +53,6 @@
     gnomeExtensions.wallpaper-switcher
     gnomeExtensions.backslide
     gnomeExtensions.nextcloud-folder
-    rofi
+    gnomeExtensions.tray-icons-reloaded
   ];
 }
