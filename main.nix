@@ -95,7 +95,6 @@ in
       discord
       librewolf
       ungoogled-chromium
-      evolution-ews
     ];
   };
 
@@ -116,6 +115,11 @@ in
   };
 
   programs.kdeconnect.enable = true;
+
+  programs.evolution = {
+    enable = true;
+    plugins = [ pkgs.evolution-ews ];
+  };
 
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
@@ -152,6 +156,7 @@ in
     dotnet-runtime_7
     neovim
     htop
+    btop
     git
     xfce.thunar
     killall
@@ -162,6 +167,7 @@ in
     #podman-compose
     #arion # docker
     neofetch
+    thunderbird
   ];
 
   environment.sessionVariables = {
