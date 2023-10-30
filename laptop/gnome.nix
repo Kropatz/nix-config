@@ -52,6 +52,7 @@
     gnomeExtensions.rounded-window-corners
     gnomeExtensions.wallpaper-switcher
     gnomeExtensions.backslide
+    gnomeExtensions.nextcloud-folder
     rofi
   ];
 }

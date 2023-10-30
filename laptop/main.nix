@@ -169,6 +169,8 @@ in
     bun
     inputs.agenix.packages."x86_64-linux".default
     insomnia
+    remmina
+    nextcloud-client
     #podman-compose
     #arion # docker
     neofetch
