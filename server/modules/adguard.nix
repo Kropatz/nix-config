@@ -12,7 +12,7 @@
         }
       ];
       dns = {
-        bind_hosts = [ "127.0.0.1" "192.168.0.6" "192.168.2.1" ];
+        bind_hosts = [ "127.0.0.1" "192.168.0.6" ]; # "192.168.2.1" ];
         port = 53;
         protection_enabled = true;
         filtering_enabled = true;

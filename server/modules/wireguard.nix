@@ -23,7 +23,6 @@
             "192.168.2.2/32"
           ];
 	        persistentKeepalive = 25;
-          endpoint = "192.168.0.6:51820";
           publicKey = "dUBPIEnAiHIZCMjqV0ya8qotN3UnMhlEVyGNQcR3gVI=";
         }
         {
@@ -31,7 +30,6 @@
             "192.168.2.3/32"
           ];
 	        persistentKeepalive = 25;
-          endpoint = "kopatz.ddns.net:51820";
           publicKey = "Eg5ZS3zN05mJ/gct6wJlwVAHTlXpkhxFfUd7yscANV0=";
         }
 	      {
@@ -39,7 +37,6 @@
             "192.168.2.4/32"
           ];
 	        persistentKeepalive = 25;
-          endpoint = "kopatz.ddns.net:51820";
           publicKey = "8Eigfs+k2k2WPaMn+SqDmlSHdMv+I+xcBr/2qhtpGzI=";
         }
 	      {
@@ -47,7 +44,6 @@
             "192.168.2.20/32"
           ];
 	        persistentKeepalive = 25;
-          endpoint = "kopatz.ddns.net:51820";
           publicKey = "25u1RSfjsx3wb1DMeTm0pvUfUkG7zTjGaN+m0w6ZjCw=";
         }
 	      {
@@ -55,7 +51,6 @@
             "192.168.2.21/32"
           ];
 	        persistentKeepalive = 25;
-          endpoint = "kopatz.ddns.net:51820";
           publicKey = "S+8F+yxSQvjjoU44LRYqRv1YulqmOKumUtYo/YIh7X8=";
         }
 	      {
@@ -63,7 +58,6 @@
             "192.168.2.22/32"
           ];
 	        persistentKeepalive = 25;
-          endpoint = "kopatz.ddns.net:51820";
           publicKey = "/dIW7K49vB9HOghFeXvcY7wu2utQltuv6RfgCbxZwlk=";
         }
 	      {
@@ -71,7 +65,6 @@
             "192.168.2.23/32"
           ];
 	        persistentKeepalive = 25;
-          endpoint = "kopatz.ddns.net:51820";
           publicKey = "89rjQXNcyCRUCihqfqcOnctWmhiNR8snpRFF6dyHAmk=";
         }
 	      {
@@ -79,7 +72,6 @@
             "192.168.2.24/32"
           ];
 	        persistentKeepalive = 25;
-          endpoint = "kopatz.ddns.net:51820";
           publicKey = "adaWtboVz3UhpNBKFirs7slbU2+Y3GaV5yS2EoafwVU=";
         }
 	      {
@@ -87,7 +79,6 @@
             "192.168.2.5/32"
           ];
 	        persistentKeepalive = 25;
-          endpoint = "kopatz.ddns.net:51820";
           publicKey = "g5uTlA1IciXgtSbECjhVis0dajRAc53Oa7Hz6dUI+0Q=";
         }
       ];

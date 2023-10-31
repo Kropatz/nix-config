@@ -19,6 +19,7 @@
 	./modules/static-ip-server.nix
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./configuration.nix 
+	./modules/hdd-spindown.nix
 	./modules/motd.nix
 	./modules/postgres.nix
 	./modules/fail2ban.nix
