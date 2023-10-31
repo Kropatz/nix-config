@@ -25,5 +25,7 @@
   # Enable thermald (only necessary if on Intel CPUs)
   services.thermald.enable = true;
 
+  # toggle tlp off if this is on
+  #  services.auto-cpufreq.enable = true;
 }
 
