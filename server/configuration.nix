@@ -12,6 +12,7 @@ in{
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./users/anon.nix
     ];
 
   # Bootloader.
@@ -74,18 +75,7 @@ in{
     #media-session.enable = true;
   #};
 
-  #### Users and Packages ####
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.anon = {
-    isNormalUser = true;
-    description = "anon";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-      firefox
-      kate
-    #  thunderbird
-    ];
-  };
+  #### Packages ####
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

@@ -5,8 +5,12 @@
       agenix.url = "github:ryantm/agenix";
       nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
       nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+      home-manager = {
+        url = "github:nix-community/home-manager/release-23.05";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
-  outputs = { self, nixpkgs, nixpkgs-unstable, agenix }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, home-manager }@inputs:
     let
       system = "x86_64-linux";
       overlay-unstable = final: prev: {
@@ -45,6 +49,7 @@
         ./modules/paperless.nix
         #./modules/dyndns.nix i think ddclient is deprecated
         #./modules/home-assistant.nix idk dont like this
+        home-manager.nixosModules.home-manager
         agenix.nixosModules.default
       ];
       specialArgs = { inherit inputs; };
