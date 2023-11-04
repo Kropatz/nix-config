@@ -5,6 +5,7 @@
         settings.PasswordAuthentication = false;
         settings.KbdInteractiveAuthentication = false;
         settings.PermitRootLogin = "no";
+        settings.X11Forwarding = true;
     };
 
     users.users.anon.openssh.authorizedKeys.keys = [
