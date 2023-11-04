@@ -1,6 +1,11 @@
 {
     networking.firewall.allowedTCPPorts = [ 80 443 ];
 
+    systemd.tmpfiles.rules = [
+        "d /data 0770 github-actions-runner nginx -"
+        "d /data/website 0770 github-actions-runner nginx -"
+    ];
+
     services.nginx = {
         enable = true;
 
