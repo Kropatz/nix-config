@@ -10,8 +10,12 @@
         url = "github:nix-community/home-manager/release-23.05";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+      nixos-wsl = {
+        url = "github:nix-community/NixOS-WSL";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
-  outputs = { self, nixpkgs, nixos-hardware, nixpkgs-unstable, agenix, home-manager }@inputs:
+  outputs = { self, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable, agenix, home-manager }@inputs:
     let
       system = "x86_64-linux";
       overlay-unstable = final: prev: {
@@ -63,6 +67,15 @@
           ./laptop/configuration.nix
           nixos-hardware.nixosModules.dell-xps-15-7590
           agenix.nixosModules.default
+        ];
+    };
+    nixosConfigurations."wsl" = nixpkgs.lib.nixosSystem {
+    	inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./systems/wsl/configuration.nix
+          nixos-wsl.nixosModules.default
+          home-manager.nixosModules.home-manager
         ];
     };
   };
