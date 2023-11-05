@@ -1,16 +1,17 @@
 {
-  description = "A very basic flake";
+  description = "Kop's NixOS Flake";
   inputs = {
       # secrets management
       agenix.url = "github:ryantm/agenix";
       nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+      nixos-hardware.url = "github:NixOS/nixos-hardware/master";
       nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
       home-manager = {
         url = "github:nix-community/home-manager/release-23.05";
         inputs.nixpkgs.follows = "nixpkgs";
       };
   };
-  outputs = { self, nixpkgs, nixpkgs-unstable, agenix, home-manager }@inputs:
+  outputs = { self, nixpkgs, nixos-hardware, nixpkgs-unstable, agenix, home-manager }@inputs:
     let
       system = "x86_64-linux";
       overlay-unstable = final: prev: {
@@ -20,9 +21,10 @@
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [ 
+        ./users/anon.nix
         ./modules/static-ip-server.nix
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-        ./configuration.nix 
+        ./systems/server/configuration.nix
         ./modules/hdd-spindown.nix
         ./modules/motd.nix
         ./modules/postgres.nix
@@ -53,6 +55,15 @@
         agenix.nixosModules.default
       ];
       specialArgs = { inherit inputs; };
+    };
+    nixosConfigurations."nix-laptop-no-gpu" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs; };
+        modules = [
+          ./laptop/configuration.nix
+          nixos-hardware.nixosModules.dell-xps-15-7590
+          agenix.nixosModules.default
+        ];
     };
   };
 }
