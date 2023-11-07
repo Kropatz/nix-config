@@ -30,6 +30,7 @@
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./systems/server/configuration.nix
         ./modules/hdd-spindown.nix
+        ./modules/minecraft-server.nix
         ./modules/motd.nix
         ./modules/postgres.nix
         ./modules/fail2ban.nix
