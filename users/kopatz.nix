@@ -5,7 +5,7 @@ in
 {
   imports = [
     (
-        import ./home-manager/nvim.nix ({ user="${user}"; })
+        import ./home-manager/nvim/nvim.nix ({ user="${user}"; pkgs = pkgs; })
     )
   ];
   home-manager = {

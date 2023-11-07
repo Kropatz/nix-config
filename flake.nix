@@ -61,6 +61,17 @@
       ];
       specialArgs = { inherit inputs; };
     };
+    nixosConfigurations."nix-laptop" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs; };
+        modules = [
+          ./users/kopatz.nix
+          ./laptop/configuration.nix
+          nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
+          agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+        ];
+    };
     nixosConfigurations."nix-laptop-no-gpu" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit inputs; };
