@@ -64,9 +64,11 @@
         inherit system;
         specialArgs = {inherit inputs; };
         modules = [
+          ./users/kopatz.nix
           ./laptop/configuration.nix
           nixos-hardware.nixosModules.dell-xps-15-7590
           agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
         ];
     };
     nixosConfigurations."wsl" = nixpkgs.lib.nixosSystem {

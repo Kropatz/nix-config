@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 let 
-  user = "anon";
+  user = "kopatz";
 in
 {
   imports = [
@@ -41,7 +41,9 @@ in
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
-      firefox
+      discord
+      librewolf
+      ungoogled-chromium
     ];
   };
 }

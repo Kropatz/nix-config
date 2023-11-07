@@ -1,5 +1,6 @@
+{ user, ... }:
 {
-  home-manager.users.anon = { pkgs, ...}: {
+  home-manager.users.${user} = { pkgs, ...}: {
     programs.neovim = {
       enable = true;
       defaultEditor = true;
