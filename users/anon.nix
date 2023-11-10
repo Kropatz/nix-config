@@ -9,6 +9,7 @@
     };
     useUserPackages = true;
     users.anon = {
+      programs.git.enable = true;
       programs.zsh = {
         enable = true;
         enableCompletion = true;

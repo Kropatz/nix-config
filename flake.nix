@@ -15,7 +15,14 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
   };
-  outputs = { self, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable, agenix, home-manager }@inputs:
+  outputs = { self,
+              nixpkgs,
+              nixos-hardware,
+              nixos-wsl,
+              nixpkgs-unstable,
+              agenix,
+              home-manager
+            }@inputs:
     let
       system = "x86_64-linux";
       overlay-unstable = final: prev: {
@@ -41,7 +48,7 @@
         ./modules/synapse.nix
 
         ./modules/nextcloud.nix
-	#./modules/coturn.nix
+        #./modules/coturn.nix
 
         ./modules/acme.nix
         ./modules/samba.nix
@@ -70,9 +77,12 @@
         ];
     };
     nixosConfigurations."wsl" = nixpkgs.lib.nixosSystem {
-    	inherit system;
+        inherit system;
         specialArgs = { inherit inputs; };
         modules = [
+          #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
+          ./users/anon.nix
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./systems/wsl/configuration.nix
           nixos-wsl.nixosModules.default
           home-manager.nixosModules.home-manager
