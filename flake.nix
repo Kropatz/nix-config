@@ -62,6 +62,7 @@
         ./modules/cron.nix
         ./modules/paperless.nix
         ./modules/kavita.nix
+        ./modules/netdata.nix
         #./modules/dyndns.nix i think ddclient is deprecated
         #./modules/home-assistant.nix idk dont like this
         home-manager.nixosModules.home-manager
