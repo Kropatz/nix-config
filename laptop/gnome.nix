@@ -54,5 +54,6 @@
     gnomeExtensions.backslide
     gnomeExtensions.nextcloud-folder
     gnomeExtensions.tray-icons-reloaded
+    gnomeExtensions.blur-my-shell
   ];
 }

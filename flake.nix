@@ -37,6 +37,7 @@
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./systems/server/configuration.nix
         ./modules/hdd-spindown.nix
+        ./modules/minecraft-server.nix
         ./modules/motd.nix
         ./modules/postgres.nix
         ./modules/fail2ban.nix
@@ -60,6 +61,7 @@
         ./modules/wireguard.nix
         ./modules/cron.nix
         ./modules/paperless.nix
+        ./modules/kavita.nix
         #./modules/dyndns.nix i think ddclient is deprecated
         #./modules/home-assistant.nix idk dont like this
         home-manager.nixosModules.home-manager
@@ -67,13 +69,26 @@
       ];
       specialArgs = { inherit inputs; };
     };
+    nixosConfigurations."nix-laptop" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs; };
+        modules = [
+          ./users/kopatz.nix
+          ./laptop/configuration.nix
+          nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
+          agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+        ];
+    };
     nixosConfigurations."nix-laptop-no-gpu" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit inputs; };
         modules = [
+          ./users/kopatz.nix
           ./laptop/configuration.nix
           nixos-hardware.nixosModules.dell-xps-15-7590
           agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
         ];
     };
     nixosConfigurations."wsl" = nixpkgs.lib.nixosSystem {

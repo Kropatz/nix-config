@@ -1,11 +1,11 @@
 { pkgs, inputs, ... }:
 let 
-  user = "anon";
+  user = "kopatz";
 in
 {
   imports = [
     (
-        import ./home-manager/nvim/nvim.nix ({ user="${user}"; pkgs=pkgs; })
+        import ./home-manager/nvim/nvim.nix ({ user="${user}"; pkgs = pkgs; })
     )
   ];
   home-manager = {
@@ -16,7 +16,6 @@ in
     };
     useUserPackages = true;
     users.${user} = {
-      programs.git.enable = true;
       programs.zsh = {
         enable = true;
         enableCompletion = true;
@@ -42,7 +41,9 @@ in
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
-      firefox
+      discord
+      librewolf
+      ungoogled-chromium
     ];
   };
 }

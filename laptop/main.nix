@@ -84,32 +84,6 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  #users.mutableUsers=false;
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kopatz = {
-    isNormalUser = true;
-    description = "kopatz";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
-    #password = "test";
-    packages = with pkgs; [
-	#firefox
-    #  thunderbird
-      discord
-      librewolf
-      ungoogled-chromium
-    ];
-  };
-
-    # home manager
-  #home-manager.useGlobalPkgs = true;
-
- # home-manager.users.kopatz = { pkgs, ... }: {
-
-    # The state version is required and should stay at the version you
-    # originally installed.
-  #  system.stateVersion = "23.05";
-  #};
-
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
