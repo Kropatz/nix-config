@@ -52,6 +52,9 @@
                     '';
                     proxyPass = "http://127.0.0.1:8080";
                 };
+               #locations."~/books(.*)$" = {
+               #    proxyPass = "http://127.0.0.1:5000";
+               #};
             };
             "adguard.local" = {
                 locations."/".proxyPass = "http://127.0.0.1:3000";
