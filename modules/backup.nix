@@ -27,6 +27,7 @@
                 "/mnt/250ssd/matrix-synapse/media_store/"
                 "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
+                "/mnt/250ssd/kavita"
             ];
             pruneOpts = [ "--keep-daily 7" "--keep-weekly 10" "--keep-monthly 12" "--keep-yearly 75" ];
             repository = "/mnt/2tb/restic";
@@ -36,12 +37,13 @@
             passwordFile = config.age.secrets.restic-pw.path;
             paths = [
                 "/home"
-		        "/var/backup/postgresql"
-		        "/mnt/250ssd/matrix-synapse/media_store/"
-		        "/mnt/250ssd/nextcloud"
-		        "/mnt/250ssd/paperless"
+            "/var/backup/postgresql"
+            "/mnt/250ssd/matrix-synapse/media_store/"
+            "/mnt/250ssd/nextcloud"
+            "/mnt/250ssd/paperless"
+                "/mnt/250ssd/kavita"
             ];
-	        exclude = [
+            exclude = [
                 "/home/**/Cache"
                 "/home/**/.cache"
                 "/home/**/__pycache__"
@@ -60,12 +62,12 @@
             passwordFile = config.age.secrets.restic-pw.path;
             paths = [
                 "/home"
-		        "/var/backup/postgresql"
-		        "/mnt/250ssd/matrix-synapse/media_store/"
-		        "/mnt/250ssd/nextcloud"
-		        "/mnt/250ssd/paperless"
+            "/var/backup/postgresql"
+            "/mnt/250ssd/matrix-synapse/media_store/"
+            "/mnt/250ssd/nextcloud"
+            "/mnt/250ssd/paperless"
             ];
-	        exclude = [
+            exclude = [
                 "/home/**/Cache"
                 "/home/**/.cache"
                 "/home/**/__pycache__"
@@ -81,7 +83,7 @@
             };
         };
         remotebackup = { 
-	        exclude = [
+            exclude = [
                 "/home/**/Cache"
                 "/home/**/.cache"
                 "/home/**/__pycache__"
@@ -90,17 +92,17 @@
             ];
             initialize = true;
             passwordFile = config.age.secrets.restic-pw.path;
-	        environmentFile = config.age.secrets.restic-s3.path;
+            environmentFile = config.age.secrets.restic-s3.path;
             paths = [
                 "/home"
             ];
             pruneOpts = [ "--keep-daily 5" "--keep-weekly 5" "--keep-monthly 12" "--keep-yearly 75" ];
             timerConfig = {
-		        OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 00:00:00";
-		        Persistent = true;
-	        };
+              OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 00:00:00";
+              Persistent = true;
+            };
             repository = "s3:s3.us-west-002.backblazeb2.com/kop-bucket";
-	    };
+      };
     };
   };
 }
