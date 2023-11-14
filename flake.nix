@@ -31,11 +31,13 @@
     in {
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       inherit system;
-      modules = [ 
+      modules = [
+        ### User specific ###
         ./users/anon.nix
-        ./modules/static-ip-server.nix
+        ### System sepecific ###
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./systems/server/configuration.nix
+        ### Modules ###
         ./modules/hdd-spindown.nix
         ./modules/minecraft-server.nix
         ./modules/motd.nix
@@ -44,13 +46,9 @@
         ./modules/nix-settings.nix
         ./modules/adguard.nix
         ./modules/git.nix
-        #./modules/vmware-guest.nix
         ./modules/github-runner.nix
         ./modules/synapse.nix
-
         ./modules/nextcloud.nix
-        #./modules/coturn.nix
-
         ./modules/acme.nix
         ./modules/samba.nix
         ./modules/backup.nix
@@ -63,12 +61,14 @@
         ./modules/paperless.nix
         ./modules/kavita.nix
         ./modules/netdata.nix
-        #./modules/dyndns.nix i think ddclient is deprecated
-        #./modules/home-assistant.nix idk dont like this
         home-manager.nixosModules.home-manager
         agenix.nixosModules.default
       ];
-      specialArgs = { inherit inputs; };
+      specialArgs = {
+        ## Custom variables (e.g. ip, interface, etc)
+        vars = (import ./systems/server/userdata.nix); 
+        inherit inputs ;
+      };
     };
     nixosConfigurations."nix-laptop" = nixpkgs.lib.nixosSystem {
         inherit system;

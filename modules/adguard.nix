@@ -1,4 +1,8 @@
- {
+{ config, pkgs, inputs, vars, ... }:
+let 
+  ip = vars.ipv4;
+in
+{
   networking.firewall.allowedTCPPorts = [ 53 ];
   networking.firewall.allowedUDPPorts = [ 53 ];
 
@@ -12,7 +16,7 @@
         }
       ];
       dns = {
-        bind_hosts = [ "127.0.0.1" "192.168.0.6" ]; # "192.168.2.1" ];
+        bind_hosts = [ "127.0.0.1" "${ip}" ]; # "192.168.2.1" ];
         port = 53;
         protection_enabled = true;
         filtering_enabled = true;
@@ -26,33 +30,33 @@
         rewrites = [
          {
           "domain" = "kopatz.ddns.net";
-          "answer" = "192.168.0.6";
+          "answer" = ip;
          }
          {
           "domain" = "server.home";
-          "answer" = "192.168.0.6";
+          "answer" = ip;
          }
          {
           "domain" = "server.local";
-          "answer" = "192.168.0.6";
+          "answer" = ip;
          }
-        {
+         {
           "domain" = "adguard.local";
-          "answer" = "192.168.0.6";
+          "answer" = ip;
          }
-	 {
-	  "domain" = "nextcloud.local";
-	  "answer" = "192.168.0.6";
-	 }
-	 {
-	  "domain" = "turnserver.local";
-	  "answer" = "192.168.2.1";
-	 }
+         {
+          "domain" = "nextcloud.local";
+          "answer" = ip;
+         }
+         {
+           "domain" = "turnserver.local";
+           "answer" = "192.168.2.1";
+         }
          {
           "domain" = "inverter.local";
           "answer" = "192.168.0.9";
          }
-        ];  
+        ];
       };
       querylog = {
         enabled = false;

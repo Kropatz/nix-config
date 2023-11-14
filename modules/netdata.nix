@@ -1,3 +1,8 @@
+{ vars, ... }:
+let 
+  ip = vars.ipv4;
+  wireguardIp = vars.wireguardIp;
+in
 {
   networking.firewall.allowedTCPPorts = [ 19999 ];
   services.netdata = {
@@ -8,7 +13,7 @@
 
       [web]
       default port = 19999
-      bind to = 192.168.0.6 192.168.2.1
+      bind to = ${ip} ${wireguardIp}
       allow connections from = localhost 192.168.0.* 192.168.2.*
 
       [db]
