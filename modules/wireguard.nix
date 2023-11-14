@@ -84,6 +84,13 @@ in
           persistentKeepalive = 25;
           publicKey = "g5uTlA1IciXgtSbECjhVis0dajRAc53Oa7Hz6dUI+0Q=";
         }
+        {
+          allowedIPs = [
+            "192.168.2.6/32"
+          ];
+          persistentKeepalive = 25;
+          publicKey = "5ClF2HcqndpXS7nVgDn2unWFUYcKo5fbudV6xX2OIVE=";
+        }
       ];
       privateKeyFile = config.age.secrets.wireguard-private.path;
     };
