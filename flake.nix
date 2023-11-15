@@ -15,7 +15,14 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
   };
-  outputs = { self, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable, agenix, home-manager }@inputs:
+  outputs = { self,
+              nixpkgs,
+              nixos-hardware,
+              nixos-wsl,
+              nixpkgs-unstable,
+              agenix,
+              home-manager
+            }@inputs:
     let
       system = "x86_64-linux";
       overlay-unstable = final: prev: {
@@ -24,11 +31,13 @@
     in {
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       inherit system;
-      modules = [ 
+      modules = [
+        ### User specific ###
         ./users/anon.nix
-        ./modules/static-ip-server.nix
+        ### System sepecific ###
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./systems/server/configuration.nix
+        ### Modules ###
         ./modules/hdd-spindown.nix
         ./modules/minecraft-server.nix
         ./modules/motd.nix
@@ -37,13 +46,9 @@
         ./modules/nix-settings.nix
         ./modules/adguard.nix
         ./modules/git.nix
-        #./modules/vmware-guest.nix
         ./modules/github-runner.nix
         ./modules/synapse.nix
-
         ./modules/nextcloud.nix
-	#./modules/coturn.nix
-
         ./modules/acme.nix
         ./modules/samba.nix
         ./modules/backup.nix
@@ -54,12 +59,16 @@
         ./modules/wireguard.nix
         ./modules/cron.nix
         ./modules/paperless.nix
-        #./modules/dyndns.nix i think ddclient is deprecated
-        #./modules/home-assistant.nix idk dont like this
+        ./modules/kavita.nix
+        ./modules/netdata.nix
         home-manager.nixosModules.home-manager
         agenix.nixosModules.default
       ];
-      specialArgs = { inherit inputs; };
+      specialArgs = {
+        ## Custom variables (e.g. ip, interface, etc)
+        vars = (import ./systems/server/userdata.nix); 
+        inherit inputs ;
+      };
     };
     nixosConfigurations."nix-laptop" = nixpkgs.lib.nixosSystem {
         inherit system;
@@ -85,9 +94,12 @@
         ];
     };
     nixosConfigurations."wsl" = nixpkgs.lib.nixosSystem {
-    	inherit system;
+        inherit system;
         specialArgs = { inherit inputs; };
         modules = [
+          #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
+          ./users/anon.nix
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./systems/wsl/configuration.nix
           nixos-wsl.nixosModules.default
           home-manager.nixosModules.home-manager

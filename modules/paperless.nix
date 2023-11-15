@@ -1,4 +1,8 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, vars, ... }:
+let 
+  ip = vars.ipv4;
+  wireguardIp = vars.wireguardIp;
+in
 {
     networking.firewall.allowedTCPPorts = [ 28981 ];
     age.secrets.paperless = {
@@ -10,7 +14,7 @@
 	enable = true;
 	port = 28981;
 	passwordFile = config.age.secrets.paperless.path;
-	address = "192.168.2.1";
+	address = wireguardIp;
 	mediaDir = "/mnt/250ssd/paperless";
     };
 }

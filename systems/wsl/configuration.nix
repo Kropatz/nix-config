@@ -5,7 +5,7 @@
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
 
-{ config, lib, pkgs, ... } : #nixos-wsl, ... }:
+{ config, lib, pkgs, inputs, ... } : #nixos-wsl, ... }:
 
 {
   imports = [
@@ -13,37 +13,31 @@
 #   <nixos-wsl/modules>
   ];
 
-  wsl.enable = true;
-  wsl.defaultUser = "nixos";
+  wsl = {
+    enable = true;
+    startMenuLaunchers = true;
+    wslConf = {
+      automount.root = "/mnt";
+      interop = { enabled = false; appendWindowsPath = false;};
+    };
+  };
+
   nix.optimise.automatic = true;
   nix.gc = {
-  	automatic = true;
-  	dates = "weekly";
-  	options = "--delete-older-than 30d";
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
   };
   nix.settings.trusted-substituters = [ "https://ai.cachix.org" ];
   nix.settings.trusted-public-keys = [ "ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc=" ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];  
+
   environment.systemPackages = with pkgs; [
-  	neofetch
-	openssh
+    neofetch
+    openssh
   ];
 
-  wsl.wslConf = {
-    interop = { enabled = false; appendWindowsPath = false; };
-  };
-
   networking.hostName = "wsl";
-
-  home-manager.users.nixos = { pkgs, ... }: {
-    programs.bash.enable = true;
-    programs.git = {
-	enable = true;
-    };
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "23.05";
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

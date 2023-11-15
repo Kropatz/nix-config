@@ -12,6 +12,7 @@ in{
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./static-ip.nix
     ];
 
   # Bootloader.
@@ -96,6 +97,7 @@ in{
     wireguard-tools
     openssl
     unstable.e2fsprogs
+    mangal
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];
