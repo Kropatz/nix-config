@@ -67,6 +67,7 @@
         modules = [
           ./users/kopatz.nix
           ./laptop/configuration.nix
+          ./modules/virt-manager.nix
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager

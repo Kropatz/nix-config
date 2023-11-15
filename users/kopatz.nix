@@ -5,7 +5,10 @@ in
 {
   imports = [
     (
-        import ./home-manager/nvim/nvim.nix ({ user="${user}"; pkgs = pkgs; })
+      import ./home-manager/nvim/nvim.nix ({ user="${user}"; pkgs = pkgs; })
+    )
+    (
+      import ./home-manager/vscode/code.nix ({ user="${user}"; pkgs = pkgs; })
     )
   ];
   home-manager = {
@@ -39,7 +42,7 @@ in
     isNormalUser = true;
     description = user;
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
     packages = with pkgs; [
       discord
       librewolf

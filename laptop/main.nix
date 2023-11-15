@@ -32,7 +32,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nix-laptop-no-gpu"; # Define your hostname.
+  networking.hostName = "nix-laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
@@ -99,7 +99,7 @@ in
   ];
 
   networking.firewall = {
-    enable = true;
+    enable = false;
     allowedTCPPortRanges = [
       { from = 1714; to = 1764; } # KDE Connect
     ];
@@ -143,6 +143,11 @@ in
     neofetch
     thunderbird
     rofi
+    pdfgrep
+    taisei
+    ncdu
+    localsend
+    element-desktop
   ];
 
   environment.sessionVariables = {
@@ -173,28 +178,6 @@ in
     "d /docker-data 0755 kopatz users"
   ];
 
-  #virtualisation.oci-containers.containers.mssql = {
-  #  image = "mcr.microsoft.com/mssql/server:2022-latest";
-  #  volumes = [ "/docker-data/mssql/data:/var/opt/mssql/data" ];
-  #  environment = {
-  #    ACCEPT_EULA = "Y";
-  #    MSSQL_SA_PASSWORD="ufhaiufhashfshfklslwkhebwejhvtjhqwvrhp23508v3z8pt";
-  #  };
-  #};
-
-  #module = [ arion.nixosModules.arion ];
-  #virtualisation.arion = {
-  #  backend = "docker";
-  #  projects.mssql.settings = {
-  #    services.mssql.service = {
-  #      image = "mcr.microsoft.com/mssql/server:2022-latest";
-  #      restart = "unless-stopped";
-  #      #volumes = { /docker-data/mssql/data:/var/opt/mssql/data; };
-  #      environment = { ACCEPT_EULA = "Y"; MSSQL_SA_PASSWORD="ufhaiufhashfshfklslwkhebwejhvtjhqwvrhp23508v3z8pt"; };
-  #    };
-  #  };
-  #};
-
   ### end docker
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -209,12 +192,6 @@ in
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
