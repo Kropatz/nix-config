@@ -48,5 +48,8 @@ in
       librewolf
       ungoogled-chromium
     ];
+    openssh.authorizedKeys.keys = [
+       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeP6qtVqE/gu72ZUZE8cdRi3INiUW9NqDR7SjXIzTw2 lukas"
+    ];
   };
 }

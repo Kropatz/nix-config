@@ -66,17 +66,24 @@
       ];
       specialArgs = {
         ## Custom variables (e.g. ip, interface, etc)
-        vars = (import ./systems/server/userdata.nix); 
+        vars = (import ./systems/server/userdata.nix);
         inherit inputs ;
       };
     };
     nixosConfigurations."nix-laptop" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs; };
+        specialArgs = {
+          ## Custom variables (e.g. ip, interface, etc)
+          vars = (import ./systems/laptop/userdata.nix);
+          inherit inputs ;
+        };
         modules = [
           ./users/kopatz.nix
+          # Todo: refactor file layout
           ./laptop/configuration.nix
           ./modules/virt-manager.nix
+          ./modules/ssh.nix
+          ./modules/wake-on-lan.nix
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
@@ -84,10 +91,17 @@
     };
     nixosConfigurations."nix-laptop-no-gpu" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs; };
+        specialArgs = {
+          ## Custom variables (e.g. ip, interface, etc)
+          vars = (import ./systems/laptop/userdata.nix);
+          inherit inputs ;
+        };
         modules = [
           ./users/kopatz.nix
           ./laptop/configuration.nix
+          ./modules/virt-manager.nix
+          ./modules/ssh.nix
+          ./modules/wake-on-lan.nix
           nixos-hardware.nixosModules.dell-xps-15-7590
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
@@ -95,7 +109,7 @@
     };
     nixosConfigurations."wsl" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs ;};
         modules = [
           #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
           ./users/anon.nix

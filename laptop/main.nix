@@ -18,7 +18,6 @@ in
     [ # Include the results of the hardware scan.
 	./hardware-configuration.nix
 	./modules/battery.nix
-	./modules/ssh.nix
 	#./modules/wireguard.nix
 	## -- set in flake.nix
 	#<nixos-hardware/dell/xps/15-7590/nvidia>
@@ -99,7 +98,7 @@ in
   ];
 
   networking.firewall = {
-    enable = false;
+    enable = true;
     allowedTCPPortRanges = [
       { from = 1714; to = 1764; } # KDE Connect
     ];
