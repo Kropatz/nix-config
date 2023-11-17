@@ -39,6 +39,8 @@
         ./systems/server/configuration.nix
         ### Modules ###
         ./modules/hdd-spindown.nix
+        ./modules/firewall.nix
+        ./modules/wireshark.nix
         ./modules/minecraft-server.nix
         ./modules/motd.nix
         ./modules/postgres.nix

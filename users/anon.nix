@@ -40,7 +40,7 @@ in
     isNormalUser = true;
     description = user;
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "wireshark"];
     packages = with pkgs; [
       firefox
     ];
