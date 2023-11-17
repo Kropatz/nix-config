@@ -115,7 +115,7 @@
           ./users/anon.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./systems/wsl/configuration.nix
-          nixos-wsl.nixosModules.default
+          nixos-wsl.nixosModules.wsl
           home-manager.nixosModules.home-manager
         ];
     };

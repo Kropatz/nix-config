@@ -15,9 +15,11 @@
 
   wsl = {
     enable = true;
+    nativeSystemd = true;
     startMenuLaunchers = true;
     wslConf = {
       automount.root = "/mnt";
+      user.default = lib.mkForce "anon";
       interop = { enabled = false; appendWindowsPath = false;};
     };
   };
