@@ -3,5 +3,5 @@ let
   interface = vars.interface;
 in
 {
-  networking.interfaces.${interface}.wakeOnLan.enable;
+  networking.interfaces.${interface}.wakeOnLan.enable = true;
 }
