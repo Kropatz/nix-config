@@ -9,7 +9,7 @@
     };
     programs.neovim = {
       enable = true;
-        defaultEditor = true;
+      defaultEditor = true;
       extraPackages = with pkgs; [
         rnix-lsp
         gcc

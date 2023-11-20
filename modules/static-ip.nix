@@ -1,6 +1,7 @@
 { config, vars, ...}:
 let
  ip = vars.ipv4;
+ dns = vars.dns;
  interface = vars.interface;
 in
 {
@@ -12,7 +13,7 @@ in
       allowedUDPPorts = [ 5000 ];
     };
     nameservers = [
-      "127.0.0.1"
+      dns
       "1.1.1.1"
     ];
     interfaces = {

@@ -38,7 +38,10 @@
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./systems/server/configuration.nix
         ### Modules ###
+        ./modules/static-ip.nix
         ./modules/hdd-spindown.nix
+        ./modules/firewall.nix
+        ./modules/wireshark.nix
         ./modules/minecraft-server.nix
         ./modules/motd.nix
         ./modules/postgres.nix
@@ -83,7 +86,11 @@
           ./laptop/configuration.nix
           ./modules/virt-manager.nix
           ./modules/ssh.nix
-          ./modules/wake-on-lan.nix
+          #./modules/static-ip.nix
+          #./modules/no-sleep-lid-closed.nix
+          #./modules/wake-on-lan.nix
+          ./modules/thunderbolt.nix
+          ./modules/rdp.nix
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
@@ -102,6 +109,9 @@
           ./modules/virt-manager.nix
           ./modules/ssh.nix
           ./modules/wake-on-lan.nix
+          ./modules/static-ip.nix
+          ./modules/no-sleep-lid-closed.nix
+          ./modules/thunderbolt.nix
           nixos-hardware.nixosModules.dell-xps-15-7590
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
