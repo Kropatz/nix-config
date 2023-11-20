@@ -44,7 +44,7 @@ in
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
     packages = with pkgs; [
-      discord
+      (discord.override { withVencord = true; })
       librewolf
       ungoogled-chromium
     ];
