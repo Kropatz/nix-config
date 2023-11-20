@@ -40,6 +40,8 @@
         ### Modules ###
         ./modules/static-ip.nix
         ./modules/hdd-spindown.nix
+        ./modules/firewall.nix
+        ./modules/wireshark.nix
         ./modules/minecraft-server.nix
         ./modules/motd.nix
         ./modules/postgres.nix
@@ -123,7 +125,7 @@
           ./users/anon.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./systems/wsl/configuration.nix
-          nixos-wsl.nixosModules.default
+          nixos-wsl.nixosModules.wsl
           home-manager.nixosModules.home-manager
         ];
     };
