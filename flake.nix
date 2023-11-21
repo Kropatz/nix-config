@@ -95,6 +95,7 @@
         modules = [
           ./users/kopatz.nix
           # Todo: refactor file layout
+          ./modules/graphical/gnome.nix
           ./laptop/configuration.nix
           ./modules/virt-manager.nix
           ./modules/ssh.nix
