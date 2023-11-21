@@ -85,6 +85,21 @@
         inherit inputs ;
       };
     };
+    nixosConfigurations."kop-pc" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs ;
+        };
+        modules = [
+          ./users/kopatz.nix
+          ./modules/graphical/plasma.nix
+          ./modules/graphical/shared.nix
+          ./modules/nix-settings.nix
+          ./systems/pc/configuration.nix
+          agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+        ];
+    };
     nixosConfigurations."nix-laptop" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {

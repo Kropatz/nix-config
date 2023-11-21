@@ -33,6 +33,7 @@ in
           theme = "eastwood";
         };
       };
+      programs.git.enable = true;
       home.stateVersion = "23.05";
     };
   };
@@ -47,6 +48,7 @@ in
       (discord.override { withVencord = true; })
       librewolf
       ungoogled-chromium
+      brave
     ];
     openssh.authorizedKeys.keys = [
        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeP6qtVqE/gu72ZUZE8cdRi3INiUW9NqDR7SjXIzTw2 lukas"
