@@ -1,6 +1,7 @@
 { config, pkgs, inputs, vars, ... }:
 let 
   ip = vars.ipv4;
+  wireguardIp = vars.wireguardIp;
 in
 {
   networking.firewall.allowedTCPPorts = [ 53 ];
@@ -16,7 +17,7 @@ in
         }
       ];
       dns = {
-        bind_hosts = [ "127.0.0.1" "${ip}" ]; # "192.168.2.1" ];
+        bind_hosts = [ "127.0.0.1" ip wireguardIp ];
         port = 53;
         protection_enabled = true;
         filtering_enabled = true;
