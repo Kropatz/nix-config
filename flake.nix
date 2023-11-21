@@ -14,6 +14,7 @@
         url = "github:nix-community/NixOS-WSL";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+      nixinate.url = "github:matthewcroughan/nixinate";
   };
   outputs = { self,
               nixpkgs,
@@ -21,7 +22,8 @@
               nixos-wsl,
               nixpkgs-unstable,
               agenix,
-              home-manager
+              home-manager,
+                nixinate
             }@inputs:
     let
       system = "x86_64-linux";
@@ -29,6 +31,7 @@
         unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
     in {
+    apps = nixinate.nixinate.${system} self;
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
@@ -66,6 +69,15 @@
         ./modules/netdata.nix
         home-manager.nixosModules.home-manager
         agenix.nixosModules.default
+        {
+          _module.args.nixinate = {
+            host = "192.168.2.1";
+            sshUser = "anon";
+            buildOn = "remote"; # valid args are "local" or "remote"
+            substituteOnTarget = true; # if buildOn is "local" then it will substitute on the target, "-s"
+            hermetic = false;
+          };
+        }
       ];
       specialArgs = {
         ## Custom variables (e.g. ip, interface, etc)
