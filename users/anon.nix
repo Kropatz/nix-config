@@ -17,7 +17,7 @@ in
     useUserPackages = true;
     users.${user} = {
       programs.git.enable = true;
-        programs.direnv = {
+      programs.direnv = {
         enable = true;
         enableZshIntegration = true;
         nix-direnv.enable = true;

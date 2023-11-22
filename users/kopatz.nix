@@ -34,6 +34,11 @@ in
         };
       };
       programs.git.enable = true;
+      programs.direnv = {
+        enable = true;
+        enableZshIntegration = true;
+        nix-direnv.enable = true;
+      };
       home.stateVersion = "23.05";
     };
   };

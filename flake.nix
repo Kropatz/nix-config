@@ -49,7 +49,7 @@
         ./modules/motd.nix
         ./modules/postgres.nix
         ./modules/fail2ban.nix
-        ./modules/nix-settings.nix
+        ./modules/nix/settings.nix
         ./modules/adguard.nix
         ./modules/git.nix
         ./modules/github-runner.nix
@@ -94,7 +94,13 @@
           ./users/kopatz.nix
           ./modules/graphical/plasma.nix
           ./modules/graphical/shared.nix
-          ./modules/nix-settings.nix
+          ./modules/nix/settings.nix
+          ./modules/nix/index.nix
+          ./modules/nix/ld.nix
+          ./modules/gpg.nix
+          ./modules/flatpak.nix
+          ./modules/wooting.nix
+          ./modules/support/ntfs.nix
           ./systems/pc/configuration.nix
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
