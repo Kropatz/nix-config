@@ -71,6 +71,7 @@ in
     ncdu
     localsend
     element-desktop
+    tetrio-desktop
   ];
 
   environment.sessionVariables = {
