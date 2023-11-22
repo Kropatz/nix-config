@@ -1,0 +1,12 @@
+# Wooting Two HE (ARM)
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="31e3", ATTRS{idProduct}=="1230", MODE:="0666", GROUP="input"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="31e3", ATTRS{idProduct}=="1230", MODE:="0666", GROUP="input"
+# Wooting Two HE Alt-gamepad mode
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="31e3", ATTRS{idProduct}=="1231", MODE:="0666", GROUP="input"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="31e3", ATTRS{idProduct}=="1231", MODE:="0666", GROUP="input"
+# Wooting Two HE 2nd Alt-gamepad mode
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="31e3", ATTRS{idProduct}=="1232", MODE:="0666", GROUP="input"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="31e3", ATTRS{idProduct}=="1232", MODE:="0666", GROUP="input"
+
+# Wooting Two HE (ARM) update mode
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="31e3", ATTRS{idProduct}=="123f", MODE:="0666", GROUP="input"
