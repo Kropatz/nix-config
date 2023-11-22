@@ -49,7 +49,7 @@
         ./modules/motd.nix
         ./modules/postgres.nix
         ./modules/fail2ban.nix
-        ./modules/nix-settings.nix
+        ./modules/nix/settings.nix
         ./modules/adguard.nix
         ./modules/git.nix
         ./modules/github-runner.nix
@@ -87,6 +87,29 @@
         inherit inputs ;
       };
     };
+    nixosConfigurations."kop-pc" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs ;
+        };
+        modules = [
+          ./users/kopatz.nix
+          ./modules/graphical/plasma.nix
+          ./modules/graphical/shared.nix
+          ./modules/nix/settings.nix
+          ./modules/nix/index.nix
+          ./modules/nix/ld.nix
+          ./modules/gpg.nix
+          ./modules/virt-manager.nix
+          ./modules/flatpak.nix
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+          ./modules/wooting.nix
+          ./modules/support/ntfs.nix
+          ./systems/pc/configuration.nix
+          agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+        ];
+    };
     nixosConfigurations."nix-laptop" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
@@ -97,6 +120,7 @@
         modules = [
           ./users/kopatz.nix
           # Todo: refactor file layout
+          ./modules/graphical/gnome.nix
           ./laptop/configuration.nix
           ./modules/virt-manager.nix
           ./modules/ssh.nix
