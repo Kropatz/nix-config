@@ -18,7 +18,6 @@ in
     [ # Include the results of the hardware scan.
 	./hardware-configuration.nix
 	./modules/battery.nix
-	./modules/ssh.nix
 	#./modules/wireguard.nix
 	## -- set in flake.nix
 	#<nixos-hardware/dell/xps/15-7590/nvidia>
@@ -32,7 +31,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nix-laptop-no-gpu"; # Define your hostname.
+  networking.hostName = "nix-laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
@@ -83,32 +82,6 @@ in
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
-
-  #users.mutableUsers=false;
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kopatz = {
-    isNormalUser = true;
-    description = "kopatz";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
-    #password = "test";
-    packages = with pkgs; [
-	#firefox
-    #  thunderbird
-      discord
-      librewolf
-      ungoogled-chromium
-    ];
-  };
-
-    # home manager
-  #home-manager.useGlobalPkgs = true;
-
- # home-manager.users.kopatz = { pkgs, ... }: {
-
-    # The state version is required and should stay at the version you
-    # originally installed.
-  #  system.stateVersion = "23.05";
-  #};
 
   programs.steam = {
     enable = true;
@@ -169,6 +142,11 @@ in
     neofetch
     thunderbird
     rofi
+    pdfgrep
+    taisei
+    ncdu
+    localsend
+    element-desktop
   ];
 
   environment.sessionVariables = {
@@ -199,28 +177,6 @@ in
     "d /docker-data 0755 kopatz users"
   ];
 
-  #virtualisation.oci-containers.containers.mssql = {
-  #  image = "mcr.microsoft.com/mssql/server:2022-latest";
-  #  volumes = [ "/docker-data/mssql/data:/var/opt/mssql/data" ];
-  #  environment = {
-  #    ACCEPT_EULA = "Y";
-  #    MSSQL_SA_PASSWORD="ufhaiufhashfshfklslwkhebwejhvtjhqwvrhp23508v3z8pt";
-  #  };
-  #};
-
-  #module = [ arion.nixosModules.arion ];
-  #virtualisation.arion = {
-  #  backend = "docker";
-  #  projects.mssql.settings = {
-  #    services.mssql.service = {
-  #      image = "mcr.microsoft.com/mssql/server:2022-latest";
-  #      restart = "unless-stopped";
-  #      #volumes = { /docker-data/mssql/data:/var/opt/mssql/data; };
-  #      environment = { ACCEPT_EULA = "Y"; MSSQL_SA_PASSWORD="ufhaiufhashfshfklslwkhebwejhvtjhqwvrhp23508v3z8pt"; };
-  #    };
-  #  };
-  #};
-
   ### end docker
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -235,12 +191,6 @@ in
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

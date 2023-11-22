@@ -1,12 +1,6 @@
 { config, pkgs, ... }:
 
 {
-
-  imports =
-  [
-        ./main.nix
-  ];
-
   services.xserver = {
     layout = "at";
     xkbVariant = "";
@@ -14,6 +8,12 @@
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
   };
+
+  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   environment.gnome.excludePackages = (with pkgs; [
   gnome-photos

@@ -25,5 +25,3 @@
     path = .gitconfig-gitea
 [includeIf "gitdir/i:~/projects/fh/**"]
     path = .gitconfig-gitlabfh
-[core]
-	editor = kate
