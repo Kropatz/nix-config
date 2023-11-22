@@ -98,6 +98,7 @@
           ./modules/nix/index.nix
           ./modules/nix/ld.nix
           ./modules/gpg.nix
+          ./modules/virt-manager.nix
           ./modules/flatpak.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./modules/wooting.nix
