@@ -6,6 +6,9 @@ let
       pkgs.keepass-keepassrpc
     ];
   };
+  screenshot = pkgs.writeShellScriptBin "screenshot.sh" ''
+    ${pkgs.scrot}/bin/scrot -fs - | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i
+  '';
 in
 {
   programs.steam = {
@@ -75,6 +78,7 @@ in
     krita
     unstable.libreoffice-fresh
     mangohud
+    screenshot
   ];
 
   environment.sessionVariables = {

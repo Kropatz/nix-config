@@ -48,6 +48,8 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  boot.initrd.systemd.network.wait-online.enable = false;
+  systemd.network.wait-online.enable = false;
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
