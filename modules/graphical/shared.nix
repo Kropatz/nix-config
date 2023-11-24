@@ -72,6 +72,9 @@ in
     localsend
     element-desktop
     tetrio-desktop
+    krita
+    unstable.libreoffice-fresh
+    mangohud
   ];
 
   environment.sessionVariables = {

@@ -3,11 +3,11 @@
   inputs = {
       # secrets management
       agenix.url = "github:ryantm/agenix";
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
       nixos-hardware.url = "github:NixOS/nixos-hardware/master";
       nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
       home-manager = {
-        url = "github:nix-community/home-manager/release-23.05";
+        url = "github:nix-community/home-manager/release-23.11";
         inputs.nixpkgs.follows = "nixpkgs";
       };
       nixos-wsl = {
@@ -94,12 +94,14 @@
           ./users/kopatz.nix
           ./modules/graphical/plasma.nix
           ./modules/graphical/shared.nix
+          ./modules/hardware/ssd.nix
           ./modules/nix/settings.nix
           ./modules/nix/index.nix
           ./modules/nix/ld.nix
           ./modules/gpg.nix
           ./modules/virt-manager.nix
           ./modules/flatpak.nix
+          ./modules/noise-supression.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./modules/wooting.nix
           ./modules/support/ntfs.nix

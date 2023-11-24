@@ -25,3 +25,5 @@
     path = .gitconfig-gitea
 [includeIf "gitdir/i:~/projects/fh/**"]
     path = .gitconfig-gitlabfh
+[includeIf "gitdir/i:~/projects/evolit/**"]
+    path = .gitconfig-evolit
