@@ -18,6 +18,13 @@
     lg = !"git lg1"
 [color]
     ui = true
+[mergetool]
+    keeptemporaries = false
+    keepbackups = false
+    prompt = false
+    trustexitcode = false
+[pull]
+    ff = true
 	
 [includeIf "gitdir/i:~/projects/github/**"]
     path = .gitconfig-github
