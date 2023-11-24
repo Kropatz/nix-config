@@ -52,10 +52,29 @@
                     '';
                     proxyPass = "http://127.0.0.1:8080";
                 };
-               #locations."~/books(.*)$" = {
+ 
+ 	           #locations."~/books(.*)$" = {
                #    proxyPass = "http://127.0.0.1:5000";
                #};
             };
+            #discord bot for tracking useractivity public version 
+            "activitytracker.site" = {
+                #serverAliases = [
+                #     "localhost"
+                #]; 
+                root = "/data/website";
+                forceSSL = true;
+                enableACME = true;
+                locations."/tracker-site-public" = {
+	                tryFiles = "$uri $uri/ /tracker-site-public/index.html =404";
+		        };
+                locations."/api" = {
+                    extraConfig =''
+                        rewrite /api/(.*) /$1 break;
+                    '';
+                    proxyPass = "http://127.0.0.1:8081";
+                };
+           };
             "adguard.local" = {
                 locations."/".proxyPass = "http://127.0.0.1:3000";
             }; 
