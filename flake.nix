@@ -67,6 +67,7 @@
         ./modules/paperless.nix
         ./modules/kavita.nix
         ./modules/netdata.nix
+        ./modules/tmpfs.nix
         ### Hardware ###
         ./modules/hardware/ssd.nix
         home-manager.nixosModules.home-manager
@@ -106,6 +107,7 @@
           ./modules/noise-supression.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./modules/wooting.nix
+          ./modules/tmpfs.nix
           ./modules/support/ntfs.nix
           ./systems/pc/configuration.nix
           agenix.nixosModules.default
@@ -131,6 +133,7 @@
           #./modules/wake-on-lan.nix
           ./modules/thunderbolt.nix
           ./modules/rdp.nix
+          ./modules/tmpfs.nix
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager

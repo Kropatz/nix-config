@@ -50,6 +50,9 @@
   networking.networkmanager.enable = true;
   boot.initrd.systemd.network.wait-online.enable = false;
   systemd.network.wait-online.enable = false;
+  
+  #disable firewall when doing ipv6 vm stuff
+  #networking.firewall.enable = lib.mkForce false;
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
