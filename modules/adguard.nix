@@ -10,6 +10,7 @@ in
   services.adguardhome = {
     enable = true;
     settings = {
+      schema_version = 20;
       users = [
         {
           name = "admin";

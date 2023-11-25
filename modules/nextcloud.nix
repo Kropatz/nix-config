@@ -64,12 +64,13 @@ in
             spreed = pkgs.fetchNextcloudApp rec {
                 url = "https://github.com/nextcloud-releases/spreed/releases/download/v17.1.1/spreed-v17.1.1.tar.gz";
                 sha256 = "sha256-LaUG0maatc2YtWQjff7J54vadQ2RE4X6FcW8vFefBh8=";
+                license = "agpl3";
             };
         };
 
         phpOptions = {
-          upload_max_filesize = "5G";
-          post_max_size = "5G";
+          upload_max_filesize = lib.mkForce "5G";
+          post_max_size = lib.mkForce "5G";
         };
         extraAppsEnable = true;
         extraOptions.enabledPreviewProviders = [
