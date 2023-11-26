@@ -79,6 +79,8 @@ in
     unstable.libreoffice-fresh
     mangohud
     screenshot
+    glxinfo
+    vulkan-tools
   ];
 
   environment.sessionVariables = {
