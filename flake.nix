@@ -3,11 +3,11 @@
   inputs = {
       # secrets management
       agenix.url = "github:ryantm/agenix";
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
       nixos-hardware.url = "github:NixOS/nixos-hardware/master";
       nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
       home-manager = {
-        url = "github:nix-community/home-manager/release-23.05";
+        url = "github:nix-community/home-manager/release-23.11";
         inputs.nixpkgs.follows = "nixpkgs";
       };
       nixos-wsl = {
@@ -49,7 +49,7 @@
         ./modules/motd.nix
         ./modules/postgres.nix
         ./modules/fail2ban.nix
-        ./modules/nix-settings.nix
+        ./modules/nix/settings.nix
         ./modules/adguard.nix
         ./modules/git.nix
         ./modules/github-runner.nix
@@ -67,6 +67,9 @@
         ./modules/paperless.nix
         ./modules/kavita.nix
         ./modules/netdata.nix
+        ./modules/tmpfs.nix
+        ### Hardware ###
+        ./modules/hardware/ssd.nix
         home-manager.nixosModules.home-manager
         agenix.nixosModules.default
         {
@@ -85,6 +88,32 @@
         inherit inputs ;
       };
     };
+    nixosConfigurations."kop-pc" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs ;
+        };
+        modules = [
+          ./users/kopatz.nix
+          ./modules/graphical/plasma.nix
+          ./modules/graphical/shared.nix
+          ./modules/hardware/ssd.nix
+          ./modules/nix/settings.nix
+          ./modules/nix/index.nix
+          ./modules/nix/ld.nix
+          ./modules/gpg.nix
+          ./modules/virt-manager.nix
+          ./modules/flatpak.nix
+          ./modules/noise-supression.nix
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+          ./modules/wooting.nix
+          ./modules/tmpfs.nix
+          ./modules/support/ntfs.nix
+          ./systems/pc/configuration.nix
+          agenix.nixosModules.default
+          home-manager.nixosModules.home-manager
+        ];
+    };
     nixosConfigurations."nix-laptop" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
@@ -95,6 +124,7 @@
         modules = [
           ./users/kopatz.nix
           # Todo: refactor file layout
+          ./modules/graphical/gnome.nix
           ./laptop/configuration.nix
           ./modules/virt-manager.nix
           ./modules/ssh.nix
@@ -103,6 +133,7 @@
           #./modules/wake-on-lan.nix
           ./modules/thunderbolt.nix
           ./modules/rdp.nix
+          ./modules/tmpfs.nix
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager

@@ -18,6 +18,13 @@
     lg = !"git lg1"
 [color]
     ui = true
+[mergetool]
+    keeptemporaries = false
+    keepbackups = false
+    prompt = false
+    trustexitcode = false
+[pull]
+    ff = true
 	
 [includeIf "gitdir/i:~/projects/github/**"]
     path = .gitconfig-github
@@ -25,3 +32,5 @@
     path = .gitconfig-gitea
 [includeIf "gitdir/i:~/projects/fh/**"]
     path = .gitconfig-gitlabfh
+[includeIf "gitdir/i:~/projects/evolit/**"]
+    path = .gitconfig-evolit

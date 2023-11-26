@@ -16,6 +16,10 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/1af836fb-ffef-4362-84af-bcb24d4db068";
       fsType = "ext4";
+      options = [
+        "defaults"
+        "noatime"
+      ];
     };
 
   fileSystems."/boot" =
@@ -42,7 +46,7 @@
   fileSystems."/mnt/250ssd" =
     { device = "/dev/disk/by-uuid/80163cf9-2030-4757-ada2-03db96184961";
       fsType = "ext4";
-      options = ["defaults" "nofail"];
+      options = ["defaults" "nofail" "noatime"];
      };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

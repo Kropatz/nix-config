@@ -7,7 +7,7 @@
     users.groups.github-actions-runner = {};
     users.users.github-actions-runner = {
         isSystemUser = true;
-        passwordFile = config.age.secrets.github-runner-pw.path;
+        hashedPasswordFile = config.age.secrets.github-runner-pw.path;
         group = "github-actions-runner";
         extraGroups = [ "docker" ];
     };
