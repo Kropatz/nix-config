@@ -97,6 +97,7 @@
           ./users/kopatz.nix
           ./modules/graphical/plasma.nix
           ./modules/graphical/shared.nix
+          ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
           ./modules/hardware/firmware.nix
           ./modules/nix/settings.nix
