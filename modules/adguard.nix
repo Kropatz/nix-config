@@ -43,6 +43,10 @@ in
           "answer" = ip;
          }
          {
+          "domain" = "activitytracker.site";
+          "answer" = ip;
+         }
+         {
           "domain" = "adguard.local";
           "answer" = ip;
          }
