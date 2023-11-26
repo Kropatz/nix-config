@@ -100,6 +100,8 @@
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
           ./modules/hardware/firmware.nix
+          # use latest kernel
+          ./modules/kernel.nix
           ./modules/nix/settings.nix
           ./modules/nix/index.nix
           ./modules/nix/ld.nix
