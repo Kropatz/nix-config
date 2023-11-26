@@ -23,7 +23,7 @@
               nixpkgs-unstable,
               agenix,
               home-manager,
-                nixinate
+              nixinate,
             }@inputs:
     let
       system = "x86_64-linux";
@@ -90,7 +90,7 @@
         specialArgs = {
           ## Custom variables (e.g. ip, interface, etc)
           vars = (import ./systems/laptop/userdata.nix);
-          inherit inputs ;
+          inherit inputs;
         };
         modules = [
           ./users/kopatz.nix
