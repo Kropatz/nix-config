@@ -52,7 +52,6 @@ in
     packages = with pkgs; [
       (discord.override { withVencord = true; })
       librewolf
-      ungoogled-chromium
       brave
     ];
     openssh.authorizedKeys.keys = [

@@ -20,7 +20,7 @@ in
   programs.kdeconnect.enable = true;
 
   fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     nerdfonts
   ];
 
@@ -79,6 +79,8 @@ in
     unstable.libreoffice-fresh
     mangohud
     screenshot
+    glxinfo
+    vulkan-tools
   ];
 
   environment.sessionVariables = {

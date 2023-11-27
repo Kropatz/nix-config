@@ -97,7 +97,11 @@
           ./users/kopatz.nix
           ./modules/graphical/plasma.nix
           ./modules/graphical/shared.nix
+          ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
+          ./modules/hardware/firmware.nix
+          # use latest kernel
+          ./modules/kernel.nix
           ./modules/nix/settings.nix
           ./modules/nix/index.nix
           ./modules/nix/ld.nix
@@ -107,6 +111,7 @@
           ./modules/noise-supression.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./modules/wooting.nix
+          ./modules/wireshark.nix
           ./modules/tmpfs.nix
           ./modules/support/ntfs.nix
           ./systems/pc/configuration.nix
