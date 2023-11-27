@@ -128,8 +128,10 @@
         };
         modules = [
           ./users/kopatz.nix
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           # Todo: refactor file layout
           ./modules/graphical/gnome.nix
+          ./modules/graphical/shared.nix
           ./laptop/configuration.nix
           ./modules/virt-manager.nix
           ./modules/ssh.nix
@@ -139,6 +141,7 @@
           ./modules/thunderbolt.nix
           ./modules/rdp.nix
           ./modules/tmpfs.nix
+          ./modules/nix/settings.nix
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
@@ -153,13 +156,17 @@
         };
         modules = [
           ./users/kopatz.nix
+          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./laptop/configuration.nix
+          ./modules/graphical/gnome.nix
+          ./modules/graphical/shared.nix
           ./modules/virt-manager.nix
           ./modules/ssh.nix
           ./modules/wake-on-lan.nix
           ./modules/static-ip.nix
           ./modules/no-sleep-lid-closed.nix
           ./modules/thunderbolt.nix
+          ./modules/nix/settings.nix
           nixos-hardware.nixosModules.dell-xps-15-7590
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager

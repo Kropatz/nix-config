@@ -36,7 +36,6 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -49,17 +48,13 @@ in
     keepassWithPlugins
     jetbrains.idea-ultimate
     jetbrains.rider
-    dotnet-sdk_7
-    dotnet-runtime_7
     neovim
-    htop
     btop
     git
     xfce.thunar
     killall
     xclip
     usbutils
-    bun
     inputs.agenix.packages."x86_64-linux".default
     insomnia
     remmina
@@ -83,9 +78,9 @@ in
     vulkan-tools
   ];
 
-  environment.sessionVariables = {
-    DOTNET_ROOT = "${pkgs.dotnet-sdk_7}";
-  };
+  #environment.sessionVariables = {
+  #  DOTNET_ROOT = "${pkgs.dotnet-sdk_7}";
+  #};
 
   ### docker
   virtualisation.docker.enable = true;
