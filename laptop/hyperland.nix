@@ -30,6 +30,12 @@ in
       nvidia.modesetting.enable = true;
   };
 
+  programs.hyprland = {
+    enable = true;
+    nvidiaPatches = true;
+    xwayland.enable = true;
+  };
+
   home-manager.users.kopatz = {
     #systemd.user.services.waybar.Service.ExecStart = lib.mkForce "${pkgs.waybar}/bin/waybar -b 0";
     gtk = {
@@ -41,8 +47,6 @@ in
     };
     wayland.windowManager.hyprland = {
       enable = true;
-      enableNvidiaPatches = true;
-      xwayland.enable = true;
       settings = {
         #
         # Please note not all available settings / options are set here.
