@@ -130,7 +130,6 @@
           ./users/kopatz.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           # Todo: refactor file layout
-          ./modules/graphical/gnome.nix
           ./modules/graphical/shared.nix
           ./laptop/configuration.nix
           ./modules/virt-manager.nix
