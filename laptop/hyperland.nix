@@ -270,11 +270,11 @@ in
 	"pulseaudio".format-icons.portable = "";
 	"pulseaudio".format-icons.car = "";
 	"pulseaudio".format-icons.default = ["" ""];
-	"pulseaudio".on-click = "pavucontrol";
+	"pulseaudio".on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
 	"battery".states.good = 95;
 	"battery".states.warning = 30;
 	"battery".states.critical = 15;
-	"battery".format = "{capacity}% {icon}";
+	"battery".format = "{capacity}% / {power:.2}W  {icon}";
 	"battery".format-icons = ["" "" "" "" ""];
 	"clock".format = "{:%F %H:%M}";
 	"tray".icon-size = 21;
