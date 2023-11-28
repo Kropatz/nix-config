@@ -157,7 +157,6 @@
           ./users/kopatz.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./laptop/configuration.nix
-          ./modules/graphical/gnome.nix
           ./modules/graphical/shared.nix
           ./modules/virt-manager.nix
           ./modules/ssh.nix

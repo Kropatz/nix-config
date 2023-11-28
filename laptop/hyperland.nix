@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   patchedWaybar = pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -32,6 +32,13 @@ in
 
   home-manager.users.kopatz = {
     #systemd.user.services.waybar.Service.ExecStart = lib.mkForce "${pkgs.waybar}/bin/waybar -b 0";
+    gtk = {
+      enable = true;
+      theme = { 
+        name = "palenight";
+        package = pkgs.palenight-theme;
+      };
+    };
     wayland.windowManager.hyprland = {
       enable = true;
       enableNvidiaPatches = true;
@@ -222,7 +229,7 @@ in
       #systemd.enable = true;
       #systemd.target = "sway-session.target";
       settings.main = {
-	layer = "bottom";
+	layer = "top";
 	position = "bottom";
 	#output = lib.mapAttrsToList (n: v: v.monitor) outputs;
 	height = 25;
