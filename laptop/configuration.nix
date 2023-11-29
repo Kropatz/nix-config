@@ -5,7 +5,6 @@
   imports =
   [
         ./main.nix
-        ./hyperland.nix
         ./gnome.nix
   ];
 

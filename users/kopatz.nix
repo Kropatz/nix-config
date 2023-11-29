@@ -19,6 +19,18 @@ in
     };
     useUserPackages = true;
     users.${user} = {
+      gtk = {
+        enable = true;
+        theme = { 
+          name = "palenight";
+          package = pkgs.palenight-theme;
+        };
+        cursorTheme = {
+          package = pkgs.libsForQt5.breeze-gtk;
+          name = "Breeze-gtk";
+        };
+      };
+      
       programs.zsh = {
         enable = true;
         enableCompletion = true;

@@ -84,18 +84,20 @@
       ];
       specialArgs = {
         ## Custom variables (e.g. ip, interface, etc)
-        vars = (import ./systems/server/userdata.nix);
+        vars = import ./systems/userdata-default.nix // import ./systems/server/userdata.nix;
         inherit inputs ;
       };
     };
     nixosConfigurations."kop-pc" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
+          vars = import ./systems/userdata-default.nix // import ./systems/pc/userdata.nix;
           inherit inputs ;
         };
         modules = [
           ./users/kopatz.nix
           ./modules/graphical/plasma.nix
+          ./modules/graphical/hyprland.nix
           ./modules/graphical/shared.nix
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
@@ -123,13 +125,14 @@
         inherit system;
         specialArgs = {
           ## Custom variables (e.g. ip, interface, etc)
-          vars = (import ./systems/laptop/userdata.nix);
+          vars = import ./systems/userdata-default.nix // import ./systems/laptop/userdata.nix;
           inherit inputs;
         };
         modules = [
           ./users/kopatz.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           # Todo: refactor file layout
+          ./modules/graphical/hyprland.nix
           ./modules/graphical/shared.nix
           ./laptop/configuration.nix
           ./modules/virt-manager.nix

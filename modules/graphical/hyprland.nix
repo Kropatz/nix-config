@@ -1,17 +1,19 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, vars, ... }:
 
 let
   patchedWaybar = pkgs.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
   });
 in
-
 {
 
   services.xserver = {
-    layout = "at";
-    xkbVariant = "";
+    layout = vars.layout;
+    xkbVariant = vars.variant;
     enable = true;
+    displayManager = lib.mkIf  (!config.services.xserver.displayManager.gdm.enable) {
+      sddm.enable = true;
+    };
   };
 
   environment.sessionVariables = {
@@ -19,6 +21,7 @@ in
     #WLR_NO_HARDWARE_CURSORS = "1";
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
+    WLR_NO_HARDWARE_CURSORS="1";
     WLR_DRM_DEVICES = "/dev/dri/card0";
   };
 
@@ -32,19 +35,13 @@ in
 
   programs.hyprland = {
     enable = true;
-    nvidiaPatches = true;
+    enableNvidiaPatches = true;
     xwayland.enable = true;
   };
 
   home-manager.users.kopatz = {
     #systemd.user.services.waybar.Service.ExecStart = lib.mkForce "${pkgs.waybar}/bin/waybar -b 0";
-    gtk = {
-      enable = true;
-      theme = { 
-        name = "palenight";
-        package = pkgs.palenight-theme;
-      };
-    };
+
     wayland.windowManager.hyprland = {
       enable = true;
       settings = {
@@ -71,8 +68,8 @@ in
         
         # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
         input = {
-            kb_layout = "de";
-            kb_variant = "";
+            kb_layout = vars.layout;
+            kb_variant = vars.variant;
             kb_model = "";
             kb_options = "";
             kb_rules = "";

@@ -1,0 +1,5 @@
+
+{
+  layout = "de";
+  variant = "us";
+}
