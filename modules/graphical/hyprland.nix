@@ -4,6 +4,10 @@ let
   patchedWaybar = pkgs.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
   });
+
+  patchedHyprland = pkgs.hyprland.overrideAttrs (oldAttrs: {
+      version = "0.28.0";
+  });
 in
 {
 
@@ -37,6 +41,7 @@ in
     enable = true;
     enableNvidiaPatches = true;
     xwayland.enable = true;
+    package = patchedHyprland;
   };
 
   home-manager.users.kopatz = {
@@ -44,6 +49,7 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
+      package = patchedHyprland;
       settings = {
         #
         # Please note not all available settings / options are set here.
@@ -152,7 +158,7 @@ in
         # Example windowrule v1
         # windowrule = float, ^(kitty)$
         # Example windowrule v2
-        # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
+        # float,class:^(kitty)$,title:^(kitty)$
         # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
         
         
@@ -221,6 +227,23 @@ in
           "$mainMod, mouse:272, movewindow"
           "$mainMod, mouse:273, resizewindow"
 	];
+
+        windowrulev2 = [
+          # -- Fix odd behaviors in IntelliJ IDEs --
+          #! Fix focus issues when dialogs are opened or closed
+          "windowdance,class:^(jetbrains-.*)$,floating:1"
+          #! Fix splash screen showing in weird places and prevent annoying focus takeovers
+          "center,class:^(jetbrains-.*)$,title:^(splash)$,floating:1"
+          "nofocus,class:^(jetbrains-.*)$,title:^(splash)$,floating:1"
+          "noborder,class:^(jetbrains-.*)$,title:^(splash)$,floating:1"
+          
+          #! Center popups/find windows
+          "center,class:^(jetbrains-.*)$,title:^( )$,floating:1"
+          "stayfocused,class:^(jetbrains-.*)$,title:^( )$,floating:1"
+          "noborder,class:^(jetbrains-.*)$,title:^( )$,floating:1"
+          #! Disable window flicker when autocomplete or tooltips appear
+          "nofocus,class:^(jetbrains-.*)$,title:^(win.*)$,floating:1"
+        ];
         
        
 	exec-once = [

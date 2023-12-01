@@ -76,6 +76,7 @@ in
     screenshot
     glxinfo
     vulkan-tools
+    anki
   ];
 
   #environment.sessionVariables = {
