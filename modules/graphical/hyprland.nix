@@ -51,9 +51,11 @@ in
         #
         
         # See https://wiki.hyprland.org/Configuring/Monitors/
-        monitor = [ ",preferred,auto,auto" ];
-        
-        
+        monitor = [ 
+          "HDMI-A-1,1920x1080@60,0x0,1"
+          "DP-1,2560x1440@144,1920x0,1"
+          ",preferred,auto,auto" 
+        ];
         
         # See https://wiki.hyprland.org/Configuring/Keywords/ for more
         
@@ -162,6 +164,9 @@ in
 	  rofi = "${pkgs.rofi-wayland}/bin/rofi";
 	  kitty = "${pkgs.kitty}/bin/kitty";
 	  thunar = "${pkgs.xfce.thunar}/bin/thunar";
+	  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+	  grim = "${pkgs.grim}/bin/grim";
+	  slurp = "${pkgs.slurp}/bin/slurp";
         in  [ 
 	  "$mainMod, Q, exec, ${kitty}"
           "$mainMod, C, killactive"
@@ -169,6 +174,7 @@ in
           "$mainMod, E, exec, ${thunar}"
           "$mainMod, V, togglefloating"
           "$mainMod, S, exec, ${rofi} -show drun -show-icons"
+          "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
           "ALT, SPACE, exec, ${rofi} -show combi"
           "$mainMod, P, pseudo" # dwindle
           "$mainMod, J, togglesplit" # dwindle
