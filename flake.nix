@@ -68,7 +68,6 @@
         ./modules/kavita.nix
         ./modules/netdata.nix
         ./modules/tmpfs.nix
-        ./modules/anki.nix
         ### Hardware ###
         ./modules/hardware/ssd.nix
         home-manager.nixosModules.home-manager

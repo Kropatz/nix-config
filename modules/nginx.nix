@@ -62,12 +62,12 @@
                 #serverAliases = [
                 #     "localhost"
                 #]; 
-                root = "/data/website";
+                root = "/data/website/tracker-site-public";
                 forceSSL = true;
                 enableACME = true;
-                locations."/tracker-site-public" = {
-	                tryFiles = "$uri $uri/ /tracker-site-public/index.html =404";
-		        };
+                locations."/" = {
+	                tryFiles = "$uri $uri/ /index.html =404";
+		};
                 locations."/api" = {
                     extraConfig =''
                         rewrite /api/(.*) /$1 break;
