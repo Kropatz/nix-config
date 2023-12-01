@@ -19,6 +19,18 @@ in
     };
     useUserPackages = true;
     users.${user} = {
+      gtk = {
+        enable = true;
+        theme = { 
+          name = "palenight";
+          package = pkgs.palenight-theme;
+        };
+        cursorTheme = {
+          package = pkgs.libsForQt5.breeze-gtk;
+          name = "Breeze-gtk";
+        };
+      };
+      
       programs.zsh = {
         enable = true;
         enableCompletion = true;
@@ -52,7 +64,6 @@ in
     packages = with pkgs; [
       (discord.override { withVencord = true; })
       librewolf
-      ungoogled-chromium
       brave
     ];
     openssh.authorizedKeys.keys = [
