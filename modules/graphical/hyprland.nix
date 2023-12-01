@@ -512,6 +512,7 @@ in
             font-weight:  bolder;
         }
         
+        /*
         #clock {
             background: rgb(205,214,244);
             background: linear-gradient(118deg, rgba(205,214,244,1) 5%, rgba(243,139,168,1) 5%, rgba(243,139,168,1) 20%, rgba(205,214,244,1) 20%, rgba(205,214,244,1) 40%, rgba(243,139,168,1) 40%, rgba(243,139,168,1) 60%, rgba(205,214,244,1) 60%, rgba(205,214,244,1) 80%, rgba(243,139,168,1) 80%, rgba(243,139,168,1) 95%, rgba(205,214,244,1) 95%); 
@@ -529,6 +530,7 @@ in
             font-weight: bolder;
             padding-left: 20px;
         }
+        */
         
         #battery.charging, #battery.plugged {
             background-color: #94e2d5 ;
@@ -573,7 +575,7 @@ in
         }
         
         #memory {
-            background-color: #cba6f7;
+            background-color: #5f2966;
             color: 	#9a75c7;
             font-weight: bolder;
         }
@@ -612,8 +614,8 @@ in
         }
         
         #pulseaudio {
-            background-color:  	#fab387;
-            color: #bf7d54;
+            background-color:  	#f57f17;
+            color: white;
             font-weight: bolder;
         }
         
