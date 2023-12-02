@@ -174,6 +174,7 @@ in
 	  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
 	  grim = "${pkgs.grim}/bin/grim";
 	  slurp = "${pkgs.slurp}/bin/slurp";
+          swww = "${pkgs.swww}/bin/swww";
         in  [ 
 	  "$mainMod, Q, exec, ${kitty}"
           "$mainMod, C, killactive"
@@ -181,6 +182,7 @@ in
           "$mainMod, E, exec, ${thunar}"
           "$mainMod, V, togglefloating"
           "$mainMod, S, exec, ${rofi} -show drun -show-icons"
+          "$mainMod, R, exec, ${swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
           "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
           "ALT, SPACE, exec, ${rofi} -show combi"
           "$mainMod, P, pseudo" # dwindle
@@ -249,6 +251,7 @@ in
        
 	exec-once = [
           "${pkgs.swww}/bin/swww init; sleep 1;"
+          "${pkgs.swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
 	  "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
 	  "${pkgs.waybar}/bin/waybar &"
 	  "${pkgs.dunst}/bin/dunst &"
