@@ -22,7 +22,7 @@
   systemd.network.wait-online.enable = false;
   
   #disable firewall when doing ipv6 vm stuff
-  #networking.firewall.enable = lib.mkForce false;
+  networking.firewall.enable = lib.mkForce false;
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
