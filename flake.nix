@@ -102,6 +102,7 @@
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
           ./modules/hardware/firmware.nix
+          #./modules/hardware/scheduler.nix
           # use latest kernel
           ./modules/kernel.nix
           ./modules/nix/settings.nix
