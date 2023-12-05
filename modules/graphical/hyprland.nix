@@ -181,7 +181,8 @@ in
           "$mainMod, M, exit,"
           "$mainMod, E, exec, ${thunar}"
           "$mainMod, V, togglefloating"
-          "$mainMod, S, exec, ${rofi} -show drun -show-icons"
+          "$mainMod, I, exec, ${rofi} -show drun -show-icons"
+          "$mainMod, S, exec, cat ~/songs | shuf -n 1 | sed \"s/^/b\.p /g\" | ${wl-copy}"
           "$mainMod, R, exec, ${swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
           "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
           "ALT, SPACE, exec, ${rofi} -show combi"
@@ -677,6 +678,7 @@ in
     libnotify
     networkmanagerapplet
     wayland
+    wl-clipboard
     #qt5.qtwayland
     #qt6.qmake
     #qt6.qtwayland

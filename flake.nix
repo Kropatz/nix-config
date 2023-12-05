@@ -98,6 +98,7 @@
           ./users/kopatz.nix
           ./modules/graphical/plasma.nix
           ./modules/graphical/hyprland.nix
+          ./modules/graphical/emulators.nix
           ./modules/graphical/shared.nix
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
