@@ -26,6 +26,7 @@ in
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
     WLR_NO_HARDWARE_CURSORS="1";
+    #WLR_DRM_NO_ATOMIC="1";
     WLR_DRM_DEVICES = "/dev/dri/card0";
   };
 
@@ -93,15 +94,16 @@ in
         };
         
         general = {
-            # See https://wiki.hyprland.org/Configuring/Variables/ for more
+            # See https://wiki.hyprland.org/Configuring/Variables
         
             gaps_in = 5;
-            gaps_out = 20;
+            gaps_out = 5;
             border_size = 2;
             "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
             "col.inactive_border" = "rgba(595959aa)";
         
             layout = "dwindle";
+            #allow_tearing = true;
         };
         
         decoration = {
@@ -120,7 +122,7 @@ in
         };
         
         animations = {
-            enabled = false;
+            enabled = true;
         
             # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
         
@@ -131,7 +133,9 @@ in
             #animation = border, 1, 10, default
             #animation = borderangle, 1, 8, default
             #animation = fade, 1, 7, default
-            #animation = workspaces, 1, 6, default
+            animation = [
+              "workspaces, 0"
+            ];
         };
         
         dwindle = {
@@ -169,18 +173,21 @@ in
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
         bind = let
 	  rofi = "${pkgs.rofi-wayland}/bin/rofi";
-	  kitty = "${pkgs.kitty}/bin/kitty";
+	  konsole = "${pkgs.konsole}/bin/konsole";
 	  thunar = "${pkgs.xfce.thunar}/bin/thunar";
 	  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
 	  grim = "${pkgs.grim}/bin/grim";
 	  slurp = "${pkgs.slurp}/bin/slurp";
+          swww = "${pkgs.swww}/bin/swww";
         in  [ 
-	  "$mainMod, Q, exec, ${kitty}"
+	  "$mainMod, Q, exec, ${konsole}"
           "$mainMod, C, killactive"
           "$mainMod, M, exit,"
           "$mainMod, E, exec, ${thunar}"
           "$mainMod, V, togglefloating"
-          "$mainMod, S, exec, ${rofi} -show drun -show-icons"
+          "$mainMod, I, exec, ${rofi} -show drun -show-icons"
+          "$mainMod, S, exec, cat ~/songs | shuf -n 1 | sed \"s/^/b\.p /g\" | ${wl-copy}"
+          "$mainMod, R, exec, ${swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
           "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
           "ALT, SPACE, exec, ${rofi} -show combi"
           "$mainMod, P, pseudo" # dwindle
@@ -244,11 +251,13 @@ in
           "noborder,class:^(jetbrains-.*)$,title:^( )$,floating:1"
           #! Disable window flicker when autocomplete or tooltips appear
           "nofocus,class:^(jetbrains-.*)$,title:^(win.*)$,floating:1"
+          #"immediate, class:^(Risk.*)$"
         ];
         
        
 	exec-once = [
           "${pkgs.swww}/bin/swww init; sleep 1;"
+          "${pkgs.swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
 	  "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
 	  "${pkgs.waybar}/bin/waybar &"
 	  "${pkgs.dunst}/bin/dunst &"
@@ -669,11 +678,11 @@ in
     patchedWaybar
     dunst
     swww
-    kitty
     rofi-wayland
     libnotify
     networkmanagerapplet
     wayland
+    wl-clipboard
     #qt5.qtwayland
     #qt6.qmake
     #qt6.qtwayland

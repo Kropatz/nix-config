@@ -98,10 +98,12 @@
           ./users/kopatz.nix
           ./modules/graphical/plasma.nix
           ./modules/graphical/hyprland.nix
+          ./modules/graphical/emulators.nix
           ./modules/graphical/shared.nix
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
           ./modules/hardware/firmware.nix
+          #./modules/hardware/scheduler.nix
           # use latest kernel
           ./modules/kernel.nix
           ./modules/nix/settings.nix
