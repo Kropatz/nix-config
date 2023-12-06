@@ -55,6 +55,10 @@ in
           "answer" = ip;
          }
          {
+          "domain" = "kavita.local";
+          "answer" = ip;
+         }
+         {
            "domain" = "turnserver.local";
            "answer" = "192.168.2.1";
          }

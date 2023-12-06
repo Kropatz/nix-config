@@ -72,6 +72,7 @@
                 "/home/**/.cache"
                 "/home/**/__pycache__"
                 "/home/**/node_modules"
+                "/home/**/dont_remotebackup"
                 "/home/**/venv"
             ];
             rcloneConfigFile = config.age.secrets.restic-gdrive.path; 
@@ -89,6 +90,7 @@
                 "/home/**/__pycache__"
                 "/home/**/node_modules"
                 "/home/**/venv"
+                "/home/**/dont_remotebackup"
             ];
             initialize = true;
             passwordFile = config.age.secrets.restic-pw.path;
