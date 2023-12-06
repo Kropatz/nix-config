@@ -32,7 +32,7 @@ in
               serverAliases = [ wireguardIp ];
                 ## Force HTTP redirect to HTTPS
                 forceSSL = true;
-                locations."~ ^\\/(?:index|remote|public|cron|core\\/ajax\\/update|status|ocs\\/v[12]|updater\\/.+|oc[s]-provider\\/.+|.+\\/richdocumentscode\\/proxy)\\.php(?:$|\\/)".extraConfig = ''
+                locations."~ \\.php(?:$|/)".extraConfig = ''
                   client_max_body_size 5G;
                 '';
                 #sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
