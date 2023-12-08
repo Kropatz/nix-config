@@ -3,6 +3,10 @@ let
   fqdn = "yt.local";
 in
 {
+  age.secrets.invidious-extra-settings = {
+    file = ../secrets/invidious-extra-settings.age;
+    mode = "444";
+  };
   services.invidious = {
     enable = true;
 
