@@ -31,7 +31,7 @@ in
 
       statistics_enabled = false;
 
-      registration_enabled = false;
+      registration_enabled = true;
       login_enabled = true;
       captcha_enabled = false;
       admins = [ ];
