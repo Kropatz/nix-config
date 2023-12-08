@@ -36,31 +36,17 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget
-    nixos-option
     kate
     keepassxc
     jetbrains.idea-ultimate
     jetbrains.rider
-    neovim
-    btop
-    git
     xfce.thunar
-    killall
-    xclip
-    usbutils
-    inputs.agenix.packages."x86_64-linux".default
     insomnia
     remmina
     nextcloud-client
-    #podman-compose
-    #arion # docker
-    neofetch
     thunderbird
     rofi
-    pdfgrep
     taisei
-    ncdu
     localsend
     element-desktop
     tetrio-desktop
@@ -68,12 +54,9 @@ in
     unstable.libreoffice-fresh
     mangohud
     screenshot
-    glxinfo
-    vulkan-tools
     anki
     obs-studio
     mpv
-    ffmpeg
     p7zip
     qbittorrent
     (wrapOBS {

@@ -41,6 +41,7 @@
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./systems/server/configuration.nix
         ### Modules ###
+        ./modules/cli-tools.nix
         ./modules/static-ip.nix
         ./modules/hdd-spindown.nix
         ./modules/firewall.nix
@@ -107,6 +108,7 @@
           #./modules/hardware/scheduler.nix
           # use latest kernel
           ./modules/kernel.nix
+          ./modules/cli-tools.nix
           ./modules/nix/settings.nix
           ./modules/nix/index.nix
           ./modules/nix/ld.nix
@@ -138,6 +140,7 @@
           ./modules/graphical/hyprland.nix
           ./modules/graphical/shared.nix
           ./laptop/configuration.nix
+          ./modules/cli-tools.nix
           ./modules/virt-manager.nix
           ./modules/ssh.nix
           #./modules/static-ip.nix
@@ -164,6 +167,7 @@
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./laptop/configuration.nix
           ./modules/graphical/shared.nix
+          ./modules/cli-tools.nix
           ./modules/virt-manager.nix
           ./modules/ssh.nix
           ./modules/wake-on-lan.nix
