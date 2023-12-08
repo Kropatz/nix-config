@@ -24,7 +24,7 @@
                 #serverAliases = [
                 #    "www.kopatz.ddns.net"
                 #    "server.home"
-                #    "server.local"
+                #    "server.home.arpa"
                 #    "192.168.0.6"
                 #];
                 root = "/data/website";
@@ -75,10 +75,10 @@
                     proxyPass = "http://127.0.0.1:8081";
                 };
            };
-            "adguard.local" = {
+            "adguard.home.arpa" = {
                 locations."/".proxyPass = "http://127.0.0.1:3000";
             }; 
-            "kavita.local" = {
+            "kavita.home.arpa" = {
                 locations."/".proxyPass = "http://127.0.0.1:5000";
                 locations."/".extraConfig = ''
                     add_header Access-Control-Allow-Origin *;

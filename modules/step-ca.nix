@@ -49,7 +49,7 @@ in
     port = 8443;
     intermediatePasswordFile = config.age.secrets.step-ca-pw.path;
     settings = {
-      dnsNames = [ "localhost" "127.0.0.1" "*.local" ];
+      dnsNames = [ "localhost" "127.0.0.1" "*.home.arpa" ];
       root = pkgs.writeTextFile {
         name = "root.ca";
         text = root_ca;

@@ -39,7 +39,7 @@ in
           "answer" = ip;
          }
          {
-          "domain" = "server.local";
+          "domain" = "server.home.arpa";
           "answer" = ip;
          }
          {
@@ -47,39 +47,39 @@ in
           "answer" = ip;
          }
          {
-          "domain" = "adguard.local";
+          "domain" = "adguard.home.arpa";
           "answer" = ip;
          }
          {
-          "domain" = "nextcloud.local";
+          "domain" = "nextcloud.home.arpa";
           "answer" = ip;
          }
          {
-          "domain" = "kavita.local";
+          "domain" = "kavita.home.arpa";
           "answer" = ip;
          }
          {
-          "domain" = "yt.local";
+          "domain" = "yt.home.arpa";
           "answer" = ip;
          }
          {
-          "domain" = "nextcloud.local";
+          "domain" = "nextcloud.home.arpa";
           "answer" = wireguardIp;
          }
          {
-          "domain" = "kavita.local";
+          "domain" = "kavita.home.arpa";
           "answer" = wireguardIp;
          }
          {
-          "domain" = "yt.local";
+          "domain" = "yt.home.arpa";
           "answer" = wireguardIp;
          }
          {
-           "domain" = "turnserver.local";
+           "domain" = "turnserver.home.arpa";
            "answer" = wireguardIp;
          }
          {
-          "domain" = "inverter.local";
+          "domain" = "inverter.home.arpa";
           "answer" = "192.168.0.9";
          }
         ];

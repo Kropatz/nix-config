@@ -1,6 +1,6 @@
 { config, pkgs, lib, inputs, ... }:
 let
-  fqdn = "kavita.local";
+  fqdn = "kavita.home.arpa";
   useHttps = config.services.step-ca.enable;
 in
 {
