@@ -9,8 +9,6 @@ in
     mode = "444";
   };
 
-  security.acme.certs."yt.local".server = "https://127.0.0.1:8443/acme/acme/directory";
-
   services.invidious = {
     enable = true;
 
@@ -51,6 +49,7 @@ in
     nginx.enable = false;
   };
 
+  security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
   services.nginx.virtualHosts."${fqdn}" = {
     forceSSL = useHttps;
     enableACME = useHttps;

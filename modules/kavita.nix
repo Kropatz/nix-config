@@ -1,6 +1,9 @@
 { config, pkgs, lib, inputs, ... }:
+let
+  fqdn = "kavita.local";
+  useHttps = config.services.step-ca.enable;
+in
 {
-
   networking.firewall.allowedTCPPorts = [ 5000 ];
   age.secrets.kavita = {
     file = ../secrets/kavita.age;
@@ -27,5 +30,17 @@
         }
         EOF
       '';
+  };
+
+  security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
+  services.nginx.virtualHosts."${fqdn}" = {
+    forceSSL = useHttps;
+    enableACME = useHttps;
+    locations."/".proxyPass = "http://127.0.0.1:5000";
+    locations."/".extraConfig = ''
+      add_header Access-Control-Allow-Origin *;
+      add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+      add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
+    '';
   };
 }
