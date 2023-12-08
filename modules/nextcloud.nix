@@ -1,19 +1,11 @@
 { config, pkgs, lib, inputs, vars, ... }:
 let
   wireguardIp = vars.wireguardIp;
+  fqdn = "nextcloud.local";
+  useHttps = config.services.step-ca.enable;
 in
 {
-    age.secrets.nextcloud-cert = {
-        file = ../secrets/nextcloud-cert.age;
-        owner = "nginx";
-        group = "nginx";
-    };
-    age.secrets.nextcloud-key = {
-        file = ../secrets/nextcloud-key.age;
-        owner = "nginx";
-        group = "nginx";
-    };
-   # Enable Nginx
+    security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
     services.nginx = {
         enable = true;
 
@@ -28,18 +20,14 @@ in
 
         # Setup Nextcloud virtual host to listen on ports
         virtualHosts = {
-            "nextcloud.local" = {
+            "${fqdn}" = {
               serverAliases = [ wireguardIp ];
                 ## Force HTTP redirect to HTTPS
-                forceSSL = true;
+                forceSSL = useHttps;
+                enableACME = useHttps;
                 locations."~ \\.php(?:$|/)".extraConfig = ''
                   client_max_body_size 5G;
                 '';
-                #sslTrustedCertificate = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                sslCertificate = config.age.secrets.nextcloud-cert.path;
-                sslCertificateKey = config.age.secrets.nextcloud-key.path;
-                ## LetsEncrypt
-                #enableACME = true;
             };
         };
     };
