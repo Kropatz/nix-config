@@ -36,6 +36,8 @@ in
   services.nginx.virtualHosts."${fqdn}" = {
     forceSSL = useHttps;
     enableACME = useHttps;
+    quic = useHttps;
+    http3 = useHttps;
     locations."/".proxyPass = "http://127.0.0.1:5000";
     locations."/".extraConfig = ''
       add_header Access-Control-Allow-Origin *;
