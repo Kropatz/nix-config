@@ -67,6 +67,7 @@
         ./modules/paperless.nix
         ./modules/kavita.nix
         ./modules/netdata.nix
+        ./modules/invidious.nix
         ./modules/tmpfs.nix
         ### Hardware ###
         ./modules/hardware/ssd.nix

@@ -1,11 +1,6 @@
 { config, pkgs, inputs, ... }:
 
 let
-  keepassWithPlugins = pkgs.keepass.override {
-    plugins = [
-      pkgs.keepass-keepassrpc
-    ];
-  };
   screenshot = pkgs.writeShellScriptBin "screenshot.sh" ''
     ${pkgs.scrot}/bin/scrot -fs - | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i
   '';
@@ -21,6 +16,7 @@ in
 
   fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
+    noto-fonts-cjk 
     nerdfonts
   ];
 
@@ -43,7 +39,7 @@ in
     wget
     nixos-option
     kate
-    keepassWithPlugins
+    keepassxc
     jetbrains.idea-ultimate
     jetbrains.rider
     neovim
@@ -78,6 +74,13 @@ in
     obs-studio
     mpv
     ffmpeg
+    p7zip
+    qbittorrent
+    (wrapOBS {
+      plugins = with obs-studio-plugins; [
+        obs-pipewire-audio-capture
+      ];
+    })
   ];
 
   #environment.sessionVariables = {

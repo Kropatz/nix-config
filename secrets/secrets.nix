@@ -20,4 +20,5 @@ in
   "matrix-registration.age".publicKeys = [ nix-test-vm server kop ];
   "paperless.age".publicKeys = [ nix-test-vm server kop ];
   "kavita.age".publicKeys = [ nix-test-vm server kop ];
+  "invidious-extra-settings.age".publicKeys = [ nix-test-vm server kop ];
 }
