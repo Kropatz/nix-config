@@ -63,8 +63,20 @@ in
           "answer" = ip;
          }
          {
+          "domain" = "nextcloud.local";
+          "answer" = wireguardIp;
+         }
+         {
+          "domain" = "kavita.local";
+          "answer" = wireguardIp;
+         }
+         {
+          "domain" = "yt.local";
+          "answer" = wireguardIp;
+         }
+         {
            "domain" = "turnserver.local";
-           "answer" = "192.168.2.1";
+           "answer" = wireguardIp;
          }
          {
           "domain" = "inverter.local";

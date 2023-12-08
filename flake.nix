@@ -69,6 +69,7 @@
         ./modules/kavita.nix
         ./modules/netdata.nix
         ./modules/invidious.nix
+        ./modules/step-ca.nix
         ./modules/tmpfs.nix
         ### Hardware ###
         ./modules/hardware/ssd.nix

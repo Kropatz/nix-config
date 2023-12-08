@@ -38,6 +38,8 @@ in
 
       use_pubsub_feeds = false;
       channel_refresh_interval = "15m";
+      dark_mode = "dark";
+      autoplay = true;
     };
 
     extraSettingsFile = config.age.secrets.invidious-extra-settings.path;
@@ -46,8 +48,6 @@ in
   };
 
   services.nginx.virtualHosts."${fqdn}" = {
-    listenAddresses = [ vars.ipv4 vars.wireguardIp ];
-
     locations."/" = {
       recommendedProxySettings = true;
       proxyPass = "http://127.0.0.1:8007";
