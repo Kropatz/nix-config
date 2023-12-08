@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
   root_ca =
     ''
@@ -34,9 +34,13 @@ in
 {
   age.secrets.step-ca-pw = {
     file = ../secrets/step-ca-pw.age;
+    owner = "step-ca";
+    group = "step-ca";
   };
   age.secrets.step-ca-key = {
     file = ../secrets/step-ca-key.age;
+    owner = "step-ca";
+    group = "step-ca";
   };
   services.step-ca = {
     enable = true;
@@ -53,7 +57,7 @@ in
         name = "intermediate.ca";
         text = intermediate_ca;
       };
-      key = config.age.secrets.step_intermediate_ca_key.path;
+      key = config.age.secrets.step-ca-key.path;
       db = {
         type = "badger";
         dataSource = "/var/lib/step-ca/db";
@@ -77,9 +81,9 @@ in
           "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
           "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
         ];
-	minVersion = "1.2";
-	maxVersion = "1.3";
-	renegotiation = "false";
+	minVersion = 1.2;
+	maxVersion = 1.3;
+	renegotiation = false;
       };
     };
   };
