@@ -32,6 +32,7 @@ AgN9qNc3Jbo=
 
 in
 {
+  security.pki.certificates = [ root_ca ];
   age.secrets.step-ca-pw = {
     file = ../secrets/step-ca-pw.age;
     owner = "step-ca";

@@ -1,12 +1,16 @@
 { config, vars, ...} :
 let
   fqdn = "yt.local";
+  useHttps = config.services.step-ca.enable;
 in
 {
   age.secrets.invidious-extra-settings = {
     file = ../secrets/invidious-extra-settings.age;
     mode = "444";
   };
+
+  security.acme.certs."yt.local".server = "https://127.0.0.1:8443/acme/acme/directory";
+
   services.invidious = {
     enable = true;
 
@@ -24,10 +28,10 @@ in
       };
 
       host_binding = "127.0.0.1";
-      external_port = 80;
-      https_only = false;
+      external_port = if useHttps then 443 else 80;
+      https_only = useHttps;
 
-      use_quic = false;
+      use_quic = useHttps;
 
       statistics_enabled = false;
 
@@ -48,6 +52,8 @@ in
   };
 
   services.nginx.virtualHosts."${fqdn}" = {
+    forceSSL = useHttps;
+    enableACME = useHttps;
     locations."/" = {
       recommendedProxySettings = true;
       proxyPass = "http://127.0.0.1:8007";
