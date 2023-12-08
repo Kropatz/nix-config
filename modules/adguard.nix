@@ -59,6 +59,10 @@ in
           "answer" = ip;
          }
          {
+          "domain" = "yt.local";
+          "answer" = ip;
+         }
+         {
            "domain" = "turnserver.local";
            "answer" = "192.168.2.1";
          }
