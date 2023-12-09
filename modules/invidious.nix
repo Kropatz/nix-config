@@ -1,6 +1,6 @@
 { config, vars, ...} :
 let
-  fqdn = "yt.local";
+  fqdn = "yt.home.arpa";
   useHttps = config.services.step-ca.enable;
 in
 {
@@ -53,6 +53,8 @@ in
   services.nginx.virtualHosts."${fqdn}" = {
     forceSSL = useHttps;
     enableACME = useHttps;
+    quic = useHttps;
+    http3 = useHttps;
     locations."/" = {
       recommendedProxySettings = true;
       proxyPass = "http://127.0.0.1:8007";

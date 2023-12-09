@@ -3,8 +3,9 @@
     services.postgresql = {
         enable = true;
   	authentication = pkgs.lib.mkOverride 10 ''
-    		#type database  DBuser  auth-method optional_ident_map
-    		local sameuser  all     peer        map=superuser_map
+    		#type database  DBuser   auth-method optional_ident_map
+    		local sameuser  all      peer        map=superuser_map
+                local all       postgres peer  
   	'';
         identMap = ''
                 # ArbitraryMapName systemUser DBUser

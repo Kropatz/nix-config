@@ -1,7 +1,7 @@
 { config, pkgs, lib, inputs, vars, ... }:
 let
   wireguardIp = vars.wireguardIp;
-  fqdn = "nextcloud.local";
+  fqdn = "nextcloud.home.arpa";
   useHttps = config.services.step-ca.enable;
 in
 {
@@ -41,11 +41,11 @@ in
         enable = true;
         package = pkgs.nextcloud27;
         https = true;
-        hostName = "nextcloud.local";
+        hostName = "nextcloud.home.arpa";
         config.adminpassFile = config.age.secrets.nextcloud-admin.path;
         config.dbtype = "pgsql";
         database.createLocally = true;
-        config.extraTrustedDomains = [ wireguardIp ];
+        config.extraTrustedDomains = [ wireguardIp "nextcloud.home.arpa" ];
         home = "/mnt/250ssd/nextcloud";
         extraApps = with config.services.nextcloud.package.packages.apps; {
             inherit keeweb onlyoffice calendar mail;

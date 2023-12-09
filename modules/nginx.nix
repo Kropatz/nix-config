@@ -1,5 +1,7 @@
+{ pkgs, ... }:
 {
     networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.firewall.allowedUDPPorts = [ 80 443 ];
 
     systemd.tmpfiles.rules = [
         "d /data 0770 github-actions-runner nginx -"
@@ -8,6 +10,7 @@
 
     services.nginx = {
         enable = true;
+        package = pkgs.nginxQuic;
 
         # Use recommended settings
         recommendedGzipSettings = true;
@@ -24,12 +27,14 @@
                 #serverAliases = [
                 #    "www.kopatz.ddns.net"
                 #    "server.home"
-                #    "server.local"
+                #    "server.home.arpa"
                 #    "192.168.0.6"
                 #];
                 root = "/data/website";
                 forceSSL = true;
                 enableACME = true;
+                quic = true;
+                http3 = true;
                 locations."~* \\.(jpg)$".extraConfig= ''
                     add_header Access-Control-Allow-Origin *;
                 '';
@@ -43,19 +48,15 @@
                 	proxy_set_header        X-NginX-Proxy true;
                 	proxy_pass http://localhost:5091;
                 '';
-		        locations."/tracker-site" = {
-			        tryFiles = "$uri $uri/ /tracker-site/index.html =404";
-		        };
+		locations."/tracker-site" = {
+                    tryFiles = "$uri $uri/ /tracker-site/index.html =404";
+		};
                 locations."/tracker-site/api" = {
                     extraConfig =''
                         rewrite /tracker-site/api/(.*) /$1 break;
                     '';
                     proxyPass = "http://127.0.0.1:8080";
                 };
- 
- 	           #locations."~/books(.*)$" = {
-               #    proxyPass = "http://127.0.0.1:5000";
-               #};
             };
             #discord bot for tracking useractivity public version 
             "activitytracker.site" = {
@@ -65,6 +66,8 @@
                 root = "/data/website/tracker-site-public";
                 forceSSL = true;
                 enableACME = true;
+                quic = true;
+                http3 = true;
                 locations."/" = {
 	                tryFiles = "$uri $uri/ /index.html =404";
 		};
@@ -75,10 +78,10 @@
                     proxyPass = "http://127.0.0.1:8081";
                 };
            };
-            "adguard.local" = {
+            "adguard.home.arpa" = {
                 locations."/".proxyPass = "http://127.0.0.1:3000";
             }; 
-            "kavita.local" = {
+            "kavita.home.arpa" = {
                 locations."/".proxyPass = "http://127.0.0.1:5000";
                 locations."/".extraConfig = ''
                     add_header Access-Control-Allow-Origin *;
