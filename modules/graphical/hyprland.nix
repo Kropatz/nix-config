@@ -45,9 +45,19 @@ in
     enable = true;
   };
 
+  security.pam.services = {
+    swaylock = {
+      fprintAuth = false;
+      text = ''
+        auth include login
+      '';
+    };
+  };
+
   home-manager.users.kopatz = {
     #systemd.user.services.waybar.Service.ExecStart = lib.mkForce "${pkgs.waybar}/bin/waybar -b 0";
 
+    programs.swaylock.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
       enableNvidiaPatches = true;
@@ -176,20 +186,27 @@ in
 	  konsole = "${pkgs.konsole}/bin/konsole";
 	  thunar = "${pkgs.xfce.thunar}/bin/thunar";
 	  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+	  wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
 	  grim = "${pkgs.grim}/bin/grim";
 	  slurp = "${pkgs.slurp}/bin/slurp";
           swww = "${pkgs.swww}/bin/swww";
+          pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
+          brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+          swaylock = "${pkgs.swaylock}/bin/swaylock";
         in  [ 
 	  "$mainMod, Q, exec, ${konsole}"
           "$mainMod, C, killactive"
+          "$mainMod, L, exec, ${swaylock} -f -c 000000"
           "$mainMod, M, exit,"
           "$mainMod, E, exec, ${thunar}"
           "$mainMod, V, togglefloating"
           "$mainMod, I, exec, ${rofi} -show drun -show-icons"
-          "$mainMod, S, exec, cat ~/songs | shuf -n 1 | sed \"s/^/b\.p /g\" | ${wl-copy}"
+          "$mainMod, S, exec, cat ~/songs | shuf -n 0 | sed \"s/^/b\.p /g\" | ${wl-copy}"
           "$mainMod, R, exec, ${swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
           "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
           "ALT, SPACE, exec, ${rofi} -show combi"
+          " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
+          " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
           "$mainMod, P, pseudo" # dwindle
           "$mainMod, J, togglesplit" # dwindle
           # Move focus with mainMod + arrow keys
@@ -263,6 +280,35 @@ in
 	  "${pkgs.dunst}/bin/dunst &"
         ];
       };
+      extraConfig = let
+        wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+        wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+      in ''
+        bind = $mainMod, A, submap, notes
+
+        submap = notes
+        # below
+        bind = $mainMod, B, exec, ${wl-paste} | grep -B 15 -i -f - ~/Nextcloud/old_gdrive/fh/risikomanagement/crisam.txt | sed 's/[ \t]*$//' | ${wl-copy}
+        # above
+        bind = $mainMod, A, exec, ${wl-paste} | grep -A 15 -i -f - ~/Nextcloud/old_gdrive/fh/risikomanagement/crisam.txt | sed 's/[ \t]*$//' | ${wl-copy}
+        # context
+        bind = $mainMod, C, exec, ${wl-paste} | grep -C 15 -i -f - ~/Nextcloud/old_gdrive/fh/risikomanagement/crisam.txt | sed 's/[ \t]*$//' | ${wl-copy}
+        # trim
+        bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | ${wl-copy}
+        # notes
+        bind = $mainMod, 1, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/1.txt | ${wl-copy}
+        bind = $mainMod, 2, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/2.txt | ${wl-copy}
+        bind = $mainMod, 3, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/3.txt | ${wl-copy}
+        bind = $mainMod, 4, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/4.txt | ${wl-copy}
+        bind = $mainMod, 5, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/5.txt | ${wl-copy}
+        bind = $mainMod, 6, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/6.txt | ${wl-copy}
+        bind = $mainMod, 7, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/7.txt | ${wl-copy}
+        bind = $mainMod, 8, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/8.txt | ${wl-copy}
+        bind = $mainMod, 0, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/0.txt | ${wl-copy}
+
+        bind = , escape, submap, reset
+        submap = reset
+      '';
     };
     programs.waybar = {
       enable = true;

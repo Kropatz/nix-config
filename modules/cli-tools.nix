@@ -16,5 +16,6 @@
     vulkan-tools
     ffmpeg
     nethogs
+    dig
   ];
 }

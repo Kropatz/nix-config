@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
 
@@ -9,8 +9,8 @@
   ];
 
   services.xserver = {
-    layout = "at";
-    xkbVariant = "";
+    layout = lib.mkForce "at";
+    xkbVariant = lib.mkForce "";
     enable = true;
     displayManager.gdm.enable = true;
   };
