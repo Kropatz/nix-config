@@ -60,6 +60,7 @@ in
     mpv
     p7zip
     qbittorrent
+    brightnessctl
     (wrapOBS {
       plugins = with obs-studio-plugins; [
         obs-pipewire-audio-capture
