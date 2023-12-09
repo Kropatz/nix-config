@@ -181,6 +181,7 @@ in
 	  slurp = "${pkgs.slurp}/bin/slurp";
           swww = "${pkgs.swww}/bin/swww";
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
+          brightnessctl = "${brightnessctl}/bin/brightnessctl";
         in  [ 
 	  "$mainMod, Q, exec, ${konsole}"
           "$mainMod, C, killactive"
@@ -192,8 +193,8 @@ in
           "$mainMod, R, exec, ${swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
           "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
           "ALT, SPACE, exec, ${rofi} -show combi"
-
-          #"$mainMod, G, exec, ${wl-paste} | grep -C 10 -f - ~/Nextcloud/old_gdrive/fh/risikomanagement/crisam.txt | sed 's/^[ \\t]*//' | sed 's/[ \\t]*$//' | ${wl-copy}"
+          " , XF86MonBrightnessUp, exec, ${brightnessctl} -s +5%"
+          " , XF86MonBrightnessDown, exec, ${brightnessctl} -s 5%-"
           "$mainMod, P, pseudo" # dwindle
           "$mainMod, J, togglesplit" # dwindle
           # Move focus with mainMod + arrow keys
