@@ -45,9 +45,19 @@ in
     enable = true;
   };
 
+  security.pam.services = {
+    swaylock = {
+      fprintAuth = false;
+      text = ''
+        auth include login
+      '';
+    };
+  };
+
   home-manager.users.kopatz = {
     #systemd.user.services.waybar.Service.ExecStart = lib.mkForce "${pkgs.waybar}/bin/waybar -b 0";
 
+    programs.swaylock.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
       enableNvidiaPatches = true;
@@ -182,9 +192,11 @@ in
           swww = "${pkgs.swww}/bin/swww";
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
           brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+          swaylock = "${pkgs.swaylock}/bin/swaylock";
         in  [ 
 	  "$mainMod, Q, exec, ${konsole}"
           "$mainMod, C, killactive"
+          "$mainMod, L, exec, ${swaylock} -f -c 000000"
           "$mainMod, M, exit,"
           "$mainMod, E, exec, ${thunar}"
           "$mainMod, V, togglefloating"
