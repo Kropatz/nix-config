@@ -33,6 +33,7 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  services.xserver.wacom.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -61,6 +62,8 @@ in
     p7zip
     qbittorrent
     brightnessctl
+    wacomtablet
+    osu-lazer-bin
     (wrapOBS {
       plugins = with obs-studio-plugins; [
         obs-pipewire-audio-capture
