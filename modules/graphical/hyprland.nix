@@ -285,7 +285,8 @@ in
       extraConfig = let
         wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
         wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-        notify = "${pkgs.libnotify}/bin/notify-send";
+        dunstify = "${pkgs.dunst}/bin/dunstify";
+        dunstctl = "${pkgs.dunst}/bin/dunstctl";
       in ''
         bind = $mainMod, A, submap, notes
 
@@ -298,7 +299,8 @@ in
         bind = $mainMod, C, exec, ${wl-paste} | grep -C 15 -i -f - ~/Nextcloud/old_gdrive/fh/risikomanagement/crisam.txt | sed 's/[ \t]*$//' | ${wl-copy}
         # trim
         bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | ${wl-copy}
-        bind = $mainMod, N, exec, ${notify} "$(${wl-paste})"
+        bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
+        bind = $mainMod, D, exec, ${dunstctl} close-all
         # notes
         bind = $mainMod, 1, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/1.txt | ${wl-copy}
         bind = $mainMod, 2, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/2.txt | ${wl-copy}
