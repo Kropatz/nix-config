@@ -275,10 +275,11 @@ in
         
        
 	exec-once = [
-          "${pkgs.swww}/bin/swww init; sleep 1;"
+          "${pkgs.swww}/bin/swww init; sleep 2;"
           "${pkgs.swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
 	  "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
 	  "${pkgs.waybar}/bin/waybar &"
+          "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &"
 	  #"${pkgs.dunst}/bin/dunst &"
         ];
       };
