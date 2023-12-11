@@ -71,6 +71,7 @@
         ./modules/invidious.nix
         ./modules/step-ca.nix
         ./modules/tmpfs.nix
+        ./modules/logging.nix
         ### Hardware ###
         ./modules/hardware/ssd.nix
         home-manager.nixosModules.home-manager
