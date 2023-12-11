@@ -72,8 +72,13 @@ in
         
         # See https://wiki.hyprland.org/Configuring/Monitors/
         monitor = [ 
+          # PC
           "HDMI-A-1,1920x1080@60,0x0,1"
           "DP-1,2560x1440@144,1920x0,1"
+          # laptop
+          "eDP-1,3840x2160@60,0x0,1.5"
+          "DP-3,1920x1080@60,3840x0,1"
+          # Default
           ",preferred,auto,auto" 
         ];
         
@@ -622,7 +627,7 @@ in
             background-color: #11111b;
             color:#a6e3a1;
             font-weight: bolder;
-            font-size: 20px;
+            font-size: 15px;
             padding-left: 15px;
             padding-right: 15px;
         }
