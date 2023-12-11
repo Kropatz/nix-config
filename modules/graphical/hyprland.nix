@@ -292,25 +292,25 @@ in
 
         submap = notes
         # below
-        bind = $mainMod, B, exec, ${wl-paste} | grep -B 15 -i -f - ~/Nextcloud/old_gdrive/fh/risikomanagement/crisam.txt | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, B, exec, ${wl-paste} | grep -B 15 -i -f - ~/Nextcloud/test.txt | sed 's/[ \t]*$//' | ${wl-copy}
         # above
-        bind = $mainMod, A, exec, ${wl-paste} | grep -A 15 -i -f - ~/Nextcloud/old_gdrive/fh/risikomanagement/crisam.txt | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, A, exec, ${wl-paste} | grep -A 15 -i -f - ~/Nextcloud/test.txt | sed 's/[ \t]*$//' | ${wl-copy}
         # context
-        bind = $mainMod, C, exec, ${wl-paste} | grep -C 15 -i -f - ~/Nextcloud/old_gdrive/fh/risikomanagement/crisam.txt | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, C, exec, ${wl-paste} | grep -C 15 -i -f - ~/Nextcloud/test.txt | sed 's/[ \t]*$//' | ${wl-copy}
         # trim
         bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | ${wl-copy}
         bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
         bind = $mainMod, D, exec, ${dunstctl} close-all
         # notes
-        bind = $mainMod, 1, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/1.txt | ${wl-copy}
-        bind = $mainMod, 2, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/2.txt | ${wl-copy}
-        bind = $mainMod, 3, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/3.txt | ${wl-copy}
-        bind = $mainMod, 4, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/4.txt | ${wl-copy}
-        bind = $mainMod, 5, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/5.txt | ${wl-copy}
-        bind = $mainMod, 6, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/6.txt | ${wl-copy}
-        bind = $mainMod, 7, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/7.txt | ${wl-copy}
-        bind = $mainMod, 8, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/8.txt | ${wl-copy}
-        bind = $mainMod, 0, exec, cat ~/Nextcloud/old_gdrive/fh/risikomanagement/0.txt | ${wl-copy}
+        bind = $mainMod, 1, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+        bind = $mainMod, 2, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+        bind = $mainMod, 3, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+        bind = $mainMod, 4, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+        bind = $mainMod, 5, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+        bind = $mainMod, 6, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+        bind = $mainMod, 7, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+        bind = $mainMod, 8, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+        bind = $mainMod, 0, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
 
         bind = , escape, submap, reset
         submap = reset
@@ -322,8 +322,8 @@ in
         global = {
            width = "(0,1000)";
            height = "1000";
-           offset = "10x50";
-           origin = "top-right";
+           offset = "0x0";
+           origin = "bottom-center";
            transparency = -1;
            frame_color = "#1a1c1b";
            font = "Monospace 8";

@@ -71,6 +71,7 @@
         ./modules/invidious.nix
         ./modules/step-ca.nix
         ./modules/tmpfs.nix
+        ./modules/logging.nix
         ### Hardware ###
         ./modules/hardware/ssd.nix
         home-manager.nixosModules.home-manager
@@ -145,6 +146,7 @@
           ./laptop/configuration.nix
           ./modules/cli-tools.nix
           ./modules/virt-manager.nix
+          ./modules/vmware-host.nix
           ./modules/ssh.nix
           #./modules/static-ip.nix
           #./modules/no-sleep-lid-closed.nix
