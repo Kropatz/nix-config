@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, vars, ... }:
 let 
   user = "anon";
 in
@@ -8,6 +8,8 @@ in
     (import ../home-manager/direnv.nix ({ user="${user}"; pkgs = pkgs; }))
     (import ../home-manager/zsh.nix ({ user="${user}"; pkgs = pkgs; }))
   ];
+  vars.user = user;
+
   home-manager = {
     useGlobalPkgs = true;
     extraSpecialArgs = {

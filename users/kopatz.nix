@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, vars, ... }:
 let 
   user = "kopatz";
 in
@@ -11,6 +11,7 @@ in
     (import ../home-manager/direnv.nix ({ user="${user}"; pkgs = pkgs; }))
     (import ../home-manager/lf.nix ({ user="${user}"; pkgs = pkgs; }))
   ];
+
   home-manager = {
     useGlobalPkgs = true;
     extraSpecialArgs = {
