@@ -1,7 +1,7 @@
 
 { user, pkgs, ... }:
 {
-  home-manager.users.${user} = { pkgs, ...}: {
+  home-manager.users.${user} = {
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;

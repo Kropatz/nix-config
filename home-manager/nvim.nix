@@ -1,10 +1,10 @@
 { user, pkgs, ... }:
 {
-  home-manager.users.${user} = { pkgs, ...}: {
+  home-manager.users.${user} = {
     home.file.".config/nvim" = {
       enable = true;
       recursive = true;
-      source = ../../../.config/nvim;
+      source = ../.config/nvim;
       target = ".config/nvim";
     };
     programs.neovim = {

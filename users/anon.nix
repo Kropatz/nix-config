@@ -4,9 +4,9 @@ let
 in
 {
   imports = [
-    (
-        import ./home-manager/nvim/nvim.nix ({ user="${user}"; pkgs=pkgs; })
-    )
+    (import ../home-manager/nvim.nix ({ user="${user}"; pkgs = pkgs; }))
+    (import ../home-manager/direnv.nix ({ user="${user}"; pkgs = pkgs; }))
+    (import ../home-manager/zsh.nix ({ user="${user}"; pkgs = pkgs; }))
   ];
   home-manager = {
     useGlobalPkgs = true;
@@ -17,25 +17,6 @@ in
     useUserPackages = true;
     users.${user} = {
       programs.git.enable = true;
-      programs.direnv = {
-        enable = true;
-        enableZshIntegration = true;
-        nix-direnv.enable = true;
-      };
-      programs.zsh = {
-        enable = true;
-        enableCompletion = true;
-        enableAutosuggestions = true;
-        shellAliases = {
-            ll = "ls -l";
-            update = "sudo nixos-rebuild switch";
-        };
-        oh-my-zsh = {
-          enable = true;
-          plugins = [ "git" ];
-          theme = "eastwood";
-        };
-      };
       home.stateVersion = "23.05";
     };
   };
