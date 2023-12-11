@@ -8,7 +8,7 @@ in
     (import ../home-manager/direnv.nix ({ user="${user}"; pkgs = pkgs; }))
     (import ../home-manager/zsh.nix ({ user="${user}"; pkgs = pkgs; }))
   ];
-  vars.user = user;
+  mainUser.name = user;
 
   home-manager = {
     useGlobalPkgs = true;

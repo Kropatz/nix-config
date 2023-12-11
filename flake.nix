@@ -37,6 +37,7 @@
       modules = [
         ### User specific ###
         ./users/anon.nix
+        ./users/option.nix
         ### System sepecific ###
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./systems/server/configuration.nix
@@ -99,7 +100,10 @@
           inherit inputs ;
         };
         modules = [
+          ### User specific ###
+          ./users/option.nix
           ./users/kopatz.nix
+          ### System modules ###
           ./modules/graphical/plasma.nix
           ./modules/graphical/hyprland.nix
           ./modules/graphical/emulators.nix
@@ -138,6 +142,8 @@
           inherit inputs;
         };
         modules = [
+          ### User specific ###
+          ./users/option.nix
           ./users/kopatz.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           # Todo: refactor file layout
@@ -168,6 +174,8 @@
           inherit inputs ;
         };
         modules = [
+          ### User specific ###
+          ./users/option.nix
           ./users/kopatz.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./laptop/configuration.nix

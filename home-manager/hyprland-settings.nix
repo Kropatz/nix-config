@@ -1,4 +1,4 @@
-{ user, pkgs, vars, ... }:
+{ user, pkgs, layout, variant, ... }:
 {
   home-manager.users.${user} = {
     programs.swaylock.enable = true;
@@ -33,8 +33,8 @@
         
         # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
         input = {
-            kb_layout = vars.layout;
-            kb_variant = vars.variant;
+            kb_layout = layout;
+            kb_variant = variant;
             kb_model = "";
             kb_options = "";
             kb_rules = "";

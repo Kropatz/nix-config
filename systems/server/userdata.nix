@@ -4,7 +4,6 @@
   dns = "127.0.0.1";
   wireguardIp = "192.168.2.1";
   wm = "startplasma-x11";
-  user = "anon";
   udpRanges = [
     #{
     #  from = 52000;

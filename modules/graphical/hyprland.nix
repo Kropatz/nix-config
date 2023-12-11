@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, vars, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   patchedWaybar = pkgs.waybar.overrideAttrs (oldAttrs: {
@@ -11,14 +11,14 @@ let
 in
 {
   imports = [
-    (import ../../home-manager/hyprland-settings.nix ({ user="${vars.user}"; pkgs = pkgs; inherit vars; }))
+    (import ../../home-manager/hyprland-settings.nix ({ user="${config.mainUser.name}"; pkgs = pkgs; layout = config.mainUser.layout; variant = config.mainUser.variant; }))
   ];
 
   services.xserver = {
-    layout = vars.layout;
-    xkbVariant = vars.variant;
+    layout = config.mainUser.layout;
+    xkbVariant = config.mainUser.variant;
     enable = true;
-    displayManager = lib.mkIf  (!config.services.xserver.displayManager.gdm.enable) {
+    displayManager = lib.mkIf (!config.services.xserver.displayManager.gdm.enable) {
       sddm.enable = true;
     };
   };

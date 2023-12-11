@@ -12,6 +12,7 @@ in
     (import ../home-manager/lf.nix ({ user="${user}"; pkgs = pkgs; }))
   ];
 
+  mainUser.name = user;
   home-manager = {
     useGlobalPkgs = true;
     extraSpecialArgs = {
