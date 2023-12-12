@@ -23,6 +23,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   networking.extraHosts =
   ''
