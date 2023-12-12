@@ -38,8 +38,7 @@
       inherit system;
       modules = [
         ### User specific ###
-        ./users/anon.nix
-        ./users/option.nix
+        ./users/anon
         ### System sepecific ###
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./systems/server/configuration.nix
