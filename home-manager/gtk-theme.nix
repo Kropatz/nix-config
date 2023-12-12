@@ -4,8 +4,8 @@
     gtk = {
       enable = true;
       theme = { 
-        name = "palenight";
-        package = pkgs.palenight-theme;
+        name = "Tokyonight-Dark-BL";
+        package = pkgs.tokyo-night-gtk;
       };
       cursorTheme = {
         package = pkgs.libsForQt5.breeze-gtk;
