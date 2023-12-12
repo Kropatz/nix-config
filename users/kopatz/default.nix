@@ -17,7 +17,7 @@
     isNormalUser = true;
     description = config.mainUser.name;
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       (discord.override { withVencord = true; })
       librewolf

@@ -155,6 +155,7 @@
           ./modules/virt-manager.nix
           ./modules/vmware-host.nix
           ./modules/ssh.nix
+          ./modules/wireshark.nix
           #./modules/static-ip.nix
           #./modules/no-sleep-lid-closed.nix
           #./modules/wake-on-lan.nix

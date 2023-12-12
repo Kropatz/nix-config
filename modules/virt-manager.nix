@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   programs.dconf.enable = true; # virt-manager requires dconf to remember settings
   environment.systemPackages = with pkgs; [ virt-manager virtiofsd ];
@@ -16,4 +16,5 @@
     spiceUSBRedirection.enable = true;
   };
   services.spice-vdagentd.enable = true;  
+  users.users.${config.mainUser.name}.extraGroups = [ "libvirtd" ];
 }
