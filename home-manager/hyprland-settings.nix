@@ -227,6 +227,7 @@
           "${pkgs.swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
 	  "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
 	  "${pkgs.waybar}/bin/waybar &"
+          "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &"
 	  #"${pkgs.dunst}/bin/dunst &"
         ];
       };
@@ -421,7 +422,7 @@
             padding-bottom: 2px;
             font-weight: bolder;
             color: 	#89b4fa ;
-            transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.68);
+            /* transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.68); */
         }
         
         #workspaces button.active{
@@ -432,8 +433,8 @@
             background: rgb(203,166,247);
             background: radial-gradient(circle, rgba(203,166,247,1) 0%, rgba(193,168,247,1) 12%, rgba(249,226,175,1) 19%, rgba(189,169,247,1) 20%, rgba(182,171,247,1) 24%, rgba(198,255,194,1) 36%, rgba(177,172,247,1) 37%, rgba(170,173,248,1) 48%, rgba(255,255,255,1) 52%, rgba(166,174,248,1) 52%, rgba(160,175,248,1) 59%, rgba(148,226,213,1) 66%, rgba(155,176,248,1) 67%, rgba(152,177,248,1) 68%, rgba(205,214,244,1) 77%, rgba(148,178,249,1) 78%, rgba(144,179,250,1) 82%, rgba(180,190,254,1) 83%, rgba(141,179,250,1) 90%, rgba(137,180,250,1) 100%); 
             background-size: 400% 400%;
-            animation: gradient_f 20s ease-in-out infinite;
-            transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+            /* animation: gradient_f 20s ease-in-out infinite;
+            transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682); */
         }
         
         @keyframes gradient {
@@ -476,7 +477,7 @@
             background: linear-gradient(52deg, rgba(148,226,213,1) 0%, rgba(137,220,235,1) 19%, rgba(116,199,236,1) 43%, rgba(137,180,250,1) 56%, rgba(180,190,254,1) 80%, rgba(186,187,241,1) 100%); 
             background-size: 300% 300%;
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.377);
-            animation: gradient 15s ease infinite;
+            /* animation: gradient 15s ease infinite; */
             font-weight: bolder;
             color: #fff;
         }
@@ -484,7 +485,7 @@
             background: rgb(148,226,213);
             background: radial-gradient(circle, rgba(148,226,213,1) 0%, rgba(156,227,191,1) 21%, rgba(249,226,175,1) 34%, rgba(158,227,186,1) 35%, rgba(163,227,169,1) 59%, rgba(148,226,213,1) 74%, rgba(164,227,167,1) 74%, rgba(166,227,161,1) 100%); 
             background-size: 400% 400%;
-            animation: gradient_f 4s ease infinite;
+            /* animation: gradient_f 4s ease infinite; */
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.377);
             font-weight: bolder;
             color: #fff;
@@ -493,7 +494,7 @@
             background: rgb(235,160,172);
             background: linear-gradient(52deg, rgba(235,160,172,1) 0%, rgba(243,139,168,1) 30%, rgba(231,130,132,1) 48%, rgba(250,179,135,1) 77%, rgba(249,226,175,1) 100%); 
             background-size: 300% 300%;
-            animation: gradient 15s cubic-bezier(.55,-0.68,.48,1.68) infinite;
+            /* animation: gradient 15s cubic-bezier(.55,-0.68,.48,1.68) infinite; */
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.377);
             font-weight: bolder;
             color: #fff;
@@ -503,7 +504,7 @@
             background: rgb(137,180,250);
             background: radial-gradient(circle, rgba(137,180,250,120) 0%, rgba(142,179,250,120) 6%, rgba(148,226,213,1) 14%, rgba(147,178,250,1) 14%, rgba(155,176,249,1) 18%, rgba(245,194,231,1) 28%, rgba(158,175,249,1) 28%, rgba(181,170,248,1) 58%, rgba(205,214,244,1) 69%, rgba(186,169,248,1) 69%, rgba(195,167,247,1) 72%, rgba(137,220,235,1) 73%, rgba(198,167,247,1) 78%, rgba(203,166,247,1) 100%); 
             background-size: 400% 400%;
-            animation: gradient_f 9s cubic-bezier(.72,.39,.21,1) infinite;
+            /* animation: gradient_f 9s cubic-bezier(.72,.39,.21,1) infinite; */
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.377);
             font-weight: bold;
             color: #fff ;
@@ -531,7 +532,7 @@
             background: linear-gradient(45deg, rgba(245,194,231,1) 0%, rgba(203,166,247,1) 0%, rgba(243,139,168,1) 13%, rgba(235,160,172,1) 26%, rgba(250,179,135,1) 34%, rgba(249,226,175,1) 49%, rgba(166,227,161,1) 65%, rgba(148,226,213,1) 77%, rgba(137,220,235,1) 82%, rgba(116,199,236,1) 88%, rgba(137,180,250,1) 95%); 
             color: #fff;
             background-size: 500% 500%;
-            animation: gradient 7s linear infinite;
+            /* animation: gradient 7s linear infinite; */
             font-weight:  bolder;
             border-radius: 15px;
         }

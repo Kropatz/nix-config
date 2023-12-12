@@ -24,7 +24,7 @@ in
   ];
 
   networking.firewall = {
-    enable = false;
+    enable = true;
     allowedTCPPortRanges = [
       { from = 1714; to = 1764; } # KDE Connect
     ];
