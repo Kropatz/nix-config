@@ -1,6 +1,5 @@
-{ user, pkgs, ... }:
+{ config, pkgs, inputs, ...}:
 {
-  home-manager.users.${user} = {
     home.file.".config/nvim" = {
       enable = true;
       recursive = true;
@@ -21,5 +20,4 @@
         ccls
       ];
     };
-  };
 }

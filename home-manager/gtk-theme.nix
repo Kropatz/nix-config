@@ -1,6 +1,5 @@
-{ user, pkgs, ... }:
+{ config, pkgs, inputs, ...}:
 {
-  home-manager.users.${user} = {
     gtk = {
       enable = true;
       theme = { 
@@ -12,5 +11,4 @@
         name = "Breeze-gtk";
       };
     };
-  };
 }

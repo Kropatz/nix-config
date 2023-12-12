@@ -1,6 +1,5 @@
-{ user, pkgs, ... }:
+{ config, pkgs, inputs, ...}:
 {
-  home-manager.users.${user} = {
     programs.lf = {
       enable = true;
       previewer.source = pkgs.writeShellScript "pv.sh" ''
@@ -14,5 +13,4 @@
         esac
       '';
     };
-  };
 }

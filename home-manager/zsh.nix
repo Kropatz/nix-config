@@ -1,6 +1,5 @@
-{ user, pkgs, ... }:
+{ config, pkgs, inputs, ...}:
 {
-  home-manager.users.${user} = {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -15,5 +14,4 @@
         theme = "eastwood";
       };
     };
-  };
 }

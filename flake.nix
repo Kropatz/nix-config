@@ -15,6 +15,7 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
       nixinate.url = "github:matthewcroughan/nixinate";
+      nix-colors.url = "github:misterio77/nix-colors";
   };
   outputs = { self,
               nixpkgs,
@@ -24,6 +25,7 @@
               agenix,
               home-manager,
               nixinate,
+              nix-colors,
             }@inputs:
     let
       system = "x86_64-linux";
@@ -101,8 +103,7 @@
         };
         modules = [
           ### User specific ###
-          ./users/option.nix
-          ./users/kopatz.nix
+          ./users/kopatz
           ### System modules ###
           ./modules/graphical/plasma.nix
           ./modules/graphical/hyprland.nix
@@ -140,11 +141,11 @@
           ## Custom variables (e.g. ip, interface, etc)
           vars = import ./systems/userdata-default.nix // import ./systems/laptop/userdata.nix;
           inherit inputs;
+          inherit nix-colors;
         };
         modules = [
           ### User specific ###
-          ./users/option.nix
-          ./users/kopatz.nix
+          ./users/kopatz
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           # Todo: refactor file layout
           ./modules/graphical/hyprland.nix
