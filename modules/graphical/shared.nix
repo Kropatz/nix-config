@@ -18,7 +18,6 @@ in
   fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
     noto-fonts-cjk 
-    nerdfonts
   ];
 
   networking.firewall = {
