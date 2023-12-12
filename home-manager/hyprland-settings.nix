@@ -569,7 +569,7 @@
             background-color: #11111b;
             color:#a6e3a1;
             font-weight: bolder;
-            font-size: 20px;
+            font-size: 15px;
             padding-left: 15px;
             padding-right: 15px;
         }
