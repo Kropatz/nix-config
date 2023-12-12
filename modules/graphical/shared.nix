@@ -64,11 +64,6 @@ in
     brightnessctl
     wacomtablet
     osu-lazer-bin
-    (wrapOBS {
-      plugins = with obs-studio-plugins; [
-        obs-pipewire-audio-capture
-      ];
-    })
   ];
 
   #environment.sessionVariables = {

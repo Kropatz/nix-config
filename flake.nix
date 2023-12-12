@@ -37,6 +37,7 @@
       modules = [
         ### User specific ###
         ./users/anon.nix
+        ./users/option.nix
         ### System sepecific ###
         ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
         ./systems/server/configuration.nix
@@ -71,6 +72,7 @@
         ./modules/invidious.nix
         ./modules/step-ca.nix
         ./modules/tmpfs.nix
+        ./modules/logging.nix
         ### Hardware ###
         ./modules/hardware/ssd.nix
         home-manager.nixosModules.home-manager
@@ -98,11 +100,15 @@
           inherit inputs ;
         };
         modules = [
+          ### User specific ###
+          ./users/option.nix
           ./users/kopatz.nix
+          ### System modules ###
           ./modules/graphical/plasma.nix
           ./modules/graphical/hyprland.nix
           ./modules/graphical/emulators.nix
           ./modules/graphical/gamemode.nix
+          ./modules/graphical/obs.nix
           ./modules/graphical/shared.nix
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
@@ -136,6 +142,8 @@
           inherit inputs;
         };
         modules = [
+          ### User specific ###
+          ./users/option.nix
           ./users/kopatz.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           # Todo: refactor file layout
@@ -166,6 +174,8 @@
           inherit inputs ;
         };
         modules = [
+          ### User specific ###
+          ./users/option.nix
           ./users/kopatz.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./laptop/configuration.nix

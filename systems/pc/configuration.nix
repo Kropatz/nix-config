@@ -10,6 +10,9 @@
       ./hardware-configuration.nix
     ];
 
+  mainUser.layout = "de";
+  mainUser.variant = "us";
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
