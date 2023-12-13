@@ -74,6 +74,7 @@
                 "/home/**/node_modules"
                 "/home/**/dont_remotebackup"
                 "/home/**/venv"
+                "**/emu"
             ];
             rcloneConfigFile = config.age.secrets.restic-gdrive.path; 
             repository = "rclone:it-experts:backup";

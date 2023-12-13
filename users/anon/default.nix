@@ -1,32 +1,21 @@
-{ pkgs, inputs, vars, ... }:
-let 
-  user = "anon";
-in
+{ inputs
+, pkgs
+, lib
+, config
+, ...
+}:
 {
-  imports = [
-    (import ../home-manager/nvim.nix ({ user="${user}"; pkgs = pkgs; }))
-    (import ../home-manager/direnv.nix ({ user="${user}"; pkgs = pkgs; }))
-    (import ../home-manager/zsh.nix ({ user="${user}"; pkgs = pkgs; }))
-  ];
-  mainUser.name = user;
+  imports = [ ../default.nix ]; 
+  mainUser.name = "anon";
 
   home-manager = {
-    useGlobalPkgs = true;
-    extraSpecialArgs = {
-      inherit inputs;
-      headless = false;
-    };
-    useUserPackages = true;
-    users.${user} = {
-      programs.git.enable = true;
-      home.stateVersion = "23.05";
-    };
+    users.${config.mainUser.name} = import ./home.nix;
   };
-  
+
   programs.zsh.enable = true;
-  users.users.${user} = {
+  users.users.${config.mainUser.name} = {
     isNormalUser = true;
-    description = user;
+    description = config.mainUser.name;
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" "wireshark"];
     packages = with pkgs; [
