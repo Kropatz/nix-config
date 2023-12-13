@@ -17,6 +17,7 @@ in
 
   fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
+    corefonts
     nerdfonts
     noto-fonts
     noto-fonts-emoji

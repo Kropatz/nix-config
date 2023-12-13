@@ -16,6 +16,10 @@
       };
       nixinate.url = "github:matthewcroughan/nixinate";
       nix-colors.url = "github:misterio77/nix-colors";
+      hyprland = {
+        url = "github:hyprwm/Hyprland";
+        inputs.nixpkgs.follows = "nixpkgs-unstable"; # MESA/OpenGL HW workaround
+      };
   };
   outputs = { self,
               nixpkgs,
@@ -26,6 +30,7 @@
               home-manager,
               nixinate,
               nix-colors,
+              hyprland,
             }@inputs:
     let
       system = "x86_64-linux";
@@ -105,6 +110,7 @@
           ./users/kopatz
           ### System modules ###
           ./modules/graphical/plasma.nix
+          hyprland.nixosModules.default
           ./modules/graphical/hyprland.nix
           ./modules/graphical/emulators.nix
           ./modules/graphical/gamemode.nix
@@ -147,6 +153,7 @@
           ./users/kopatz
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           # Todo: refactor file layout
+          hyprland.nixosModules.default
           ./modules/graphical/hyprland.nix
           ./modules/graphical/shared.nix
           ./laptop/configuration.nix

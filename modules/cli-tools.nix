@@ -17,6 +17,5 @@
     ffmpeg
     nethogs
     dig
-    nss-tools
   ];
 }
