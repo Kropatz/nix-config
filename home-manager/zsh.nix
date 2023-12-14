@@ -7,6 +7,7 @@
       shellAliases = {
           ll = "ls -l";
           update = "sudo nixos-rebuild switch";
+          updateOffline = "sudo nixos-rebuild switch --option substitute false";
       };
       oh-my-zsh = {
         enable = true;
