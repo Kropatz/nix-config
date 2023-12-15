@@ -20,7 +20,7 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       (discord.override { withVencord = true; })
-      librewolf
+      firefox
       brave
     ];
     openssh.authorizedKeys.keys = [

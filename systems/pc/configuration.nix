@@ -17,6 +17,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   networking.hostName = "kop-pc"; # Define your hostname.
 
   # Enable networking
@@ -28,7 +30,7 @@
   nix.settings.trusted-public-keys = [ "ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc=" ];
   
   #disable firewall when doing ipv6 vm stuff
-  networking.firewall.enable = lib.mkForce false;
+  #networking.firewall.enable = lib.mkForce false;
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";

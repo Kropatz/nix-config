@@ -1,7 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
 
 let
-  patchedWaybar = pkgs.waybar.overrideAttrs (oldAttrs: {
+  patchedWaybar = pkgs.unstable.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
   });
 

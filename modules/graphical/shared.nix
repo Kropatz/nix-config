@@ -17,6 +17,7 @@ in
 
   fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
+    corefonts
     nerdfonts
     noto-fonts
     noto-fonts-emoji
@@ -72,6 +73,5 @@ in
   #  DOTNET_ROOT = "${pkgs.dotnet-sdk_7}";
   #};
 
-  ### docker
-  virtualisation.docker.enable = true;
+
 }

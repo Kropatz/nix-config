@@ -16,6 +16,10 @@
       };
       nixinate.url = "github:matthewcroughan/nixinate";
       nix-colors.url = "github:misterio77/nix-colors";
+      hyprland = {
+        url = "github:hyprwm/Hyprland";
+        inputs.nixpkgs.follows = "nixpkgs-unstable"; # MESA/OpenGL HW workaround
+      };
   };
   outputs = { self,
               nixpkgs,
@@ -26,6 +30,7 @@
               home-manager,
               nixinate,
               nix-colors,
+              hyprland,
             }@inputs:
     let
       system = "x86_64-linux";
@@ -105,6 +110,7 @@
           ./users/kopatz
           ### System modules ###
           ./modules/graphical/plasma.nix
+          hyprland.nixosModules.default
           ./modules/graphical/hyprland.nix
           ./modules/graphical/emulators.nix
           ./modules/graphical/gamemode.nix
@@ -113,16 +119,15 @@
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
           ./modules/hardware/firmware.nix
-          #./modules/hardware/scheduler.nix
-          # use latest kernel
-          ./modules/kernel.nix
-          ./modules/cli-tools.nix
+          ./modules/kernel.nix # use latest kernel
           ./modules/nix/settings.nix
           ./modules/nix/index.nix
           ./modules/nix/ld.nix
+          ./modules/cli-tools.nix
           ./modules/gpg.nix
-          ./modules/virt-manager.nix
+          #./modules/virt-manager.nix dont need atm
           ./modules/flatpak.nix
+          ./modules/nftables.nix
           ./modules/noise-supression.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./modules/wooting.nix
@@ -147,6 +152,7 @@
           ./users/kopatz
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           # Todo: refactor file layout
+          hyprland.nixosModules.default
           ./modules/graphical/hyprland.nix
           ./modules/graphical/shared.nix
           ./laptop/configuration.nix

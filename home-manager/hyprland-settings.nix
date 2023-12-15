@@ -143,6 +143,7 @@
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
           brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
           swaylock = "${pkgs.swaylock}/bin/swaylock";
+          playerctl = "${pkgs.playerctl}/bin/playerctl";
         in  [ 
 	  "$mainMod, Q, exec, ${konsole}"
           "$mainMod, C, killactive"
@@ -157,6 +158,9 @@
           "ALT, SPACE, exec, ${rofi} -show combi"
           " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
           " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
+          " , XF86AudioPlay, exec, ${playerctl} play-pause"
+          " , XF86AudioNext, exec, ${playerctl} next"
+          " , XF86AudioPrev, exec, ${playerctl} previous"
           "$mainMod, P, pseudo" # dwindle
           "$mainMod, J, togglesplit" # dwindle
           # Move focus with mainMod + arrow keys
