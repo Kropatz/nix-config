@@ -73,6 +73,5 @@ in
   #  DOTNET_ROOT = "${pkgs.dotnet-sdk_7}";
   #};
 
-  ### docker
-  virtualisation.docker.enable = true;
+
 }

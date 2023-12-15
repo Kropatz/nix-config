@@ -8,6 +8,7 @@
           ll = "ls -l";
           update = "sudo nixos-rebuild switch";
           updateOffline = "sudo nixos-rebuild switch --option substitute false";
+          checkTime = "(cd ~/Nextcloud/work_drive/TS && nix run)";
       };
       oh-my-zsh = {
         enable = true;

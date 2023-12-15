@@ -119,16 +119,15 @@
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
           ./modules/hardware/firmware.nix
-          #./modules/hardware/scheduler.nix
-          # use latest kernel
-          ./modules/kernel.nix
-          ./modules/cli-tools.nix
+          ./modules/kernel.nix # use latest kernel
           ./modules/nix/settings.nix
           ./modules/nix/index.nix
           ./modules/nix/ld.nix
+          ./modules/cli-tools.nix
           ./modules/gpg.nix
-          ./modules/virt-manager.nix
+          #./modules/virt-manager.nix dont need atm
           ./modules/flatpak.nix
+          ./modules/nftables.nix
           ./modules/noise-supression.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./modules/wooting.nix
