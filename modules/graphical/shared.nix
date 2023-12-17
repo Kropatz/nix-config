@@ -67,6 +67,7 @@ in
     brightnessctl
     wacomtablet
     osu-lazer-bin
+    libsForQt5.kolourpaint
   ];
 
   #environment.sessionVariables = {

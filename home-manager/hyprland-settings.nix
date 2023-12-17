@@ -133,7 +133,7 @@
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
         bind = let
 	  rofi = "${pkgs.rofi-wayland}/bin/rofi";
-	  konsole = "${pkgs.konsole}/bin/konsole";
+	  kitty = "${pkgs.kitty}/bin/kitty";
 	  thunar = "${pkgs.xfce.thunar}/bin/thunar";
 	  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
 	  wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
@@ -145,7 +145,7 @@
           swaylock = "${pkgs.swaylock}/bin/swaylock";
           playerctl = "${pkgs.playerctl}/bin/playerctl";
         in  [ 
-	  "$mainMod, Q, exec, ${konsole}"
+	  "$mainMod, Q, exec, ${kitty}"
           "$mainMod, C, killactive"
           "$mainMod, L, exec, ${swaylock} -f -c 000000"
           "$mainMod, M, exit,"
