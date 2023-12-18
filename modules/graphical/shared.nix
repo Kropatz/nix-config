@@ -17,6 +17,7 @@ in
 
   fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
+    uw-ttyp0
     corefonts
     nerdfonts
     noto-fonts
