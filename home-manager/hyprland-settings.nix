@@ -150,6 +150,7 @@
           "$mainMod, L, exec, ${swaylock} -f -c 000000"
           "$mainMod, M, exit,"
           "$mainMod, E, exec, ${thunar}"
+          "$mainMod, F, fullscreen"
           "$mainMod, V, togglefloating"
           "$mainMod, I, exec, ${rofi} -show drun -show-icons"
           "$mainMod, S, exec, cat ~/songs | shuf -n 1 | sed \"s/^/b\.p /g\" | ${wl-copy}"
