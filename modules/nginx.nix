@@ -81,14 +81,6 @@
             "adguard.home.arpa" = {
                 locations."/".proxyPass = "http://127.0.0.1:3000";
             }; 
-            "kavita.home.arpa" = {
-                locations."/".proxyPass = "http://127.0.0.1:5000";
-                locations."/".extraConfig = ''
-                    add_header Access-Control-Allow-Origin *;
-                    add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
-                    add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
-                '';
-            };
         };
     };
 }
