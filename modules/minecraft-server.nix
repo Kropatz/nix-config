@@ -6,6 +6,10 @@
         openFirewall = true;
         package = pkgs.unstable.papermc;
         declarative = true;
+        whitelist = {
+            coolBayram = "514afd03-8ca2-4f60-abe4-4c2a365d223b";
+            filipus098 = "a09fb009-be78-4e26-9f33-1534186e2228";
+        };
         serverProperties = {
             allow-flight=true;
             allow-nether=true;
@@ -56,7 +60,7 @@
             sync-chunk-writes=true;
             use-native-transport=true;
             view-distance=10;
-            white-list=false;
+            white-list=true;
         };
     };
 }
