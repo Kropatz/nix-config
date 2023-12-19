@@ -17,6 +17,7 @@ in
 
   fonts.fontDir.enable = true;
   fonts.packages = with pkgs; [
+    uw-ttyp0
     corefonts
     nerdfonts
     noto-fonts
@@ -67,6 +68,7 @@ in
     brightnessctl
     wacomtablet
     osu-lazer-bin
+    libsForQt5.kolourpaint
   ];
 
   #environment.sessionVariables = {

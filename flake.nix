@@ -16,10 +16,6 @@
       };
       nixinate.url = "github:matthewcroughan/nixinate";
       nix-colors.url = "github:misterio77/nix-colors";
-      hyprland = {
-        url = "github:hyprwm/Hyprland";
-        inputs.nixpkgs.follows = "nixpkgs-unstable"; # MESA/OpenGL HW workaround
-      };
   };
   outputs = { self,
               nixpkgs,
@@ -30,7 +26,6 @@
               home-manager,
               nixinate,
               nix-colors,
-              hyprland,
             }@inputs:
     let
       system = "x86_64-linux";
@@ -110,7 +105,6 @@
           ./users/kopatz
           ### System modules ###
           ./modules/graphical/plasma.nix
-          hyprland.nixosModules.default
           ./modules/graphical/hyprland.nix
           ./modules/graphical/emulators.nix
           ./modules/graphical/gamemode.nix
@@ -151,11 +145,9 @@
           ### User specific ###
           ./users/kopatz
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-          # Todo: refactor file layout
-          hyprland.nixosModules.default
           ./modules/graphical/hyprland.nix
           ./modules/graphical/shared.nix
-          ./laptop/configuration.nix
+          ./systems/laptop/configuration.nix
           ./modules/cli-tools.nix
           ./modules/virt-manager.nix
           ./modules/vmware-host.nix
@@ -173,39 +165,12 @@
           home-manager.nixosModules.home-manager
         ];
     };
-    nixosConfigurations."nix-laptop-no-gpu" = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          ## Custom variables (e.g. ip, interface, etc)
-          vars = (import ./systems/laptop/userdata.nix);
-          inherit inputs ;
-        };
-        modules = [
-          ### User specific ###
-          ./users/option.nix
-          ./users/kopatz.nix
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-          ./laptop/configuration.nix
-          ./modules/graphical/shared.nix
-          ./modules/cli-tools.nix
-          ./modules/virt-manager.nix
-          ./modules/ssh.nix
-          ./modules/wake-on-lan.nix
-          ./modules/static-ip.nix
-          ./modules/no-sleep-lid-closed.nix
-          ./modules/thunderbolt.nix
-          ./modules/nix/settings.nix
-          nixos-hardware.nixosModules.dell-xps-15-7590
-          agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
-        ];
-    };
     nixosConfigurations."wsl" = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit inputs ;};
         modules = [
           #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
-          ./users/anon.nix
+          ./users/anon
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./systems/wsl/configuration.nix
           nixos-wsl.nixosModules.wsl

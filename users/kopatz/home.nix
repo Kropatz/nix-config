@@ -11,14 +11,6 @@
     # changes in each release.
     stateVersion = "23.05";
   };
-      programs.kitty = {
-        enable = true;
-        settings = {
-          foreground = "#${config.colorScheme.colors.base05}";
-          background = "#${config.colorScheme.colors.base00}";
-          # ...
-        };
-    };
 
   imports = [
     ../../home-manager/nvim.nix
@@ -27,8 +19,9 @@
     ../../home-manager/gtk-theme.nix
     ../../home-manager/direnv.nix
     ../../home-manager/lf.nix
+    ../../home-manager/kitty.nix
     inputs.nix-colors.homeManagerModule
   ];
 
-  colorScheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
+  colorScheme = import ../../home-manager/themes/yorha/colors.nix;
 }
