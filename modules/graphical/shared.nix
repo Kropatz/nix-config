@@ -13,6 +13,7 @@ in
     gamescopeSession.enable = true;
   };
 
+  programs.dconf.enable = true;
   programs.kdeconnect.enable = true;
 
   fonts.fontDir.enable = true;
@@ -69,6 +70,7 @@ in
     wacomtablet
     osu-lazer-bin
     libsForQt5.kolourpaint
+    wl-clipboard
   ];
 
   #environment.sessionVariables = {

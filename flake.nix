@@ -30,7 +30,10 @@
     let
       system = "x86_64-linux";
       overlay-unstable = final: prev: {
-        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+        unstable = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
       };
     in {
     apps = nixinate.nixinate.${system} self;
@@ -105,7 +108,7 @@
           ./users/kopatz
           ### System modules ###
           ./modules/graphical/plasma.nix
-          ./modules/graphical/hyprland.nix
+          #./modules/graphical/hyprland.nix
           ./modules/graphical/emulators.nix
           ./modules/graphical/gamemode.nix
           ./modules/graphical/obs.nix
