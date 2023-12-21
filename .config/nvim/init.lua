@@ -188,9 +188,10 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-  {'romgrk/barbar.nvim',
+  {
+    'romgrk/barbar.nvim',
     dependencies = {
-      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
       'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
     init = function() vim.g.barbar_auto_setup = false end,
@@ -253,7 +254,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = 'number'
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -563,4 +564,3 @@ vim.opt.termguicolors = true
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-

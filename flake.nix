@@ -124,6 +124,7 @@
           ./modules/gpg.nix
           #./modules/virt-manager.nix dont need atm
           ./modules/flatpak.nix
+          ./modules/docker.nix
           ./modules/nftables.nix
           ./modules/noise-supression.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
