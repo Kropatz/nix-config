@@ -1,9 +1,22 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 let
   screenshot = pkgs.writeShellScriptBin "screenshot.sh" ''
     ${pkgs.scrot}/bin/scrot -fs - | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i
   '';
+  fixedTetrio = pkgs.tetrio-desktop.overrideAttrs (old: rec {
+      withTetrioPlus = true;
+      libPath = lib.makeLibraryPath [
+        pkgs.libGL
+        pkgs.libpulseaudio
+        pkgs.systemd
+      ];    
+      postFixup = ''
+        wrapProgram $out/opt/TETR.IO/tetrio-desktop \
+        --prefix LD_LIBRARY_PATH : ${libPath}:$out/opt/TETR.IO \
+        ''${gappsWrapperArgs[@]}
+      '';
+  });
 in
 {
   programs.steam = {
@@ -56,7 +69,7 @@ in
     taisei
     localsend
     element-desktop
-    tetrio-desktop
+    fixedTetrio
     krita
     unstable.libreoffice-fresh
     mangohud
