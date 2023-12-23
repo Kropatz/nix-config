@@ -41,6 +41,8 @@ in
 
   networking.firewall = {
     enable = true;
+    allowedTCPPorts = [ 53317 ]; #localsend
+    allowedUDPPorts = [ 53317 ]; #localsend
     allowedTCPPortRanges = [
       { from = 1714; to = 1764; } # KDE Connect
     ];
