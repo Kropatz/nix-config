@@ -4,18 +4,8 @@ let
   screenshot = pkgs.writeShellScriptBin "screenshot.sh" ''
     ${pkgs.scrot}/bin/scrot -fs - | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i
   '';
-  fixedTetrio = pkgs.tetrio-desktop.overrideAttrs (old: rec {
+  tetrioPlus = pkgs.unstable.tetrio-desktop.overrideAttrs (old: {
       withTetrioPlus = true;
-      libPath = lib.makeLibraryPath [
-        pkgs.libGL
-        pkgs.libpulseaudio
-        pkgs.systemd
-      ];    
-      postFixup = ''
-        wrapProgram $out/opt/TETR.IO/tetrio-desktop \
-        --prefix LD_LIBRARY_PATH : ${libPath}:$out/opt/TETR.IO \
-        ''${gappsWrapperArgs[@]}
-      '';
   });
 in
 {
@@ -42,7 +32,7 @@ in
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 53317 ]; #localsend
-    allowedUDPPorts = [ 53317 ]; #localsend
+    allowedUDPPorts = [ 1194 53317 ]; #openvpn, localsend
     allowedTCPPortRanges = [
       { from = 1714; to = 1764; } # KDE Connect
     ];
@@ -71,7 +61,7 @@ in
     taisei
     localsend
     element-desktop
-    fixedTetrio
+    tetrioPlus
     krita
     unstable.libreoffice-fresh
     mangohud
@@ -86,6 +76,7 @@ in
     osu-lazer-bin
     libsForQt5.kolourpaint
     wl-clipboard
+    yuzu-mainline
   ];
 
   #environment.sessionVariables = {
