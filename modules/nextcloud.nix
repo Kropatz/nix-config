@@ -26,7 +26,7 @@ in
                 forceSSL = useHttps;
                 enableACME = useHttps;
                 locations."~ \\.php(?:$|/)".extraConfig = ''
-                  client_max_body_size 5G;
+                  client_max_body_size 20G;
                 '';
             };
         };
@@ -57,8 +57,8 @@ in
         };
 
         phpOptions = {
-          upload_max_filesize = lib.mkForce "5G";
-          post_max_size = lib.mkForce "5G";
+          upload_max_filesize = lib.mkForce "20G";
+          post_max_size = lib.mkForce "20G";
         };
         extraAppsEnable = true;
         extraOptions.enabledPreviewProviders = [
