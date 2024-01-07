@@ -113,6 +113,8 @@
           ./modules/graphical/gamemode.nix
           ./modules/graphical/obs.nix
           ./modules/graphical/audio.nix
+          ./modules/graphical/games.nix
+          ./modules/graphical/ime.nix
           ./modules/graphical/shared.nix
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix

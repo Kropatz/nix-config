@@ -9,12 +9,7 @@ let
   });
 in
 {
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    gamescopeSession.enable = true;
-  };
+
 
   programs.dconf.enable = true;
   programs.kdeconnect.enable = true;
@@ -58,7 +53,6 @@ in
     nextcloud-client
     thunderbird
     rofi
-    taisei
     localsend
     element-desktop
     tetrioPlus
@@ -73,10 +67,8 @@ in
     qbittorrent
     brightnessctl
     wacomtablet
-    osu-lazer-bin
     libsForQt5.kolourpaint
     wl-clipboard
-    yuzu-mainline
   ];
 
   #environment.sessionVariables = {
