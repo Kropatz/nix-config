@@ -1,7 +1,7 @@
 { pkgs, ...}:
 {
     services.minecraft-server = {
-        enable = true;
+        enable = false;
         eula = true;
         openFirewall = true;
         package = pkgs.unstable.papermc;
