@@ -12,5 +12,6 @@
     yuzu-mainline
     wineWowPackages.unstableFull
     lutris
+    prismlauncher
   ];
 }
