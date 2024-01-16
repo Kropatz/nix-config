@@ -29,7 +29,7 @@
                 "/mnt/250ssd/paperless"
                 "/mnt/250ssd/kavita"
             ];
-            pruneOpts = [ "--keep-daily 7" "--keep-weekly 10" "--keep-monthly 12" "--keep-yearly 75" ];
+            pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             repository = "/mnt/2tb/restic";
         };
         localbackup-1tb = {
@@ -51,7 +51,7 @@
                 "/home/**/venv"
             ];
             repository = "/mnt/1tb/restic";
-            pruneOpts = [ "--keep-daily 5" "--keep-weekly 5" "--keep-monthly 12" "--keep-yearly 75" ];
+            pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             timerConfig = {
                 OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
                 Persistent = true;
@@ -78,7 +78,7 @@
             ];
             rcloneConfigFile = config.age.secrets.restic-gdrive.path; 
             repository = "rclone:it-experts:backup";
-            pruneOpts = [ "--keep-daily 5" "--keep-weekly 5" "--keep-monthly 12" "--keep-yearly 75" ];
+            pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             timerConfig = {
                 OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
                 Persistent = true;
@@ -100,7 +100,7 @@
                 "/home"
                 "/var/backup/postgresql"
             ];
-            pruneOpts = [ "--keep-daily 5" "--keep-weekly 5" "--keep-monthly 12" "--keep-yearly 75" ];
+            pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             timerConfig = {
               OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 00:00:00";
               Persistent = true;

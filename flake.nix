@@ -51,7 +51,6 @@
         ./modules/hdd-spindown.nix
         ./modules/firewall.nix
         ./modules/wireshark.nix
-        ./modules/minecraft-server.nix
         ./modules/motd.nix
         ./modules/postgres.nix
         ./modules/fail2ban.nix
@@ -59,7 +58,6 @@
         ./modules/adguard.nix
         ./modules/git.nix
         ./modules/github-runner.nix
-        ./modules/synapse.nix
         ./modules/nextcloud.nix
         ./modules/acme.nix
         ./modules/samba.nix
@@ -70,10 +68,8 @@
         ./modules/docker.nix
         ./modules/wireguard.nix
         ./modules/cron.nix
-        ./modules/paperless.nix
         ./modules/kavita.nix
         ./modules/netdata.nix
-        ./modules/invidious.nix
         ./modules/step-ca.nix
         ./modules/tmpfs.nix
         ./modules/logging.nix
