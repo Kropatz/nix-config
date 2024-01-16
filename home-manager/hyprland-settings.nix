@@ -4,7 +4,7 @@
     programs.swaylock.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
-      enableNvidiaPatches = true;
+      #enableNvidiaPatches = true;
       xwayland.enable = true;
       package = pkgs.unstable.hyprland;
       settings = {

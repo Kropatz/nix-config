@@ -153,6 +153,11 @@
           ./users/kopatz
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./modules/graphical/hyprland.nix
+          ./modules/graphical/emulators.nix
+          ./modules/graphical/gamemode.nix
+          ./modules/graphical/audio.nix
+          ./modules/graphical/games.nix
+          ./modules/graphical/ime.nix
           ./modules/graphical/shared.nix
           ./systems/laptop/configuration.nix
           ./modules/cli-tools.nix
