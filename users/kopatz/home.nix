@@ -20,6 +20,7 @@
     ../../home-manager/direnv.nix
     ../../home-manager/lf.nix
     ../../home-manager/kitty.nix
+    ../../home-manager/rofi.nix
     inputs.nix-colors.homeManagerModule
   ];
 
