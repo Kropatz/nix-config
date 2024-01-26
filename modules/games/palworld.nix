@@ -33,13 +33,13 @@ in {
 			];
 			ExecStart = join [
 				"${pkgs.steam-run}/bin/steam-run /var/lib/palworld/Pal/Binaries/Linux/PalServer-Linux-Test Pal"
-				"--useperfthreads"
+				"-useperfthreads"
 				"-NoAsyncLoadingThread"
 				"-UseMultithreadForDS"
 			];
 			Nice = "-5";
 			PrivateTmp = true;
-			Restart = "always";
+			Restart = "on-failure";
 			User = "palworld";
 			WorkingDirectory = "~";
 		};

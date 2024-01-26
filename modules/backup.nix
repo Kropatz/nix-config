@@ -28,6 +28,7 @@
                 "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
                 "/mnt/250ssd/kavita"
+                "/var/lib/palworld/Pal/Saved"
             ];
             pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             repository = "/mnt/2tb/restic";
@@ -42,6 +43,7 @@
                 "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
                 "/mnt/250ssd/kavita"
+                "/var/lib/palworld/Pal/Saved"
             ];
             exclude = [
                 "/home/**/Cache"
@@ -99,6 +101,7 @@
             paths = [
                 "/home"
                 "/var/backup/postgresql"
+                "/var/lib/palworld/Pal/Saved"
             ];
             pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             timerConfig = {
