@@ -3,6 +3,13 @@
   join = builtins.concatStringsSep " ";
 in {
 
+	services.cron = {
+		enable = true;
+		systemCronJobs = [
+			"0 6 * * *	root	systemctl restart palworld"	
+		];
+	};
+
 	networking.firewall.allowedUDPPorts = [ 8211 ]; #5349 ];
 	users.users.palworld = {
 		isSystemUser = true;

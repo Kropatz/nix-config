@@ -50,7 +50,6 @@
         ./modules/static-ip.nix
         ./modules/hdd-spindown.nix
         ./modules/firewall.nix
-        ./modules/wireshark.nix
         ./modules/motd.nix
         ./modules/postgres.nix
         ./modules/fail2ban.nix
@@ -64,7 +63,6 @@
         ./modules/backup.nix
         ./modules/nginx.nix
         ./modules/ssh.nix
-        ./modules/rdp.nix
         ./modules/docker.nix
         ./modules/wireguard.nix
         ./modules/cron.nix
