@@ -70,7 +70,7 @@
         ./modules/netdata.nix
         ./modules/step-ca.nix
         ./modules/tmpfs.nix
-        ./modules/games/palworld.nix
+        #./modules/games/palworld.nix
         ./modules/logging.nix
         ### Hardware ###
         ./modules/hardware/ssd.nix
