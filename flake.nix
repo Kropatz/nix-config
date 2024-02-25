@@ -110,6 +110,7 @@
           ./modules/graphical/audio.nix
           ./modules/graphical/games.nix
           ./modules/graphical/ime.nix
+          ./modules/graphical/code.nix
           ./modules/graphical/shared.nix
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
@@ -153,11 +154,13 @@
           ./modules/graphical/audio.nix
           ./modules/graphical/games.nix
           ./modules/graphical/ime.nix
+          ./modules/graphical/code.nix
           ./modules/graphical/shared.nix
           ./systems/laptop/configuration.nix
           ./modules/cli-tools.nix
           ./modules/virt-manager.nix
           ./modules/vmware-host.nix
+          ./modules/nix/ld.nix
           ./modules/ssh.nix
           ./modules/wireshark.nix
           #./modules/static-ip.nix
