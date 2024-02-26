@@ -50,7 +50,6 @@
         ./modules/static-ip.nix
         ./modules/hdd-spindown.nix
         ./modules/firewall.nix
-        ./modules/wireshark.nix
         ./modules/motd.nix
         ./modules/postgres.nix
         ./modules/fail2ban.nix
@@ -64,7 +63,6 @@
         ./modules/backup.nix
         ./modules/nginx.nix
         ./modules/ssh.nix
-        ./modules/rdp.nix
         ./modules/docker.nix
         ./modules/wireguard.nix
         ./modules/cron.nix
@@ -72,7 +70,7 @@
         ./modules/netdata.nix
         ./modules/step-ca.nix
         ./modules/tmpfs.nix
-        ./modules/games/palworld.nix
+        #./modules/games/palworld.nix
         ./modules/logging.nix
         ### Hardware ###
         ./modules/hardware/ssd.nix
@@ -112,6 +110,7 @@
           ./modules/graphical/audio.nix
           ./modules/graphical/games.nix
           ./modules/graphical/ime.nix
+          ./modules/graphical/code.nix
           ./modules/graphical/shared.nix
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
@@ -155,11 +154,13 @@
           ./modules/graphical/audio.nix
           ./modules/graphical/games.nix
           ./modules/graphical/ime.nix
+          ./modules/graphical/code.nix
           ./modules/graphical/shared.nix
           ./systems/laptop/configuration.nix
           ./modules/cli-tools.nix
           ./modules/virt-manager.nix
           ./modules/vmware-host.nix
+          ./modules/nix/ld.nix
           ./modules/ssh.nix
           ./modules/wireshark.nix
           #./modules/static-ip.nix

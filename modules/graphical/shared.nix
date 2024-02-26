@@ -43,12 +43,8 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    kate
     keepassxc
-    jetbrains.idea-ultimate
-    jetbrains.rider
     xfce.thunar
-    insomnia
     remmina
     nextcloud-client
     thunderbird
@@ -61,7 +57,6 @@ in
     mangohud
     screenshot
     anki
-    obs-studio
     mpv
     p7zip
     qbittorrent
@@ -70,10 +65,4 @@ in
     libsForQt5.kolourpaint
     wl-clipboard
   ];
-
-  #environment.sessionVariables = {
-  #  DOTNET_ROOT = "${pkgs.dotnet-sdk_7}";
-  #};
-
-
 }

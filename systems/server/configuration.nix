@@ -39,20 +39,6 @@ in{
     LC_TIME = "de_AT.UTF-8";
   };
 
-  #### Graphical environment ####
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "at";
-    xkbVariant = "";
-  };
-
   #### Sound and printing ####
   # Enable CUPS to print documents.
   #services.printing.enable = true;
@@ -80,20 +66,16 @@ in{
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    kate
     nixos-option
     wget
     vim
     tcpdump
     dig
-    vscodium
     inputs.agenix.packages."x86_64-linux".default
     btop
     shash
-    gparted
     restic
     hdparm
-    wireguard-tools
     openssl
     unstable.e2fsprogs
     mangal
