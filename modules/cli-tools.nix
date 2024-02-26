@@ -18,5 +18,7 @@
     nethogs
     dig
     smartmontools
+    bc
+    xxd
   ];
 }

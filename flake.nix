@@ -156,6 +156,7 @@
           ./modules/graphical/ime.nix
           ./modules/graphical/code.nix
           ./modules/graphical/shared.nix
+          ./modules/fh/forensik.nix
           ./systems/laptop/configuration.nix
           ./modules/cli-tools.nix
           ./modules/virt-manager.nix
