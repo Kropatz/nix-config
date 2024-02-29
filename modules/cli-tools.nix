@@ -2,6 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     wget
+    pciutils
     nixos-option
     btop
     git
