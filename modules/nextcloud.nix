@@ -48,7 +48,7 @@ in
         config.extraTrustedDomains = [ wireguardIp "nextcloud.home.arpa" ];
         home = "/mnt/250ssd/nextcloud";
         extraApps = with config.services.nextcloud.package.packages.apps; {
-            inherit keeweb onlyoffice calendar mail;
+            inherit onlyoffice calendar mail;
             spreed = pkgs.fetchNextcloudApp rec {
                 url = "https://github.com/nextcloud-releases/spreed/releases/download/v17.1.1/spreed-v17.1.1.tar.gz";
                 sha256 = "sha256-LaUG0maatc2YtWQjff7J54vadQ2RE4X6FcW8vFefBh8=";
