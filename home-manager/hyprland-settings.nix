@@ -198,8 +198,8 @@
           "$mainMod, mouse_down, workspace, e+1"
           "$mainMod, mouse_up, workspace, e-1"
           
-          "ALT, Tab, cyclenext,"
-          "ALT, Tab, bringactivetotop,"
+          # "ALT, Tab, cyclenext,"
+          # "ALT, Tab, bringactivetotop,"
 	];
 
 	bindm = [
@@ -241,18 +241,19 @@
         wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
         dunstify = "${pkgs.dunst}/bin/dunstify";
         dunstctl = "${pkgs.dunst}/bin/dunstctl";
+        pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
       in ''
         bind = $mainMod, A, submap, notes
 
         submap = notes
         # below
-        bind = $mainMod, B, exec, ${wl-paste} | grep -B 15 -i -f - ~/Nextcloud/test.txt | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ~/Nextcloud/fh/cdc/test/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
         # above
-        bind = $mainMod, A, exec, ${wl-paste} | grep -A 15 -i -f - ~/Nextcloud/test.txt | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ~/Nextcloud/fh/cdc/test/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
         # context
-        bind = $mainMod, C, exec, ${wl-paste} | grep -C 15 -i -f - ~/Nextcloud/test.txt | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ~/Nextcloud/fh/cdc/test/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
         # trim
-        bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | ${wl-copy}
+        bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}
         bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
         bind = $mainMod, D, exec, ${dunstctl} close-all
         # notes
