@@ -48,6 +48,11 @@
       fsType = "ext4";
       options = ["defaults" "nofail" "noatime"];
      };
+  fileSystems."/mnt/1tbssd" =
+    { device = "/dev/disk/by-uuid/801d9217-9c38-4ca8-914e-e31361603892";
+      fsType = "ext4";
+      options = ["defaults" "nofail" "noatime"];
+     };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

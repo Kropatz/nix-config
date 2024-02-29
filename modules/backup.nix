@@ -33,6 +33,28 @@
             pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             repository = "/mnt/2tb/restic";
         };
+        localbackup-1tb-ssd = {
+            exclude = [
+                "/home/**/Cache"
+                "/home/**/.cache"
+                "/home/**/__pycache__"
+                "/home/**/node_modules"
+                "/home/**/venv"
+            ];
+            initialize = true;
+            passwordFile = config.age.secrets.restic-pw.path;
+            paths = [
+                "/home"
+                "/var/backup/postgresql"
+                "/mnt/250ssd/matrix-synapse/media_store/"
+                "/mnt/250ssd/nextcloud"
+                "/mnt/250ssd/paperless"
+                "/mnt/250ssd/kavita"
+                "/var/lib/palworld/Pal/Saved"
+            ];
+            pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
+            repository = "/mnt/1tbssd/restic";
+        };
         localbackup-1tb = {
             initialize = true;
             passwordFile = config.age.secrets.restic-pw.path;

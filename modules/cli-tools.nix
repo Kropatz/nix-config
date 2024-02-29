@@ -20,5 +20,6 @@
     smartmontools
     bc
     xxd
+    tldr
   ];
 }
