@@ -10,6 +10,10 @@
         url = "github:nix-community/home-manager/release-23.11";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+      home-manager-unstable = {
+        url = "github:nix-community/home-manager/master";
+        inputs.nixpkgs.follows = "nixpkgs-unstable";
+      };
       nixos-wsl = {
         url = "github:nix-community/NixOS-WSL";
         inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +27,7 @@
               nixpkgs-unstable,
               agenix,
               home-manager,
+              home-manager-unstable,
               nix-colors,
             }@inputs:
     let
@@ -77,13 +82,15 @@
       specialArgs = {
         ## Custom variables (e.g. ip, interface, etc)
         vars = import ./systems/userdata-default.nix // import ./systems/server/userdata.nix;
+        pkgsVersion = nixpkgs;
         inherit inputs ;
       };
     };
-    nixosConfigurations."kop-pc" = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."kop-pc" = nixpkgs-unstable.lib.nixosSystem {
         inherit system;
         specialArgs = {
           vars = import ./systems/userdata-default.nix // import ./systems/pc/userdata.nix;
+          pkgsVersion = nixpkgs-unstable;
           inherit inputs ;
         };
         modules = [
@@ -110,7 +117,8 @@
           ./modules/nix/ld.nix
           ./modules/cli-tools.nix
           ./modules/gpg.nix
-          #./modules/virt-manager.nix dont need atm
+          ./modules/virt-manager.nix
+          #./modules/hardware/vfio.nix too stupid for this
           ./modules/flatpak.nix
           ./modules/docker.nix
           ./modules/nftables.nix
@@ -122,7 +130,7 @@
           ./modules/support/ntfs.nix
           ./systems/pc/configuration.nix
           agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
+          home-manager-unstable.nixosModules.home-manager
         ];
     };
     nixosConfigurations."nix-laptop" = nixpkgs.lib.nixosSystem {
@@ -130,6 +138,7 @@
         specialArgs = {
           ## Custom variables (e.g. ip, interface, etc)
           vars = import ./systems/userdata-default.nix // import ./systems/laptop/userdata.nix;
+          pkgsVersion = nixpkgs;
           inherit inputs;
           inherit nix-colors;
         };
