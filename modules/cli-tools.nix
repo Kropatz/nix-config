@@ -22,5 +22,7 @@
     smartmontools
     bc
     xxd
+    tldr
+    file
   ];
 }
