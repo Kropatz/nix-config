@@ -4,5 +4,6 @@
         regripper
         foremost
         binwalk
+        sleuthkit
     ];
 }

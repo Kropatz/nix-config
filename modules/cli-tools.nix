@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    tldr
     wget
     pciutils
     nixos-option
