@@ -23,5 +23,6 @@
     xxd
     tldr
     file
+    unzip
   ];
 }
