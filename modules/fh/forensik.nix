@@ -5,5 +5,6 @@
         foremost
         binwalk
         sleuthkit
+        samdump2
     ];
 }
