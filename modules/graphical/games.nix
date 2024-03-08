@@ -9,7 +9,6 @@
   environment.systemPackages = with pkgs; [
     taisei
     osu-lazer-bin
-    yuzu-mainline
     wineWowPackages.unstableFull
     lutris
     prismlauncher
