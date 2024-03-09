@@ -22,5 +22,7 @@
     bc
     xxd
     tldr
+    file
+    unzip
   ];
 }

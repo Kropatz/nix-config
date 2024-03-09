@@ -4,5 +4,7 @@
         regripper
         foremost
         binwalk
+        sleuthkit
+        samdump2
     ];
 }

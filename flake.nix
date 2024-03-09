@@ -168,6 +168,7 @@
           ./modules/thunderbolt.nix
           ./modules/rdp.nix
           ./modules/tmpfs.nix
+          ./modules/support/ntfs.nix
           ./modules/nix/settings.nix
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default

@@ -2,6 +2,7 @@
 {
   programs.dconf.enable = true; # virt-manager requires dconf to remember settings
   environment.systemPackages = with pkgs; [ virt-manager virtiofsd ];
+  environment.sessionVariables.GSETTINGS_BACKEND = "keyfile";
 
   virtualisation = {
     libvirtd = {
