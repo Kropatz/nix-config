@@ -177,7 +177,10 @@
     };
     nixosConfigurations."wsl" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs ;};
+        specialArgs = {
+          inherit inputs; 
+          pkgsVersion = nixpkgs-unstable;
+        };
         modules = [
           #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
           ./users/anon
