@@ -181,6 +181,7 @@
         modules = [
           #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
           ./users/anon
+          ./modules/cli-tools.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./systems/wsl/configuration.nix
           nixos-wsl.nixosModules.wsl
