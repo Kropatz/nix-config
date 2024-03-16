@@ -10,7 +10,9 @@
     taisei
     osu-lazer-bin
     wineWowPackages.unstableFull
+    winetricks
     lutris
     prismlauncher
+    #libs
   ];
 }
