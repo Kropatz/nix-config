@@ -2,7 +2,7 @@
     slug = "yorha";
     name = "yorha";
     author = "flick0 (https://github.com/flick0)";
-    colors = {
+    palette = {
       base00 = "#1e1d1c";
       base01 = "#A39D8F";
       base02 = "#AFA899";

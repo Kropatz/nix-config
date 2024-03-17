@@ -5,7 +5,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryFlavor = "qt";
+    #pinentryFlavor = "qt";
   };
   #environment.systemPackages = with pkgs; [
   #  pinentry-curses
