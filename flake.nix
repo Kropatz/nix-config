@@ -97,6 +97,7 @@
           ### User specific ###
           ./users/kopatz
           ### System modules ###
+          ./modules/graphical/wayland.nix
           ./modules/graphical/plasma.nix
           #./modules/graphical/hyprland.nix
           ./modules/graphical/emulators.nix
