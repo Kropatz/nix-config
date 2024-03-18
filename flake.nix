@@ -107,7 +107,7 @@
           ./modules/graphical/ime.nix
           ./modules/graphical/code.nix
           ./modules/graphical/shared.nix
-          ./modules/fh/forensik.nix
+          #./modules/fh/forensik.nix
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
           ./modules/hardware/firmware.nix
@@ -154,7 +154,7 @@
           ./modules/graphical/ime.nix
           ./modules/graphical/code.nix
           ./modules/graphical/shared.nix
-          ./modules/fh/forensik.nix
+          #./modules/fh/forensik.nix
           ./systems/laptop/configuration.nix
           ./modules/cli-tools.nix
           ./modules/ecryptfs.nix
