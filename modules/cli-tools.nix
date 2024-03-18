@@ -24,5 +24,6 @@
     tldr
     file
     unzip
+    lsof
   ];
 }

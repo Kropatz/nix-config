@@ -157,6 +157,7 @@
           ./modules/fh/forensik.nix
           ./systems/laptop/configuration.nix
           ./modules/cli-tools.nix
+          ./modules/ecryptfs.nix
           ./modules/virt-manager.nix
           ./modules/vmware-host.nix
           ./modules/nix/ld.nix
