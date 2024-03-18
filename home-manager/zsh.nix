@@ -3,7 +3,8 @@
     programs.zsh = {
       enable = true;
       enableCompletion = true;
-      autosuggestion.enable = true;
+      # new option autosuggestion.enable = true;
+      enableAutosuggestions = true;
       shellAliases = {
           ll = "ls -l";
           update = "sudo nixos-rebuild switch";
