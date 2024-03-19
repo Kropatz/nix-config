@@ -56,8 +56,8 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = lib.mkForce "de";
-    xkbVariant = lib.mkForce "us";
+    xkb.layout = lib.mkForce "de";
+    xkb.variant = lib.mkForce "us";
   };
 
   # Configure console keymap

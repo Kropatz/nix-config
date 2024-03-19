@@ -10,7 +10,6 @@
       enable = true;
       defaultEditor = true;
       extraPackages = with pkgs; [
-        rnix-lsp
         gcc
         ripgrep
         fd

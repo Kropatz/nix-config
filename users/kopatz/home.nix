@@ -21,6 +21,7 @@
     ../../home-manager/lf.nix
     ../../home-manager/kitty.nix
     ../../home-manager/rofi.nix
+    ../../home-manager/kde-path.nix
     inputs.nix-colors.homeManagerModule
   ];
 

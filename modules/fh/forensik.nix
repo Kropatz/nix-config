@@ -6,5 +6,6 @@
         binwalk
         sleuthkit
         samdump2
+        apktool
     ];
 }

@@ -107,7 +107,7 @@
           ./modules/graphical/ime.nix
           ./modules/graphical/code.nix
           ./modules/graphical/shared.nix
-          ./modules/fh/forensik.nix
+          #./modules/fh/forensik.nix
           ./modules/hardware/nvidia.nix
           ./modules/hardware/ssd.nix
           ./modules/hardware/firmware.nix
@@ -154,9 +154,10 @@
           ./modules/graphical/ime.nix
           ./modules/graphical/code.nix
           ./modules/graphical/shared.nix
-          ./modules/fh/forensik.nix
+          #./modules/fh/forensik.nix
           ./systems/laptop/configuration.nix
           ./modules/cli-tools.nix
+          ./modules/ecryptfs.nix
           ./modules/virt-manager.nix
           ./modules/vmware-host.nix
           ./modules/nix/ld.nix
@@ -177,10 +178,15 @@
     };
     nixosConfigurations."wsl" = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs ;};
+        specialArgs = {
+          inherit inputs; 
+          pkgsVersion = nixpkgs-unstable;
+        };
         modules = [
           #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
           ./users/anon
+          ./modules/nix/settings.nix
+          ./modules/cli-tools.nix
           ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./systems/wsl/configuration.nix
           nixos-wsl.nixosModules.wsl
