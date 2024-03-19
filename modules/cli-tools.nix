@@ -25,5 +25,6 @@
     file
     unzip
     lsof
+    screen
   ];
 }
