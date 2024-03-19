@@ -14,14 +14,14 @@ in
     enable = true;
     user = "kavita";
     port = 5000;
-    dataDir = "/mnt/250ssd/kavita";
+    dataDir = "/mnt/1tbssd/kavita";
     tokenKeyFile = config.age.secrets.kavita.path;
   };
   #todo: base url needs new kavita version
   systemd.services.kavita = {
       preStart = ''
         umask u=rwx,g=rx,o=
-        cat > "/mnt/250ssd/kavita/config/appsettings.json" <<EOF
+        cat > "/mnt/1tbssd/kavita/config/appsettings.json" <<EOF
         {
           "TokenKey": "$(cat ${config.age.secrets.kavita.path})",
           "Port": 5000,
