@@ -1,4 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
+let 
+    kavita = "/mnt/1tbssd/kavita";
+in
 {
   age.secrets.restic-pw = {
     file = ../secrets/restic-pw.age;
@@ -27,7 +30,7 @@
                 "/mnt/250ssd/matrix-synapse/media_store/"
                 "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
-                "/mnt/250ssd/kavita"
+                kavita
                 "/var/lib/palworld/Pal/Saved"
             ];
             pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
@@ -49,7 +52,7 @@
                 "/mnt/250ssd/matrix-synapse/media_store/"
                 "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
-                "/mnt/250ssd/kavita"
+                kavita
                 "/var/lib/palworld/Pal/Saved"
             ];
             pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
@@ -64,7 +67,7 @@
                 "/mnt/250ssd/matrix-synapse/media_store/"
                 "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
-                "/mnt/250ssd/kavita"
+                kavita
                 "/var/lib/palworld/Pal/Saved"
             ];
             exclude = [
