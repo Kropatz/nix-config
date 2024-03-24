@@ -44,9 +44,10 @@ in
     
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
-    startAt = "*-*-* 00:00:00";
+    startAt = "*-*-* 19:00:00";
     script = ''
       ${mangal} inline -S Mangapill -q omniscient -m first -d
+      ${mangal} inline -S Mangapill --query "oshi-no-ko" --manga first --download
     '';
     serviceConfig = {
     	PrivateTmp = true;
