@@ -25,7 +25,7 @@ in
   ];
 
   networking.firewall = {
-    enable = false;
+    enable = true;
     allowedTCPPorts = [ 53317 ]; #localsend
     allowedUDPPorts = [ 1194 53317 ]; #openvpn, localsend
     allowedTCPPortRanges = [
