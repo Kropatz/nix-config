@@ -2,9 +2,14 @@
 let
   fqdn = "kavita.home.arpa";
   useHttps = config.services.step-ca.enable;
+  baseDir = "/mnt/1tbssd/kavita";
 in
 {
   networking.firewall.allowedTCPPorts = [ 5000 ];
+  systemd.tmpfiles.rules = [
+      "d ${baseDir} 0770 kavita kavita -"
+      "d ${baseDir}/manga 0770 kavita kavita -"
+  ];
   age.secrets.kavita = {
     file = ../secrets/kavita.age;
     owner = "kavita";
@@ -14,9 +19,10 @@ in
     enable = true;
     user = "kavita";
     port = 5000;
-    dataDir = "/mnt/1tbssd/kavita";
+    dataDir = baseDir;
     tokenKeyFile = config.age.secrets.kavita.path;
   };
+
   #todo: base url needs new kavita version
   systemd.services.kavita = {
       preStart = ''
@@ -30,6 +36,24 @@ in
         }
         EOF
       '';
+  };
+
+  systemd.services.download-manga = {
+    wantedBy = [ "multi-user.target" ];
+    
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    startAt = "24hr";
+    script = ''
+      mangal inline -S Mangapill -q omniscient -m first -d
+    '';
+    serviceConfig = {
+    	PrivateTmp = true;
+    	User = "kavita";
+    	Group = "kavita";
+        Type = "oneshot";
+    	WorkingDirectory = "${baseDir}/manga";
+    };
   };
 
   security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
