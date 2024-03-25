@@ -26,5 +26,6 @@
     unzip
     lsof
     screen
+    tmux
   ];
 }

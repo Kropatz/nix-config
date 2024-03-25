@@ -3,6 +3,7 @@ let
   fqdn = "kavita.home.arpa";
   useHttps = config.services.step-ca.enable;
   baseDir = "/mnt/1tbssd/kavita";
+  mangal = "${pkgs.mangal}/bin/mangal";
 in
 {
   networking.firewall.allowedTCPPorts = [ 5000 ];
@@ -43,9 +44,10 @@ in
     
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
-    startAt = "24hr";
+    startAt = "*-*-* 19:00:00";
     script = ''
-      mangal inline -S Mangapill -q omniscient -m first -d
+      ${mangal} inline -S Mangapill -q omniscient -m first -d
+      ${mangal} inline -S Mangapill --query "oshi-no-ko" --manga first --download
     '';
     serviceConfig = {
     	PrivateTmp = true;
