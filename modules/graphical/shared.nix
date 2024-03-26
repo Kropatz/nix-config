@@ -4,13 +4,8 @@ let
   screenshot = pkgs.writeShellScriptBin "screenshot.sh" ''
     ${pkgs.scrot}/bin/scrot -fs - | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i
   '';
-  tetrioPlus = pkgs.tetrio.overrideAttrs (old: {
-      withTetrioPlus = true;
-  });
 in
 {
-
-
   programs.dconf.enable = true;
   programs.kdeconnect.enable = true;
 
@@ -51,7 +46,7 @@ in
     rofi
     localsend
     element-desktop
-    tetrioPlus
+    tetrio
     krita
     unstable.libreoffice-fresh
     mangohud
