@@ -4,7 +4,7 @@ let
   screenshot = pkgs.writeShellScriptBin "screenshot.sh" ''
     ${pkgs.scrot}/bin/scrot -fs - | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i
   '';
-  tetrioPlus = pkgs.unstable.tetrio-desktop.overrideAttrs (old: {
+  tetrioPlus = pkgs.tetrio.overrideAttrs (old: {
       withTetrioPlus = true;
   });
 in

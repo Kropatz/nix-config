@@ -31,21 +31,18 @@
               nix-colors,
             }@inputs:
     let
+      inherit (self) outputs;
       system = "x86_64-linux";
-      overlay-unstable = final: prev: {
-        unstable = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      };
     in {
+    overlays = import ./overlays.nix {inherit inputs;};
+
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
         ### User specific ###
         ./users/anon
         ### System sepecific ###
-        ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+        ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
         ./systems/server/configuration.nix
         ### Modules ###
         ./modules/cli-tools.nix
@@ -83,7 +80,7 @@
         ## Custom variables (e.g. ip, interface, etc)
         vars = import ./systems/userdata-default.nix // import ./systems/server/userdata.nix;
         pkgsVersion = nixpkgs;
-        inherit inputs ;
+        inherit inputs outputs;
       };
     };
     nixosConfigurations."kop-pc" = nixpkgs-unstable.lib.nixosSystem {
@@ -91,7 +88,7 @@
         specialArgs = {
           vars = import ./systems/userdata-default.nix // import ./systems/pc/userdata.nix;
           pkgsVersion = nixpkgs-unstable;
-          inherit inputs ;
+          inherit inputs outputs;
         };
         modules = [
           ### User specific ###
@@ -123,7 +120,7 @@
           ./modules/docker.nix
           ./modules/nftables.nix
           ./modules/noise-supression.nix
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+         ({ config, pkgs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
           ./modules/wooting.nix
           ./modules/wireshark.nix
           ./modules/tmpfs.nix
@@ -145,7 +142,7 @@
         modules = [
           ### User specific ###
           ./users/kopatz
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+          ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
           ./modules/graphical/hyprland.nix
           ./modules/graphical/emulators.nix
           ./modules/graphical/gamemode.nix
@@ -187,7 +184,7 @@
           ./users/anon
           ./modules/nix/settings.nix
           ./modules/cli-tools.nix
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+          ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
           ./systems/wsl/configuration.nix
           nixos-wsl.nixosModules.wsl
           home-manager.nixosModules.home-manager
