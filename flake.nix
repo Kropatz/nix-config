@@ -39,40 +39,9 @@
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
-        ### User specific ###
         ./users/anon
-        ### System sepecific ###
+        ./modules/collections/server.nix
         ./systems/server/configuration.nix
-        ### Services ###
-        ./modules/services/acme.nix
-        ./modules/services/adguard.nix
-        ./modules/services/github-runner.nix
-        ./modules/services/kavita.nix
-        ./modules/services/netdata.nix
-        ./modules/services/nextcloud.nix
-        ./modules/services/nginx.nix
-        ./modules/services/postgres.nix
-        ./modules/services/samba.nix
-        ./modules/services/ssh.nix
-        ./modules/services/step-ca.nix
-        ./modules/services/wireguard.nix
-        ### Other Modules ###
-        #./modules/games/palworld.nix
-        ./modules/backup.nix
-        ./modules/cli-tools.nix
-        ./modules/cron.nix
-        ./modules/docker.nix
-        ./modules/fail2ban.nix
-        ./modules/firewall.nix
-        ./modules/git.nix
-        ./modules/hdd-spindown.nix
-        ./modules/logging.nix
-        ./modules/motd.nix
-        ./modules/nix/settings.nix
-        ./modules/static-ip.nix
-        ./modules/tmpfs.nix
-        ### Hardware ###
-        ./modules/hardware/ssd.nix
         ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
         home-manager.nixosModules.home-manager
         agenix.nixosModules.default
@@ -92,40 +61,9 @@
           inherit inputs outputs;
         };
         modules = [
-          ### User specific ###
           ./users/kopatz
-          ### System modules ###
-          ./modules/cli-tools.nix
-          ./modules/docker.nix
-          ./modules/flatpak.nix
-          ./modules/gpg.nix
-          ./modules/graphical/audio.nix
-          ./modules/graphical/code.nix
-          ./modules/graphical/emulators.nix
-          ./modules/graphical/gamemode.nix
-          ./modules/graphical/games.nix
-          ./modules/graphical/ime.nix
-          ./modules/graphical/obs.nix
-          ./modules/graphical/plasma.nix
-          ./modules/graphical/shared.nix
-          ./modules/hardware/firmware.nix
-          ./modules/hardware/nvidia.nix
-          ./modules/hardware/ssd.nix
-          ./modules/kernel.nix # use latest kernel
-          ./modules/nftables.nix
-          ./modules/nix/index.nix
-          ./modules/nix/ld.nix
-          ./modules/nix/settings.nix
-          ./modules/noise-supression.nix
-          ./modules/support/ntfs.nix
-          ./modules/tmpfs.nix
-          ./modules/virt-manager.nix
-          ./modules/wireshark.nix
-          ./modules/wooting.nix
+          ./modules/collections/desktop.nix
           ./systems/pc/configuration.nix
-          #./modules/fh/forensik.nix
-          #./modules/graphical/hyprland.nix
-          #./modules/hardware/vfio.nix too stupid for this
          ({ config, pkgs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
           agenix.nixosModules.default
           home-manager-unstable.nixosModules.home-manager
