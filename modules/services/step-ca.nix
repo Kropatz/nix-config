@@ -34,12 +34,12 @@ in
 {
   security.pki.certificates = [ root_ca ];
   age.secrets.step-ca-pw = {
-    file = ../secrets/step-ca-pw.age;
+    file = ../../secrets/step-ca-pw.age;
     owner = "step-ca";
     group = "step-ca";
   };
   age.secrets.step-ca-key = {
-    file = ../secrets/step-ca-key.age;
+    file = ../../secrets/step-ca-key.age;
     owner = "step-ca";
     group = "step-ca";
   };

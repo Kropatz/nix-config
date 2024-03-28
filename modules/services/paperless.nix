@@ -6,7 +6,7 @@ in
 {
     networking.firewall.allowedTCPPorts = [ 28981 ];
     age.secrets.paperless = {
-        file = ../secrets/paperless.age;
+        file = ../../secrets/paperless.age;
         owner = "paperless";
         group = "paperless";
     };

@@ -1,7 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
 {
     age.secrets.coturn-secret = {
-        file = ../secrets/coturn-secret.age;
+        file = ../../secrets/coturn-secret.age;
 	owner = "turnserver";
 	group = "turnserver";
     };

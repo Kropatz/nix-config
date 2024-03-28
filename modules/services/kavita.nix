@@ -12,7 +12,7 @@ in
       "d ${baseDir}/manga 0770 kavita kavita -"
   ];
   age.secrets.kavita = {
-    file = ../secrets/kavita.age;
+    file = ../../secrets/kavita.age;
     owner = "kavita";
     group = "kavita";
   };

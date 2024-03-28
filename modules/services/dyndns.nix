@@ -1,7 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
 {
     age.secrets.duckdns = {
-        file = ../secrets/duckdns.age;
+        file = ../../secrets/duckdns.age;
     };
     services.ddclient = {
         enable = true;
