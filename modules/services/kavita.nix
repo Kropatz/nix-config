@@ -48,6 +48,7 @@ in
     script = ''
       ${mangal} inline -S Mangapill -q omniscient -m first -d
       ${mangal} inline -S Mangapill --query "oshi-no-ko" --manga first --download
+      ${mangal} inline -S Mangapill --query "Frieren" --manga first --download
     '';
     serviceConfig = {
     	PrivateTmp = true;
