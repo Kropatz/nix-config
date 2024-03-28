@@ -5,7 +5,7 @@ in
 {
 
   age.secrets.wireguard-private = {
-    file = ../secrets/wireguard-private.age;
+    file = ../../secrets/wireguard-private.age;
   };
 
   networking.nat.enable = true;

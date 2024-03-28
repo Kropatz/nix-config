@@ -50,8 +50,12 @@
         ./modules/services/kavita.nix
         ./modules/services/netdata.nix
         ./modules/services/nextcloud.nix
+        ./modules/services/nginx.nix
+        ./modules/services/postgres.nix
         ./modules/services/samba.nix
+        ./modules/services/ssh.nix
         ./modules/services/step-ca.nix
+        ./modules/services/wireguard.nix
         ### Other Modules ###
         #./modules/games/palworld.nix
         ./modules/backup.nix
@@ -65,12 +69,8 @@
         ./modules/logging.nix
         ./modules/motd.nix
         ./modules/nix/settings.nix
-        ./modules/postgres.nix
-        ./modules/services/nginx.nix
-        ./modules/ssh.nix
         ./modules/static-ip.nix
         ./modules/tmpfs.nix
-        ./modules/wireguard.nix
         ### Hardware ###
         ./modules/hardware/ssd.nix
         ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
@@ -155,8 +155,6 @@
           ./modules/graphical/shared.nix
           ./modules/nix/ld.nix
           ./modules/nix/settings.nix
-          ./modules/rdp.nix
-          ./modules/ssh.nix
           ./modules/support/ntfs.nix
           ./modules/thunderbolt.nix
           ./modules/tmpfs.nix
