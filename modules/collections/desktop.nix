@@ -4,6 +4,7 @@
     ### System modules ###
     ../cli-tools.nix
     ../docker.nix
+    ../fh/scanning.nix
     ../flatpak.nix
     ../gpg.nix
     ../graphical/audio.nix
