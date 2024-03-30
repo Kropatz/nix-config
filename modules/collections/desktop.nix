@@ -14,6 +14,7 @@
     ../graphical/games.nix
     ../graphical/ime.nix
     ../graphical/obs.nix
+    #../graphical/lxqt.nix
     ../graphical/plasma.nix
     ../graphical/shared.nix
     ../hardware/firmware.nix
