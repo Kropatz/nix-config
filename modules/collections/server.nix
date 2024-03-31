@@ -5,6 +5,7 @@
     ../services/acme.nix
     ../services/adguard.nix
     ../services/github-runner.nix
+    ../services/gitolite.nix
     ../services/kavita.nix
     ../services/netdata.nix
     ../services/nextcloud.nix
