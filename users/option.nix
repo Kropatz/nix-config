@@ -18,6 +18,6 @@
     sshKey = lib.mkOption {
       default = throw "No ssh key specified";
       description = "Public key of the user";
-    }
+    };
   };
 }
