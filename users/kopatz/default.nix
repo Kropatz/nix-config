@@ -24,6 +24,6 @@
       firefox
       brave
     ];
-    openssh.authorizedKeys.keys = [ mainUser.sshKey ];
+    openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];
   };
 }

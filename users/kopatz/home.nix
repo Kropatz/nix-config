@@ -26,5 +26,31 @@
     inputs.nix-colors.homeManagerModule
   ];
 
+  home.file.".gitconfig" = {
+    enable = true;
+    source = ./.gitconfig;
+    target = ".gitconfig";
+  };
+  home.file.".gitconfig-gitea" = {
+    enable = true;
+    source = ./.gitconfig-gitea;
+    target = ".gitconfig-gitea";
+  };
+  home.file.".gitconfig-github" = {
+    enable = true;
+    source = ./.gitconfig-github;
+    target = ".gitconfig-github";
+  };
+  home.file.".gitconfig-selfhosted" = {
+    enable = true;
+    source = ./.gitconfig-selfhosted;
+    target = ".gitconfig-selfhosted";
+  };
+  home.file.".gitconfig-gitlabfh" = {
+    enable = true;
+    source = ./.gitconfig-gitlabfh;
+    target = ".gitconfig-gitlabfh";
+  };
+
   colorScheme = import ../../home-manager/themes/yorha/colors.nix;
 }
