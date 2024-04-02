@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, mainUser, ... }:
 
 {
   services.xserver = {
-    layout = "at";
-    xkbVariant = "";
+    layout = mainUser.layout;
+    xkbVariant = mainUser.variant;
     enable = true;
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;

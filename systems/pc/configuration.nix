@@ -54,12 +54,6 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Configure keymap in X11
-  services.xserver = {
-    xkb.layout = lib.mkForce "de";
-    xkb.variant = lib.mkForce "us";
-  };
-
   # Configure console keymap
   console.keyMap = "de";
 

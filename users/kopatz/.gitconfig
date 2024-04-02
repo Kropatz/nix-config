@@ -34,3 +34,5 @@
     path = .gitconfig-gitlabfh
 [includeIf "gitdir/i:~/projects/evolit/**"]
     path = .gitconfig-evolit
+[includeIf "gitdir/i:~/projects/selfhosted/**"]
+    path = .gitconfig-selfhosted

@@ -12,12 +12,12 @@
         extraGroups = [ "docker" ];
     };
     age.secrets.github-runner-token = {
-        file = ../secrets/github-runner-token.age;
+        file = ../../secrets/github-runner-token.age;
         owner = "github-actions-runner";
         group = "github-actions-runner";
     };
     age.secrets.github-runner-pw = {
-        file = ../secrets/github-runner-pw.age;
+        file = ../../secrets/github-runner-pw.age;
         owner = "github-actions-runner";
         group = "github-actions-runner";
     };

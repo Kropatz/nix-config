@@ -5,7 +5,7 @@ let
 in
 {
   age.secrets.invidious-extra-settings = {
-    file = ../secrets/invidious-extra-settings.age;
+    file = ../../secrets/invidious-extra-settings.age;
     mode = "444";
   };
 

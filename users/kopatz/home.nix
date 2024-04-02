@@ -15,6 +15,7 @@
   imports = [
     ../../home-manager/nvim.nix
     ../../home-manager/code.nix
+    #../../home-manager/browser.nix extensions dont work with ungoogled chromium sadly
     ../../home-manager/zsh.nix
     ../../home-manager/gtk-theme.nix
     ../../home-manager/direnv.nix
@@ -24,6 +25,32 @@
     ../../home-manager/kde-path.nix
     inputs.nix-colors.homeManagerModule
   ];
+
+  home.file.".gitconfig" = {
+    enable = true;
+    source = ./.gitconfig;
+    target = ".gitconfig";
+  };
+  home.file.".gitconfig-gitea" = {
+    enable = true;
+    source = ./.gitconfig-gitea;
+    target = ".gitconfig-gitea";
+  };
+  home.file.".gitconfig-github" = {
+    enable = true;
+    source = ./.gitconfig-github;
+    target = ".gitconfig-github";
+  };
+  home.file.".gitconfig-selfhosted" = {
+    enable = true;
+    source = ./.gitconfig-selfhosted;
+    target = ".gitconfig-selfhosted";
+  };
+  home.file.".gitconfig-gitlabfh" = {
+    enable = true;
+    source = ./.gitconfig-gitlabfh;
+    target = ".gitconfig-gitlabfh";
+  };
 
   colorScheme = import ../../home-manager/themes/yorha/colors.nix;
 }

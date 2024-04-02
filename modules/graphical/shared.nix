@@ -4,13 +4,8 @@ let
   screenshot = pkgs.writeShellScriptBin "screenshot.sh" ''
     ${pkgs.scrot}/bin/scrot -fs - | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i
   '';
-  tetrioPlus = pkgs.unstable.tetrio-desktop.overrideAttrs (old: {
-      withTetrioPlus = true;
-  });
 in
 {
-
-
   programs.dconf.enable = true;
   programs.kdeconnect.enable = true;
 
@@ -25,7 +20,7 @@ in
   ];
 
   networking.firewall = {
-    enable = false;
+    enable = true;
     allowedTCPPorts = [ 53317 ]; #localsend
     allowedUDPPorts = [ 1194 53317 ]; #openvpn, localsend
     allowedTCPPortRanges = [
@@ -51,7 +46,7 @@ in
     rofi
     localsend
     element-desktop
-    tetrioPlus
+    tetrio
     krita
     unstable.libreoffice-fresh
     mangohud

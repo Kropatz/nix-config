@@ -31,51 +31,18 @@
               nix-colors,
             }@inputs:
     let
+      inherit (self) outputs;
       system = "x86_64-linux";
-      overlay-unstable = final: prev: {
-        unstable = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      };
     in {
+    overlays = import ./overlays.nix {inherit inputs;};
+
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
-        ### User specific ###
         ./users/anon
-        ### System sepecific ###
-        ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+        ./modules/collections/server.nix
         ./systems/server/configuration.nix
-        ### Modules ###
-        ./modules/cli-tools.nix
-        ./modules/static-ip.nix
-        ./modules/hdd-spindown.nix
-        ./modules/firewall.nix
-        ./modules/motd.nix
-        ./modules/postgres.nix
-        ./modules/fail2ban.nix
-        ./modules/nix/settings.nix
-        ./modules/adguard.nix
-        ./modules/git.nix
-        ./modules/github-runner.nix
-        ./modules/nextcloud.nix
-        ./modules/acme.nix
-        ./modules/samba.nix
-        ./modules/backup.nix
-        ./modules/nginx.nix
-        ./modules/ssh.nix
-        ./modules/docker.nix
-        ./modules/wireguard.nix
-        ./modules/cron.nix
-        ./modules/kavita.nix
-        ./modules/netdata.nix
-        ./modules/step-ca.nix
-        ./modules/tmpfs.nix
-        #./modules/games/palworld.nix
-        ./modules/logging.nix
-        ### Hardware ###
-        ./modules/hardware/ssd.nix
+        ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
         home-manager.nixosModules.home-manager
         agenix.nixosModules.default
       ];
@@ -83,7 +50,7 @@
         ## Custom variables (e.g. ip, interface, etc)
         vars = import ./systems/userdata-default.nix // import ./systems/server/userdata.nix;
         pkgsVersion = nixpkgs;
-        inherit inputs ;
+        inherit inputs outputs;
       };
     };
     nixosConfigurations."kop-pc" = nixpkgs-unstable.lib.nixosSystem {
@@ -91,44 +58,13 @@
         specialArgs = {
           vars = import ./systems/userdata-default.nix // import ./systems/pc/userdata.nix;
           pkgsVersion = nixpkgs-unstable;
-          inherit inputs ;
+          inherit inputs outputs;
         };
         modules = [
-          ### User specific ###
           ./users/kopatz
-          ### System modules ###
-          ./modules/graphical/plasma.nix
-          #./modules/graphical/hyprland.nix
-          ./modules/graphical/emulators.nix
-          ./modules/graphical/gamemode.nix
-          ./modules/graphical/obs.nix
-          ./modules/graphical/audio.nix
-          ./modules/graphical/games.nix
-          ./modules/graphical/ime.nix
-          ./modules/graphical/code.nix
-          ./modules/graphical/shared.nix
-          #./modules/fh/forensik.nix
-          ./modules/hardware/nvidia.nix
-          ./modules/hardware/ssd.nix
-          ./modules/hardware/firmware.nix
-          ./modules/kernel.nix # use latest kernel
-          ./modules/nix/settings.nix
-          ./modules/nix/index.nix
-          ./modules/nix/ld.nix
-          ./modules/cli-tools.nix
-          ./modules/gpg.nix
-          ./modules/virt-manager.nix
-          #./modules/hardware/vfio.nix too stupid for this
-          ./modules/flatpak.nix
-          ./modules/docker.nix
-          ./modules/nftables.nix
-          ./modules/noise-supression.nix
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-          ./modules/wooting.nix
-          ./modules/wireshark.nix
-          ./modules/tmpfs.nix
-          ./modules/support/ntfs.nix
+          ./modules/collections/desktop.nix
           ./systems/pc/configuration.nix
+         ({ config, pkgs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
           agenix.nixosModules.default
           home-manager-unstable.nixosModules.home-manager
         ];
@@ -145,33 +81,31 @@
         modules = [
           ### User specific ###
           ./users/kopatz
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-          ./modules/graphical/hyprland.nix
-          ./modules/graphical/emulators.nix
-          ./modules/graphical/gamemode.nix
-          ./modules/graphical/audio.nix
-          ./modules/graphical/games.nix
-          ./modules/graphical/ime.nix
-          ./modules/graphical/code.nix
-          ./modules/graphical/shared.nix
-          #./modules/fh/forensik.nix
-          ./systems/laptop/configuration.nix
           ./modules/cli-tools.nix
           ./modules/ecryptfs.nix
           ./modules/pentest.nix
+          ./modules/graphical/audio.nix
+          ./modules/graphical/code.nix
+          ./modules/graphical/emulators.nix
+          ./modules/graphical/gamemode.nix
+          ./modules/graphical/games.nix
+          ./modules/graphical/hyprland.nix
+          ./modules/graphical/ime.nix
+          ./modules/graphical/shared.nix
+          ./modules/nix/ld.nix
+          ./modules/nix/settings.nix
+          ./modules/support/ntfs.nix
+          ./modules/thunderbolt.nix
+          ./modules/tmpfs.nix
           ./modules/virt-manager.nix
           ./modules/vmware-host.nix
-          ./modules/nix/ld.nix
-          ./modules/ssh.nix
           ./modules/wireshark.nix
-          #./modules/static-ip.nix
+          ./systems/laptop/configuration.nix
+          #./modules/fh/forensik.nix
           #./modules/no-sleep-lid-closed.nix
+          #./modules/static-ip.nix
           #./modules/wake-on-lan.nix
-          ./modules/thunderbolt.nix
-          ./modules/rdp.nix
-          ./modules/tmpfs.nix
-          ./modules/support/ntfs.nix
-          ./modules/nix/settings.nix
+          ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager
@@ -186,10 +120,10 @@
         modules = [
           #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
           ./users/anon
-          ./modules/nix/settings.nix
           ./modules/cli-tools.nix
-          ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+          ./modules/nix/settings.nix
           ./systems/wsl/configuration.nix
+          ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
           nixos-wsl.nixosModules.wsl
           home-manager.nixosModules.home-manager
         ];

@@ -7,6 +7,7 @@
 {
   imports = [ ../default.nix ]; 
   mainUser.name = "kopatz";
+  mainUser.sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeP6qtVqE/gu72ZUZE8cdRi3INiUW9NqDR7SjXIzTw2 kopatz";
 
   home-manager = {
     users.${config.mainUser.name} = import ./home.nix;
@@ -23,8 +24,6 @@
       firefox
       brave
     ];
-    openssh.authorizedKeys.keys = [
-       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeP6qtVqE/gu72ZUZE8cdRi3INiUW9NqDR7SjXIzTw2 lukas"
-    ];
+    openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];
   };
 }
