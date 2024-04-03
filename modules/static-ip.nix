@@ -8,10 +8,6 @@ in
   networking = {
     defaultGateway = "192.168.0.1";
     useDHCP = false;
-    firewall = {
-      enable = true;
-      allowedUDPPorts = [ 5000 ];
-    };
     nameservers = [
       dns
       "1.1.1.1"
