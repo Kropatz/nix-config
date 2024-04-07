@@ -134,7 +134,8 @@
         bind = let
 	  rofi = "${pkgs.rofi-wayland}/bin/rofi";
 	  kitty = "${pkgs.kitty}/bin/kitty";
-	  thunar = "${pkgs.xfce.thunar}/bin/thunar";
+	  #dolphin = "${pkgs.dolphin}/bin/dolphin";
+	  thunar = "${pkgs.xfce-thunar}/bin/thunar";
 	  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
 	  wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
 	  grim = "${pkgs.grim}/bin/grim";

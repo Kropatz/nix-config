@@ -5,5 +5,6 @@
         gobuster
         thc-hydra
         seclists
+        aircrack-ng
     ];
 }
