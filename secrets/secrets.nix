@@ -22,4 +22,6 @@ in
   "kavita.age".publicKeys = [ nix-test-vm server kop ];
   "step-ca-pw.age".publicKeys = [ nix-test-vm server kop ];
   "step-ca-key.age".publicKeys = [ nix-test-vm server kop ];
+  "syncthing-key.age".publicKeys = [ server kop ];
+  "syncthing-cert.age".publicKeys = [ server kop ];
 }

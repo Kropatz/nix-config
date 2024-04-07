@@ -30,6 +30,7 @@
     ../support/ntfs.nix
     ../tmpfs.nix
     ../virt-manager.nix
+    ../static-ip.nix
     ../wireshark.nix
     #../fh/forensik.nix
     #../graphical/hyprland.nix

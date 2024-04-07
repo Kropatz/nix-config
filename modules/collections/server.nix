@@ -14,6 +14,7 @@
     ../services/samba.nix
     ../services/ssh.nix
     ../services/step-ca.nix
+    #../services/syncthing.nix
     ../services/wireguard.nix
     ### Other Modules ###
     #../games/palworld.nix

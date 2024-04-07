@@ -100,6 +100,9 @@ require('lazy').setup({
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
+
+      -- Add filepath completion,
+      'FelipeLema/cmp-async-path',
     },
   },
 
@@ -552,6 +555,7 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'async_path' },
   },
 }
 

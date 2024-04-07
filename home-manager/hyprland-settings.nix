@@ -248,17 +248,18 @@
 
         submap = notes
         # below
-        bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ~/Nextcloud/fh/cdc/test/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ~/Nextcloud/fh/pentest/folien/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
         # above
-        bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ~/Nextcloud/fh/cdc/test/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ~/Nextcloud/fh/pentest/folien/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
         # context
-        bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ~/Nextcloud/fh/cdc/test/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ~/Nextcloud/fh/pentest/folien/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
         # trim
         bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}
         bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
         bind = $mainMod, D, exec, ${dunstctl} close-all
         # notes
-        bind = $mainMod, 1, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+
+        bind = $mainMod, 1, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ~/Nextcloud/fh/pentest/folien/EHTT_ecampus.pdf| sed 's/[ \t]*$//' | ${wl-copy}
         bind = $mainMod, 2, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
         bind = $mainMod, 3, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
         bind = $mainMod, 4, exec, cat ~/Nextcloud/test.txt | ${wl-copy}

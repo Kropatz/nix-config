@@ -57,7 +57,8 @@ in
     qbittorrent
     brightnessctl
     wacomtablet
-    libsForQt5.kolourpaint
     wl-clipboard
+    unstable.kdePackages.kolourpaint
+    unstable.kdePackages.kcalc
   ];
 }
