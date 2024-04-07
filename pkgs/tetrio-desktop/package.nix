@@ -66,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s $out/opt/TETR.IO/TETR.IO $out/bin/tetrio
 
     substituteInPlace $out/share/applications/TETR.IO.desktop \
-      --replace-fail "Exec=/opt/TETR.IO/TETR.IO" "Exec=$out/bin/tetrio"
+      --replace "Exec=/opt/TETR.IO/TETR.IO" "Exec=$out/bin/tetrio"
 
     runHook postInstall
   '';

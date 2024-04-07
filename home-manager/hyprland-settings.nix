@@ -134,6 +134,7 @@
         bind = let
 	  rofi = "${pkgs.rofi-wayland}/bin/rofi";
 	  kitty = "${pkgs.kitty}/bin/kitty";
+	  #dolphin = "${pkgs.dolphin}/bin/dolphin";
 	  thunar = "${pkgs.xfce.thunar}/bin/thunar";
 	  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
 	  wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
@@ -258,7 +259,7 @@
         bind = $mainMod, D, exec, ${dunstctl} close-all
         # notes
 
-        bind = $mainMod, 1, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ~/Nextcloud/fh/pentest/folien/EHTT_ecampus.pdf| sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, 1, exec, ${wl-paste} | xargs -I {} grep -C 15 -h -i "{}" ~/Nextcloud/fh/pentest/folien/answers | ${wl-copy}
         bind = $mainMod, 2, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
         bind = $mainMod, 3, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
         bind = $mainMod, 4, exec, cat ~/Nextcloud/test.txt | ${wl-copy}

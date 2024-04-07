@@ -75,7 +75,7 @@
           ## Custom variables (e.g. ip, interface, etc)
           vars = import ./systems/userdata-default.nix // import ./systems/laptop/userdata.nix;
           pkgsVersion = nixpkgs;
-          inherit inputs;
+          inherit inputs outputs;
           inherit nix-colors;
         };
         modules = [
@@ -83,7 +83,6 @@
           ./users/kopatz
           ./modules/cli-tools.nix
           ./modules/ecryptfs.nix
-          ./modules/pentest.nix
           ./modules/graphical/audio.nix
           ./modules/graphical/code.nix
           ./modules/graphical/emulators.nix
@@ -92,6 +91,7 @@
           ./modules/graphical/hyprland.nix
           ./modules/graphical/ime.nix
           ./modules/graphical/shared.nix
+          ./modules/fh/scanning.nix
           ./modules/nix/ld.nix
           ./modules/nix/settings.nix
           ./modules/support/ntfs.nix
