@@ -46,6 +46,12 @@
   "media.autoplay.default" = 0;
   # Opens PDFs in the browser
   "browser.download.open_pdf_attachments_inline" = true;
+  # Specifies the download directory.
+  "browser.download.folderList" = 2;
   "browser.download.useDownloadDir" = false;
   "browser.download.dir" = "/tmp";
+  # Restore previous session automatically
+  "browser.startup.page"= 3;
+  # Enable compact mode
+  "browser.uidensity" = 1;
 }

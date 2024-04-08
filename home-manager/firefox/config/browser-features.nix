@@ -118,4 +118,10 @@
   # Disables executing of JavaScript in the PDF form viewer. It is possible that
   # some PDFs are not rendered correctly due to missing functions.
   "pdfjs.enableScripting" = true;
+
+  # copied these from a blog 
+  "browser.newtabpage.activity-stream.feeds.telemetry" = false;	
+  "browser.newtabpage.activity-stream.telemetry" = false;	
+  "browser.ping-centre.telemetry" = false;
+  "devtools.onboarding.telemetry.logged" = false;
 }

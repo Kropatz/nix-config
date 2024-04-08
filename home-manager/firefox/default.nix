@@ -69,7 +69,6 @@ in {
           ublock-origin
           keepassxc-browser
           youtube-nonstop
-          vimium
         ];
         inherit search;
       };
@@ -86,7 +85,6 @@ in {
           sponsorblock
           ublock-origin
           youtube-nonstop
-          vimium
         ];
         inherit search;
       };
