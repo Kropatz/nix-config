@@ -52,6 +52,4 @@
   "browser.download.dir" = "/tmp";
   # Restore previous session automatically
   "browser.startup.page"= 3;
-  # Enable compact mode
-  "browser.uidensity" = 1;
 }
