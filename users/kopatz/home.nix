@@ -23,6 +23,7 @@
     ../../home-manager/kitty.nix
     ../../home-manager/rofi.nix
     ../../home-manager/kde-path.nix
+    ../../home-manager/firefox
     #../../home-manager/syncthing.nix
     inputs.nix-colors.homeManagerModule
   ];

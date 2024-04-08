@@ -19,8 +19,10 @@
         inputs.nixpkgs.follows = "nixpkgs";
       };
       nix-colors.url = "github:misterio77/nix-colors";
+      nur = { url = "github:nix-community/NUR"; };
   };
   outputs = { self,
+              nur,
               nixpkgs,
               nixos-hardware,
               nixos-wsl,
@@ -64,7 +66,7 @@
           ./users/kopatz
           ./modules/collections/desktop.nix
           ./systems/pc/configuration.nix
-         ({ config, pkgs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
+         ({ config, pkgs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages nur.overlay]; })
           agenix.nixosModules.default
           home-manager-unstable.nixosModules.home-manager
         ];
