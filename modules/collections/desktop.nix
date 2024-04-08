@@ -18,6 +18,7 @@
     #../graphical/lxqt.nix
     ../graphical/plasma.nix
     ../graphical/shared.nix
+    ../fh/scanning.nix
     ../hardware/firmware.nix
     ../hardware/nvidia.nix
     ../hardware/ssd.nix

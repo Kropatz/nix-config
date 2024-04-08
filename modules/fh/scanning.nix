@@ -6,5 +6,8 @@
         thc-hydra
         seclists
         aircrack-ng
+        hashcat
+        hashcat-utils
+        john
     ];
 }
