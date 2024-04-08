@@ -1,5 +1,53 @@
 { pkgs, lib, ... }:
 let merge = lib.foldr (a: b: a // b) { };
+search = {
+  default = "DuckDuckGo";
+  force = true;
+  engines = {
+    # don't need these default ones
+    "Amazon.com".metaData.hidden = true;
+    "Bing".metaData.hidden = true;
+    "eBay".metaData.hidden = true;
+
+    "DuckDuckGo" = {
+      urls = [{
+        template = "https://duckduckgo.com";
+        params = [
+          { name = "q"; value = "{searchTerms}"; }
+        ];
+      }];
+      definedAliases = [ ",d" ];
+    };
+    "Nix Packages" = {
+      urls = [{
+        template = "https://search.nixos.org/packages";
+        params = [
+          { name = "type"; value = "packages"; }
+          { name = "query"; value = "{searchTerms}"; }
+        ];
+      }];
+      definedAliases = [ ",n" ];
+    };
+    "Wikipedia" = {
+      urls = [{
+        template = "https://en.wikipedia.org/wiki/Special:Search";
+        params = [
+          { name = "search"; value = "{searchTerms}"; }
+        ];
+      }];
+      definedAliases = [ ",w" ];
+    };
+    "GitHub" = {
+      urls = [{
+        template = "https://github.com/search";
+        params = [
+          { name = "q"; value = "{searchTerms}"; }
+        ];
+      }];
+      definedAliases = [ ",gh" ];
+    };
+  };
+};
 in {
   programs.firefox = {
     enable = true;
@@ -17,17 +65,13 @@ in {
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
-          #df-youtube
-          #facebook-container
-          #octotree
-          #okta-browser-plugin
-          #onepassword-password-manager
-          #plasma-integration
-          #return-youtube-dislikes
           sponsorblock
           ublock-origin
-          #vimium
+          keepassxc-browser
+          youtube-nonstop
+          vimium
         ];
+        inherit search;
       };
       # This does not have as strict privacy settings as the default profile.
       # It uses the default firefox settings. Useful when something is not
@@ -39,17 +83,12 @@ in {
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
-          #df-youtube
-          #facebook-container
-          #octotree
-          #okta-browser-plugin
-          #onepassword-password-manager
-          #plasma-integration
-          #return-youtube-dislikes
           sponsorblock
           ublock-origin
-          #vimium
+          youtube-nonstop
+          vimium
         ];
+        inherit search;
       };
     };
   };

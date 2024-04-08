@@ -15,7 +15,6 @@
   imports = [
     ../../home-manager/nvim.nix
     ../../home-manager/code.nix
-    #../../home-manager/browser.nix extensions dont work with ungoogled chromium sadly
     ../../home-manager/zsh.nix
     ../../home-manager/gtk-theme.nix
     ../../home-manager/direnv.nix
@@ -24,7 +23,6 @@
     ../../home-manager/rofi.nix
     ../../home-manager/kde-path.nix
     ../../home-manager/firefox
-    #../../home-manager/syncthing.nix
     inputs.nix-colors.homeManagerModule
   ];
 

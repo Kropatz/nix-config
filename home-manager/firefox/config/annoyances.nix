@@ -44,4 +44,8 @@
   # some video sites.
   "media.autoplay.enabled" = true;
   "media.autoplay.default" = 0;
+  # Opens PDFs in the browser
+  "browser.download.open_pdf_attachments_inline" = true;
+  "browser.download.useDownloadDir" = false;
+  "browser.download.dir" = "/tmp";
 }
