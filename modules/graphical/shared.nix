@@ -48,7 +48,7 @@ in
     element-desktop
     tetrio
     krita
-    unstable.libreoffice-fresh
+    libreoffice-fresh
     mangohud
     screenshot
     anki
@@ -58,7 +58,7 @@ in
     brightnessctl
     wacomtablet
     wl-clipboard
-    unstable.kdePackages.kolourpaint
-    unstable.kdePackages.kcalc
+    libsForQt5.kolourpaint
+    libsForQt5.kcalc
   ];
 }

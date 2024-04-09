@@ -70,6 +70,10 @@ in
     networkmanagerapplet
     wayland
     wl-clipboard
+    libsForQt5.kwallet
+    libsForQt5.kwallet-pam
+    libsForQt5.kwalletmanager
+
     #qt5.qtwayland
     #qt6.qmake
     #qt6.qtwayland

@@ -234,6 +234,7 @@
 	  "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
 	  "${pkgs.waybar}/bin/waybar &"
           "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1 &"
+          "${pkgs.libsForQt5.kwallet}/bin/kwalletd6"
 	  #"${pkgs.dunst}/bin/dunst &"
         ];
       };
