@@ -21,7 +21,6 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       (discord.override { withVencord = true; })
-      firefox
       brave
     ];
     openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];

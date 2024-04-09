@@ -52,4 +52,5 @@
   "browser.download.dir" = "/tmp";
   # Restore previous session automatically
   "browser.startup.page"= 3;
+  "extensions.activeThemeID" = "{5cd68d86-8324-4ab2-9e0d-3afcc60bee5f}";
 }

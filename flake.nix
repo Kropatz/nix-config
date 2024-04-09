@@ -107,7 +107,7 @@
           #./modules/no-sleep-lid-closed.nix
           #./modules/static-ip.nix
           #./modules/wake-on-lan.nix
-          ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
+          ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages nur.overlay]; })
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default
           home-manager.nixosModules.home-manager

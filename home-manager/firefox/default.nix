@@ -52,6 +52,30 @@ in {
   programs.firefox = {
     enable = true;
     package = if pkgs.stdenv.isLinux then pkgs.firefox else pkgs.firefox-bin;
+    policies = {
+      Extensions = {
+        Uninstall = [
+          "google@search.mozilla.org"
+          "bing@search.mozilla.org"
+          "amazondotcom@search.mozilla.org"
+          "ebay@search.mozilla.org"
+          "wikipedia@search.mozilla.org"
+          "webcompat-reporter@mozilla.org"
+          "addons-search-detection@mozilla.com"
+        ];
+      };
+      ExtensionSettings = {
+        "google@search.mozilla.org".installation_mode = "blocked";
+        "bing@search.mozilla.org".installation_mode = "blocked";
+        "amazondotcom@search.mozilla.org".installation_mode = "blocked";
+        "ebay@search.mozilla.org".installation_mode = "blocked";
+        "wikipedia@search.mozilla.org".installation_mode = "blocked";
+        "{5cd68d86-8324-4ab2-9e0d-3afcc60bee5f}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/animated-pekora-dark-theme/latest.xpi";
+          installation_mode = "force_installed";
+        };
+      };
+    };
     profiles = {
       default = {
         name = "privacy-friendly";
