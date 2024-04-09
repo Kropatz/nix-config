@@ -35,7 +35,7 @@
                 enableACME = true;
                 quic = true;
                 http3 = true;
-                locations."~* \\.(jpg)$".extraConfig= ''
+                    locations."~* \\.(jpg|png)$".extraConfig= ''
                     add_header Access-Control-Allow-Origin *;
                 '';
                 locations."~ ^/(stash|resources|css)".extraConfig=''
