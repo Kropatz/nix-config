@@ -12,6 +12,7 @@
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
+  services.gnome.gnome-keyring.enable = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
