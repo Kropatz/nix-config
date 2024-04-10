@@ -11,6 +11,7 @@
     services.nginx = {
         enable = true;
         package = pkgs.nginxQuic;
+        #additionalModules = [ pkgs.nginxModules.moreheaders ];
 
         # Use recommended settings
         recommendedGzipSettings = true;
@@ -19,7 +20,15 @@
         recommendedTlsSettings = true;
 
         # Only allow PFS-enabled ciphers with AES256
-            sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+        sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+
+        #appendConfig= ''
+        #    more_set_headers 'Strict-Transport-Security: max-age=31536000; includeSubDomains';
+        #    more_set_headers 'X-XSS-Protection 1; mode=block';
+        #    more_set_headers 'X-Frame-Options SAMEORIGIN';
+        #    more_set_headers 'X-Content-Type-Options nosniff';
+        #    more_set_headers "Content-Security-Policy default-src 'self'; font-src *;";
+        #'';
 
         # Setup Nextcloud virtual host to listen on ports
         virtualHosts = {
@@ -35,7 +44,7 @@
                 enableACME = true;
                 quic = true;
                 http3 = true;
-                locations."~* \\.(jpg)$".extraConfig= ''
+                locations."~* \\.(jpg|png)$".extraConfig= ''
                     add_header Access-Control-Allow-Origin *;
                 '';
                 locations."~ ^/(stash|resources|css)".extraConfig=''

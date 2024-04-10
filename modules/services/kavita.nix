@@ -26,6 +26,7 @@ in
 
   #todo: base url needs new kavita version
   systemd.services.kavita = {
+      after = [ "nginx.service" "step-ca.service" ];
       preStart = ''
         umask u=rwx,g=rx,o=
         cat > "/mnt/1tbssd/kavita/config/appsettings.json" <<EOF
