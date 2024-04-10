@@ -79,7 +79,8 @@
   # Disable preloading of the new tab page.
   # By default Firefox preloads the new tab page (with website thumbnails) in the
   # background before it is even opened.
-  "browser.newtab.preload" = false;
+  # Enabled atm to test performance difference.
+  "browser.newtab.preload" = true;
   # Disable about:addons' Get Add-ons panel
   # The start page with recommended addons uses google analytics.
   "extensions.getAddons.showPane" = false;

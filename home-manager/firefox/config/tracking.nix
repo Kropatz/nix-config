@@ -46,7 +46,8 @@
   # Prevent websites from accessing information about webcam and microphone
   # (https://developer.mozilla.org/docs/Web/API/MediaDevices/enumerateDevices)
   # (possible fingerprinting).
-  "media.navigator.enabled" = false;
+  # Enabled to make screensharing work.
+  "media.navigator.enabled" = true;
   # Disable form autofill
   # Automatically filled form fields are used for fingerprinting
   # (https://freedom-to-tinker.com/2017/12/27/no-boundaries-for-user-identities-web-trackers-exploit-browser-login-managers/).
