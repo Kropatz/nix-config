@@ -51,6 +51,11 @@
     source = ./.gitconfig-gitlabfh;
     target = ".gitconfig-gitlabfh";
   };
+  home.file.".gitconfig-evolit" = {
+    enable = true;
+    source = ./.gitconfig-evolit;
+    target = ".gitconfig-evolit";
+  };
 
   colorScheme = import ../../home-manager/themes/yorha/colors.nix;
 }

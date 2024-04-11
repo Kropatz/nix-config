@@ -22,6 +22,7 @@ in
     port = 5000;
     dataDir = baseDir;
     tokenKeyFile = config.age.secrets.kavita.path;
+    package = pkgs.my-kavita;
   };
 
   #todo: base url needs new kavita version
