@@ -19,7 +19,7 @@ in
   services.kavita = {
     enable = true;
     user = "kavita";
-    port = 5000;
+    settings.Port = 5000;
     dataDir = baseDir;
     tokenKeyFile = config.age.secrets.kavita.path;
   };
