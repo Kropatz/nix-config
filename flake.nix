@@ -38,20 +38,20 @@
     in {
     overlays = import ./overlays.nix {inherit inputs;};
 
-    nixosConfigurations.server = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.server = nixpkgs-unstable.lib.nixosSystem {
       inherit system;
       modules = [
         ./users/anon
         ./modules/collections/server.nix
         ./systems/server/configuration.nix
         ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
-        home-manager.nixosModules.home-manager
+        home-manager-unstable.nixosModules.home-manager
         agenix.nixosModules.default
       ];
       specialArgs = {
         ## Custom variables (e.g. ip, interface, etc)
         vars = import ./systems/userdata-default.nix // import ./systems/server/userdata.nix;
-        pkgsVersion = nixpkgs;
+        pkgsVersion = nixpkgs-unstable;
         inherit inputs outputs;
       };
     };
