@@ -1,5 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
 let
+  fqdn = "kavita.home.arpa";
+  useHttps = config.services.step-ca.enable;
   baseDir = "/mnt/1tbssd/kavita";
   mangal = "${pkgs.mangal}/bin/mangal";
 in
@@ -20,13 +22,13 @@ in
     settings.Port = 5000;
     dataDir = baseDir;
     tokenKeyFile = config.age.secrets.kavita.path;
-    package = pkgs.my-kavita;
+    settings.IpAddresses = "127.0.0.1";
     settings.BaseUrl = "/kavita";
   };
 
   #todo: base url needs new kavita version
   systemd.services.kavita = {
-      after = [ "nginx.service" ];
+      after = [ "nginx.service" "step-ca.service" ];
   };
 
   systemd.services.download-manga = {
@@ -50,9 +52,22 @@ in
     };
   };
 
-  services.nginx.virtualHosts."kopatz.ddns.net".locations."/kavita" = {
-    proxyPass = "http://127.0.0.1:5000";
-    extraConfig = ''
+ # services.nginx.virtualHosts."kopatz.ddns.net".locations."/kavita" = {
+ #   proxyPass = "http://127.0.0.1:5000";
+ #   extraConfig = ''
+ #     add_header Access-Control-Allow-Origin *;
+ #     add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+ #     add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
+ #   '';
+ # };
+  security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
+  services.nginx.virtualHosts."${fqdn}" = {
+    forceSSL = useHttps;
+    enableACME = useHttps;
+    quic = useHttps;
+    http3 = useHttps;
+    locations."/".proxyPass = "http://127.0.0.1:5000";
+    locations."/".extraConfig = ''
       add_header Access-Control-Allow-Origin *;
       add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
       add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
