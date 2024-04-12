@@ -7,7 +7,7 @@
     ../services/github-runner.nix
     ../services/gitolite.nix
     ../services/kavita.nix
-    ../services/netdata.nix
+    ../services/grafana.nix
     ../services/nextcloud.nix
     ../services/nginx.nix
     ../services/postgres.nix
