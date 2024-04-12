@@ -11,6 +11,22 @@ in
       http_port = 2342;
       http_addr = "127.0.0.1";
     };
+
+    provision.datasources.settings = {
+     datasources =
+       [
+         {
+           name = "DS_PROMETHEUS";
+           url = "http://127.0.0.1:${toString config.services.prometheus.port}";
+           type = "prometheus";
+           isDefault = true;
+         }
+       ];
+    };
+    provision.dashboards.settings.providers = [{
+      name = "provisioned-dashboards";
+      options.path = ./grafana-dashboards;
+    }];
   };
 
   systemd.services.grafana = {
@@ -32,21 +48,34 @@ in
 
   services.prometheus = {
     enable = true;
-    port = 9001;
+    port = 9000;
     exporters = {
       node = {
         enable = true;
         enabledCollectors = [ "systemd" ];
-        port = 9002;
+        port = 9001;
       };
     };
     scrapeConfigs = [
       {
         job_name = "scrapema";
         static_configs = [{
-          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-        }];
+          targets = [ 
+          "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" 
+          ] ++ (lib.optional config.services.cadvisor.enable "${config.services.cadvisor.listenAddress}:${toString config.services.cadvisor.port}");
+        }]; 
       }
     ];
   };
+  
+  services.cadvisor = {
+    enable = true;
+    listenAddress = "127.0.0.1";
+    port = 9002;
+  };
+
+  #virtualisation.docker.daemon.settings = lib.mkIf (config.virtualisation.docker.enable && config.services.prometheus.enable) {
+  #  metrics-addr = "127.0.0.1:9323";
+  #  experimental = true;
+  #};
 }
