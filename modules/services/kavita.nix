@@ -16,8 +16,9 @@ in
     owner = "kavita";
     group = "kavita";
   };
-  services.kavita = {
-    enable = true;
+
+ services.kavita = {
+    enable = false;
     user = "kavita";
     settings.Port = 5000;
     dataDir = baseDir;
