@@ -4,6 +4,12 @@ let
   fqdn = "grafana.home.arpa";
 in
 {
+  age.secrets.grafana-contact-points = {
+    name = "contact-points.yml";
+    owner = "grafana";
+    file = ../../secrets/grafana-contact-points.age;
+  };
+
   services.grafana = {
     enable = true;
     settings.server = {
@@ -12,6 +18,9 @@ in
       http_addr = "127.0.0.1";
     };
 
+    provision.alerting.contactPoints.path = config.age.secrets.grafana-contact-points.path;
+    provision.alerting.policies.path = ./grafana-dashboards/notification-policies.yml; 
+    provision.alerting.templates.path = ./grafana-dashboards/alerts.yml;
     provision.datasources.settings = {
      datasources =
        [
