@@ -2,6 +2,7 @@
 let
   useHttps = config.services.step-ca.enable;
   fqdn = "grafana.home.arpa";
+  base = "/mnt/250ssd";
 in
 {
   age.secrets.grafana-contact-points = {
@@ -12,10 +13,15 @@ in
 
   services.grafana = {
     enable = true;
+    dataDir = "${base}/grafana";
     settings.server = {
       domain = fqdn;
       http_port = 2342;
       http_addr = "127.0.0.1";
+    };
+    settings.log = {
+      mode = "console";
+      level = "warn";
     };
 
     provision.alerting.contactPoints.path = config.age.secrets.grafana-contact-points.path;
@@ -29,6 +35,11 @@ in
            url = "http://127.0.0.1:${toString config.services.prometheus.port}";
            type = "prometheus";
            isDefault = true;
+         }
+         {
+           name = "loki";
+           url = "http://localhost:3100";
+           type = "loki";
          }
        ];
     };
@@ -62,6 +73,7 @@ in
       node = {
         enable = true;
         enabledCollectors = [ "systemd" ];
+        disabledCollectors = [ "arp" ];
         port = 9001;
       };
     };
@@ -91,7 +103,7 @@ in
   # Logs
   services.loki = {
     enable = true;
-    dataDir = "/mnt/250ssd/loki";
+    dataDir = "${base}/loki";
     configFile = ./grafana/loki.yml;
   };
 
