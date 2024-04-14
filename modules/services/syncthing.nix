@@ -8,7 +8,7 @@ in
   ];
   
   # check device id: syncthing cli --gui-address=/synced/gui-socket --gui-apikey=<key> show system
-  environment.systemPackages = [ syncthing ];
+  environment.systemPackages = with pkgs; [ syncthing ];
 
   services.syncthing = {
     enable = true;
@@ -23,18 +23,22 @@ in
       options.urAccepted = -1;
       options.relaysEnabled = false;
       options.globalAnnounceEnabled = false;
-      options.gui.enabled = false;
+      options.crashReportingEnabled = false;
 
       devices = {
         kop-pc = {
           id = "DZKIUS7-WCGTYEV-4OKVSZU-MIVL2NC-N45AKZL-ABT3VN2-I7RXUMF-RF4CYAU";
           adresses = [ "tcp://192.168.0.11:51820"];
         };
+        server = {
+          id = "HZUUQEQ-JOKYHTU-AVFVC3U-7KUAXVC-QY3OJTF-HGU7RZ3-5HA5TOE-VT4FNQB";
+          adresses = [ "tcp://192.168.0.6:51820" "tcp//192.168.2.1:51820" ];
+        };
       };
 
       folders."${basePath}/default" = {
         id = "default";
-        devices = [ "kop-pc" ];
+        devices = [ "kop-pc" "server" ];
         ignorePerms = false;
       };
     };
