@@ -19,8 +19,8 @@ in
     };
 
     provision.alerting.contactPoints.path = config.age.secrets.grafana-contact-points.path;
-    provision.alerting.policies.path = ./grafana-dashboards/notification-policies.yml; 
-    provision.alerting.templates.path = ./grafana-dashboards/alerts.yml;
+    provision.alerting.policies.path = ./grafana/notification-policies.yml; 
+    provision.alerting.templates.path = ./grafana/alerts.yml;
     provision.datasources.settings = {
      datasources =
        [
@@ -34,7 +34,7 @@ in
     };
     provision.dashboards.settings.providers = [{
       name = "provisioned-dashboards";
-      options.path = ./grafana-dashboards;
+      options.path = ./grafana/dashboards;
     }];
   };
 
