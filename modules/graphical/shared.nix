@@ -60,5 +60,6 @@ in
     wl-clipboard
     libsForQt5.kolourpaint
     libsForQt5.kcalc
+    syncthingtray
   ];
 }
