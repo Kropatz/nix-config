@@ -9,9 +9,8 @@
     # wait for https://github.com/NixOS/nixpkgs/pull/300228
     #../services/kavita.nix
     ../services/grafana.nix
-    ../services/nextcloud.nix
+    #../services/nextcloud.nix
     ../services/nginx.nix
-    ../services/postgres.nix
     ../services/samba.nix
     ../services/ssh.nix
     ../services/step-ca.nix

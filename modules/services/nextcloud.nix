@@ -5,6 +5,7 @@ let
   useHttps = config.services.step-ca.enable;
 in
 {
+    imports = [ ./postgres.nix ];
     security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
     services.nginx = {
         enable = true;

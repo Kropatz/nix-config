@@ -69,6 +69,7 @@ in
   services.prometheus = {
     enable = true;
     port = 9000;
+    #stateDir = "../../${base}/prometheus";
     exporters = {
       node = {
         enable = true;
