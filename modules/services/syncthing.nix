@@ -42,7 +42,7 @@ in
 
       folders."${basePath}/default" = {
         id = "default";
-        devices = [ "kop-pc" "server" ];
+        devices = [ "kop-pc" "server" "laptop" ];
         ignorePerms = false;
       };
     };
