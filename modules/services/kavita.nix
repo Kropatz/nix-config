@@ -16,28 +16,20 @@ in
     owner = "kavita";
     group = "kavita";
   };
-  services.kavita = {
-    enable = true;
+
+ services.kavita = {
+    enable = false;
     user = "kavita";
-    port = 5000;
+    settings.Port = 5000;
     dataDir = baseDir;
     tokenKeyFile = config.age.secrets.kavita.path;
+    settings.IpAddresses = "127.0.0.1";
+    settings.BaseUrl = "/kavita";
   };
 
   #todo: base url needs new kavita version
   systemd.services.kavita = {
       after = [ "nginx.service" "step-ca.service" ];
-      preStart = ''
-        umask u=rwx,g=rx,o=
-        cat > "/mnt/1tbssd/kavita/config/appsettings.json" <<EOF
-        {
-          "TokenKey": "$(cat ${config.age.secrets.kavita.path})",
-          "Port": 5000,
-          "BaseUrl" : "/books",
-          "IpAddresses": "${lib.concatStringsSep "," ["0.0.0.0" "::"]}"
-        }
-        EOF
-      '';
   };
 
   systemd.services.download-manga = {
@@ -61,6 +53,14 @@ in
     };
   };
 
+ # services.nginx.virtualHosts."kopatz.ddns.net".locations."/kavita" = {
+ #   proxyPass = "http://127.0.0.1:5000";
+ #   extraConfig = ''
+ #     add_header Access-Control-Allow-Origin *;
+ #     add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+ #     add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
+ #   '';
+ # };
   security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
   services.nginx.virtualHosts."${fqdn}" = {
     forceSSL = useHttps;

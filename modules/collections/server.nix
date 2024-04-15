@@ -6,14 +6,15 @@
     ../services/adguard.nix
     ../services/github-runner.nix
     ../services/gitolite.nix
-    ../services/kavita.nix
-    ../services/netdata.nix
-    ../services/nextcloud.nix
+    # wait for https://github.com/NixOS/nixpkgs/pull/300228
+    #../services/kavita.nix
+    ../services/grafana.nix
+    #../services/nextcloud.nix
     ../services/nginx.nix
-    ../services/postgres.nix
     ../services/samba.nix
     ../services/ssh.nix
     ../services/step-ca.nix
+    ../services/syncthing.nix
     #../services/syncthing.nix
     ../services/wireguard.nix
     ### Other Modules ###

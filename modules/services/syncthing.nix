@@ -1,38 +1,49 @@
 { config, pkgs, lib, vars, ... }:
 let
-  basePath = "/mnt/1tbssd/syncthing";
+  basePath = "/synced";
 in 
 {
-  age.secrets.syncthing-key = {
-    file = ../../secrets/syncthing-key.age;
-    owner = "syncthing";
-    group = "syncthing";
-  };
-  age.secrets.syncthing-cert = {
-    file = ../../secrets/syncthing-cert.age;
-    owner = "syncthing";
-    group = "syncthing";
-  };
+  systemd.tmpfiles.rules = [
+      "d ${basePath} 0700 ${config.mainUser.name} users -"
+  ];
+  
+  # check device id: syncthing cli --gui-address=/synced/gui-socket --gui-apikey=<key> show system
+  environment.systemPackages = with pkgs; [ syncthing ];
+
   services.syncthing = {
     enable = true;
     dataDir = basePath;
-    openDefaultPorts = true;
-    cert = "/run/agenix/syncthing-cert";
-    key = "/run/agenix/syncthing-key";
-    guiAddress = "0.0.0.0:8384";
+    user = config.mainUser.name;
+    group = "users";
+    guiAddress = "${basePath}/gui-socket";
+    overrideDevices = true;
+    overrideFolders = true;
 
     settings = {
       options.urAccepted = -1;
       options.relaysEnabled = false;
-      devices.kop-pc.id = "2IEILKO-R6UVES4-N27PZRT-YLPOPR3-LTD5SXA-C65FWF3-RYD2B2Y-PEZLTAR";
-      devices.kop-pc.adresses = [ "tcp://192.168.0.11:51820"];
+      options.globalAnnounceEnabled = false;
+      options.crashReportingEnabled = false;
 
-      folders."~/sync" = {
-        id = "sync";
-        devices = [ "kop-pc" ];
+      devices = {
+        kop-pc = {
+          id = "DZKIUS7-WCGTYEV-4OKVSZU-MIVL2NC-N45AKZL-ABT3VN2-I7RXUMF-RF4CYAU";
+          adresses = [ "tcp://192.168.0.11:51820"];
+        };
+        server = {
+          id = "HZUUQEQ-JOKYHTU-AVFVC3U-7KUAXVC-QY3OJTF-HGU7RZ3-5HA5TOE-VT4FNQB";
+          adresses = [ "tcp://192.168.0.6:51820" "tcp//192.168.2.1:51820" ];
+        };
+      };
+
+      folders."${basePath}/default" = {
+        id = "default";
+        devices = [ "kop-pc" "server" ];
+        ignorePerms = false;
       };
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 8384 ];
+  networking.firewall.allowedTCPPorts = [ 8384 22000 ];
+  networking.firewall.allowedUDPPorts = [ 22000 21027 ];
 }

@@ -59,6 +59,10 @@ in
           "answer" = ip;
          }
          {
+          "domain" = "grafana.home.arpa";
+          "answer" = ip;
+         }
+         {
           "domain" = "yt.home.arpa";
           "answer" = ip;
          }

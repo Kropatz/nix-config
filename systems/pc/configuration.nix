@@ -12,6 +12,7 @@
 
   mainUser.layout = "de";
   mainUser.variant = "us";
+  age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

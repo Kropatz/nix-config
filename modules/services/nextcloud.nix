@@ -5,6 +5,7 @@ let
   useHttps = config.services.step-ca.enable;
 in
 {
+    imports = [ ./postgres.nix ];
     security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
     services.nginx = {
         enable = true;
@@ -39,21 +40,16 @@ in
     };
     services.nextcloud = {
         enable = true;
-        package = pkgs.nextcloud27;
+        package = pkgs.nextcloud28;
         https = true;
         hostName = "nextcloud.home.arpa";
         config.adminpassFile = config.age.secrets.nextcloud-admin.path;
         config.dbtype = "pgsql";
         database.createLocally = true;
-        config.extraTrustedDomains = [ wireguardIp "nextcloud.home.arpa" ];
+        settings.trusted_domains = [ wireguardIp "nextcloud.home.arpa" ];
         home = "/mnt/250ssd/nextcloud";
         extraApps = with config.services.nextcloud.package.packages.apps; {
             inherit onlyoffice calendar mail;
-            spreed = pkgs.fetchNextcloudApp rec {
-                url = "https://github.com/nextcloud-releases/spreed/releases/download/v17.1.1/spreed-v17.1.1.tar.gz";
-                sha256 = "sha256-LaUG0maatc2YtWQjff7J54vadQ2RE4X6FcW8vFefBh8=";
-                license = "agpl3";
-            };
         };
 
         phpOptions = {
@@ -61,7 +57,7 @@ in
           post_max_size = lib.mkForce "20G";
         };
         extraAppsEnable = true;
-        extraOptions.enabledPreviewProviders = [
+        settings.enabledPreviewProviders = [
             "OC\\Preview\\BMP"
             "OC\\Preview\\GIF"
             "OC\\Preview\\JPEG"

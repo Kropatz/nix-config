@@ -26,7 +26,7 @@
         "d /data 0770 github-actions-runner nginx -"
         "d /data/website 0770 github-actions-runner nginx -"
     ];
-    services.github-runner = {
+    services.github-runners.oberprofis = {
         enable = true;
         name = "nixos-server";
         tokenFile = config.age.secrets.github-runner-token.path;

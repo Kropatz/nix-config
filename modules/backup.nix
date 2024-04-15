@@ -2,6 +2,7 @@
 let 
     kavita = "/mnt/1tbssd/kavita";
     gitolite = "/var/lib/gitolite";
+    syncthing = "/synced/default/";
 in
 {
   age.secrets.restic-pw = {
@@ -31,9 +32,9 @@ in
                 "/mnt/250ssd/matrix-synapse/media_store/"
                 "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
+                syncthing
                 kavita
                 gitolite
-                "/var/lib/palworld/Pal/Saved"
             ];
             pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             repository = "/mnt/2tb/restic";
@@ -54,9 +55,9 @@ in
                 "/mnt/250ssd/matrix-synapse/media_store/"
                 "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
+                syncthing
                 kavita
                 gitolite
-                "/var/lib/palworld/Pal/Saved"
             ];
             pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             repository = "/mnt/1tbssd/restic";
@@ -72,7 +73,7 @@ in
                 "/mnt/250ssd/paperless"
                 kavita
                 gitolite
-                "/var/lib/palworld/Pal/Saved"
+                syncthing
             ];
             exclude = [
                 "/home/**/Cache"
@@ -131,7 +132,6 @@ in
             paths = [
                 "/home"
                 "/var/backup/postgresql"
-                "/var/lib/palworld/Pal/Saved"
                 gitolite
             ];
             pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];

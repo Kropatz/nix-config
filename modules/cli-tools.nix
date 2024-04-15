@@ -27,5 +27,6 @@
     lsof
     screen
     tmux
+    fatrace # monitor filesystem events
   ];
 }
