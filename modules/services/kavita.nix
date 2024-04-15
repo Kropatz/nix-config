@@ -1,7 +1,8 @@
 { config, pkgs, lib, inputs, ... }:
 let
-  fqdn = "kavita.home.arpa";
-  useHttps = config.services.step-ca.enable;
+  fqdn = "kavita-kopatz.duckdns.org";
+  useStepCa = false; #config.services.step-ca.enable;
+  useHttps = true;
   baseDir = "/mnt/1tbssd/kavita";
   mangal = "${pkgs.mangal}/bin/mangal";
 in
@@ -30,7 +31,7 @@ in
 
   #todo: base url needs new kavita version
   systemd.services.kavita = {
-      after = [ "nginx.service" "step-ca.service" ];
+      after = [ "nginx.service" ] ++ lib.optional useStepCa "step-ca.service";
   };
 
   systemd.services.download-manga = {
@@ -62,7 +63,9 @@ in
  #     add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
  #   '';
  # };
-  security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
+  security.acme.certs."${fqdn}" = lib.mkIf useStepCa { 
+    server = "https://127.0.0.1:8443/acme/acme/directory";
+  };
   services.nginx.virtualHosts."${fqdn}" = {
     forceSSL = useHttps;
     enableACME = useHttps;
