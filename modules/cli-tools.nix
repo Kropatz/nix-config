@@ -28,5 +28,6 @@
     screen
     tmux
     fatrace # monitor filesystem events
+    ripgrep
   ];
 }
