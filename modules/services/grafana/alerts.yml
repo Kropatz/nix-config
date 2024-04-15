@@ -94,8 +94,97 @@ groups:
             __panelId__: "298"
           labels: {}
           isPaused: false
-        - uid: adin55cdu3ocga
-          title: Memory Basic
+        - uid: ddipptubkwe80f
+          title: Panel Title
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: PBFE396EC0B189D67
+              model:
+                datasource:
+                    type: prometheus
+                    uid: PBFE396EC0B189D67
+                editorMode: code
+                exemplar: false
+                expr: time() - container_last_seen{name=~".+"}
+                format: time_series
+                instant: false
+                interval: ""
+                intervalMs: 15000
+                legendFormat: '{{name}}'
+                maxDataPoints: 43200
+                range: true
+                refId: A
+            - refId: B
+              relativeTimeRange:
+                from: 300
+                to: 0
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 60
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: avg
+                      type: query
+                datasource:
+                    name: Expression
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                hide: false
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: cdijlo7pmmby8c
+          panelId: 2
+          noDataState: NoData
+          execErrState: Error
+          for: 5m
+          annotations:
+            __dashboardUid__: cdijlo7pmmby8c
+            __panelId__: "2"
+          labels: {}
+          isPaused: false
+        - uid: edisnss8901dse
+          title: Free Memory
           condition: G
           data:
             - refId: A
@@ -207,21 +296,46 @@ groups:
                 datasource:
                     type: __expr__
                     uid: __expr__
-                expression: D
+                expression: B
                 intervalMs: 1000
                 maxDataPoints: 43200
                 reducer: last
                 refId: F
-                settings:
-                    mode: dropNN
                 type: reduce
+            - refId: H
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 0
+                            - 0
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params: []
+                      reducer:
+                        params: []
+                        type: avg
+                      type: query
+                datasource:
+                    name: Expression
+                    type: __expr__
+                    uid: __expr__
+                expression: $I - $F
+                hide: false
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: H
+                type: math
             - refId: G
               datasourceUid: __expr__
               model:
                 conditions:
                     - evaluator:
                         params:
-                            - 1e+09
+                            - 1.331233792e+09
                             - 0
                         type: lt
                       operator:
@@ -236,80 +350,19 @@ groups:
                     name: Expression
                     type: __expr__
                     uid: __expr__
-                expression: F
+                expression: H
+                hide: false
                 intervalMs: 1000
                 maxDataPoints: 43200
                 refId: G
                 type: threshold
-          dashboardUid: rYdddlPWk
-          panelId: 78
-          noDataState: NoData
-          execErrState: Error
-          for: 5m
-          annotations:
-            __dashboardUid__: rYdddlPWk
-            __panelId__: "78"
-          labels: {}
-          isPaused: false
-        - uid: ddipptubkwe80f
-          title: Panel Title
-          condition: C
-          data:
-            - refId: A
-              relativeTimeRange:
-                from: 300
-                to: 0
-              datasourceUid: PBFE396EC0B189D67
-              model:
-                datasource:
-                    type: prometheus
-                    uid: PBFE396EC0B189D67
-                editorMode: code
-                exemplar: false
-                expr: time() - container_last_seen{name=~".+"}
-                format: time_series
-                instant: false
-                interval: ""
-                intervalMs: 15000
-                legendFormat: '{{name}}'
-                maxDataPoints: 43200
-                range: true
-                refId: A
-            - refId: B
-              relativeTimeRange:
-                from: 300
-                to: 0
-              datasourceUid: __expr__
-              model:
-                conditions:
-                    - evaluator:
-                        params: []
-                        type: gt
-                      operator:
-                        type: and
-                      query:
-                        params:
-                            - B
-                      reducer:
-                        params: []
-                        type: last
-                      type: query
-                datasource:
-                    type: __expr__
-                    uid: __expr__
-                expression: A
-                intervalMs: 1000
-                maxDataPoints: 43200
-                reducer: last
-                refId: B
-                type: reduce
-            - refId: C
+            - refId: I
               datasourceUid: __expr__
               model:
                 conditions:
                     - evaluator:
                         params:
-                            - 60
+                            - 0
                             - 0
                         type: gt
                       operator:
@@ -324,19 +377,20 @@ groups:
                     name: Expression
                     type: __expr__
                     uid: __expr__
-                expression: B
+                expression: A
                 hide: false
                 intervalMs: 1000
                 maxDataPoints: 43200
-                refId: C
-                type: threshold
-          dashboardUid: cdijlo7pmmby8c
-          panelId: 2
+                reducer: last
+                refId: I
+                type: reduce
+          dashboardUid: rYdddlPWk
+          panelId: 78
           noDataState: NoData
           execErrState: Error
           for: 5m
           annotations:
-            __dashboardUid__: cdijlo7pmmby8c
-            __panelId__: "2"
+            __dashboardUid__: rYdddlPWk
+            __panelId__: "78"
           labels: {}
           isPaused: false
