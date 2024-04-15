@@ -28,6 +28,8 @@
             #  add_header X-Frame-Options 'ALLOW-FROM kopatz.ddns.net';
             more_set_headers 'X-Content-Type-Options nosniff';
             more_set_headers "Content-Security-Policy: frame-ancestors 'https://kopatz.ddns.net'";
+            more_set_headers "Referrer-Policy: same-origin";
+            more_set_headers "Permissions-Policy: geolocation=(), microphone=()";
         '';
 
         #appendHttpConfig = ''
