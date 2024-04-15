@@ -45,6 +45,7 @@ in
       ${mangal} inline -S Mangapill --query "oshi-no-ko" --manga first --download
       ${mangal} inline -S Mangapill --query "Frieren" --manga first --download
       ${mangal} inline -S Mangapill --query "Chainsaw" --manga first --download
+      ${mangal} inline -S Mangapill --query "Jujutsu%20Kaisen" --manga first --download
     '';
     serviceConfig = {
     	PrivateTmp = true;
