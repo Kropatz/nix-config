@@ -6,6 +6,7 @@
       nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
       nixos-hardware.url = "github:NixOS/nixos-hardware/master";
       nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+      nixpkgs-fixed-kavita.url = "github:davidkna/nixpkgs/kavita-fix-migrations";
       home-manager = {
         url = "github:nix-community/home-manager/release-23.11";
         inputs.nixpkgs.follows = "nixpkgs";
@@ -27,6 +28,7 @@
               nixos-hardware,
               nixos-wsl,
               nixpkgs-unstable,
+              nixpkgs-fixed-kavita,
               agenix,
               home-manager,
               home-manager-unstable,
@@ -44,7 +46,7 @@
         ./users/anon
         ./modules/collections/server.nix
         ./systems/server/configuration.nix
-        ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
+        ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages fixed-kavita]; })
         home-manager-unstable.nixosModules.home-manager
         agenix.nixosModules.default
       ];

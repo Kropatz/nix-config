@@ -7,7 +7,7 @@
     ../services/github-runner.nix
     ../services/gitolite.nix
     # wait for https://github.com/NixOS/nixpkgs/pull/300228
-    #../services/kavita.nix
+    ../services/kavita.nix
     ../services/grafana.nix
     #../services/nextcloud.nix
     ../services/nginx.nix

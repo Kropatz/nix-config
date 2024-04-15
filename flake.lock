@@ -229,6 +229,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-fixed-kavita": {
+      "locked": {
+        "lastModified": 1711893330,
+        "narHash": "sha256-XUZvnZGGptiAtUhxAjnCDjF6Ov6D0/Ag61L+sPyjVHA=",
+        "owner": "davidkna",
+        "repo": "nixpkgs",
+        "rev": "9c2c6f35de1ed1e18467cf224ed86689e6f589c4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "davidkna",
+        "ref": "kavita-fix-migrations",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1697935651,
@@ -299,6 +315,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-fixed-kavita": "nixpkgs-fixed-kavita",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur"
       }
