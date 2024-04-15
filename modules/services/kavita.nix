@@ -42,6 +42,8 @@ in
     after = [ "network-online.target" ];
     startAt = "*-*-* 19:00:00";
     script = ''
+      ${mangal} clear -q
+      ${mangal} clear -c
       ${mangal} inline -S Mangapill -q omniscient -m first -d
       ${mangal} inline -S Mangapill --query "oshi-no-ko" --manga first --download
       ${mangal} inline -S Mangapill --query "Frieren" --manga first --download
