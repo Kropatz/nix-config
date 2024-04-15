@@ -10,7 +10,7 @@
     xclip
     usbutils
     inputs.agenix.packages."x86_64-linux".default
-    neofetch
+    fastfetch
     pdfgrep
     ncdu
     glxinfo
