@@ -9,9 +9,10 @@ in
 {
   networking.firewall.allowedTCPPorts = [ 5000 ];
   systemd.tmpfiles.rules = [
-      "d ${baseDir} 0770 kavita kavita -"
+      (if config.services.github-runners.oberprofis.enable then "d ${baseDir} 0750 kavita github-actions-runner -" else "d ${baseDir} 0770 kavita kavita -")
       "d ${baseDir}/manga 0770 kavita kavita -"
-  ];
+  ] ++ lib.optional config.services.github-runners.oberprofis.enable "d ${baseDir}/github 0770 github-actions-runner kavita -";
+
   age.secrets.kavita = {
     file = ../../secrets/kavita.age;
     owner = "kavita";

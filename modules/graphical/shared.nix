@@ -41,7 +41,7 @@ in
     keepassxc
     xfce.thunar
     remmina
-    nextcloud-client
+    #nextcloud-client
     thunderbird
     rofi
     localsend

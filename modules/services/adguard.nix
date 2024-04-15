@@ -35,6 +35,10 @@ in
           "answer" = ip;
          }
          {
+          "domain" = "kavita-kopatz.duckdns.org";
+          "answer" = ip;
+         }
+         {
           "domain" = "server.home";
           "answer" = ip;
          }

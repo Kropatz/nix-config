@@ -35,7 +35,7 @@
         workDir = "/github-actions-runner";
         extraPackages = with pkgs; [ rsync nodePackages.pnpm nodejs_18 ];
         serviceOverrides = {
-            BindPaths= [ "/github-actions-runner" "/data/website" ];
+            BindPaths= [ "/github-actions-runner" "/data/website" ] ++ lib.optional config.services.kavita.enable "/mnt/1tbssd/kavita";
             UMask = "022";
         };
     };
