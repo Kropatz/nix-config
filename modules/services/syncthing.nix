@@ -34,6 +34,10 @@ in
           id = "HZUUQEQ-JOKYHTU-AVFVC3U-7KUAXVC-QY3OJTF-HGU7RZ3-5HA5TOE-VT4FNQB";
           adresses = [ "tcp://192.168.0.6:51820" "tcp//192.168.2.1:51820" ];
         };
+        laptop = {
+          id = "5T6Y3WO-FOQYYFQ-5MLNDSZ-7APIDUG-6KM2ZZM-RTRXMWX-MCZKLMH-BYNDJAQ";
+          adresses = [ "tcp://192.168.2.22:51820" ];
+        };
       };
 
       folders."${basePath}/default" = {

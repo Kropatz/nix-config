@@ -93,6 +93,7 @@
           ./modules/graphical/hyprland.nix
           ./modules/graphical/ime.nix
           ./modules/graphical/shared.nix
+          ./modules/services/syncthing.nix
           ./modules/fh/scanning.nix
           ./modules/nix/ld.nix
           ./modules/nix/settings.nix
