@@ -2,7 +2,8 @@
 let 
     kavita = "/mnt/1tbssd/kavita";
     gitolite = "/var/lib/gitolite";
-    syncthing = "/synced/default/";
+    syncthing = [ "/synced/default/" "/synced/work_drive/" ];
+    syncthingFull = syncthing ++ [ "/synced/fh/" "/synced/books/" ];
 in
 {
   age.secrets.restic-pw = {
@@ -32,10 +33,9 @@ in
                 "/mnt/250ssd/matrix-synapse/media_store/"
                 "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
-                syncthing
                 kavita
                 gitolite
-            ];
+            ] ++ syncthingFull;
             pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             repository = "/mnt/2tb/restic";
         };
@@ -55,10 +55,9 @@ in
                 "/mnt/250ssd/matrix-synapse/media_store/"
                 "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
-                syncthing
                 kavita
                 gitolite
-            ];
+            ] ++ syncthingFull;
             pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             repository = "/mnt/1tbssd/restic";
         };
@@ -73,8 +72,7 @@ in
                 "/mnt/250ssd/paperless"
                 kavita
                 gitolite
-                syncthing
-            ];
+            ] ++ syncthingFull;
             exclude = [
                 "/home/**/Cache"
                 "/home/**/.cache"
@@ -96,10 +94,9 @@ in
                 "/home"
                 "/var/backup/postgresql"
                 "/mnt/250ssd/matrix-synapse/media_store/"
-                "/mnt/250ssd/nextcloud"
                 "/mnt/250ssd/paperless"
                 gitolite
-            ];
+            ] ++ syncthing;
             exclude = [
                 "/home/**/Cache"
                 "/home/**/.cache"
@@ -133,7 +130,7 @@ in
                 "/home"
                 "/var/backup/postgresql"
                 gitolite
-            ];
+            ] ++ syncthing;
             pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             timerConfig = {
               OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 00:00:00";
