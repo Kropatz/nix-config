@@ -45,6 +45,21 @@ in
         devices = [ "kop-pc" "server" "laptop" ];
         ignorePerms = false;
       };
+
+      folders."${basePath}/books" = {
+        id = "books";
+        devices = [ "kop-pc" "server" "laptop" ];
+      };
+
+      folders."${basePath}/fh" = {
+        id = "fh";
+        devices = [ "kop-pc" "server" "laptop" ];
+      };
+
+      folders."${basePath}/work_drive" = {
+        id = "work_drive";
+        devices = [ "kop-pc" "server" "laptop" ];
+      };
     };
   };
 
