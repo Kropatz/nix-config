@@ -75,6 +75,7 @@ in
     http3 = useHttps;
     locations."/".proxyPass = "http://127.0.0.1:5000";
     locations."/".extraConfig = ''
+      more_clear_headers 'x-frame-options';
       add_header Access-Control-Allow-Origin *;
       add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
       add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
