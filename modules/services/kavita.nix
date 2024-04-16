@@ -49,6 +49,7 @@ in
       ${mangal} inline -S Mangapill --query "Frieren" --manga first --download
       ${mangal} inline -S Mangapill --query "Chainsaw" --manga first --download
       ${mangal} inline -S Mangapill --query "Jujutsu%20Kaisen" --manga first --download
+      ${mangal} inline -S Mangapill -q "ribbon_no_musha" -m first -d
     '';
     serviceConfig = {
     	PrivateTmp = true;
