@@ -91,8 +91,6 @@
           ./modules/ecryptfs.nix
           ./modules/services/syncthing.nix
           ./modules/fh/scanning.nix
-          ./modules/nix/ld.nix
-          ./modules/nix/settings.nix
           ./modules/support/ntfs.nix
           ./modules/thunderbolt.nix
           ./modules/vmware-host.nix

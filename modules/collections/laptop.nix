@@ -8,6 +8,10 @@
     tmpfs.enable = true;
     wireshark.enable = true;
     virt-manager.enable = true;
+    nix = {
+      ld.enable = true;
+      settings.enable = true;
+    };
     hardware = {
       firmware.enable = true;
       ssd.enable = true;

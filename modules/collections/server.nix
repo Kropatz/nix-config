@@ -28,13 +28,15 @@
     ../hdd-spindown.nix
     ../logging.nix
     ../motd.nix
-    ../nix/settings.nix
     ../static-ip.nix
   ];
 
   kop = {
     cli-tools.enable = true;
     tmpfs.enable = true;
+    nix = {
+      settings.enable = true;
+    };
     hardware = {
       firmware.enable = true;
       ssd.enable = true;

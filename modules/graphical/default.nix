@@ -9,6 +9,7 @@
     ./gnome.nix
     ./ime.nix
     ./lxqt.nix
+    ./noise-supression.nix
     ./obs.nix
     ./openrgb.nix
     ./plasma.nix
