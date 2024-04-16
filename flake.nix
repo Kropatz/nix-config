@@ -88,7 +88,6 @@
           ### User specific ###
           ./users/kopatz
           ./modules
-          ./modules/cli-tools.nix
           ./modules/ecryptfs.nix
           ./modules/graphical/audio.nix
           ./modules/graphical/code.nix
@@ -125,7 +124,6 @@
         modules = [
           #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
           ./users/anon
-          ./modules/cli-tools.nix
           ./modules/nix/settings.nix
           ./systems/wsl/configuration.nix
           ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })

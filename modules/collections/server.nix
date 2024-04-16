@@ -20,7 +20,6 @@
     ### Other Modules ###
     #../games/palworld.nix
     ../backup.nix
-    ../cli-tools.nix
     ../cron.nix
     ../docker.nix
     ../fail2ban.nix
@@ -35,5 +34,8 @@
     ../hardware/ssd.nix
   ];
 
-  kop.tmpfs.enabled = true;
+  kop = {
+    cli-tools.enable = true;
+    tmpfs.enable = true;
+  };
 }

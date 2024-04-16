@@ -1,10 +1,10 @@
 { config, pkgs, lib, ...}:
 with lib;
 let 
-  cfg = config.kop.wooting;
+  cfg = config.kop.hardware.wooting;
 in
 { 
-  options.kop.wooting = {
+  options.kop.hardware.wooting = {
     enable = mkEnableOption "Enable wooting hardware support";
   };
 

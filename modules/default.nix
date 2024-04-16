@@ -11,5 +11,6 @@
         ./wireshark.nix
         ./virt-manager.nix
         ./nftables.nix
+        ./cli-tools.nix
     ];
 }

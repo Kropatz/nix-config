@@ -1,7 +1,6 @@
 {pkgs, config, ...}:
 {
   imports = [
-    ../cli-tools.nix
     ../docker.nix
     #../fh/scanning.nix
     ../flatpak.nix
@@ -30,10 +29,11 @@
   ];
 
   kop = {
-    wooting.enable = true;
+    hardware.wooting.enable = true;
     tmpfs.enable = true;
     wireshark.enable = true;
     virt-manager.enable = true;
     nftables.enable = true;
+    cli-tools.enable = true;
   };
 }

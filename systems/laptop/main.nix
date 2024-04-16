@@ -14,12 +14,6 @@
 	#<home-manager/nixos>
     ];
 
-  kop = {
-    tmpfs.enable = true;
-    wireshark.enable = true;
-    virt-manager.enable = true;
-  }
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
