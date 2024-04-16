@@ -11,7 +11,7 @@
     ../services/grafana.nix
     #../services/nextcloud.nix
     ../services/nginx.nix
-    ../services/samba.nix
+    #../services/samba.nix
     ../services/ssh.nix
     ../services/step-ca.nix
     ../services/syncthing.nix
