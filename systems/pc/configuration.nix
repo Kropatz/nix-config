@@ -26,9 +26,6 @@
   networking.networkmanager.enable = true;
   boot.initrd.systemd.network.wait-online.enable = false;
   systemd.network.wait-online.enable = false;
-
-  nix.settings.trusted-substituters = [ "https://ai.cachix.org" ];
-  nix.settings.trusted-public-keys = [ "ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc=" ];
   
   services.nscd.enableNsncd = false;
   #disable firewall when doing ipv6 vm stuff
@@ -61,24 +58,12 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # Enable automatic login for the user.
   #services.xserver.displayManager.autoLogin.enable = true;
   #services.xserver.displayManager.autoLogin.user = "kopatz";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-  ];
 
   security.pki.certificates = [ ''
 -----BEGIN CERTIFICATE-----

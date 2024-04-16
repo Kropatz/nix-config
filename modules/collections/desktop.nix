@@ -1,10 +1,9 @@
-{pkgs, ...}:
+{pkgs, config, ...}:
 {
   imports = [
-    #../graphical/lxqt.nix
     ../cli-tools.nix
     ../docker.nix
-    ../fh/scanning.nix
+    #../fh/scanning.nix
     ../flatpak.nix
     ../gpg.nix
     ../graphical/audio.nix
@@ -20,7 +19,6 @@
     ../hardware/firmware.nix
     ../hardware/nvidia.nix
     ../hardware/ssd.nix
-    ../hardware/wooting.nix
     ../kernel.nix # use latest kernel
     ../nftables.nix
     ../nix/index.nix
@@ -33,8 +31,10 @@
     ../tmpfs.nix
     ../virt-manager.nix
     ../wireshark.nix
-    #../fh/forensik.nix
-    #../graphical/hyprland.nix
-    #../hardware/vfio.nix too stupid for this
   ];
+
+  kop.wooting.enable = true;
+  #kop.tmpfs.enabled = true;
+  #kop.wireshark.enabled = true;
+  #kop.virt-manager.enabled = true;
 }

@@ -65,6 +65,7 @@
           inherit inputs outputs;
         };
         modules = [
+          ./modules
           ./users/kopatz
           ./modules/collections/desktop.nix
           ./systems/pc/configuration.nix
