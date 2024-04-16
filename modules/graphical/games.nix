@@ -8,10 +8,12 @@
   };
   environment.systemPackages = with pkgs; [
     taisei
+    tetrio
     osu-lazer-bin
     wineWowPackages.unstableFull
     winetricks
     lutris
+    mangohud
     prismlauncher
     #libs
   ];

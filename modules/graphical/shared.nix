@@ -41,15 +41,12 @@ in
     keepassxc
     xfce.thunar
     remmina
-    #nextcloud-client
     thunderbird
     rofi
     localsend
-    element-desktop
-    tetrio
+    #element-desktop
     krita
     libreoffice-fresh
-    mangohud
     screenshot
     anki
     mpv
