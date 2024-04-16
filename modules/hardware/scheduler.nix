@@ -1,7 +1,19 @@
+{config, lib, ...}:
+with lib;
+let
+    cfg = config.kop.hardware.scheduler;
+in
 {
-    services.system76-scheduler = {
-        enable = true;
+    options.kop.hardware.scheduler = {
+        enable = mkEnableOption "Enables scheduler";
     };
-
-    hardware.system76.enableAll = true;
+    
+    config = mkIf cfg.enable {
+        services.system76-scheduler = {
+            enable = true;
+        };
+    
+        hardware.system76.enableAll = true;
+    };
 }
+

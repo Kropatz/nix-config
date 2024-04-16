@@ -15,9 +15,6 @@
     ../graphical/openrgb.nix
     ../graphical/plasma.nix
     ../graphical/shared.nix
-    ../hardware/firmware.nix
-    ../hardware/nvidia.nix
-    ../hardware/ssd.nix
     ../kernel.nix # use latest kernel
     ../nix/index.nix
     ../nix/ld.nix
@@ -29,11 +26,16 @@
   ];
 
   kop = {
-    hardware.wooting.enable = true;
     tmpfs.enable = true;
     wireshark.enable = true;
     virt-manager.enable = true;
     nftables.enable = true;
     cli-tools.enable = true;
+    hardware = {
+      nvidia.enable = true;
+      firmware.enable = true;
+      ssd.enable = true;
+      wooting.enable = true;
+    };
   };
 }

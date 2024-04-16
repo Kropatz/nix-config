@@ -1,6 +1,11 @@
 { pkgs, config, ...}:
 {
   imports = [
-      ./wooting.nix
+    ./firmware.nix
+    ./nvidia.nix
+    ./scheduler.nix
+    ./ssd.nix
+    ./vfio.nix
+    ./wooting.nix
   ];
 }

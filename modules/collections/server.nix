@@ -30,12 +30,14 @@
     ../motd.nix
     ../nix/settings.nix
     ../static-ip.nix
-    ### Hardware ###
-    ../hardware/ssd.nix
   ];
 
   kop = {
     cli-tools.enable = true;
     tmpfs.enable = true;
+    hardware = {
+      firmware.enable = true;
+      ssd.enable = true;
+    };
   };
 }

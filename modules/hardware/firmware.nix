@@ -1,3 +1,15 @@
+{config, lib, ...}:
+with lib;
+let
+  cfg = config.kop.hardware.firmware;
+in
 {
-  services.fwupd.enable = true;
+  options.kop.hardware.firmware = {
+    enable = mkEnableOption "Enables firmware";
+  };
+  
+  config = mkIf cfg.enable {
+    services.fwupd.enable = true;
+  };
 }
+
