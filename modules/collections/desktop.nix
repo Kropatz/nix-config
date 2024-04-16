@@ -20,7 +20,6 @@
     ../hardware/nvidia.nix
     ../hardware/ssd.nix
     ../kernel.nix # use latest kernel
-    ../nftables.nix
     ../nix/index.nix
     ../nix/ld.nix
     ../nix/settings.nix
@@ -28,12 +27,13 @@
     ../services/syncthing.nix
     ../static-ip.nix
     ../support/ntfs.nix
-    ../virt-manager.nix
-    ../wireshark.nix
   ];
 
-  kop.wooting.enable = true;
-  kop.tmpfs.enable = true;
-  #kop.wireshark.enabled = true;
-  #kop.virt-manager.enabled = true;
+  kop = {
+    wooting.enable = true;
+    tmpfs.enable = true;
+    wireshark.enable = true;
+    virt-manager.enable = true;
+    nftables.enable = true;
+  };
 }

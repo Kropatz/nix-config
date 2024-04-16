@@ -104,9 +104,7 @@
           ./modules/nix/settings.nix
           ./modules/support/ntfs.nix
           ./modules/thunderbolt.nix
-          ./modules/virt-manager.nix
           ./modules/vmware-host.nix
-          ./modules/wireshark.nix
           ./systems/laptop/configuration.nix
           #./modules/fh/forensik.nix
           #./modules/no-sleep-lid-closed.nix

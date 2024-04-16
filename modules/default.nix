@@ -8,5 +8,8 @@
         ./services
         ./support
         ./tmpfs.nix
+        ./wireshark.nix
+        ./virt-manager.nix
+        ./nftables.nix
     ];
 }
