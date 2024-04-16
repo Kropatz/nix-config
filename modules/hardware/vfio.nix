@@ -8,9 +8,7 @@ in
     enable = mkEnableOption "Enables vfio";
   };
   
-  config = mkIf cfg.enable {
-    config = lib.mkIf config.virtualisation.libvirtd.enable {
-      boot.kernelParams = [ "amd_iommu=on" ];
-    };
+  config = mkIf (cfg.enable && config.virtualisation.libvirtd.enable) {
+    boot.kernelParams = [ "amd_iommu=on" ];
   };
 }

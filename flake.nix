@@ -89,14 +89,6 @@
           ./users/kopatz
           ./modules
           ./modules/ecryptfs.nix
-          ./modules/graphical/audio.nix
-          ./modules/graphical/code.nix
-          ./modules/graphical/emulators.nix
-          ./modules/graphical/gamemode.nix
-          ./modules/graphical/games.nix
-          ./modules/graphical/hyprland.nix
-          ./modules/graphical/ime.nix
-          ./modules/graphical/shared.nix
           ./modules/services/syncthing.nix
           ./modules/fh/scanning.nix
           ./modules/nix/ld.nix

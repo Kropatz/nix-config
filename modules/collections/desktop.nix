@@ -37,5 +37,17 @@
       ssd.enable = true;
       wooting.enable = true;
     };
+    graphical = {
+      audio.enable = true;
+      code.enable = true;
+      emulators.enable = true;
+      gamemode.enable = true;
+      games.enable = true;
+      ime.enable = true;
+      obs.enable = true;
+      openrgb.enable = true;
+      plasma.enable = true;
+      shared.enable = true;
+    };
   };
 }

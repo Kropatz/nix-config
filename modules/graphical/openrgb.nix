@@ -1,5 +1,15 @@
-{ pkgs, ...}:
+{config, lib,  pkgs, ...}:
+with lib;
+let
+  cfg = config.kop.graphical.openrgb;
+in
 {
-  services.hardware.openrgb.enable = true;
-  services.hardware.openrgb.package = pkgs.openrgb-with-all-plugins;
+  options.kop.graphical.openrgb = {
+    enable = mkEnableOption "Enables openrgb";
+  };
+  
+  config = mkIf cfg.enable {
+    services.hardware.openrgb.enable = true;
+    services.hardware.openrgb.package = pkgs.openrgb-with-all-plugins;
+  };
 }
