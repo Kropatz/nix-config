@@ -43,6 +43,7 @@
     nixosConfigurations.server = nixpkgs-unstable.lib.nixosSystem {
       inherit system;
       modules = [
+        ./modules
         ./users/anon
         ./modules/collections/server.nix
         ./systems/server/configuration.nix
@@ -86,6 +87,7 @@
         modules = [
           ### User specific ###
           ./users/kopatz
+          ./modules
           ./modules/cli-tools.nix
           ./modules/ecryptfs.nix
           ./modules/graphical/audio.nix
@@ -102,7 +104,6 @@
           ./modules/nix/settings.nix
           ./modules/support/ntfs.nix
           ./modules/thunderbolt.nix
-          ./modules/tmpfs.nix
           ./modules/virt-manager.nix
           ./modules/vmware-host.nix
           ./modules/wireshark.nix

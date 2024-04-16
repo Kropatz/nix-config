@@ -31,8 +31,9 @@
     ../motd.nix
     ../nix/settings.nix
     ../static-ip.nix
-    ../tmpfs.nix
     ### Hardware ###
     ../hardware/ssd.nix
   ];
+
+  kop.tmpfs.enabled = true;
 }

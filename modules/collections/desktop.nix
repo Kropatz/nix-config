@@ -28,13 +28,12 @@
     ../services/syncthing.nix
     ../static-ip.nix
     ../support/ntfs.nix
-    ../tmpfs.nix
     ../virt-manager.nix
     ../wireshark.nix
   ];
 
   kop.wooting.enable = true;
-  #kop.tmpfs.enabled = true;
+  kop.tmpfs.enable = true;
   #kop.wireshark.enabled = true;
   #kop.virt-manager.enabled = true;
 }
