@@ -16,7 +16,7 @@
     ../../home-manager/nvim.nix
     ../../home-manager/code.nix
     ../../home-manager/zsh.nix
-    ../../home-manager/gtk-theme.nix
+    ../../home-manager/theme.nix
     ../../home-manager/direnv.nix
     ../../home-manager/lf.nix
     ../../home-manager/kitty.nix

@@ -18,12 +18,12 @@ in
   
     fonts.fontDir.enable = true;
     fonts.packages = with pkgs; [
-      uw-ttyp0
-      corefonts
-      nerdfonts
-      noto-fonts
-      noto-fonts-emoji
-      noto-fonts-cjk 
+      #uw-ttyp0
+      #corefonts
+      (nerdfonts.override { fonts = ["Hack" "Noto"]; })
+      #noto-fonts
+      #noto-fonts-emoji
+      #noto-fonts-cjk 
     ];
   
     networking.firewall = {
