@@ -38,6 +38,9 @@ in
       tmux
       fatrace # monitor filesystem events
       ripgrep
+      nh
+      nix-output-monitor # nom
+      nvd # nix diff, example: nvd diff /nix/var/nix/profiles/system-389-link /nix/var/nix/profiles/system-390-link
     ];
   };
 }

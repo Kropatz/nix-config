@@ -21,7 +21,7 @@
         description = "Public key of the user";
       };
     };
-    kop.user = {
+    custom.user = {
       name = lib.mkOption {
         default = "mainuser";
         description = ''
