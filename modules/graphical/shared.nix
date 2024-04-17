@@ -9,7 +9,7 @@ in
   };
   
   config = let
-    screenshot = pkgs.writeShellScriptBin "screenshot.sh" ''
+    screenshot = pkgs.writeShellScriptBin "screenshot" ''
       ${pkgs.scrot}/bin/scrot -fs - | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i
     '';
   in mkIf cfg.enable {
