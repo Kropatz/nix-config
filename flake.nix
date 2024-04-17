@@ -105,6 +105,7 @@
           home-manager.nixosModules.home-manager
         ];
     };
+    # build vm -> nixos-rebuild build-vm  --flake .#vm
     nixosConfigurations."vm" = nixpkgs-unstable.lib.nixosSystem {
         inherit system;
         specialArgs = {
