@@ -19,11 +19,11 @@ in
     fonts.fontDir.enable = true;
     fonts.packages = with pkgs; [
       #uw-ttyp0
-      #corefonts
+      corefonts
       (nerdfonts.override { fonts = ["Hack" "Noto"]; })
       #noto-fonts
       #noto-fonts-emoji
-      #noto-fonts-cjk 
+      noto-fonts-cjk 
     ];
   
     networking.firewall = {
