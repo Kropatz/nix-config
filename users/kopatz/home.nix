@@ -31,11 +31,6 @@
     source = ./.gitconfig;
     target = ".gitconfig";
   };
-  home.file.".gitconfig-gitea" = {
-    enable = true;
-    source = ./.gitconfig-gitea;
-    target = ".gitconfig-gitea";
-  };
   home.file.".gitconfig-github" = {
     enable = true;
     source = ./.gitconfig-github;

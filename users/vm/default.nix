@@ -9,8 +9,8 @@
   mainUser.name = "vm";
   virtualisation.vmVariant = {
     virtualisation = {
-      memorySize =  4096; # Use 2048MiB memory.
-      cores = 4;         
+      memorySize = 8192; 
+      cores = 8;         
     };
   };
 
