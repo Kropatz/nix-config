@@ -26,8 +26,11 @@ in
         };
       };
     };
-    services.desktopManager.plasma6.enable = true;
-    environment.plasma6.excludePackages = with pkgs.kdePackages; [ ocean-sound-theme spectacle ];
+    services.xserver.desktopManager.plasma5.enable = true;
+
+    #services.desktopManager.plasma6.enable = true;
+    #environment.plasma6.excludePackages = with pkgs.kdePackages; [ ocean-sound-theme spectacle ];
+
   
     environment.sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
