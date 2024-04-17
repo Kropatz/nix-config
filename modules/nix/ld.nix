@@ -1,10 +1,10 @@
 {config, lib,  pkgs, ... }:
 with lib;
 let
-  cfg = config.kop.nix.ld;
+  cfg = config.custom.nix.ld;
 in
 {
-  options.kop.nix.ld = {
+  options.custom.nix.ld = {
     enable = mkEnableOption "Enables nix ld";
   };
   

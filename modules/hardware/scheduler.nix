@@ -1,10 +1,10 @@
 {config, lib, ...}:
 with lib;
 let
-    cfg = config.kop.hardware.scheduler;
+    cfg = config.custom.hardware.scheduler;
 in
 {
-    options.kop.hardware.scheduler = {
+    options.custom.hardware.scheduler = {
         enable = mkEnableOption "Enables scheduler";
     };
     

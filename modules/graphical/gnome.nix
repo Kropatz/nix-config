@@ -1,10 +1,10 @@
 {lib,  config, pkgs, mainUser, ... }:
 with lib;
 let
-  cfg = config.kop.graphical.gnome;
+  cfg = config.custom.graphical.gnome;
 in
 {
-  options.kop.graphical.gnome = {
+  options.custom.graphical.gnome = {
     enable = mkEnableOption "Enables gnome";
   };
   

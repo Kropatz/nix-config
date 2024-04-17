@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.kop.graphical.ime;
+  cfg = config.custom.graphical.ime;
 in
 {
-  options.kop.graphical.ime = {
+  options.custom.graphical.ime = {
     enable = mkEnableOption "Enables ime";
   };
   

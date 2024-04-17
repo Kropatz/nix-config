@@ -1,10 +1,10 @@
 {lib,  config, pkgs, ... }:
 with lib;
 let
-  cfg = config.kop.virt-manager;
+  cfg = config.custom.virt-manager;
 in
 {
-  options.kop.virt-manager = {
+  options.custom.virt-manager = {
     enable = mkEnableOption "Enables virt-manager";
   };
   

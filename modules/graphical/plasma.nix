@@ -1,10 +1,10 @@
 {lib,  config, pkgs, ... }:
 with lib;
 let
-  cfg = config.kop.graphical.plasma;
+  cfg = config.custom.graphical.plasma;
 in
 {
-  options.kop.graphical.plasma = {
+  options.custom.graphical.plasma = {
     enable = mkEnableOption "Enables plasma";
   };
   

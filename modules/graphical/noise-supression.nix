@@ -1,10 +1,10 @@
 {config, lib, pkgs, ...}:
 with lib;
 let
-    cfg = config.kop.graphical.noise-supression;
+    cfg = config.custom.graphical.noise-supression;
 in
 {
-    options.kop.graphical.noise-supression = {
+    options.custom.graphical.noise-supression = {
         enable = mkEnableOption "Enables noise-supression";
     };
     

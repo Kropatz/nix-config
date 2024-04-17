@@ -1,10 +1,10 @@
 {lib,  inputs, config, pkgsVersion, ... }:
 with lib;
 let
-  cfg = config.kop.nix.settings;
+  cfg = config.custom.nix.settings;
 in
 {
-  options.kop.nix.settings = {
+  options.custom.nix.settings = {
     enable = mkEnableOption "Enables various nix settings";
   };
   

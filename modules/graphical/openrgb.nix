@@ -1,10 +1,10 @@
 {config, lib,  pkgs, ...}:
 with lib;
 let
-  cfg = config.kop.graphical.openrgb;
+  cfg = config.custom.graphical.openrgb;
 in
 {
-  options.kop.graphical.openrgb = {
+  options.custom.graphical.openrgb = {
     enable = mkEnableOption "Enables openrgb";
   };
   

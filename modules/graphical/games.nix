@@ -1,10 +1,10 @@
 {config, lib,  pkgs, ...}:
 with lib;
 let
-  cfg = config.kop.graphical.games;
+  cfg = config.custom.graphical.games;
 in
 {
-  options.kop.graphical.games = {
+  options.custom.graphical.games = {
     enable = mkEnableOption "Enables games";
   };
   

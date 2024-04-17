@@ -1,10 +1,10 @@
 {config, lib, ...}:
 with lib;
 let
-    cfg = config.kop.nix.index;
+    cfg = config.custom.nix.index;
 in
 {
-    options.kop.nix.index = {
+    options.custom.nix.index = {
         enable = mkEnableOption "Enables nix index";
     };
     

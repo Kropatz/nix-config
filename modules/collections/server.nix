@@ -31,7 +31,7 @@
     ../static-ip.nix
   ];
 
-  kop = {
+  custom = {
     cli-tools.enable = true;
     tmpfs.enable = true;
     nix = {

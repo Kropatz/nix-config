@@ -1,10 +1,10 @@
 { config, pkgs, inputs, lib, ... }:
 with lib;
 let
-  cfg = config.kop.graphical.shared;
+  cfg = config.custom.graphical.shared;
 in
 {
-  options.kop.graphical.shared = {
+  options.custom.graphical.shared = {
     enable = mkEnableOption "Enables shared";
   };
   

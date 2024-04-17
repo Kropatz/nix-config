@@ -1,10 +1,10 @@
 { pkgs, lib, config, ... }:
 with lib;
 let
-  cfg = config.kop.hardware.vfio;
+  cfg = config.custom.hardware.vfio;
 in
 {
-  options.kop.hardware.vfio = {
+  options.custom.hardware.vfio = {
     enable = mkEnableOption "Enables vfio";
   };
   

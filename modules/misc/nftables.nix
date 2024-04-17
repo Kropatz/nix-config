@@ -1,10 +1,10 @@
 {config, lib, ...}:
 with lib;
 let
-   cfg = config.kop.nftables;
+   cfg = config.custom.nftables;
 in
 {
-   options.kop.nftables = {
+   options.custom.nftables = {
       enable = mkEnableOption "Enables nftables";
    };
    

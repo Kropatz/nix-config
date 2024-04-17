@@ -1,10 +1,10 @@
 {config, lib, ...}:
 with lib;
 let
-    cfg = config.kop.hardware.ssd;
+    cfg = config.custom.hardware.ssd;
 in
 {
-    options.kop.hardware.ssd = {
+    options.custom.hardware.ssd = {
         enable = mkEnableOption "Enables fstrim";
     };
     

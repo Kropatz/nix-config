@@ -1,10 +1,10 @@
 {config, lib, ...}:
 with lib;
 let
-    cfg = config.kop.tmpfs;
+    cfg = config.custom.tmpfs;
 in
 {
-    options.kop.tmpfs = {
+    options.custom.tmpfs = {
         enable = mkEnableOption "Enables tmpfs";
     };
     

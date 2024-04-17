@@ -1,10 +1,10 @@
 {lib,  config, pkgs, ...}:
 with lib;
 let
-  cfg = config.kop.graphical.lxqt;
+  cfg = config.custom.graphical.lxqt;
 in
 {
-  options.kop.graphical.lxqt = {
+  options.custom.graphical.lxqt = {
     enable = mkEnableOption "Enables lxqt";
   };
   

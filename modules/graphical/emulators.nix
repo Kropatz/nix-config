@@ -1,10 +1,10 @@
 {lib,  config, pkgs, inputs, ... }:
 with lib;
 let
-  cfg = config.kop.graphical.emulators;
+  cfg = config.custom.graphical.emulators;
 in
 {
-  options.kop.graphical.emulators = {
+  options.custom.graphical.emulators = {
     enable = mkEnableOption "Enables emulators";
   };
   

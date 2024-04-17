@@ -1,10 +1,10 @@
 {config, lib,  pkgs, ...} :
 with lib;
 let
-  cfg = config.kop.graphical.audio;
+  cfg = config.custom.graphical.audio;
 in
 {
-  options.kop.graphical.audio = {
+  options.custom.graphical.audio = {
     enable = mkEnableOption "Enables audio";
   };
   

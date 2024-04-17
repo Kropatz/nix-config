@@ -1,10 +1,10 @@
 {lib, config, pkgs, ...}:
 with lib;
 let
-  cfg = config.kop.hardware.nvidia;
+  cfg = config.custom.hardware.nvidia;
 in
 {
-  options.kop.hardware.nvidia = {
+  options.custom.hardware.nvidia = {
     enable = mkEnableOption "Enables nvidia gpus";
   };
   

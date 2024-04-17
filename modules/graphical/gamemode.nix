@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.kop.graphical.gamemode;
+  cfg = config.custom.graphical.gamemode;
 in
 {
-  options.kop.graphical.gamemode = {
+  options.custom.graphical.gamemode = {
     enable = mkEnableOption "Enables gamemode";
   };
   

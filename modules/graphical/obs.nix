@@ -1,10 +1,10 @@
 {lib,  config, pkgs, ...}:
 with lib;
 let
-  cfg = config.kop.graphical.obs;
+  cfg = config.custom.graphical.obs;
 in
 {
-  options.kop.graphical.obs = {
+  options.custom.graphical.obs = {
     enable = mkEnableOption "Enables obs";
   };
   

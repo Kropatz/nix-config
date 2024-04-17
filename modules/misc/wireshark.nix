@@ -1,10 +1,10 @@
 {lib,  config, pkgs, ... }:
 with lib;
 let
-    cfg = config.kop.wireshark;
+    cfg = config.custom.wireshark;
 in
 {
-    options.kop.wireshark = {
+    options.custom.wireshark = {
         enable = mkEnableOption "Enables wireshark";
     };
     

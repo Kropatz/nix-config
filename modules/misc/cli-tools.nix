@@ -1,10 +1,10 @@
 {lib,  config, pkgs, inputs, ... }:
 with lib;
 let
-  cfg = config.kop.cli-tools;
+  cfg = config.custom.cli-tools;
 in
 {
-  options.kop.cli-tools = {
+  options.custom.cli-tools = {
     enable = mkEnableOption "Enables cli-tools";
   };
   

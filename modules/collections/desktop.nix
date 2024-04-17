@@ -11,7 +11,7 @@
     ../support/ntfs.nix
   ];
 
-  kop = {
+  custom = {
     tmpfs.enable = true;
     wireshark.enable = true;
     virt-manager.enable = true;

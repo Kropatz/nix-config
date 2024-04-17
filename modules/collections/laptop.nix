@@ -3,7 +3,7 @@
   imports = [
     ../graphical/hyprland.nix # TODO
   ];
-  kop = {
+  custom = {
     cli-tools.enable = true;
     tmpfs.enable = true;
     wireshark.enable = true;

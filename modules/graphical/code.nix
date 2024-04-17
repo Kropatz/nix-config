@@ -1,10 +1,10 @@
 { config, pkgs, inputs, lib, ... }:
 with lib;
 let
-  cfg = config.kop.graphical.code;
+  cfg = config.custom.graphical.code;
 in
 {
-  options.kop.graphical.code = {
+  options.custom.graphical.code = {
     enable = mkEnableOption "Enables code";
   };
   

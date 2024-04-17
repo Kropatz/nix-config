@@ -1,10 +1,10 @@
 {config, lib, ...}:
 with lib;
 let
-  cfg = config.kop.hardware.firmware;
+  cfg = config.custom.hardware.firmware;
 in
 {
-  options.kop.hardware.firmware = {
+  options.custom.hardware.firmware = {
     enable = mkEnableOption "Enables firmware";
   };
   
