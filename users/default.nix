@@ -6,6 +6,8 @@
 }:
 {
   imports = [ ./option.nix ]; 
+
+  environment.systemPackages = [ pkgs.home-manager ];
   home-manager = {
     useGlobalPkgs = true;
     extraSpecialArgs = {
