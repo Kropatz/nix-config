@@ -13,6 +13,7 @@ in
       kate
       jetbrains.idea-ultimate
       insomnia
+      nodejs_21 # needed for tabby extension
     ];
   
     #environment.sessionVariables = {
