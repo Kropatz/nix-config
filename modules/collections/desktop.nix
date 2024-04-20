@@ -23,6 +23,7 @@
       settings.enable = true;
     };
     hardware = {
+      vfio.enable = true;
       nvidia.enable = true;
       firmware.enable = true;
       ssd.enable = true;
