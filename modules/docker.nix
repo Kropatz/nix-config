@@ -5,4 +5,5 @@
     environment.systemPackages = with pkgs; [
         docker-compose
     ];
+    virtualisation.docker.enableNvidia = lib.mkIf config.custom.hardware.nvidia.enable true;
 }
