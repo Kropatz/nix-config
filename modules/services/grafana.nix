@@ -35,6 +35,8 @@ in
            url = "http://127.0.0.1:${toString config.services.prometheus.port}";
            type = "prometheus";
            isDefault = true;
+           # This has to match the prometheus scrape interval, otherwise the $__rate_interval variable wont work.
+           jsonData.timeInterval = "60s";
          }
          {
            name = "loki";
@@ -69,6 +71,7 @@ in
   services.prometheus = {
     enable = true;
     port = 9000;
+    globalConfig.scrape_interval = "1m";
     #stateDir = "../../${base}/prometheus";
     exporters = {
       node = {
