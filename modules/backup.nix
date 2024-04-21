@@ -19,7 +19,7 @@ let
         du -sh ${builtins.concatStringsSep " " backupPathsMedium}
         echo "Checking storage space (full)..."
         du -sh ${builtins.concatStringsSep " " backupPathsFull}
-      ''
+      '';
     };
 in
 {
