@@ -11,7 +11,7 @@
           checkTime = "(cd /synced/work_drive/TS && nix run)";
           checkWaylandWindowsKDE = "qdbus org.kde.KWin /KWin org.kde.KWin.showDebugConsole";
           collectGarbage = "sudo nix-collect-garbage --delete-older-than 7d && nix-collect-garbage --delete-older-than 7d";
-          edit = "nvim ~/projects/github/nix-config";
+          edit = "cd ~/projects/github/nix-config && nvim .";
           ll = "ls -l";
           ssh = "TERM=xterm-256color ssh";
           update = "sudo nixos-rebuild switch";

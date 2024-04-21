@@ -42,7 +42,7 @@ in
       spiceUSBRedirection.enable = true;
     };
     services.spice-vdagentd.enable = true;  
-    users.users.${config.mainUser.name}.extraGroups = [ "libvirtd" ];
+    users.users.${config.mainUser.name}.extraGroups = [ "libvirtd" "kvm" "input" ];
   };
 }
 

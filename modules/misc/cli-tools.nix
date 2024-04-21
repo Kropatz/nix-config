@@ -34,6 +34,7 @@ in
       file
       unzip
       lsof
+      lshw
       screen
       tmux
       fatrace # monitor filesystem events
