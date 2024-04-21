@@ -9,9 +9,12 @@ in
   };
   
   config = mkIf cfg.enable {
+    documentation.dev.enable = true;
     environment.systemPackages = with pkgs; [
+      man-pages
       kate
       jetbrains.idea-ultimate
+      jetbrains.clion
       insomnia
       nodejs_21 # needed for tabby extension
     ];

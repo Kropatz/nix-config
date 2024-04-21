@@ -477,6 +477,7 @@ local servers = {
   rust_analyzer = {},
   jdtls = {},
   vtsls = {},
+  clangd = {},
 
   lua_ls = {
     Lua = {
@@ -542,15 +543,16 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+    --collision
+    --['<S-Tab>'] = cmp.mapping(function(fallback)
+    --  if cmp.visible() then
+    --    cmp.select_prev_item()
+    --  elseif luasnip.locally_jumpable(-1) then
+    --    luasnip.jump(-1)
+    --  else
+    --    fallback()
+    --  end
+    --end, { 'i', 's' }),
   },
   sources = {
     { name = 'nvim_lsp' },
