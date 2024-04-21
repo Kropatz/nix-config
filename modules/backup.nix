@@ -5,12 +5,16 @@ let
     syncthing = [ "/synced/default/" "/synced/work_drive/" ];
     syncthingFull = syncthing ++ [ "/synced/fh/" "/synced/books/" ];
     excludePaths = [ "/home/**/Cache" "/home/**/.cache" "/home/**/__pycache__" "/home/**/node_modules" "/home/**/venv" ];
-    excludePathsRemote = excludePaths ++ "/home/**/dont_remotebackup";
+    excludePathsRemote = excludePaths ++ [ "/home/**/dont_remotebackup" ];
     backupPathsSmall = [ "/home" "/var/backup/postgresql" gitolite ] ++ syncthing;
     backupPathsMedium = [ "/home" "/var/backup/postgresql" "/mnt/250ssd/matrix-synapse/media_store/" "/mnt/250ssd/paperless" gitolite ] ++ syncthing;
-    backupPathsFull = [ "/home" "/var/backup/postgresql" "/mnt/250ssd/matrix-synapse/media_store/" "/mnt/250ssd/paperless" 
-                kavita gitolite ] ++ syncthingFull;
-
+    backupPathsFull = [ "/home" "/var/backup/postgresql" "/mnt/250ssd/matrix-synapse/media_store/" "/mnt/250ssd/paperless" kavita gitolite ] ++ syncthingFull;
+    checkStorageSpace = pkgs.writeShellApplication {
+      name = "checkBackupStorageSpace";
+      text = ''
+        
+      ''
+    };
 in
 {
   age.secrets.restic-pw = {
