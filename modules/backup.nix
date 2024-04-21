@@ -12,11 +12,18 @@ let
     checkStorageSpace = pkgs.writeShellApplication {
       name = "checkBackupStorageSpace";
       text = ''
-        
+        # Check how much space is used by the backup paths
+        echo "Checking storage space (small)..."
+        du -sh ${builtins.concatStringsSep " " backupPathsSmall}
+        echo "Checking storage space (medium)..."
+        du -sh ${builtins.concatStringsSep " " backupPathsMedium}
+        echo "Checking storage space (full)..."
+        du -sh ${builtins.concatStringsSep " " backupPathsFull}
       ''
     };
 in
 {
+  environment.systemPackages = with pkgs; [ checkStorageSpace ];
   age.secrets.restic-pw = {
     file = ../secrets/restic-pw.age;
   };
