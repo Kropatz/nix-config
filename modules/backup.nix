@@ -25,7 +25,7 @@ let
         du -sh ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePaths)} ${builtins.concatStringsSep " " backupPathsFull}
         echo "Checking storage space (full) with excluded paths (remote)..."
         du -sh ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsFull}
-      ''
+      '';
     };
 in
 {
