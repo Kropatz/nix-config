@@ -14,17 +14,17 @@ let
       text = ''
         # Check how much space is used by the backup paths
         echo "Checking storage space (small) with excluded paths..."
-        du -sh ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePaths)} ${builtins.concatStringsSep " " backupPathsSmall} 
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePaths)} ${builtins.concatStringsSep " " backupPathsSmall} 
         echo "Checking storage space (small) with excluded paths (remote)..."
-        du -sh ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsSmall}
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsSmall}
         echo "Checking storage space (medium) with excluded paths..."
-        du -sh ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePaths)} ${builtins.concatStringsSep " " backupPathsSmall} 
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePaths)} ${builtins.concatStringsSep " " backupPathsMedium} 
         echo "Checking storage space (medium) with excluded paths (remote)..."
-        du -sh ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsMedium}
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsMedium}
         echo "Checking storage space (full) with excluded paths..."
-        du -sh ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePaths)} ${builtins.concatStringsSep " " backupPathsFull}
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePaths)} ${builtins.concatStringsSep " " backupPathsFull}
         echo "Checking storage space (full) with excluded paths (remote)..."
-        du -sh ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsFull}
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsFull}
       '';
     };
 in
