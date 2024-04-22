@@ -65,6 +65,8 @@ in
       libsForQt5.kolourpaint
       libsForQt5.kcalc
       syncthingtray
+      v4l-utils
+      logseq
     ];
   };
 }
