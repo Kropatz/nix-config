@@ -10,7 +10,7 @@
           backupNoita = "cp -r ~/.local/share/Steam/steamapps/compatdata/881100/pfx/drive_c/users/steamuser/AppData/LocalLow/Nolla_Games_Noita/save00 /synced/default/backups/noita_save";
           checkTime = "(cd /synced/work_drive/TS && nix run)";
           checkWaylandWindowsKDE = "qdbus org.kde.KWin /KWin org.kde.KWin.showDebugConsole";
-          collectGarbage = "sudo nix-collect-garbage --delete-older-than 7d && nix-collect-garbage --delete-older-than 7d";
+          collectGarbage = "nh clean all";
           edit = "cd ~/projects/github/nix-config && nvim .";
           ll = "ls -l";
           ssh = "TERM=xterm-256color ssh";
