@@ -22,6 +22,8 @@
     ../../home-manager/kitty.nix
     ../../home-manager/rofi.nix
     ../../home-manager/kde-path.nix
+    ../../home-manager/hyprland-settings.nix
+    ../../home-manager/hyprland-xwaylandvideobridge.nix
     ../../home-manager/firefox
     inputs.nix-colors.homeManagerModule
   ];

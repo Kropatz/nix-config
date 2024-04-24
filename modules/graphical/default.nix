@@ -7,6 +7,7 @@
     ./gamemode.nix
     ./games.nix
     ./gnome.nix
+    ./hyprland.nix
     ./ime.nix
     ./lxqt.nix
     ./noise-supression.nix

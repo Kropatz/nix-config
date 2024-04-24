@@ -1,6 +1,10 @@
-{ user, pkgs, layout, variant, ... }:
+{ config, osConfig, pkgs, inputs, lib, ... }:
+with lib;
+let
+    cfg = osConfig.custom.graphical.hyprland;
+in
 {
-  home-manager.users.${user} = {
+  config = lib.mkIf cfg.enable {
     programs.swaylock.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
@@ -38,8 +42,8 @@
         
         # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
         input = {
-            kb_layout = layout;
-            kb_variant = variant;
+            kb_layout = osConfig.mainUser.layout;
+            kb_variant = osConfig.mainUser.variant;
             kb_model = "";
             kb_options = "";
             kb_rules = "";
@@ -155,7 +159,7 @@
           "$mainMod, V, togglefloating"
           "$mainMod, I, exec, ${rofi} -show drun -show-icons"
           "$mainMod, S, exec, cat ~/songs | shuf -n 1 | sed \"s/^/b\.p /g\" | ${wl-copy}"
-          "$mainMod, R, exec, ${swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
+          "$mainMod, R, exec, ${swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
           "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
           "ALT, SPACE, exec, ${rofi} -show combi"
           " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
@@ -230,7 +234,7 @@
        
 	exec-once = [
           "${pkgs.swww}/bin/swww init; sleep 1;"
-          "${pkgs.swww} img $(ls -d ~/Nextcloud/dinge/Bg/* | shuf -n 1)"
+          "${pkgs.swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
 	  "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
 	  "${pkgs.waybar}/bin/waybar &"
 	  #"${pkgs.dunst}/bin/dunst &"

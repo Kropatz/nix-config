@@ -16,7 +16,7 @@
       settings.enable = true;
     };
     graphical = {
-      plasma.enable = true;
+      hyprland.enable = true;
       shared.enable = true;
     };
   };

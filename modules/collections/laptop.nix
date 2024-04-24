@@ -21,6 +21,7 @@
       code.enable = true;
       emulators.enable = true;
       gamemode.enable = true;
+      hyprland.enable = true;
       games.enable = true;
       ime.enable = true;
       shared.enable = true;

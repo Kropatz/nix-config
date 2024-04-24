@@ -14,7 +14,7 @@ in
       xkb.layout = config.mainUser.layout; 
       xkb.variant = config.mainUser.variant;
       displayManager.sddm.enable = true;
-      displayManager.sddm.settings.Wayland.SessionDir = "${pkgs.plasma5Packages.plasma-workspace}/share/wayland-sessions";
+      #displayManager.sddm.settings.Wayland.SessionDir = "${pkgs.plasma5Packages.plasma-workspace}/share/wayland-sessions";
       #displayManager.sddm.wayland.enable = true;
   
       libinput = {

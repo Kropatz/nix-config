@@ -30,6 +30,8 @@
       wooting.enable = true;
     };
     graphical = {
+      hyprland.enable = true;
+      hyprland.videobridge.enable = true;
       audio.enable = true;
       code.enable = true;
       emulators.enable = true;
