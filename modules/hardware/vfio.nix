@@ -9,6 +9,6 @@ in
   };
   
   config = mkIf (cfg.enable && config.virtualisation.libvirtd.enable) {
-    boot.kernelParams = [ "amd_iommu=on" ];
+    boot.kernelParams = [ "amd_iommu=on" "iommu=pt" ];
   };
 }
