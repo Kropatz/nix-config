@@ -15,7 +15,7 @@ in
 
   systemd.user.services.xwaylandvideobridge = {
     Unit.Description = "XWaylandVideoBridge";
-    Service.ExecStart = lib.getExe pkgs.xwaylandvideobridge;
+    Service.ExecStart = lib.getExe pkgs.unstable.xwaylandvideobridge;
     Install.WantedBy = ["graphical-session.target"];
   };
   };

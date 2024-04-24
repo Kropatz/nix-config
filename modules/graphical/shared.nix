@@ -24,6 +24,7 @@ in
       #noto-fonts
       #noto-fonts-emoji
       noto-fonts-cjk 
+      font-awesome
     ];
   
     networking.firewall = {
