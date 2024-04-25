@@ -109,17 +109,15 @@
     nixosConfigurations."vm" = nixpkgs-unstable.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          vars = import ./systems/userdata-default.nix // import ./systems/pc/userdata.nix;
+          vars = import ./systems/userdata-default.nix;
           pkgsVersion = nixpkgs-unstable;
           inherit inputs outputs;
         };
         modules = [
           ./modules
           ./users/vm
-          ./modules/collections/desktop.nix
-          ./systems/pc/configuration.nix
+          ./systems/vm/configuration.nix
          ({ config, pkgs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages nur.overlay]; })
-          agenix.nixosModules.default
           home-manager-unstable.nixosModules.home-manager
         ];
     };

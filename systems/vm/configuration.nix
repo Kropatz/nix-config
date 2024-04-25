@@ -15,9 +15,8 @@
       ld.enable = true;
       settings.enable = true;
     };
-    graphical = {
-      hyprland.enable = true;
-      shared.enable = true;
+    services = {
+      kubernetes.enable = true;
     };
   };
 }

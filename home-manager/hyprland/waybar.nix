@@ -25,7 +25,7 @@ in
 	spacing = 4;
 	modules-left = [
 	  "hyprland/workspaces"
-	  "hyprland/window"
+	  #"hyprland/window"
 	];
 	modules-center = [];
 	modules-right = [
