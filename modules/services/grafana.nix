@@ -80,6 +80,22 @@ in
         disabledCollectors = [ "arp" ];
         port = 9001;
       };
+      nginx = {
+        enable = false;
+        port = 9003;
+      };
+      nginxlog = {
+        enable = true;
+        port = 9004;
+        group = "nginx";
+        settings.namespaces = [
+          {
+            name = "nginxlog";
+            source.files = ["/var/log/nginx/access.log"];
+            format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
+          }
+        ];
+      };
     };
     scrapeConfigs = [
       {
@@ -87,7 +103,11 @@ in
         static_configs = [{
           targets = [ 
           "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" 
-          ] ++ (lib.optional config.services.cadvisor.enable "${config.services.cadvisor.listenAddress}:${toString config.services.cadvisor.port}");
+          ] ++ 
+          (lib.optional config.services.cadvisor.enable "${config.services.cadvisor.listenAddress}:${toString config.services.cadvisor.port}") ++ 
+          (lib.optional config.services.prometheus.exporters.nginx.enable "127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}") ++
+          (lib.optional config.services.prometheus.exporters.nginxlog.enable "127.0.0.1:${toString config.services.prometheus.exporters.nginxlog.port}")
+          ;
         }]; 
       }
     ];
