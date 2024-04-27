@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 {
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     networking.firewall.allowedUDPPorts = [ 80 443 ];
@@ -18,6 +18,7 @@
         recommendedOptimisation = true;
         recommendedProxySettings = true;
         recommendedTlsSettings = true;
+        statusPage = lib.mkIf config.services.prometheus.exporters.nginx.enable true;
 
         # Only allow PFS-enabled ciphers with AES256
         sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
