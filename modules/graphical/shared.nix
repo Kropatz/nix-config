@@ -39,8 +39,6 @@ in
       ];
     };
   
-    # Allow unfree packages
-    nixpkgs.config.allowUnfree = true;
     services.xserver.wacom.enable = true;
   
     # List packages installed in system profile. To search, run:

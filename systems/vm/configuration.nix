@@ -1,6 +1,7 @@
 {pkgs, config, ...}:
 {
 
+  age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];
   mainUser.layout = "de";
   mainUser.variant = "us";
   custom = {
@@ -15,8 +16,11 @@
       ld.enable = true;
       settings.enable = true;
     };
+    graphical = {
+      lxqt.enable = true;
+    };
     services = {
-      kubernetes.enable = true;
+      kavita.enable = true;
     };
   };
 }

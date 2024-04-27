@@ -1,17 +1,26 @@
 { config, pkgs, lib, inputs, ... }:
+with lib;
+let
+  cfg = config.custom.services.kavita;
+in
+{
+  options.custom.services.kavita = {
+      enable = mkEnableOption "Enables kavita";
+  };
+  config =
 let
   fqdn = "kavita-kopatz.duckdns.org";
   useStepCa = false; #config.services.step-ca.enable;
   useHttps = true;
   baseDir = "/mnt/1tbssd/kavita";
   mangal = "${pkgs.mangal}/bin/mangal";
-in
-{
+  githubRunnerEnabled = config.services.github-runners ? oberprofis.enable;
+in lib.mkIf cfg.enable {
   networking.firewall.allowedTCPPorts = [ 5000 ];
   systemd.tmpfiles.rules = [
-      (if config.services.github-runners.oberprofis.enable then "d ${baseDir} 0750 kavita github-actions-runner -" else "d ${baseDir} 0770 kavita kavita -")
+      (if githubRunnerEnabled then "d ${baseDir} 0750 kavita github-actions-runner -" else "d ${baseDir} 0770 kavita kavita -")
       "d ${baseDir}/manga 0770 kavita kavita -"
-  ] ++ lib.optional config.services.github-runners.oberprofis.enable "d ${baseDir}/github 0770 github-actions-runner kavita -";
+  ] ++ lib.optional githubRunnerEnabled "d ${baseDir}/github 0770 github-actions-runner kavita -";
 
   age.secrets.kavita = {
     file = ../../secrets/kavita.age;
@@ -22,7 +31,7 @@ in
  services.kavita = {
     enable = true;
     user = "kavita";
-    package = pkgs.kavita;
+    package = pkgs.myKavita;
     settings.Port = 5000;
     dataDir = baseDir;
     tokenKeyFile = config.age.secrets.kavita.path;
@@ -84,4 +93,5 @@ in
       add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
     '';
   };
+};
 }
