@@ -20,11 +20,4 @@
       config.allowUnfree = true;
     };
   };
-  
-  fixed-kavita = final: _prev: {
-    fixed-kavita = import inputs.nixpkgs-fixed-kavita {
-      system = final.system;
-      config.allowUnfree = true;
-    };
-  };
 }
