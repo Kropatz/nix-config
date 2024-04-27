@@ -37,6 +37,9 @@
     nix = {
       settings.enable = true;
     };
+    services = {
+      kavita.enable = true;
+    };
     hardware = {
       firmware.enable = true;
       ssd.enable = true;
