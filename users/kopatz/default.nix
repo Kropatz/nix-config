@@ -23,7 +23,7 @@
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
-      (discord.override { withVencord = true; })
+      pkgs.unstable.vesktop
       brave
     ];
     openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];
