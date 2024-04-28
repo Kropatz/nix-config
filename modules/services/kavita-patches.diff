@@ -1,5 +1,5 @@
 diff --git a/API/Services/SeriesService.cs b/API/Services/SeriesService.cs
-index 5294ebaf..5d0963e9 100644
+index 5294ebaf..d2b8f45c 100644
 --- a/API/Services/SeriesService.cs
 +++ b/API/Services/SeriesService.cs
 @@ -465,7 +465,7 @@ public class SeriesService : ISeriesService
@@ -7,7 +7,34 @@ index 5294ebaf..5d0963e9 100644
                      return c;
                  })
 -                .OrderBy(c => c.SortOrder))
-+                .OrderBy(c => c.Title))
++                .OrderBy(c => c.Title.StartsWith("[") ? c.Title : c.SortOrder.ToString()))
                  .ToList();
  
          foreach (var chapter in chapters)
+diff --git a/API/Services/ReaderService.cs b/API/Services/ReaderService.cs
+index 5daf97f6..ae4e328a 100644
+--- a/API/Services/ReaderService.cs
++++ b/API/Services/ReaderService.cs
+@@ -1,4 +1,4 @@
+-﻿using System;
++using System;
+ using System.Collections;
+ using System.Collections.Generic;
+ using System.Globalization;
+@@ -572,7 +572,7 @@ public class ReaderService : IReaderService
+             // We only have a loose leaf or Special left
+ 
+             var chapters = volumes.First(v => v.IsLooseLeaf() || v.IsSpecial()).Chapters
+-                .OrderBy(c => c.SortOrder)
++                .OrderBy(c => c.Title.StartsWith("[") ? c.Title : c.SortOrder.ToString())
+                 .ToList();
+ 
+             // If there are specials, then return the first Non-special
+@@ -606,7 +606,7 @@ public class ReaderService : IReaderService
+ 
+         // Order with volume 0 last so we prefer the natural order
+         return FindNextReadingChapter(volumes.OrderBy(v => v.MinNumber, _chapterSortComparerDefaultLast)
+-                                             .SelectMany(v => v.Chapters.OrderBy(c => c.SortOrder))
++                                             .SelectMany(v => v.Chapters.OrderBy(c => c.Title.StartsWith("[") ? c.Title : c.SortOrder.ToString()))
+                                              .ToList());
+     }
