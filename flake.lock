@@ -229,6 +229,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-kavita-update": {
+      "locked": {
+        "lastModified": 1714284556,
+        "narHash": "sha256-/K0dIK4tsBYa3otMs2HqWXR+u6GNBddBa8rxLZ4OrUU=",
+        "owner": "nevivurn",
+        "repo": "nixpkgs",
+        "rev": "c6ffdd6a964698770fee1c5013cfd083f801d879",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nevivurn",
+        "ref": "feat/kavita-0.8.1",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1697935651,
@@ -299,6 +315,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-kavita-update": "nixpkgs-kavita-update",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur"
       }

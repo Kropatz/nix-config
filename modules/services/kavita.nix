@@ -31,7 +31,18 @@ in lib.mkIf cfg.enable {
  services.kavita = {
     enable = true;
     user = "kavita";
-    package = pkgs.myKavita;
+    package = let 
+      kavitaPkgs = (import inputs.nixpkgs-kavita-update {
+        inherit (config.nixpkgs) config;
+        inherit (pkgs.stdenv.hostPlatform) system;
+      });
+      backend = kavitaPkgs.kavita.backend.overrideAttrs (old: {
+       patches = old.patches ++ [./kavita-patches.diff ];
+      });
+      kavitaPatched = kavitaPkgs.kavita.overrideAttrs (old: {
+        backend = backend;
+      });
+     in kavitaPatched; 
     settings.Port = 5000;
     dataDir = baseDir;
     tokenKeyFile = config.age.secrets.kavita.path;
@@ -55,7 +66,7 @@ in lib.mkIf cfg.enable {
       ${mangal} clear -c
       ${mangal} inline -S Mangapill -q omniscient -m first -d
       ${mangal} inline -S Mangapill --query "oshi-no-ko" --manga first --download
-      ${mangal} inline -S Mangapill --query "Frieren" --manga first --download -f -F cbz
+      ${mangal} inline -S Mangapill --query "Frieren" --manga first --download -f
       ${mangal} inline -S Mangapill --query "Chainsaw" --manga first --download
       ${mangal} inline -S Mangapill --query "Jujutsu%20Kaisen" --manga first --download
       ${mangal} inline -S Mangapill -q "ribbon_no_musha" -m first -d

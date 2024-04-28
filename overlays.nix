@@ -20,4 +20,11 @@
       config.allowUnfree = true;
     };
   };
+
+  kavita-update = final: _prev: {
+    kavita-update = import inputs.nixpkgs-kavita-update {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
 }

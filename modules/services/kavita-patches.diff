@@ -1,0 +1,13 @@
+diff --git a/API/Services/SeriesService.cs b/API/Services/SeriesService.cs
+index 5294ebaf..5d0963e9 100644
+--- a/API/Services/SeriesService.cs
++++ b/API/Services/SeriesService.cs
+@@ -465,7 +465,7 @@ public class SeriesService : ISeriesService
+                     c.VolumeTitle = v.Name;
+                     return c;
+                 })
+-                .OrderBy(c => c.SortOrder))
++                .OrderBy(c => c.Title))
+                 .ToList();
+ 
+         foreach (var chapter in chapters)
