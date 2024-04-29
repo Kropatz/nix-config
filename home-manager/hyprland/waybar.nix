@@ -98,6 +98,7 @@ in
   	};
 	"temperature".critical-threshold = 80;
 	"temperature".format = "{temperatureC}°C ";
+	"temperature".thermal-zone = 1;
 	"backlight".format = "{percent}% {icon}";
 	"backlight".states = [0 50];
 	"backlight".format-icons = ["" ""];

@@ -57,13 +57,13 @@ box {
 #tray,
 #user,
 #custom-weather,
+#battery,
 #keyboard-state,
 #mpd {
   padding: 0 1em;
 }
 /* Add spacing for right side modules */
 #pulseaudio,
-#battery,
 #backlight {
   padding: 0 0.5em;
 }
