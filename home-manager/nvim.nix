@@ -17,7 +17,7 @@
         nodePackages.pyright
         nodePackages.eslint
         ccls
-        nodejs_21
+        nodejs_22
         go
       ];
     };

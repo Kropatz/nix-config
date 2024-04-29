@@ -1,7 +1,6 @@
 {pkgs, config, ...}:
 {
   imports = [
-    ../graphical/hyprland.nix # TODO
     ../kernel.nix # use latest kernel
     ../docker.nix
   ];

@@ -16,7 +16,7 @@ in
       jetbrains.idea-ultimate
       jetbrains.clion
       insomnia
-      nodejs_21 # needed for tabby extension
+      nodejs_22 # needed for tabby extension
     ];
   
     #environment.sessionVariables = {

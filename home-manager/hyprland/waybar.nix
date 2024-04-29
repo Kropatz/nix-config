@@ -73,17 +73,17 @@ in
 	"pulseaudio" = {
 	  "format" = "{volume}% {icon}";
   	  "format-bluetooth" = "{volume}% {icon}";
-  	  "format-muted" = "";
+  	  "format-muted" = "🚫";
   	  "format-icons" = {
-  	    "headphone" = "";
+  	    "headphone" = "";
   	    "hands-free" = "";
   	    "headset" = "";
   	    "phone" = "";
   	    "portable" = "";
   	    "car" = "";
   	    "default" = [
-  	      ""
-  	      ""
+  	      ""
+  	      ""
   	    ];
   	  };
   	  "scroll-step" = 1;

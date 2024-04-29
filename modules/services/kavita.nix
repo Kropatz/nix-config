@@ -32,14 +32,10 @@ in lib.mkIf cfg.enable {
     enable = true;
     user = "kavita";
     package = let 
-      kavitaPkgs = (import inputs.nixpkgs-kavita-update {
-        inherit (config.nixpkgs) config;
-        inherit (pkgs.stdenv.hostPlatform) system;
-      });
-      backend = kavitaPkgs.kavita.backend.overrideAttrs (old: {
+      backend = pkgs.kavita.backend.overrideAttrs (old: {
        patches = old.patches ++ [./kavita-patches.diff ];
       });
-      kavitaPatched = kavitaPkgs.kavita.overrideAttrs (old: {
+      kavitaPatched = pkgs.kavita.overrideAttrs (old: {
         backend = backend;
       });
      in kavitaPatched; 
