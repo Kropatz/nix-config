@@ -75,7 +75,7 @@ in
   	  "format-bluetooth" = "{volume}% {icon}";
   	  "format-muted" = "🚫";
   	  "format-icons" = {
-  	    "headphone" = "";
+	    "headphone" = "";
   	    "hands-free" = "";
   	    "headset" = "";
   	    "phone" = "";
@@ -98,7 +98,8 @@ in
   	};
 	"temperature".critical-threshold = 80;
 	"temperature".format = "{temperatureC}°C ";
-	"temperature".thermal-zone = 1;
+	"temperature".interval = 5;
+	"temperature".hwmon-path = lib.mkIf (osConfig.networking.hostName == "nix-laptop") "/sys/class/hwmon/hwmon8/temp1_input";
 	"backlight".format = "{percent}% {icon}";
 	"backlight".states = [0 50];
 	"backlight".format-icons = ["" ""];
