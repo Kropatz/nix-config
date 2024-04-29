@@ -7,7 +7,6 @@
     ../gpg.nix
     ../kernel.nix # use latest kernel
     ../services/syncthing.nix
-    ../static-ip.nix
     ../support/ntfs.nix
   ];
 
@@ -21,6 +20,12 @@
       index.enable = true;
       ld.enable = true;
       settings.enable = true;
+    };
+    static-ip = {
+      enable = true;
+      interface = "enp42s0";
+      ip = "192.168.0.11";
+      dns = "192.168.0.6";
     };
     hardware = {
       vfio.enable = true;
