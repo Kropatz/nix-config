@@ -6,5 +6,6 @@
     ./nftables.nix
     ./cli-tools.nix
     ./tmpfs.nix
+    ./static-ip.nix
   ];
 }

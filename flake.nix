@@ -104,6 +104,22 @@
           home-manager-unstable.nixosModules.home-manager
         ];
     };
+    nixosConfigurations."mini-pc" = nixpkgs-unstable.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          vars = import ./systems/userdata-default.nix;
+          pkgsVersion = nixpkgs-unstable;
+          inherit inputs outputs;
+        };
+        modules = [
+          ./modules
+          ./users/anon
+          ./systems/mini-pc/configuration.nix
+         ({ config, pkgs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages nur.overlay]; })
+          agenix.nixosModules.default
+          home-manager-unstable.nixosModules.home-manager
+        ];
+    };
     # build vm -> nixos-rebuild build-vm  --flake .#vm
     nixosConfigurations."vm" = nixpkgs-unstable.lib.nixosSystem {
         inherit system;

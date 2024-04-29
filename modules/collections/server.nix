@@ -34,6 +34,12 @@
   custom = {
     cli-tools.enable = true;
     tmpfs.enable = true;
+    static-ip = {
+      enable = true;
+      interface = "enp0s31f6";
+      ip = "192.168.0.6";
+      dns = "127.0.0.1";
+    };
     nix = {
       settings.enable = true;
     };
