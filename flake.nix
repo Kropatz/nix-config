@@ -75,18 +75,20 @@
           home-manager-unstable.nixosModules.home-manager
         ];
     };
-    nixosConfigurations."nix-laptop" = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."nix-laptop" = nixpkgs-unstable.lib.nixosSystem {
         inherit system;
         specialArgs = {
           ## Custom variables (e.g. ip, interface, etc)
           vars = import ./systems/userdata-default.nix // import ./systems/laptop/userdata.nix;
-          pkgsVersion = nixpkgs;
+          pkgsVersion = nixpkgs-unstable;
           inherit inputs outputs;
           inherit nix-colors;
         };
         modules = [
           ### User specific ###
           ./users/kopatz
+          ./systems/laptop/configuration.nix
+          ./modules/collections/laptop.nix
           ./modules
           ./modules/ecryptfs.nix
           ./modules/services/syncthing.nix
@@ -94,7 +96,6 @@
           ./modules/support/ntfs.nix
           ./modules/thunderbolt.nix
           ./modules/vmware-host.nix
-          ./systems/laptop/configuration.nix
           #./modules/fh/forensik.nix
           #./modules/no-sleep-lid-closed.nix
           #./modules/static-ip.nix
@@ -102,7 +103,7 @@
           ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages nur.overlay]; })
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default
-          home-manager.nixosModules.home-manager
+          home-manager-unstable.nixosModules.home-manager
         ];
     };
     # build vm -> nixos-rebuild build-vm  --flake .#vm

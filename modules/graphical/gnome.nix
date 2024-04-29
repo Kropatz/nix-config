@@ -1,4 +1,4 @@
-{lib,  config, pkgs, mainUser, ... }:
+{lib,  config, pkgs, ... }:
 with lib;
 let
   cfg = config.custom.graphical.gnome;
@@ -10,8 +10,8 @@ in
   
   config = mkIf cfg.enable {
     services.xserver = {
-      layout = mainUser.layout;
-      xkbVariant = mainUser.variant;
+      xkb.layout = config.mainUser.layout;
+      xkb.variant = config.mainUser.variant;
       enable = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
@@ -27,11 +27,11 @@ in
     environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
     gnome-tour
+      gedit # text editor
     ]) ++ (with pkgs.gnome; [
       cheese # webcam tool
       gnome-music
       gnome-terminal
-      gedit # text editor
       epiphany # web browser
       #geary # email reader
       evince # document viewer
@@ -54,7 +54,7 @@ in
       colloid-icon-theme
       gnomeExtensions.appindicator
       gnomeExtensions.just-perfection
-      gnomeExtensions.system-monitor
+      gnomeExtensions.system-monitor-2
       gnomeExtensions.dash2dock-lite
       gnomeExtensions.dash-to-dock
       gnomeExtensions.vitals

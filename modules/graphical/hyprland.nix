@@ -15,8 +15,8 @@ in
       patchedWaybar = pkgs.unstable.waybar.overrideAttrs (oldAttrs: { mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ]; });
     in mkIf cfg.enable {
       services.xserver = {
-        layout = config.mainUser.layout;
-        xkbVariant = config.mainUser.variant;
+        xkb.layout = config.mainUser.layout;
+        xkb.variant = config.mainUser.variant;
         enable = true;
         displayManager = mkIf (!config.services.xserver.displayManager.gdm.enable) {
           sddm.enable = true;

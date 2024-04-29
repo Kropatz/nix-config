@@ -2,6 +2,8 @@
 {
   imports = [
     ../graphical/hyprland.nix # TODO
+    ../kernel.nix # use latest kernel
+    ../docker.nix
   ];
   custom = {
     cli-tools.enable = true;
@@ -21,6 +23,7 @@
       code.enable = true;
       emulators.enable = true;
       gamemode.enable = true;
+      gnome.enable = true;
       hyprland.enable = true;
       games.enable = true;
       ime.enable = true;
