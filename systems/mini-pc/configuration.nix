@@ -29,7 +29,7 @@
       firmware.enable = true;
       ssd.enable = true;
     };
-
+    nftables.enable = true;
     cli-tools.enable = true;
     nix = {
       index.enable = true;
