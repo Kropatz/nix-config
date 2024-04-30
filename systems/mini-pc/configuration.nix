@@ -16,7 +16,7 @@
   custom = {
     static-ip = {
       enable = true;
-      ip = "192.168.0.11";
+      ip = "192.168.0.10";
       interface = "enp5s0f0";
       dns = "192.168.0.6";
     };
