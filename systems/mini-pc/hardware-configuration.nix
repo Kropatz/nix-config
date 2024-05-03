@@ -28,6 +28,12 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
+  fileSystems."/data" =
+    { device = "/dev/disk/by-uuid/d117419d-fce9-4d52-85c7-e3481feaa22a";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" ];
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/af6bf3d5-07a4-4139-9464-ffc1c4e23549"; }
     ];
