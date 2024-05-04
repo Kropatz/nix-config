@@ -53,7 +53,7 @@ in
           #    "server.home"
           #    "server.home.arpa"
           #    "192.168.0.6"
-            "localhost"
+          #  "localhost"
           ];
           root = pkgs.website;
           forceSSL = cfg.https;
