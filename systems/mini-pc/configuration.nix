@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/services/ssh.nix
+      ../../modules/services/syncthing.nix
     ];
 
   mainUser.layout = "de";

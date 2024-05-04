@@ -1,4 +1,4 @@
-{ config, pkgs, lib, vars, ... }:
+{ config, pkgs, lib, ... }:
 let
   basePath = "/synced";
 in 
@@ -34,6 +34,10 @@ in
           id = "HZUUQEQ-JOKYHTU-AVFVC3U-7KUAXVC-QY3OJTF-HGU7RZ3-5HA5TOE-VT4FNQB";
           addresses = [ "tcp://192.168.0.6" "tcp://192.168.2.1" ];
         };
+        server = {
+          id = "HZUUQEQ-JOKYHTU-AVFVC3U-7KUAXVC-QY3OJTF-HGU7RZ3-5HA5TOE-VT4FNQB";
+          addresses = [ "tcp://192.168.0.10" "tcp://192.168.2.1" ];
+        };
         laptop = {
           id = "5T6Y3WO-FOQYYFQ-5MLNDSZ-7APIDUG-6KM2ZZM-RTRXMWX-MCZKLMH-BYNDJAQ";
           addresses = [ "tcp://192.168.2.22" ];
@@ -42,23 +46,23 @@ in
 
       folders."${basePath}/default" = {
         id = "default";
-        devices = [ "kop-pc" "server" "laptop" ];
+        devices = [ "kop-pc" "server" "laptop" "mini-pc" ];
         ignorePerms = false;
       };
 
       folders."${basePath}/books" = {
         id = "books";
-        devices = [ "kop-pc" "server" "laptop" ];
+        devices = [ "kop-pc" "server" "laptop" "mini-pc" ];
       };
 
       folders."${basePath}/fh" = {
         id = "fh";
-        devices = [ "kop-pc" "server" "laptop" ];
+        devices = [ "kop-pc" "server" "laptop" "mini-pc" ];
       };
 
       folders."${basePath}/work_drive" = {
         id = "work_drive";
-        devices = [ "kop-pc" "server" "laptop" ];
+        devices = [ "kop-pc" "server" "laptop" "mini-pc" ];
       };
     };
   };
