@@ -30,6 +30,7 @@
       ssd.enable = true;
     };
     services = {
+      acme.enable = true;
       nginx.enable = true;
       kavita = {
         enable = true;

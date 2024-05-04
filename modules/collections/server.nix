@@ -2,7 +2,6 @@
 {
   imports = [
     ### Services ###
-    ../services/acme.nix
     ../services/adguard.nix
     ../services/github-runner.nix
     ../services/gitolite.nix
@@ -41,6 +40,7 @@
       settings.enable = true;
     };
     services = {
+      acme.enable = true;
       nginx.enable = true;
       kavita = {
         enable = true;
