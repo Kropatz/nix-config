@@ -10,7 +10,9 @@ in
   config = lib.mkIf cfg.enable {
     users.users.fileshelter = {
         isSystemUser = true;
+        group = "fileshelter";
     };
+    users.groups.fileshelter = {};
     age.secrets.fileshelter-conf = {
         file = ../../secrets/fileshelter-conf.age;
         owner = "fileshelter";
