@@ -8,12 +8,16 @@ in
     enable = mkEnableOption "Enables fileshelter";
   };
   config = lib.mkIf cfg.enable {
+    users.users.fileshelter = {
+        isSystemUser = true;
+    };
     age.secrets.fileshelter-conf = {
         file = ../../secrets/fileshelter-conf.age;
+        owner = "fileshelter";
     };
-    custom.misc.docker.enable = true;
     virtualisation.oci-containers.containers = {
       "fileshelter" = {
+        user = "fileshelter";
         autoStart = true;
         image = "epoupon/fileshelter";
         ports = [

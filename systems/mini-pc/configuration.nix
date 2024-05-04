@@ -40,9 +40,6 @@
     };
     nftables.enable = true;
     cli-tools.enable = true;
-    misc = {
-      docker.enable = true;
-    };
     nix = {
       index.enable = true;
       ld.enable = true;
