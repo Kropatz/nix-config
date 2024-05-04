@@ -18,7 +18,6 @@
     #../games/palworld.nix
     ../backup.nix
     ../cron.nix
-    ../docker.nix
     ../fail2ban.nix
     ../firewall.nix
     ../git.nix
@@ -46,6 +45,9 @@
         enable = true;
         dir = "/mnt/1tbssd/kavita";
       };
+    };
+    misc = {
+      docker.enable = true;
     };
     hardware = {
       firmware.enable = true;

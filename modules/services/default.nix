@@ -5,5 +5,6 @@
     ./kubernetes.nix
     ./kavita.nix
     ./nginx.nix
+    ./fileshelter.nix
   ];
 }

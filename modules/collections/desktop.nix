@@ -1,7 +1,6 @@
 {pkgs, config, ...}:
 {
   imports = [
-    ../docker.nix
     #../fh/scanning.nix
     ../flatpak.nix
     ../gpg.nix
@@ -26,6 +25,9 @@
       interface = "enp42s0";
       ip = "192.168.0.11";
       dns = "192.168.0.6";
+    };
+    misc = {
+      docker.enable = true;
     };
     hardware = {
       vfio.enable = true;

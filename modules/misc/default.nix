@@ -7,5 +7,6 @@
     ./cli-tools.nix
     ./tmpfs.nix
     ./static-ip.nix
+    ./docker.nix
   ];
 }

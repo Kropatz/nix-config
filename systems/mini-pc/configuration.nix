@@ -32,6 +32,7 @@
     services = {
       acme.enable = true;
       nginx.enable = true;
+      fileshelter.enable = true;
       kavita = {
         enable = true;
         dir = "/data/kavita";
@@ -39,6 +40,9 @@
     };
     nftables.enable = true;
     cli-tools.enable = true;
+    misc = {
+      docker.enable = true;
+    };
     nix = {
       index.enable = true;
       ld.enable = true;

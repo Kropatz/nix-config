@@ -23,4 +23,5 @@ in
   "step-ca-pw.age".publicKeys = [ mini-pc server kop ];
   "step-ca-key.age".publicKeys = [ mini-pc server kop ];
   "grafana-contact-points.age".publicKeys = [ mini-pc server kop ];
+  "fileshelter-conf.age".publicKeys = [ mini-pc server kop ];
 }
