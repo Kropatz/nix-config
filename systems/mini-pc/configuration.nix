@@ -18,7 +18,7 @@
       enable = true;
       ip = "192.168.0.10";
       interface = "enp5s0f0";
-      dns = "192.168.0.6";
+      dns = "127.0.0.1";
     };
     user = {
       name = "vm";
@@ -37,6 +37,11 @@
         enable = true;
         dir = "/data/kavita";
       };
+      wireguard = {
+        enable = true;
+        ip = "192.168.2.1";
+      };
+      adguard.enable = true;
     };
     nftables.enable = true;
     cli-tools.enable = true;

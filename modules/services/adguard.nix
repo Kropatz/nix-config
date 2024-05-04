@@ -1,24 +1,20 @@
-{ config, pkgs, inputs, vars, ... }:
+{ config, pkgs, inputs, lib , ... }:
 with lib;
 let
-  cfg = config.custom.services.acme;
+  cfg = config.custom.services.adguard;
 in
 {
-  options.custom.services.acme = {
-    enable = mkEnableOption "Enables acme";
+  options.custom.services.adguard = {
+    enable = mkEnableOption "Enables adguard";
       ip = lib.mkOption {
         type = types.str;
         default = config.custom.static-ip.ip;
         description = "this servers ipv4 address";
       };
-      wireguardIp = lib.mkOption {
-        type = types.str;
-        description = "wireguard ipv4 address";
-      };
   };
   config = let 
     ip = cfg.ip;
-    wireguardIp = cfg.wireguardIp;
+    wireguardIp = config.custom.services.wireguard.ip;
   in lib.mkIf cfg.enable {
   networking.firewall.allowedTCPPorts = [ 53 ];
   networking.firewall.allowedUDPPorts = [ 53 ];

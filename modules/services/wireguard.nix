@@ -1,8 +1,21 @@
-{ config, pkgs, lib, inputs, vars, ... }:
+{ config, pkgs, lib, inputs, ... }:
+with lib;
 let
-  wireguardIp = vars.wireguardIp;
+  cfg = config.custom.services.wireguard;
 in
 {
+  options.custom.services.wireguard = {
+      enable = mkEnableOption "Enables wireguard";
+      ip = lib.mkOption {
+        default = "192.168.2.1";
+        type = types.str;
+        description = "ipv4 address";
+      };
+  };
+  config =
+let
+  wireguardIp = cfg.ip;
+in lib.mkIf cfg.enable {
 
   age.secrets.wireguard-private = {
     file = ../../secrets/wireguard-private.age;
@@ -94,4 +107,5 @@ in
       privateKeyFile = config.age.secrets.wireguard-private.path;
     };
   };
+};
 }
