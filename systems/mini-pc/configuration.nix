@@ -30,6 +30,7 @@
       ssd.enable = true;
     };
     services = {
+      nginx.enable = true;
       kavita = {
         enable = true;
         dir = "/data/kavita";
