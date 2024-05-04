@@ -22,6 +22,7 @@
     ../firewall.nix
     ../git.nix
     ../hdd-spindown.nix
+    ../fail2ban.nix
     ../logging.nix
     ../motd.nix
   ];

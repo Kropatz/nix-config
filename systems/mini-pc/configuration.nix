@@ -10,6 +10,9 @@
       ./hardware-configuration.nix
       ../../modules/services/ssh.nix
       ../../modules/services/syncthing.nix
+      ../../modules/fail2ban.nix
+      ../../modules/logging.nix
+      ../../modules/motd.nix
     ];
 
   mainUser.layout = "de";
