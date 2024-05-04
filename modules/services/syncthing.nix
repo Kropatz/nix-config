@@ -34,7 +34,7 @@ in
           id = "HZUUQEQ-JOKYHTU-AVFVC3U-7KUAXVC-QY3OJTF-HGU7RZ3-5HA5TOE-VT4FNQB";
           addresses = [ "tcp://192.168.0.6" "tcp://192.168.2.1" ];
         };
-        server = {
+        mini-pc = {
           id = "HZUUQEQ-JOKYHTU-AVFVC3U-7KUAXVC-QY3OJTF-HGU7RZ3-5HA5TOE-VT4FNQB";
           addresses = [ "tcp://192.168.0.10" "tcp://192.168.2.1" ];
         };
