@@ -47,6 +47,10 @@ in
       '';
 
       virtualHosts = {
+        "localhost" = {
+          forceSSL = false;
+          root = pkgs.hub;
+        };
         "kopatz.ddns.net" = {
           #serverAliases = [
           #    "www.kopatz.ddns.net"
