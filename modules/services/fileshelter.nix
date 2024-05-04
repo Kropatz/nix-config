@@ -30,7 +30,7 @@ in
     virtualisation.oci-containers.containers = {
       "fileshelter" = {
         autoStart = true;
-        user = "${cfg.uid}";
+        user = toString cfg.uid;
         image = "epoupon/fileshelter";
         ports = [
           "127.0.0.1:5091:5091"
