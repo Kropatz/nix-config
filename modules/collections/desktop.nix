@@ -24,7 +24,7 @@
       enable = true;
       interface = "enp42s0";
       ip = "192.168.0.11";
-      dns = "192.168.0.6";
+      dns = "192.168.0.10";
     };
     misc = {
       docker.enable = true;
@@ -37,8 +37,6 @@
       wooting.enable = true;
     };
     graphical = {
-      hyprland.enable = true;
-      hyprland.videobridge.enable = true;
       audio.enable = true;
       code.enable = true;
       emulators.enable = true;
