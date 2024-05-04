@@ -1,4 +1,5 @@
-agenix -e secret1.age
+# create secrets
+`agenix -e secret1.age`
 
 
 example secrets.nix file
@@ -29,3 +30,6 @@ services.nextcloud = {
   config.adminpassFile = config.age.secrets.nextcloud.path;
 };
 ```
+
+# rekeying
+`agenix -r`

@@ -11,11 +11,11 @@ in
         description = "ipv4 address";
       };
       dns = lib.mkOption {
-        default = types.str;
+        type = types.str;
         description = "ip of the dns server";
       };
       interface = lib.mkOption {
-        default = types.str;
+        type = types.str;
         description = "interface to apply the change to";
       };
    };

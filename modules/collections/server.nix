@@ -28,7 +28,6 @@
     ../hdd-spindown.nix
     ../logging.nix
     ../motd.nix
-    ../static-ip.nix
   ];
 
   custom = {
@@ -44,7 +43,10 @@
       settings.enable = true;
     };
     services = {
-      kavita.enable = true;
+      kavita = {
+        enable = true;
+        dir = "/mnt/1tbssd/kavita";
+      };
     };
     hardware = {
       firmware.enable = true;

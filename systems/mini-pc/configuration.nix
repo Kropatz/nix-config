@@ -29,6 +29,12 @@
       firmware.enable = true;
       ssd.enable = true;
     };
+    services = {
+      kavita = {
+        enable = true;
+        dir = "/data/kavita";
+      };
+    };
     nftables.enable = true;
     cli-tools.enable = true;
     nix = {

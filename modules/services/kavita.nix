@@ -6,13 +6,23 @@ in
 {
   options.custom.services.kavita = {
       enable = mkEnableOption "Enables kavita";
+      https = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Should it use https?";
+      };
+      dir = mkOption {
+        default = "/data/kavita";
+        type = types.path;
+        description = "data path";
+      };
   };
   config =
 let
   fqdn = "kavita-kopatz.duckdns.org";
   useStepCa = false; #config.services.step-ca.enable;
-  useHttps = true;
-  baseDir = "/mnt/1tbssd/kavita";
+  useHttps = cfg.https;
+  baseDir = cfg.dir;
   mangal = "${pkgs.mangal}/bin/mangal";
   githubRunnerEnabled = config.services.github-runners ? oberprofis.enable;
 in lib.mkIf cfg.enable {
