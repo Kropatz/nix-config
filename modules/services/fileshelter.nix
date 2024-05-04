@@ -17,6 +17,9 @@ in
         file = ../../secrets/fileshelter-conf.age;
         owner = "fileshelter";
     };
+    systemd.tmpfiles.rules = [
+        "d /data/fileshelter 0770 fileshelter fileshelter -"
+    ];
     virtualisation.oci-containers.containers = {
       "fileshelter" = {
         user = "fileshelter";
