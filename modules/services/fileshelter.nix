@@ -20,6 +20,8 @@ in
     systemd.tmpfiles.rules = [
         "d /data/fileshelter 0770 fileshelter fileshelter -"
     ];
+    custom.misc.docker.enable = true;
+    virtualisation.oci-containers.backend = "docker";
     virtualisation.oci-containers.containers = {
       "fileshelter" = {
         user = "fileshelter";
