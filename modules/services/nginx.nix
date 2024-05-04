@@ -47,10 +47,6 @@ in
       '';
 
       virtualHosts = {
-        "localhost" = {
-          forceSSL = false;
-          root = pkgs.hub;
-        };
         "kopatz.ddns.net" = {
           #serverAliases = [
           #    "www.kopatz.ddns.net"
@@ -58,7 +54,7 @@ in
           #    "server.home.arpa"
           #    "192.168.0.6"
           #];
-          root = "/data/website";
+          root = pkgs.hub;
           forceSSL = cfg.https;
           enableACME = cfg.https;
           quic = cfg.https;
