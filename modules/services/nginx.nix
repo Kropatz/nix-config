@@ -48,13 +48,14 @@ in
 
       virtualHosts = {
         "kopatz.ddns.net" = {
-          #serverAliases = [
+          serverAliases = [
           #    "www.kopatz.ddns.net"
           #    "server.home"
           #    "server.home.arpa"
           #    "192.168.0.6"
-          #];
-          root = pkgs.hub;
+            "localhost"
+          ];
+          root = pkgs.website;
           forceSSL = cfg.https;
           enableACME = cfg.https;
           quic = cfg.https;

@@ -20,7 +20,8 @@
       lxqt.enable = true;
     };
     services = {
-      kavita.enable = true;
+      nginx.enable = true;
+      nginx.https = false;
     };
   };
 }
