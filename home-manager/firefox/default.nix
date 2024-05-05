@@ -80,12 +80,18 @@ in {
       default = {
         name = "privacy-friendly";
         settings = merge [
-          (import ./config/annoyances.nix)
+          (import ./config/preferences.nix)
           (import ./config/browser-features.nix)
           (import ./config/privacy.nix)
           (import ./config/tracking.nix)
           (import ./config/security.nix)
         ];
+        userChrome = ''
+          /* Hide tab bar. Used with Sidebery */
+          #TabsToolbar {
+            visibility: collapse !important;
+          }
+        '';
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
@@ -93,6 +99,7 @@ in {
           ublock-origin
           keepassxc-browser
           youtube-nonstop
+          sidebery
         ];
         inherit search;
       };
@@ -102,13 +109,20 @@ in {
       shit = {
         name = "trade-privacy-for-convenience";
         id = 1;
-        settings = merge [ (import ./config/annoyances.nix) ];
+        userChrome = ''
+          /* Hide tab bar. Used with Sidebery */
+          #TabsToolbar {
+            visibility: collapse !important;
+          }
+        '';
+        settings = merge [ (import ./config/preferences.nix) ];
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
           sponsorblock
           ublock-origin
           youtube-nonstop
+          sidebery
         ];
         inherit search;
       };
