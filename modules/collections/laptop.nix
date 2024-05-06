@@ -2,7 +2,6 @@
 {
   imports = [
     ../kernel.nix # use latest kernel
-    ../docker.nix
   ];
   custom = {
     cli-tools.enable = true;
@@ -12,6 +11,9 @@
     nix = {
       ld.enable = true;
       settings.enable = true;
+    };
+    misc = {
+      docker.enable = true;
     };
     hardware = {
       firmware.enable = true;
