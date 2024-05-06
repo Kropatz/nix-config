@@ -2,6 +2,7 @@
 {
   imports = [
     ../kernel.nix # use latest kernel
+    ../services/wireguard-client.nix
   ];
   custom = {
     cli-tools.enable = true;

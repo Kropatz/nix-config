@@ -16,6 +16,7 @@ in
   "restic-s3.age".publicKeys = [ mini-pc server kop ];
   "restic-gdrive.age".publicKeys = [ mini-pc server kop ];
   "wireguard-private.age".publicKeys = [ mini-pc server kop ];
+  "wireguard-client.age".publicKeys = [ kop ];
   "coturn-secret.age".publicKeys = [ mini-pc server kop ];
   "matrix-registration.age".publicKeys = [ mini-pc server kop ];
   "paperless.age".publicKeys = [ mini-pc server kop ];

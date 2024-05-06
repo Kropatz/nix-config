@@ -10,6 +10,7 @@
 	#<home-manager/nixos>
     ];
 
+  age.identityPaths = [ /home/kopatz/.ssh/id_ed25519 ];
   mainUser.layout = "at";
   mainUser.variant = "";
   # Bootloader.
