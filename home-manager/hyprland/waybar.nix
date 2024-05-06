@@ -99,7 +99,7 @@ in
 	"temperature".critical-threshold = 80;
 	"temperature".format = "{temperatureC}°C ";
 	"temperature".interval = 5;
-	"temperature".hwmon-path = lib.mkIf (osConfig.networking.hostName == "nix-laptop") "/sys/class/hwmon/hwmon8/temp1_input";
+	"temperature".hwmon-path = lib.mkIf (osConfig.networking.hostName == "nix-laptop") "/sys/class/hwmon/hwmon6/temp1_input";
 	"backlight".format = "{percent}% {icon}";
 	"backlight".states = [0 50];
 	"backlight".format-icons = ["" ""];
