@@ -1,9 +1,10 @@
 let
   kop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeP6qtVqE/gu72ZUZE8cdRi3INiUW9NqDR7SjXIzTw2 lukas@Kopatz-PC2";
   server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAUA7uVKXAF2UcwaIDSJP2Te8Fi++2zkKzSPoRx1vQrI root@server";
+  laptop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqcphdDEJhnSBkAZzQXZJDCzsyb/Tqpcf0pUADFpbd1 root@nix-laptop";
   mini-pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKla9+Gj2i9Ax7cIdnTM6zsmze3g1N/qCPqhga0P+toU root@mini-pc";
   users = [ kop ];
-  systems = [ mini-pc server ];
+  systems = [ mini-pc server laptop ];
 in
 {
   "github-runner-token.age".publicKeys = [ mini-pc server kop ];
@@ -16,7 +17,7 @@ in
   "restic-s3.age".publicKeys = [ mini-pc server kop ];
   "restic-gdrive.age".publicKeys = [ mini-pc server kop ];
   "wireguard-private.age".publicKeys = [ mini-pc server kop ];
-  "wireguard-client.age".publicKeys = [ kop ];
+  "wireguard-client.age".publicKeys = [ kop laptop ];
   "coturn-secret.age".publicKeys = [ mini-pc server kop ];
   "matrix-registration.age".publicKeys = [ mini-pc server kop ];
   "paperless.age".publicKeys = [ mini-pc server kop ];
