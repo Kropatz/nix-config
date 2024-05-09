@@ -19,6 +19,7 @@
   programs.zsh.enable = true;
   users.users.${config.mainUser.name} = {
     isNormalUser = true;
+    initialPassword = "1";
     description = config.mainUser.name;
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" ];

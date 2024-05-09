@@ -1,5 +1,14 @@
 { config, pkgs, lib, inputs, ... }:
-let 
+with lib;
+let
+  cfg = config.custom.misc.backup;
+in
+{
+   options.custom.backup = {
+      enable = mkEnableOption "Enables backup";
+   };
+
+   config = let 
     kavita = "/mnt/1tbssd/kavita";
     gitolite = "/var/lib/gitolite";
     syncthing = [ "/synced/default/" "/synced/work_drive/" ];
@@ -27,8 +36,7 @@ let
         du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsFull}
       '';
     };
-in
-{
+in mkIf cfg.enable {
   environment.systemPackages = with pkgs; [ checkStorageSpace ];
   age.secrets.restic-pw = {
     file = ../secrets/restic-pw.age;
@@ -97,4 +105,5 @@ in
       };
     };
   };
+}
 }
