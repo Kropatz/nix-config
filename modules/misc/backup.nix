@@ -6,34 +6,49 @@ in
 {
    options.custom.misc.backup = {
       enable = mkEnableOption "Enables backup";
+      small = lib.mkOption {
+        type = types.listOf types.str;
+        description = "paths to include in the small backup";
+      };
+      medium = lib.mkOption {
+        type = types.listOf types.str;
+        default = cfg.small;
+        description = "paths to include in the medium backup";
+      };
+      large = lib.mkOption {
+        type = types.listOf types.str;
+        default = cfg.small // cfg.medium;
+        description = "paths to include in the large backup";
+      };
+      excludePaths = lib.mkOption {
+        type = types.listOf types.str;
+        default = [ "**/Cache" "**/.cache" "**/__pycache__" "**/node_modules" "**/venv" ];
+        description = "paths to exclude from the backup";
+      };
+      excludePathsRemote = lib.mkOption {
+        type = types.listOf types.str;
+        default = cfg.excludePaths ++ [ "**/dont_remotebackup"];
+        description = "paths to exclude from the remote backup";
+      };
    };
 
    config = let 
-    kavita = "/mnt/1tbssd/kavita";
-    gitolite = "/var/lib/gitolite";
-    syncthing = [ "/synced/default/" "/synced/work_drive/" ];
-    syncthingFull = syncthing ++ [ "/synced/fh/" "/synced/books/" ];
-    excludePaths = [ "/home/**/Cache" "/home/**/.cache" "/home/**/__pycache__" "/home/**/node_modules" "/home/**/venv" ];
-    excludePathsRemote = excludePaths ++ [ "/home/**/dont_remotebackup" ];
-    backupPathsSmall = [ "/home" "/var/backup/postgresql" gitolite ] ++ syncthing;
-    backupPathsMedium = [ "/home" "/var/backup/postgresql" "/mnt/250ssd/matrix-synapse/media_store/" "/mnt/250ssd/paperless" gitolite ] ++ syncthing;
-    backupPathsFull = [ "/home" "/var/backup/postgresql" "/mnt/250ssd/matrix-synapse/media_store/" "/mnt/250ssd/paperless" kavita gitolite ] ++ syncthingFull;
     checkStorageSpace = pkgs.writeShellApplication {
       name = "checkBackupStorageSpace";
       text = ''
         # Check how much space is used by the backup paths
         echo "Checking storage space (small) with excluded paths..."
-        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePaths)} ${builtins.concatStringsSep " " backupPathsSmall} 
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)} ${builtins.concatStringsSep " " cfg.small} 
         echo "Checking storage space (small) with excluded paths (remote)..."
-        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsSmall}
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)} ${builtins.concatStringsSep " " cfg.small}
         echo "Checking storage space (medium) with excluded paths..."
-        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePaths)} ${builtins.concatStringsSep " " backupPathsMedium} 
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)} ${builtins.concatStringsSep " " cfg.medium} 
         echo "Checking storage space (medium) with excluded paths (remote)..."
-        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsMedium}
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)} ${builtins.concatStringsSep " " cfg.medium}
         echo "Checking storage space (full) with excluded paths..."
-        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePaths)} ${builtins.concatStringsSep " " backupPathsFull}
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)} ${builtins.concatStringsSep " " cfg.large}
         echo "Checking storage space (full) with excluded paths (remote)..."
-        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) excludePathsRemote)} ${builtins.concatStringsSep " " backupPathsFull}
+        du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)} ${builtins.concatStringsSep " " cfg.large}
       '';
     };
 in mkIf cfg.enable {
@@ -49,39 +64,39 @@ in mkIf cfg.enable {
   };
   services.restic = {
     backups = {
-        localbackup = {
-            initialize = true;
-            passwordFile = config.age.secrets.restic-pw.path;
-            exclude = excludePaths;
-            paths = backupPathsFull;
-            pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
-            repository = "/mnt/2tb/restic";
-        };
-        localbackup-1tb-ssd = {
-            initialize = true;
-            passwordFile = config.age.secrets.restic-pw.path;
-            exclude = excludePaths;
-            paths = backupPathsFull;
-            pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
-            repository = "/mnt/1tbssd/restic";
-        };
-        localbackup-1tb = {
-            initialize = true;
-            passwordFile = config.age.secrets.restic-pw.path;
-            exclude = excludePaths;
-            paths = backupPathsFull;
-            repository = "/mnt/1tb/restic";
-            pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
-            timerConfig = {
-                OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
-                Persistent = true;
-            };
-        };
+        #localbackup = {
+        #    initialize = true;
+        #    passwordFile = config.age.secrets.restic-pw.path;
+        #    exclude = cfg.excludePaths;
+        #    paths = cfg.large;
+        #    pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
+        #    repository = "/mnt/2tb/restic";
+        #};
+        #localbackup-1tb-ssd = {
+        #    initialize = true;
+        #    passwordFile = config.age.secrets.restic-pw.path;
+        #    exclude = cfg.excludePaths;
+        #    paths = cfg.large;
+        #    pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
+        #    repository = "/mnt/1tbssd/restic";
+        #};
+        #localbackup-1tb = {
+        #    initialize = true;
+        #    passwordFile = config.age.secrets.restic-pw.path;
+        #    exclude = cfg.excludePaths;
+        #    paths = cfg.large;
+        #    repository = "/mnt/1tb/restic";
+        #    pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
+        #    timerConfig = {
+        #        OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
+        #        Persistent = true;
+        #    };
+        #};
         remotebackup-gdrive = {
             initialize = true;
             passwordFile = config.age.secrets.restic-pw.path;
-            exclude = excludePathsRemote;
-            paths = backupPathsMedium;
+            exclude = cfg.excludePathsRemote;
+            paths = cfg.medium;
             rcloneConfigFile = config.age.secrets.restic-gdrive.path; 
             repository = "rclone:it-experts:backup";
             pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
@@ -94,8 +109,8 @@ in mkIf cfg.enable {
             initialize = true;
             passwordFile = config.age.secrets.restic-pw.path;
             environmentFile = config.age.secrets.restic-s3.path;
-            exclude = excludePathsRemote;
-            paths = backupPathsSmall;
+            exclude = cfg.excludePathsRemote;
+            paths = cfg.small;
             pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             timerConfig = {
               OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 00:00:00";

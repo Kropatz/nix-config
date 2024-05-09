@@ -34,8 +34,19 @@
       ssd.enable = true;
     };
     misc = {
-      backup = {
+      backup = let 
+        kavita = "/data/kavita";
+        syncthing = [ "/synced/default/" "/synced/work_drive/" ];
+        syncthingFull = syncthing ++ [ "/synced/fh/" "/synced/books/" ];
+        backupPathsSmall = [ "/home" ] ++ syncthing;
+        backupPathsMedium = [ "/home" ] ++ syncthing;
+        backupPathsFull = [ "/home" kavita ] ++ syncthingFull;
+      in
+      {
         enable = true;
+        small = backupPathsSmall;
+        medium = backupPathsMedium;
+        large = backupPathsFull;
       };
     };
     services = {
