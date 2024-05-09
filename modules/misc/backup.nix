@@ -54,13 +54,13 @@ in
 in mkIf cfg.enable {
   environment.systemPackages = with pkgs; [ checkStorageSpace ];
   age.secrets.restic-pw = {
-    file = ../secrets/restic-pw.age;
+    file = ../..//secrets/restic-pw.age;
   };
   age.secrets.restic-s3 = {
-    file = ../secrets/restic-s3.age;
+    file = ../../secrets/restic-s3.age;
   };
   age.secrets.restic-gdrive = {
-    file = ../secrets/restic-gdrive.age;
+    file = ../../secrets/restic-gdrive.age;
   };
   services.restic = {
     backups = {
