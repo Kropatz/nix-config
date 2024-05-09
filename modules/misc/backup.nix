@@ -4,7 +4,7 @@ let
   cfg = config.custom.misc.backup;
 in
 {
-   options.custom.backup = {
+   options.custom.misc.backup = {
       enable = mkEnableOption "Enables backup";
    };
 
@@ -105,5 +105,5 @@ in mkIf cfg.enable {
       };
     };
   };
-}
+  };
 }

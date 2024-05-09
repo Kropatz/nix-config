@@ -33,6 +33,11 @@
       firmware.enable = true;
       ssd.enable = true;
     };
+    misc = {
+      backup = {
+        enable = true;
+      };
+    };
     services = {
       acme.enable = true;
       nginx.enable = true;

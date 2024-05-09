@@ -1,6 +1,7 @@
 { pkgs, config, ...}:
 {
   imports = [
+    ./backup.nix
     ./wireshark.nix
     ./virt-manager.nix
     ./nftables.nix

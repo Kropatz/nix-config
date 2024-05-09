@@ -36,7 +36,6 @@
       docker.enable = true;
     };
     hardware = {
-      vfio.enable = true;
       nvidia.enable = true;
       firmware.enable = true;
       ssd.enable = true;
@@ -60,23 +59,23 @@
   mainUser.layout = "de";
   mainUser.variant = "us";
   age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];
-  #services.xserver.displayManager.session = [
-  #  {
-  #    manage = "desktop";
-  #    name = "hyprland";
-  #    start = ''
-  #      ${lib.getExe pkgs.hyprland} &
-  #      waitPID=$!
-  #    '';
-  #  }
-  #  {
-  #    manage = "desktop";
-  #    name = "plasma5";
-  #    start = ''
-  #      env ${pkgs.plasma-workspace}/bin/startplasma-x11
-  #    '';
-  #  }
-  #];
+  services.xserver.displayManager.session = [
+    {
+      manage = "desktop";
+      name = "hyprland";
+      start = ''
+        ${lib.getExe pkgs.hyprland} &
+        waitPID=$!
+      '';
+    }
+    {
+      manage = "desktop";
+      name = "plasma5";
+      start = ''
+        env ${pkgs.plasma-workspace}/bin/startplasma-x11
+      '';
+    }
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
