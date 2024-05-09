@@ -18,7 +18,7 @@
     ../../home-manager/firefox
     ../../home-manager/gitconfig.nix
     ../../home-manager/hyprland
-    ../../home-manager/kde-path.nix
+    #../../home-manager/kde-path.nix
     ../../home-manager/kitty.nix
     ../../home-manager/lf.nix
     ../../home-manager/nvim.nix

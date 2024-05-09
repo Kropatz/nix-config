@@ -18,13 +18,16 @@ in
         #
         
         # See https://wiki.hyprland.org/Configuring/Monitors/
-        monitor = [ 
+        monitor = if osConfig.networking.hostName == "kop-pc" then [ 
           # PC
           "HDMI-A-1,1920x1080@60,0x0,1"
-          "DP-1,2560x1440@144,1920x0,1"
+          "DP-1,2560x1440@165,1920x0,1"
+          "Unknown-1,disable"
+        ] else if osConfig.networking.hostName == "nix-laptop" then [ 
           # laptop
           "eDP-1,3840x2160@60,0x0,2"
           "DP-3,1920x1080@60,1920x0,1"
+        ] else [
           # Default
           ",preferred,auto,auto" 
         ];
@@ -38,7 +41,7 @@ in
         # source = ~/.config/hypr/myColors.conf
         
         # Some default env vars.
-        env = "XCURSOR_SIZE,24";
+        env = [ "XCURSOR_SIZE,24" "NIXOS_OZONE_WL,1" ];
         
         # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
         input = {

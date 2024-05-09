@@ -18,14 +18,12 @@ in
         xkb.layout = config.mainUser.layout;
         xkb.variant = config.mainUser.variant;
         enable = true;
-        displayManager = mkIf (!config.services.xserver.displayManager.gdm.enable) {
-          sddm.enable = true;
+        displayManager = mkIf (!config.services.xserver.displayManager.sddm.enable) {
+          gdm.enable = true;
         };
       };
     
       environment.sessionVariables = {
-        # Hint electron apps to use wayland
-        NIXOS_OZONE_WL = "1";
         WLR_NO_HARDWARE_CURSORS="1";
         #WLR_DRM_NO_ATOMIC="1";
         #WLR_DRM_DEVICES = "/dev/dri/card0";
