@@ -60,14 +60,14 @@
   mainUser.variant = "us";
   age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];
   services.xserver.displayManager.session = [
-    {
-      manage = "desktop";
-      name = "hyprland";
-      start = ''
-        ${lib.getExe pkgs.hyprland} &
-        waitPID=$!
-      '';
-    }
+    #{
+    #  manage = "desktop";
+    #  name = "hyprland";
+    #  start = ''
+    #    ${lib.getExe pkgs.hyprland} &
+    #    waitPID=$!
+    #  '';
+    #}
     {
       manage = "desktop";
       name = "plasma5";

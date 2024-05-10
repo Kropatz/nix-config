@@ -1,9 +1,12 @@
 [user]
-	name = Lukas
-	email = lukas.kopatz11@gmail.com
+    name = Lukas
+    email = lukas.kopatz11@gmail.com
+    signingkey = ~/.ssh/id_rsa.pub
+[gpg]
+    format = ssh
 [alias]
-	pushfwl = push --force-with-lease
-	last = log -1 --stat
+    pushfwl = push --force-with-lease
+    last = log -1 --stat
     now = commit --amend --date="now" --no-edit
     cp = cherry-pick
     co = checkout
@@ -11,6 +14,7 @@
     ci = commit
     st = status -sb
     br = branch
+    pr = pull --rebase
     unstage = reset HEAD --
     dc = diff --cached
     lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
@@ -18,6 +22,8 @@
     lg = !"git lg1"
 [color]
     ui = true
+[rerere]
+    enabled = true
 [mergetool]
     keeptemporaries = false
     keepbackups = false
