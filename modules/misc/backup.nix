@@ -72,14 +72,14 @@ in mkIf cfg.enable {
         #    pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
         #    repository = "/mnt/2tb/restic";
         #};
-        #localbackup-1tb-ssd = {
-        #    initialize = true;
-        #    passwordFile = config.age.secrets.restic-pw.path;
-        #    exclude = cfg.excludePaths;
-        #    paths = cfg.large;
-        #    pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
-        #    repository = "/mnt/1tbssd/restic";
-        #};
+        localbackup-1tb-ssd = {
+            initialize = true;
+            passwordFile = config.age.secrets.restic-pw.path;
+            exclude = cfg.excludePaths;
+            paths = cfg.large;
+            pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
+            repository = "/1tbssd/restic";
+        };
         #localbackup-1tb = {
         #    initialize = true;
         #    passwordFile = config.age.secrets.restic-pw.path;

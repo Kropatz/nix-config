@@ -33,6 +33,11 @@
       fsType = "btrfs";
       options = [ "compress=zstd" "noatime" ];
     };
+  fileSystems."/1tbssd" =
+    { device = "/dev/disk/by-uuid/801d9217-9c38-4ca8-914e-e31361603892";
+      fsType = "ext4";
+      options = ["defaults" "nofail" "noatime"];
+    };
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/af6bf3d5-07a4-4139-9464-ffc1c4e23549"; }
