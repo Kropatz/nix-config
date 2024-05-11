@@ -18,10 +18,15 @@ in
         type = types.str;
         description = "interface to apply the change to";
       };
+      gateway = lib.mkOption {
+        type = types.str;
+        default = "192.168.0.1";
+        description = "Default gateway";
+      };
    };
    config = mkIf cfg.enable {
      networking = {
-       defaultGateway = "192.168.0.1";
+       defaultGateway = cfg.gateway;
        useDHCP = false;
        nameservers = [
          cfg.dns

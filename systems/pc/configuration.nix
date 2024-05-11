@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, lib, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -31,6 +30,7 @@
       interface = "enp42s0";
       ip = "192.168.0.11";
       dns = "192.168.0.10";
+      #gateway = "192.168.0.10";
     };
     misc = {
       docker.enable = true;
