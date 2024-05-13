@@ -2,12 +2,13 @@
 {
   imports = [
     ./backup.nix
-    ./wireshark.nix
-    ./virt-manager.nix
-    ./nftables.nix
+    ./btrfs.nix
     ./cli-tools.nix
-    ./tmpfs.nix
-    ./static-ip.nix
     ./docker.nix
+    ./nftables.nix
+    ./static-ip.nix
+    ./tmpfs.nix
+    ./virt-manager.nix
+    ./wireshark.nix
   ];
 }

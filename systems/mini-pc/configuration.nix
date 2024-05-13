@@ -34,6 +34,7 @@
       ssd.enable = true;
     };
     misc = {
+      btrfs.enable = true;
       backup = let 
         kavita = "/data/kavita";
         syncthing = [ "/synced/default/" "/synced/work_drive/" ];
