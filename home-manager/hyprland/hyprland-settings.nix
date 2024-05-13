@@ -249,16 +249,17 @@ in
         dunstify = "${pkgs.dunst}/bin/dunstify";
         dunstctl = "${pkgs.dunst}/bin/dunstctl";
         pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
+        path = "/synced/fh/cloud_computing/scriptum";
       in ''
         bind = $mainMod, A, submap, notes
 
         submap = notes
         # below
-        bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ~/Nextcloud/fh/pentest/folien/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
         # above
-        bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ~/Nextcloud/fh/pentest/folien/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
         # context
-        bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ~/Nextcloud/fh/pentest/folien/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+        bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
         # trim
         bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}
         bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
