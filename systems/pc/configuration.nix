@@ -51,8 +51,8 @@
       noise-supression.enable = true;
       obs.enable = true;
       openrgb.enable = true;
-      #plasma.enable = true;
-      cosmic.enable = true;
+      plasma.enable = true;
+      #cosmic.enable = true;
       shared.enable = true;
     };
   };
