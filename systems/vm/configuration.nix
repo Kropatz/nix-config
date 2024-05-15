@@ -19,9 +19,5 @@
     graphical = {
       lxqt.enable = true;
     };
-    services = {
-      nginx.enable = true;
-      nginx.https = false;
-    };
   };
 }

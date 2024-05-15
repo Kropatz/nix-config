@@ -3,6 +3,7 @@
   imports = [
     ./audio.nix
     ./code.nix
+    ./cosmic.nix
     ./emulators.nix
     ./gamemode.nix
     ./games.nix

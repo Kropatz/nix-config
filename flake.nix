@@ -20,6 +20,10 @@
       };
       nix-colors.url = "github:misterio77/nix-colors";
       nur = { url = "github:nix-community/NUR"; };
+      nixos-cosmic = {
+        url = "github:lilyinstarlight/nixos-cosmic";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
   outputs = { self,
               nur,
@@ -31,6 +35,7 @@
               home-manager,
               home-manager-unstable,
               nix-colors,
+              nixos-cosmic,
             }@inputs:
     let
       inherit (self) outputs;
@@ -68,6 +73,7 @@
           ./systems/pc/configuration.nix
          ({ config, pkgs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages nur.overlay]; })
           agenix.nixosModules.default
+          nixos-cosmic.nixosModules.default
           home-manager-unstable.nixosModules.home-manager
         ];
     };
