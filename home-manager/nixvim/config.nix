@@ -1,6 +1,8 @@
 {lib, pkgs, ...}:
 {
   enable = true;
+  viAlias = true;
+  vimAlias = true;
   colorschemes.dracula.enable = true;
 
   globals.mapleader = " ";

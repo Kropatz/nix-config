@@ -29,4 +29,7 @@ let
   ];
   merged =
     builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;
-in { programs.nixvim = merged; }
+in {
+  home.sessionVariables = { EDITOR = "nvim"; };
+  programs.nixvim = merged;
+}
