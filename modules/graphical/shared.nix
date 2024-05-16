@@ -29,7 +29,7 @@ in
   
     networking.firewall = {
       enable = true;
-      allowedTCPPorts = [ 53317 ]; #localsend
+      allowedTCPPorts = [ 25565 53317 ]; #localsend
       allowedUDPPorts = [ 1194 53317 ]; #openvpn, localsend
       allowedTCPPortRanges = [
         { from = 1714; to = 1764; } # KDE Connect

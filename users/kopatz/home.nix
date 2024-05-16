@@ -21,7 +21,7 @@
     #../../home-manager/kde-path.nix
     ../../home-manager/kitty.nix
     ../../home-manager/lf.nix
-    ../../home-manager/nvim.nix
+    ../../home-manager/nixvim
     ../../home-manager/rofi.nix
     ../../home-manager/theme.nix
     ../../home-manager/zsh.nix
