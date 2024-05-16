@@ -50,6 +50,7 @@ in
   
   
     environment.systemPackages = with pkgs; [
+      libsForQt5.bismuth # auto tiling
       wayland-utils
     ];
   };

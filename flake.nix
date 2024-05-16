@@ -53,6 +53,7 @@
         ({ config, outputs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages]; })
         home-manager-unstable.nixosModules.home-manager
         agenix.nixosModules.default
+        nixos-cosmic.nixosModules.default
       ];
       specialArgs = {
         ## Custom variables (e.g. ip, interface, etc)
@@ -106,6 +107,7 @@
           nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           agenix.nixosModules.default
           home-manager-unstable.nixosModules.home-manager
+          nixos-cosmic.nixosModules.default
         ];
     };
     nixosConfigurations."mini-pc" = nixpkgs-unstable.lib.nixosSystem {
@@ -122,6 +124,7 @@
          ({ config, pkgs, ... }: { nixpkgs.overlays = with outputs.overlays; [additions modifications unstable-packages nur.overlay]; })
           agenix.nixosModules.default
           home-manager-unstable.nixosModules.home-manager
+          nixos-cosmic.nixosModules.default
         ];
     };
     # build vm -> nixos-rebuild build-vm  --flake .#vm

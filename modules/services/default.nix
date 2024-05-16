@@ -3,6 +3,7 @@
   imports = [
     ./acme.nix
     ./adguard.nix
+    ./ente.nix
     ./kubernetes.nix
     ./kavita.nix
     ./nginx.nix

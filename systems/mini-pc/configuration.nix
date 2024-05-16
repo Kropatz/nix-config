@@ -53,6 +53,7 @@
     services = {
       acme.enable = true;
       nginx.enable = true;
+      ente.enable = true;
       fileshelter.enable = true;
       kavita = {
         enable = true;
