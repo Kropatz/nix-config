@@ -478,6 +478,7 @@ local servers = {
   jdtls = {},
   vtsls = {},
   clangd = {},
+  gopls = {},
 
   lua_ls = {
     Lua = {

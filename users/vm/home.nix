@@ -7,6 +7,7 @@
   imports = [
     ../../home-manager/nvim.nix
     ../../home-manager/zsh.nix
+    inputs.nixvim.homeManagerModules.nixvim
     inputs.nix-colors.homeManagerModule
   ];
 }

@@ -25,6 +25,7 @@
     ../../home-manager/rofi.nix
     ../../home-manager/theme.nix
     ../../home-manager/zsh.nix
+    inputs.nixvim.homeManagerModules.nixvim
     inputs.nix-colors.homeManagerModule
   ];
 
