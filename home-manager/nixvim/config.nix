@@ -95,11 +95,6 @@
     # Tabs
     {
       mode = "n";
-      key = "<leader>t";
-      action = "+tab";
-    }
-    {
-      mode = "n";
       key = "<leader>tn";
       action = "<CMD>tabnew<CR>";
       options.desc = "Create new tab";
@@ -134,11 +129,6 @@
 
     # Trouble 
     {
-      mode = "n";
-      key = "<leader>d";
-      action = "+diagnostics/debug";
-    }
-    {
       key = "<leader>dt";
       action = "<CMD>TroubleToggle<CR>";
       options.desc = "Toggle trouble";
@@ -146,16 +136,43 @@
 
     # Rust
     {
-      mode = "n";
-      key = "<leader>r";
-      action = "+rust";
-    }
-    {
       # Start standalone rust-analyzer (fixes issues when opening files from nvim tree)
       mode = "n";
       key = "<leader>rs";
       action = "<CMD>RustStartStandaloneServerForBuffer<CR>";
       options.desc = "Start standalone rust-analyzer";
+    }
+
+    # refactoring
+    {
+      mode = "n";
+      key = "<leader>re";
+      action = ":Refactor extract_var ";
+      options.desc = "Extract to variable";
+    }
+    {
+      mode = "n";
+      key = "<leader>rE";
+      action = ":Refactor extract ";
+      options.desc = "Extract to function";
+    }
+    {
+      mode = "n";
+      key = "<leader>rb";
+      action = ":Refactor extract_block ";
+      options.desc = "Extract to block";
+    }
+    {
+      mode = "n";
+      key = "<leader>ri";
+      action = ":Refactor inline_var ";
+      options.desc = "Inline variable";
+    }
+    {
+      mode = "n";
+      key = "<leader>rI";
+      action = ":Refactor inline_func ";
+      options.desc = "Inline function";
     }
   ];
 }

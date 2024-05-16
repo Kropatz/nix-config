@@ -1,4 +1,5 @@
 { lib, pkgs, ... }:
+# https://nix-community.github.io/nixvim/NeovimOptions/index.html
 let
   args = { inherit lib pkgs; };
 
@@ -12,6 +13,7 @@ let
     ./bufferline.nix
     ./cmp.nix
     ./fidget.nix
+    ./refactoring.nix
     ./git.nix
     ./lightline.nix
     ./lsp.nix

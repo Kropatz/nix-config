@@ -28,6 +28,7 @@
           end
         '';
         sources = [
+          { name = "path"; groupIndex = 1; }
           { name = "nvim_lsp"; }
           { name = "luasnip"; }
           {
@@ -35,7 +36,6 @@
             option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
           }
           { name = "nvim_lua"; }
-          { name = "path"; }
           { name = "copilot"; }
         ];
 
