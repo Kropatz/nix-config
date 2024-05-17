@@ -14,6 +14,7 @@
 
   imports = [
     ../../home-manager/code.nix
+    ../../home-manager/fastfetch.nix
     ../../home-manager/direnv.nix
     ../../home-manager/firefox
     ../../home-manager/gitconfig.nix
