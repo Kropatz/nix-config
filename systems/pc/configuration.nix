@@ -29,9 +29,15 @@
       enable = true;
       interface = "enp42s0";
       ip = "192.168.0.11";
-      dns = "192.168.0.10";
+      #dns = "127.0.0.1";
+      dns = "192.168.10";
       #gateway = "192.168.0.10";
     };
+    # It uses 1.1.1.1 for some reason? set in /etc/dnsmasq-resolv.conf. no idea why
+    #services.dnsmasq = {
+    #  enable = true;
+    #  server = [ "192.168.0.10" ];
+    #};
     misc = {
       docker.enable = true;
     };
@@ -54,6 +60,7 @@
       plasma.enable = true;
       #cosmic.enable = true;
       shared.enable = true;
+      stylix.enable = true;
     };
   };
 

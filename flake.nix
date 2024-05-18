@@ -28,10 +28,11 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    stylix.url = "github:danth/stylix";
   };
   outputs = { self, nur, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable
     , agenix, home-manager, home-manager-unstable, nix-colors, nixos-cosmic
-    , nixvim }@inputs:
+    , nixvim, stylix }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -52,6 +53,7 @@
             home-manager-unstable.nixosModules.home-manager
             agenix.nixosModules.default
             nixos-cosmic.nixosModules.default
+            stylix.nixosModules.stylix
           ];
           specialArgs = specialArgs // { inherit inputs outputs; };
         };

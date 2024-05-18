@@ -16,5 +16,6 @@
     ./openrgb.nix
     ./plasma.nix
     ./shared.nix
+    ./stylix.nix
   ];
 }
