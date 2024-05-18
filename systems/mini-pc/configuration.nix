@@ -25,7 +25,7 @@
       dns = "127.0.0.1";
     };
     user = {
-      name = "vm";
+      name = "anon";
       layout = "de";
       variant = "us";
     };
@@ -45,9 +45,9 @@
       in
       {
         enable = true;
-        small = backupPathsSmall;
-        medium = backupPathsMedium;
-        large = backupPathsFull;
+        small = backupPathsSmall; # goes to backblaze
+        medium = backupPathsMedium; # goes to gdrive
+        large = backupPathsFull; # goes to local storage medium
       };
     };
     services = {
