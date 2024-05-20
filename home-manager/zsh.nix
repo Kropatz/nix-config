@@ -18,6 +18,7 @@
           updateFancy = "nh os switch";
           updateOffline = "sudo nixos-rebuild switch --option substitute false";
           goto = "cd $(find ~/projects -maxdepth 2 -type d | ${pkgs.fzf}/bin/fzf)";
+          dev= "nix-shell --run zsh";
       };
       oh-my-zsh = {
         enable = true;

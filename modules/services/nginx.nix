@@ -55,7 +55,7 @@ in
           #    "192.168.0.6"
           #  "localhost"
           ];
-          root = pkgs.website;
+          root = pkgs.kop-website;
           forceSSL = cfg.https;
           enableACME = cfg.https;
           quic = cfg.https;

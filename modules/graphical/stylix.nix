@@ -6,7 +6,7 @@ in {
     enable = mkEnableOption "Enables stylix";
     image = mkOption {
       type = types.path;
-      default = ./yuyukowallpaper1809.png;
+      default = ../../yuyukowallpaper1809.png;
       description = ''
         The wallpaper to use.
       '';
@@ -34,6 +34,7 @@ in {
     let nerdfonts = pkgs.nerdfonts.override { fonts = [ "Hack" "Noto" ]; };
     in mkIf cfg.enable {
       stylix = {
+        autoEnable = true;
         polarity = "dark";
         image = cfg.image;
         override = cfg.override;

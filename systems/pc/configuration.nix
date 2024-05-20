@@ -2,17 +2,26 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/flatpak.nix
-      ../../modules/gpg.nix
-      ../../modules/kernel.nix # use latest kernel
-      ../../modules/services/syncthing.nix
-      ../../modules/support/ntfs.nix
-    ];
+{ config, pkgs, lib, ... }: {
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/flatpak.nix
+    ../../modules/gpg.nix
+    ../../modules/kernel.nix # use latest kernel
+    ../../modules/services/syncthing.nix
+    ../../modules/support/ntfs.nix
+  ];
+
+  #systemd.services.failtest = {
+  #  enable = true;
+  #  description = "Fail Test Service";
+  #  wantedBy = [ "multi-user.target" ];
+
+  #  serviceConfig = {
+  #    Type = "simple";
+  #    ExecStart = "${pkgs.coreutils}/bin/false";
+  #  };
+  #};
 
   custom = {
     tmpfs.enable = true;
@@ -38,9 +47,7 @@
     #  enable = true;
     #  server = [ "192.168.0.10" ];
     #};
-    misc = {
-      docker.enable = true;
-    };
+    misc = { docker.enable = true; };
     hardware = {
       nvidia.enable = true;
       firmware.enable = true;
@@ -97,7 +104,7 @@
   networking.networkmanager.enable = true;
   boot.initrd.systemd.network.wait-online.enable = false;
   systemd.network.wait-online.enable = false;
-  
+
   services.nscd.enableNsncd = false;
   #disable firewall when doing ipv6 vm stuff
   #networking.firewall.enable = lib.mkForce false;
@@ -136,18 +143,18 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  security.pki.certificates = [ ''
------BEGIN CERTIFICATE-----
-MIIBjTCCATKgAwIBAgIRAMVH2+JHZ3wm2fLUlKjTYDswCgYIKoZIzj0EAwIwJDEM
-MAoGA1UEChMDS29wMRQwEgYDVQQDEwtLb3AgUm9vdCBDQTAeFw0yMzEyMDgxNDUx
-MTZaFw0zMzEyMDUxNDUxMTZaMCQxDDAKBgNVBAoTA0tvcDEUMBIGA1UEAxMLS29w
-IFJvb3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATdZBOkNynShXipzhuX
-f6dUByD3chNupNWsagYC5AlPRJT9fAeHEIK/bxWkFwRtLBDopWvBu9lHahBgpHc7
-y7rTo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNV
-HQ4EFgQU9AVtwipW5HDBLfZRH1KZCnIKCfowCgYIKoZIzj0EAwIDSQAwRgIhAMHj
-AipNdhQKIYPvMt/h1uW4xP3NTkitnmshM09+rIasAiEAlSalGddXDkqJBHhPD+Fr
-gpuVkfVkA8gQCXNs5F9TnxA=
------END CERTIFICATE-----
+  security.pki.certificates = [''
+    -----BEGIN CERTIFICATE-----
+    MIIBjTCCATKgAwIBAgIRAMVH2+JHZ3wm2fLUlKjTYDswCgYIKoZIzj0EAwIwJDEM
+    MAoGA1UEChMDS29wMRQwEgYDVQQDEwtLb3AgUm9vdCBDQTAeFw0yMzEyMDgxNDUx
+    MTZaFw0zMzEyMDUxNDUxMTZaMCQxDDAKBgNVBAoTA0tvcDEUMBIGA1UEAxMLS29w
+    IFJvb3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATdZBOkNynShXipzhuX
+    f6dUByD3chNupNWsagYC5AlPRJT9fAeHEIK/bxWkFwRtLBDopWvBu9lHahBgpHc7
+    y7rTo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNV
+    HQ4EFgQU9AVtwipW5HDBLfZRH1KZCnIKCfowCgYIKoZIzj0EAwIDSQAwRgIhAMHj
+    AipNdhQKIYPvMt/h1uW4xP3NTkitnmshM09+rIasAiEAlSalGddXDkqJBHhPD+Fr
+    gpuVkfVkA8gQCXNs5F9TnxA=
+    -----END CERTIFICATE-----
   ''];
 
   # This value determines the NixOS release from which the default

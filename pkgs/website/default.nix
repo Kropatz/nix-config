@@ -1,4 +1,4 @@
-{ stdenv, lib, buildNpmPackage, fetchFromGitHub, hub, ente-frontend }:
+{ stdenv, lib, buildNpmPackage, fetchFromGitHub, kop-hub, ente-frontend }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kopatz-website";
@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     mkdir -p $out/tracker-site
-    cp -r ${hub}/* $out
+    cp -r ${kop-hub}/* $out
     cp -r ${ente-frontend}/* $out/tracker-site
   '';
 })

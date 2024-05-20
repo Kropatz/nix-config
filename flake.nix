@@ -49,6 +49,9 @@
                 unstable-packages
                 nur.overlay
               ];
+              # stylix compains if image is not set...
+              stylix.autoEnable = false;
+              stylix.image = ./yuyukowallpaper1809.png;
             })
             home-manager-unstable.nixosModules.home-manager
             agenix.nixosModules.default
@@ -58,6 +61,7 @@
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
     in {
+      packages.${system} = import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
       overlays = import ./overlays.nix { inherit inputs; };
 
       nixosConfigurations = {
