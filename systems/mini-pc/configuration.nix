@@ -52,6 +52,7 @@
     };
     services = {
       acme.enable = true;
+      kop-monitor.enable = true;
       nginx.enable = true;
       ente.enable = true;
       fileshelter.enable = true;

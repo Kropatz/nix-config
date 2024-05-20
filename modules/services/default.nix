@@ -10,5 +10,6 @@
     ./nginx.nix
     ./fileshelter.nix
     ./wireguard.nix
+    ./kop-monitor.nix
   ];
 }
