@@ -20,7 +20,7 @@ in
     fonts.packages = with pkgs; [
       #uw-ttyp0
       corefonts
-      (nerdfonts.override { fonts = ["Hack" "Noto"]; })
+      nerdfonts
       #noto-fonts
       #noto-fonts-emoji
       noto-fonts-cjk 

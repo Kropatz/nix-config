@@ -34,7 +34,7 @@ in {
     let nerdfonts = pkgs.nerdfonts.override { fonts = [ "Hack" "Noto" ]; };
     in mkIf cfg.enable {
       stylix = {
-        autoEnable = true;
+        autoEnable = mkForce true;
         polarity = "dark";
         image = cfg.image;
         override = cfg.override;
