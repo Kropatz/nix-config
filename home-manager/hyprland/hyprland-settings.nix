@@ -25,12 +25,12 @@ in {
           # laptop
           "eDP-1,3840x2160@60,0x0,2"
           "DP-3,1920x1080@60,1920x0,1"
-        ] else
-          [
-            # Default
-            ",preferred,auto,auto"
-          ];
-
+          ",preferred,auto,auto" 
+        ] else [
+          # Default
+          ",preferred,auto,auto" 
+        ];
+        
         # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
         # Execute your favorite apps at launch
@@ -146,11 +146,13 @@ in {
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
           brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
           swaylock = "${pkgs.swaylock}/bin/swaylock";
+          hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
           playerctl = "${pkgs.playerctl}/bin/playerctl";
         in [
           "$mainMod, Q, exec, ${kitty}"
           "$mainMod, C, killactive"
-          "$mainMod, L, exec, ${swaylock} -f -c 000000"
+          #"$mainMod, L, exec, ${swaylock} -f -c 000000"
+          "$mainMod, L, exec, ${hyprlock}"
           "$mainMod, M, exit,"
           "$mainMod, E, exec, ${thunar}"
           "$mainMod, F, fullscreen"
