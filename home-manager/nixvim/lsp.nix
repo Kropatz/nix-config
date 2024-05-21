@@ -7,6 +7,7 @@
         clangd.enable = true;
         gopls.enable = true;
         nixd.enable = true;
+        csharp-ls.enable = true;
       };
       keymaps.lspBuf = {
         gd = {
