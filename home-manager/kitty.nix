@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ...}:
+{ config, pkgs, inputs, lib, ...}:
 {
   programs.kitty = {
     enable = true;
@@ -11,7 +11,7 @@
       #inactive_tab_foreground = "#${config.colorScheme.colors.base05}";
       #inactive_tab_background = "#${config.colorScheme.colors.base00}";
       env = "TERM=xterm-256color";
-      #background_opacity = "0.5";
+      background_opacity = lib.mkForce "0.6";
       font_size = 13;
       # ...
     };

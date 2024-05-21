@@ -62,7 +62,6 @@ in {
       # $ nix search wget
       environment.systemPackages = with pkgs; [
         # hyprland stuff
-        patchedWaybar
         dunst
         swww
         rofi-wayland
