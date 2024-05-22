@@ -15,6 +15,8 @@
       ../../modules/motd.nix
     ];
 
+  networking.firewall.allowedTCPPorts = [ 25565 ];
+
   mainUser.layout = "de";
   mainUser.variant = "us";
   custom = {

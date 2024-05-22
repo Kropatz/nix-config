@@ -16,7 +16,7 @@
 , libpulseaudio
 , systemd
 , callPackage
-, withTetrioPlus ? false
+, withTetrioPlus ? true
 , tetrio-plus ? callPackage ./tetrio-plus.nix { }
 , ...
 }:

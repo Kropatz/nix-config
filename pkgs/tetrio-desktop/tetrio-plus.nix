@@ -4,8 +4,8 @@ stdenv.mkDerivation rec {
   version = "0.25.3";
 
   src = fetchzip {
-    url = "https://gitlab.com/UniQMG/tetrio-plus/-/jobs/6517560474/artifacts/raw/app.asar.zip";
-    hash = "sha256-I7UvljloJyKrYpSuQ9V1ySSXKhYeJGDpex/K0R3iuCc=";
+    url = "https://gitlab.com/UniQMG/tetrio-plus/-/jobs/6734605389/artifacts/raw/tetrio-plus_v0.27.2_for_desktop_v9.asar.zip";
+    hash = "sha256-+5jXhJwltw426eWU1yR4jxXlOm/etuJKzfeoXSetMws=";
   };
 
   installPhase = ''
