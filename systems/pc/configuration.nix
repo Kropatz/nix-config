@@ -53,6 +53,7 @@
       firmware.enable = true;
       ssd.enable = true;
       wooting.enable = true;
+      tpm.enable = true;
     };
     graphical = {
       audio.enable = true;

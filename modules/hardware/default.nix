@@ -7,5 +7,6 @@
     ./ssd.nix
     ./vfio.nix
     ./wooting.nix
+    ./tpm.nix
   ];
 }

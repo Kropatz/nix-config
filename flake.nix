@@ -61,7 +61,8 @@
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
     in {
-      packages.${system} = import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
+      packages.${system} =
+        import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
       overlays = import ./overlays.nix { inherit inputs; };
 
       nixosConfigurations = {
