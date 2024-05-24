@@ -138,6 +138,7 @@
             nixos-wsl.nixosModules.wsl
           ];
         };
+        #build with nixos-rebuild switch --flake .#adam-site --target-host "root@<ip>"
         "adam-site" = mkHost {
           minimal = true;
           system = "aarch64-linux";
