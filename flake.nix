@@ -138,6 +138,7 @@
             nixos-wsl.nixosModules.wsl
           ];
         };
+        #initial install done with nix run github:nix-community/nixos-anywhere/73a6d3fef4c5b4ab9e4ac868f468ec8f9436afa7 -- --flake .#adam-site root@<ip>
         #build with nixos-rebuild switch --flake .#adam-site --target-host "root@<ip>"
         "adam-site" = mkHost {
           minimal = true;
