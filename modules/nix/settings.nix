@@ -14,9 +14,9 @@ in
     nix.registry.nixpkgs.flake = pkgsVersion;
     nix.nixPath = ["nixpkgs=flake:nixpkgs"];
     nixpkgs.config.allowUnfree = true;
-    home-manager.users.${config.mainUser.name}.home.sessionVariables = {
-      NIX_PATH = "nixpkgs=flake:nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
-      NIXPKGS_ALLOW_UNFREE = "1";
-    };
+    ##home-manager.users.${config.mainUser.name}.home.sessionVariables = {
+    ##  NIX_PATH = "nixpkgs=flake:nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
+    ##  NIXPKGS_ALLOW_UNFREE = "1";
+    ##};
   };
 }

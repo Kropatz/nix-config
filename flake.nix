@@ -29,35 +29,41 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     stylix.url = "github:danth/stylix";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = { self, nur, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable
     , agenix, home-manager, home-manager-unstable, nix-colors, nixos-cosmic
-    , nixvim, stylix }@inputs:
+    , nixvim, stylix, disko }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
       # helper function to create a machine
-      mkHost = { modules, specialArgs ? { pkgsVersion = nixpkgs-unstable; } }:
+      mkHost = { modules, specialArgs ? { pkgsVersion = nixpkgs-unstable; }
+        , system ? "x86_64-linux", minimal ? false }:
         nixpkgs-unstable.lib.nixosSystem {
           inherit system;
-          modules = modules ++ [
-            ./modules
-            ({ outputs, ... }: {
-              nixpkgs.overlays = with outputs.overlays; [
-                additions
-                modifications
-                unstable-packages
-                nur.overlay
-              ];
-              # stylix compains if image is not set...
-              stylix.autoEnable = false;
-              stylix.image = ./yuyukowallpaper1809.png;
-            })
-            home-manager-unstable.nixosModules.home-manager
-            agenix.nixosModules.default
-            nixos-cosmic.nixosModules.default
-            stylix.nixosModules.stylix
-          ];
+          modules = modules ++ [ ./modules agenix.nixosModules.default ]
+            ++ (if !minimal then [
+              ({ outputs, ... }: {
+                nixpkgs.overlays = with outputs.overlays; [
+                  additions
+                  modifications
+                  unstable-packages
+                  nur.overlay
+                ];
+                # stylix compains if image is not set...
+                stylix.autoEnable = true;
+                stylix.image = ./yuyukowallpaper1809.png;
+              })
+              home-manager-unstable.nixosModules.home-manager
+              nixos-cosmic.nixosModules.default
+              stylix.nixosModules.stylix
+              #todo: check how to actually do this
+              ./modules/graphical/stylix.nix
+              ./modules/graphical/cosmic.nix
+            ] else
+              [ ]);
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
     in {
@@ -131,6 +137,12 @@
             ./systems/wsl/configuration.nix
             nixos-wsl.nixosModules.wsl
           ];
+        };
+        "adam-site" = mkHost {
+          minimal = true;
+          system = "aarch64-linux";
+          modules =
+            [ disko.nixosModules.disko ./systems/adam-site/configuration.nix ];
         };
       };
     };
