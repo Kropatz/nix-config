@@ -19,12 +19,12 @@ in
     fonts.fontDir.enable = true;
     fonts.packages = with pkgs; [
       #uw-ttyp0
-      corefonts
-      nerdfonts
+      #corefonts
+      nerdfonts # noto and hack
       #noto-fonts
       #noto-fonts-emoji
       noto-fonts-cjk 
-      font-awesome
+      #font-awesome
     ];
   
     networking.firewall = {

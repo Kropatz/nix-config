@@ -31,10 +31,11 @@
     stylix.url = "github:danth/stylix";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
   };
   outputs = { self, nur, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable
     , agenix, home-manager, home-manager-unstable, nix-colors, nixos-cosmic
-    , nixvim, stylix, disko }@inputs:
+    , nixvim, stylix, disko, flake-utils }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -66,9 +67,10 @@
               [ ]);
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
-    in {
-      packages.${system} =
-        import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
+    in flake-utils.lib.eachDefaultSystem (system: {
+      packages = import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
+    }) // {
+
       overlays = import ./overlays.nix { inherit inputs; };
 
       nixosConfigurations = {

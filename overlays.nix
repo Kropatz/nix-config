@@ -8,6 +8,7 @@
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
     discord = prev.discord.override { withVencord = true; };
+    tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     nerdfonts = prev.nerdfonts.override { fonts = ["Hack" "Noto"]; };
     waybar = prev.waybar.overrideAttrs (oldAttrs: { mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ]; });
     # example = prev.example.overrideAttrs (oldAttrs: rec {
