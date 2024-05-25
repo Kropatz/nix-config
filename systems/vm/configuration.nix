@@ -1,5 +1,4 @@
-{pkgs, config, ...}:
-{
+{ pkgs, config, ... }: {
 
   age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];
   mainUser.layout = "de";
@@ -16,8 +15,19 @@
       ld.enable = true;
       settings.enable = true;
     };
-    graphical = {
-      lxqt.enable = true;
+    services = { adam-site.enable = true; };
+    graphical = { lxqt.enable = true; };
+  };
+
+  environment.systemPackages = [ pkgs.firefox ];
+  services.nginx = {
+    enable = true;
+    virtualHosts = {
+      "localhost" = {
+        forceSSL = false;
+        enableACME = false;
+        locations."/".proxyPass = "http://127.0.0.1:4000";
+      };
     };
   };
 }

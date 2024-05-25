@@ -44,31 +44,35 @@
         , system ? "x86_64-linux", minimal ? false }:
         nixpkgs-unstable.lib.nixosSystem {
           inherit system;
-          modules = modules ++ [ ./modules agenix.nixosModules.default ]
-            ++ (if !minimal then [
-              ({ outputs, ... }: {
-                nixpkgs.overlays = with outputs.overlays; [
-                  additions
-                  modifications
-                  unstable-packages
-                  nur.overlay
-                ];
-                # stylix compains if image is not set...
-                stylix.autoEnable = true;
-                stylix.image = ./yuyukowallpaper1809.png;
-              })
-              home-manager-unstable.nixosModules.home-manager
-              nixos-cosmic.nixosModules.default
-              stylix.nixosModules.stylix
-              #todo: check how to actually do this
-              ./modules/graphical/stylix.nix
-              ./modules/graphical/cosmic.nix
-            ] else
-              [ ]);
+          modules = modules ++ [
+            ./modules
+            agenix.nixosModules.default
+            ({ outputs, ... }: {
+              nixpkgs.overlays = with outputs.overlays; [
+                additions
+                modifications
+                unstable-packages
+              ];
+            })
+          ] ++ (if !minimal then [
+            ({ ... }: {
+              # stylix compains if image is not set...
+              stylix.autoEnable = true;
+              stylix.image = ./yuyukowallpaper1809.png;
+            })
+            home-manager-unstable.nixosModules.home-manager
+            nixos-cosmic.nixosModules.default
+            stylix.nixosModules.stylix
+            #todo: check how to actually do this
+            ./modules/graphical/stylix.nix
+            ./modules/graphical/cosmic.nix
+          ] else
+            [ ]);
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
     in flake-utils.lib.eachDefaultSystem (system: {
-      packages = import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
+      packages =
+        import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
     }) // {
 
       overlays = import ./overlays.nix { inherit inputs; };
@@ -141,7 +145,7 @@
           ];
         };
         #initial install done with nix run github:nix-community/nixos-anywhere/73a6d3fef4c5b4ab9e4ac868f468ec8f9436afa7 -- --flake .#adam-site root@<ip>
-        #build with nixos-rebuild switch --flake .#adam-site --target-host "root@<ip>"
+        #update with nixos-rebuild switch --flake .#adam-site --target-host "root@<ip>"
         "adam-site" = mkHost {
           minimal = true;
           system = "aarch64-linux";
