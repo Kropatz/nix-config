@@ -41,7 +41,7 @@
       system = "x86_64-linux";
       # helper function to create a machine
       mkHost = { modules, specialArgs ? { pkgsVersion = nixpkgs-unstable; }
-        , system ? "x86_64-linux", minimal ? false, stylix ? false }:
+        , system ? "x86_64-linux", minimal ? false, stylixEnabled ? false }:
         nixpkgs-unstable.lib.nixosSystem {
           inherit system;
           modules = modules ++ [
@@ -60,7 +60,7 @@
             nixos-cosmic.nixosModules.default
             ./modules/graphical/cosmic.nix
           ] else
-            [ ]) ++ (if stylix then [
+            [ ]) ++ (if stylixEnabled then [
               stylix.nixosModules.stylix
               ./modules/graphical/stylix.nix
             ] else
@@ -89,7 +89,7 @@
           };
         };
         "kop-pc" = mkHost {
-          stylix = true;
+          stylixEnabled = true;
           modules = [ ./users/kopatz ./systems/pc/configuration.nix ];
         };
         "nix-laptop" = mkHost {
