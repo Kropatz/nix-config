@@ -38,6 +38,11 @@
       action = "<CMD>NvimTreeToggle<CR>";
       options.desc = "Toggle NvimTree";
     }
+    {
+      key = "<leader>p";
+      action = "<CMD>PasteImg<CR>";
+      options.desc = "Pastes an Image from the clipboard";
+    }
 
     # File
     #{

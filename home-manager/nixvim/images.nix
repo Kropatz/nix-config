@@ -6,6 +6,11 @@
       # todo change based on graphical settings
       clipboardPackage = pkgs.wl-clipboard;
       enable = true;
+      filetypes = {
+        typst = {
+          affix = ''#image("%s")'';
+        };
+      };
     };
   };
 }
