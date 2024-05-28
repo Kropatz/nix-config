@@ -41,7 +41,7 @@
       system = "x86_64-linux";
       # helper function to create a machine
       mkHost = { modules, specialArgs ? { pkgsVersion = nixpkgs-unstable; }
-        , system ? "x86_64-linux", minimal ? false }:
+        , system ? "x86_64-linux", minimal ? false, stylix ? false }:
         nixpkgs-unstable.lib.nixosSystem {
           inherit system;
           modules = modules ++ [
@@ -52,22 +52,19 @@
                 additions
                 modifications
                 unstable-packages
+                nur.overlay
               ];
             })
           ] ++ (if !minimal then [
-            ({ ... }: {
-              # stylix compains if image is not set...
-              stylix.autoEnable = true;
-              stylix.image = ./yuyukowallpaper1809.png;
-            })
             home-manager-unstable.nixosModules.home-manager
             nixos-cosmic.nixosModules.default
-            stylix.nixosModules.stylix
-            #todo: check how to actually do this
-            ./modules/graphical/stylix.nix
             ./modules/graphical/cosmic.nix
           ] else
-            [ ]);
+            [ ]) ++ (if stylix then [
+              stylix.nixosModules.stylix
+              ./modules/graphical/stylix.nix
+            ] else
+              [ ]);
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
     in flake-utils.lib.eachDefaultSystem (system: {
@@ -92,6 +89,7 @@
           };
         };
         "kop-pc" = mkHost {
+          stylix = true;
           modules = [ ./users/kopatz ./systems/pc/configuration.nix ];
         };
         "nix-laptop" = mkHost {

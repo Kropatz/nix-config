@@ -8,6 +8,7 @@
         gopls.enable = true;
         nixd.enable = true;
         csharp-ls.enable = true;
+        typst-lsp.enable = true;
       };
       keymaps.lspBuf = {
         gd = {

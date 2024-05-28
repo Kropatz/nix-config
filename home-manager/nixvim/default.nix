@@ -17,6 +17,7 @@ let
     ./git.nix
     ./lightline.nix
     ./lsp.nix
+    ./images.nix
     ./none-ls.nix
     ./nvim-tree.nix
     ./telescope.nix
