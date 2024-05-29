@@ -1,0 +1,32 @@
+diff --git a/OpenTabletDriver.Plugin/Log.cs b/OpenTabletDriver.Plugin/Log.cs
+index c77d83e1..28577939 100644
+--- a/OpenTabletDriver.Plugin/Log.cs
++++ b/OpenTabletDriver.Plugin/Log.cs
+@@ -74,7 +74,7 @@ namespace OpenTabletDriver.Plugin
+         /// <param name="text">Text for the <see cref="LogMessage"/>.</param>
+         public static void Debug(string group, string text)
+         {
+-            Write(group, text, LogLevel.Debug);
++            Write(group, text, LogLevel.Info);
+         }
+ 
+         /// <summary>
+diff --git a/OpenTabletDriver.Plugin/Tablet/TiltTabletReport.cs b/OpenTabletDriver.Plugin/Tablet/TiltTabletReport.cs
+index c5251855..8daa3d01 100644
+--- a/OpenTabletDriver.Plugin/Tablet/TiltTabletReport.cs
++++ b/OpenTabletDriver.Plugin/Tablet/TiltTabletReport.cs
+@@ -1,5 +1,6 @@
+ using System.Numerics;
+ using System.Runtime.CompilerServices;
++using OpenTabletDriver.Plugin.Logging;
+ 
+ namespace OpenTabletDriver.Plugin.Tablet
+ {
+@@ -27,6 +28,7 @@ namespace OpenTabletDriver.Plugin.Tablet
+                 penByte.IsBitSet(1),
+                 penByte.IsBitSet(2)
+             };
++            Log.Write("Device", $"{Tilt}");
+         }
+ 
+         public byte[] Raw { set; get; }

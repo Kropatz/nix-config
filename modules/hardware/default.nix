@@ -8,5 +8,6 @@
     ./vfio.nix
     ./wooting.nix
     ./tpm.nix
+    ./tablet.nix
   ];
 }

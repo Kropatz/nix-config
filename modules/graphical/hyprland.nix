@@ -69,6 +69,7 @@ in {
         networkmanagerapplet
         wayland
         wl-clipboard
+        xfce.tumbler # for thumbnails
         #qt5.qtwayland
         #qt6.qmake
         #qt6.qtwayland

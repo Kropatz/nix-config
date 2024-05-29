@@ -39,7 +39,7 @@ in
       ];
     };
   
-    services.xserver.wacom.enable = true;
+    #services.xserver.wacom.enable = true;
   
     # List packages installed in system profile. To search, run:
     # $ nix search wget
@@ -59,7 +59,7 @@ in
       p7zip
       qbittorrent
       brightnessctl
-      wacomtablet
+      #wacomtablet
       wl-clipboard
       libsForQt5.kolourpaint
       libsForQt5.kcalc

@@ -19,6 +19,7 @@
     hardware = {
       firmware.enable = true;
       ssd.enable = true;
+      tablet.enable = true;
     };
     graphical = {
       audio.enable = true;
