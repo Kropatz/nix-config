@@ -24,4 +24,10 @@
       config.allowUnfree = true;
     };
   };
+  stable-packages = final: _prev: {
+    stable = import inputs.nixpkgs {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
 }

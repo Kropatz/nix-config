@@ -1,3 +1,4 @@
+{pkgs, ...}:
 {
   plugins = {
     lsp = {
@@ -7,7 +8,11 @@
         clangd.enable = true;
         gopls.enable = true;
         nixd.enable = true;
-        csharp-ls.enable = true;
+        html.enable = true;
+        csharp-ls = {
+          enable = true;
+          package = pkgs.stable.csharp-ls;
+        };
         typst-lsp.enable = true;
       };
       keymaps.lspBuf = {

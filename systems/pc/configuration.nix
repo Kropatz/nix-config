@@ -54,6 +54,7 @@
       ssd.enable = true;
       wooting.enable = true;
       tpm.enable = true;
+      tablet.enable = true;
     };
     graphical = {
       audio.enable = true;

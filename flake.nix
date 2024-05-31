@@ -52,6 +52,7 @@
                 additions
                 modifications
                 unstable-packages
+                stable-packages
                 nur.overlay
               ];
             })

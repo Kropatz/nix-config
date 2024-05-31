@@ -15,6 +15,7 @@ in
       nixos-option
       btop
       git
+      gh #github
       killall
       xclip
       usbutils
