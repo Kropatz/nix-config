@@ -122,7 +122,7 @@
         "mini-pc" = mkHost {
           specialArgs = {
             vars = import ./systems/userdata-default.nix;
-            pkgsVersion = nixpkgs-unstable;
+            pkgsVersion = nixpkgs;
           };
           modules = [ ./users/anon ./systems/mini-pc/configuration.nix ];
         };
