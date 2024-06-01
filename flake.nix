@@ -3,11 +3,11 @@
   inputs = {
     # secrets management
     agenix.url = "github:ryantm/agenix";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-unstable = {
@@ -42,7 +42,7 @@
       # helper function to create a machine
       mkHost = { modules, specialArgs ? { pkgsVersion = nixpkgs-unstable; }
         , system ? "x86_64-linux", minimal ? false, stylixEnabled ? false }:
-        nixpkgs-unstable.lib.nixosSystem {
+        specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
           modules = modules ++ [
             ./modules
@@ -86,7 +86,7 @@
             ## Custom variables (e.g. ip, interface, etc)
             vars = import ./systems/userdata-default.nix
               // import ./systems/server/userdata.nix;
-            pkgsVersion = nixpkgs-unstable;
+            pkgsVersion = nixpkgs;
           };
         };
         "kop-pc" = mkHost {
