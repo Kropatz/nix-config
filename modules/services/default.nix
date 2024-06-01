@@ -11,6 +11,7 @@
     ./fileshelter.nix
     ./wireguard.nix
     ./kop-monitor.nix
+    ./kop-fileshare.nix
     ./adam-site.nix
   ];
 }

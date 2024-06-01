@@ -35,7 +35,7 @@
   };
   outputs = { self, nur, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable
     , agenix, home-manager, home-manager-unstable, nix-colors, nixos-cosmic
-    , nixvim, stylix, disko, flake-utils }@inputs:
+    , nixvim, stylix, disko, flake-utils, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";

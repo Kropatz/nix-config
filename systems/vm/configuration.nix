@@ -15,7 +15,10 @@
       ld.enable = true;
       settings.enable = true;
     };
-    services = { adam-site.enable = true; };
+    services = {
+      #adam-site.enable = true;
+      kop-fileshare.enable = true;
+    };
     graphical = { lxqt.enable = true; };
   };
 

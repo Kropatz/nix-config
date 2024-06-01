@@ -10,7 +10,7 @@ let
     ./auto-pairs.nix
     ./autosave.nix
     ./blankline.nix
-    ./bufferline.nix
+    ./barbar.nix
     ./cmp.nix
     ./fidget.nix
     ./refactoring.nix

@@ -99,7 +99,7 @@
       options.desc = "Gitsigns reset current buffer";
     }
 
-    # Tabs
+    # Tabs (barbar)
     {
       mode = "n";
       key = "<leader>tn";
@@ -109,19 +109,19 @@
     {
       mode = "n";
       key = "<leader>td";
-      action = "<CMD>tabclose<CR>";
+      action = "<CMD>BufferClose<CR>";
       options.desc = "Close tab";
     }
     {
       mode = "n";
       key = "<leader>tt";
-      action = "<CMD>tabnext<CR>";
+      action = "<CMD>BufferNext<CR>";
       options.desc = "Go to the sub-sequent tab";
     }
     {
       mode = "n";
       key = "<leader>tp";
-      action = "<CMD>tabprevious<CR>";
+      action = "<CMD>BufferPrevious<CR>";
       options.desc = "Go to the previous tab";
     }
 
