@@ -17,7 +17,10 @@
     };
     services = {
       #adam-site.enable = true;
-      kop-fileshare.enable = true;
+      kop-fileshare = { 
+        enable = true;
+        basePath = "/stash";
+      };
     };
     graphical = { lxqt.enable = true; };
   };
@@ -29,7 +32,7 @@
       "localhost" = {
         forceSSL = false;
         enableACME = false;
-        locations."/".proxyPass = "http://127.0.0.1:7777";
+        locations."/stash".proxyPass = "http://127.0.0.1:7777";
       };
     };
   };
