@@ -1,13 +1,9 @@
-{lib,  config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 with lib;
-let
-  cfg = config.custom.graphical.gnome;
-in
-{
-  options.custom.graphical.gnome = {
-    enable = mkEnableOption "Enables gnome";
-  };
-  
+let cfg = config.custom.graphical.gnome;
+in {
+  options.custom.graphical.gnome = { enable = mkEnableOption "Enables gnome"; };
+
   config = mkIf cfg.enable {
     services.xserver = {
       xkb.layout = config.mainUser.layout;
@@ -16,17 +12,18 @@ in
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
     };
-  
+
     # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     systemd.services."getty@tty1".enable = false;
     systemd.services."autovt@tty1".enable = false;
     services.gnome.gnome-keyring.enable = true;
-  
+
+    boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  
+
     environment.gnome.excludePackages = (with pkgs; [
-    gnome-photos
-    gnome-tour
+      gnome-photos
+      gnome-tour
       gedit # text editor
     ]) ++ (with pkgs.gnome; [
       cheese # webcam tool
@@ -42,15 +39,16 @@ in
       hitori # sudoku game
       atomix # puzzle game
     ]);
-  
+
     environment.systemPackages = with pkgs; [
       wmctrl
+      rofi-wayland
       gnome.mutter
       gnome.adwaita-icon-theme
       gnome.gnome-settings-daemon
       gnome.gnome-tweaks
       gnome.dconf-editor
-      gruvbox-gtk-theme
+      #gruvbox-gtk-theme
       colloid-icon-theme
       gnomeExtensions.appindicator
       gnomeExtensions.just-perfection
@@ -61,10 +59,10 @@ in
       gnomeExtensions.rounded-window-corners
       gnomeExtensions.wallpaper-switcher
       gnomeExtensions.backslide
-      gnomeExtensions.nextcloud-folder
       gnomeExtensions.tray-icons-reloaded
       gnomeExtensions.blur-my-shell
+      gnomeExtensions.material-shell
+      gnomeExtensions.paperwm
     ];
   };
 }
-

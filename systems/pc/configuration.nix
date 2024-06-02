@@ -67,6 +67,7 @@
       obs.enable = true;
       openrgb.enable = true;
       plasma.enable = true;
+      #gnome.enable = true;
       #cosmic.enable = true;
       shared.enable = true;
       stylix.enable = true;

@@ -11,11 +11,6 @@ in {
       enable = true;
       xkb.layout = config.mainUser.layout;
       xkb.variant = config.mainUser.variant;
-      windowManager.i3 = {
-        package = pkgs.i3-gaps;
-        enable = true;
-        configFile = ../../.config/i3/kde-config;
-      };
       displayManager = {
         sddm.enable = true;
       };

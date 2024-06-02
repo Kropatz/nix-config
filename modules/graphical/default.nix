@@ -8,6 +8,7 @@
     ./gamemode.nix
     ./games.nix
     ./gnome.nix
+    ./gnome-settings.nix
     ./hyprland.nix
     ./ime.nix
     ./lxqt.nix

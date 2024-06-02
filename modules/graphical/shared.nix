@@ -48,7 +48,6 @@ in
       xfce.thunar
       remmina
       thunderbird
-      rofi
       localsend
       #element-desktop
       krita
