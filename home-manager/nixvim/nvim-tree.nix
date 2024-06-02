@@ -3,6 +3,7 @@
     enable = true;
     openOnSetup = true;
     autoReloadOnWrite = true;
+    updateFocusedFile.enable = true;
     tab.sync = {
       close = true;
       open = true;

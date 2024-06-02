@@ -6,9 +6,9 @@ buildNpmPackage rec {
   src = fetchGit {
     url = "git@github.com:oberprofis/adams.git";
     ref = "main";
-    rev = "312d6117e00ef4415349d0af1141e4664c8db303";
+    rev = "c61c95fa924e6651efb3ea61a23994aa975d3572";
   };
-  npmDepsHash="sha256-ndpuIqMAitnx0rswYD60l5JhDMdaKH77Qdu7zNgwj/o=";
+  npmDepsHash="sha256-ULxOaEpa2+YS45kh+2xCZMqXQs5bMYhy7J08DsFYE+s=";
   installPhase = ''
     mkdir -p $out
     cp -r ./dist/adams-site/* $out
