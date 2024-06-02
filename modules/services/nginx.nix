@@ -69,7 +69,7 @@ in {
               add_header Access-Control-Allow-Origin *;
             '';
             "/stash" = {
-              basicAuthFile = age.secrets.stash-auth.file;
+              basicAuthFile =  config.age.secrets.stash-auth.path;
               extraConfig = ''
                 client_max_body_size    5000M;
                 proxy_redirect          off;
