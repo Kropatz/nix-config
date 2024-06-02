@@ -55,7 +55,10 @@
     services = {
       acme.enable = true;
       kop-monitor.enable = true;
-      kop-fileshare.enable = true;
+      kop-fileshare = { 
+        basePath = [ "/stash" ];
+        enable = true;
+      };
       nginx.enable = true;
       ente.enable = true;
       kavita = {
