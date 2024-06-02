@@ -19,7 +19,6 @@
       #adam-site.enable = true;
       kop-fileshare = { 
         enable = true;
-        dataDir = "/1tbssd/kop-fileshare";
         basePath = "/stash";
       };
     };

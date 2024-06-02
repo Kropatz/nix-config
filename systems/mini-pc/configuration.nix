@@ -56,7 +56,8 @@
       acme.enable = true;
       kop-monitor.enable = true;
       kop-fileshare = { 
-        basePath = [ "/stash" ];
+        basePath = "/stash";
+        dataDir = "/1tbssd/kop-fileshare";
         enable = true;
       };
       nginx.enable = true;
