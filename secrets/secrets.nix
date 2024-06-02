@@ -27,4 +27,5 @@ in
   "grafana-contact-points.age".publicKeys = [ mini-pc server kop ];
   "fileshelter-conf.age".publicKeys = [ mini-pc server kop ];
   "webhook.age".publicKeys = [ mini-pc server kop ];
+  "stash-auth.age".publicKeys = [ mini-pc server kop ];
 }
