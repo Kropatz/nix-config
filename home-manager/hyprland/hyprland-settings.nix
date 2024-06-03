@@ -282,25 +282,5 @@ in {
         submap = reset
       '';
     };
-    services.dunst = {
-      enable = true;
-      settings = {
-        global = {
-          width = "(0,1000)";
-          height = "1000";
-          offset = "0x0";
-          origin = "bottom-center";
-          transparency = -1;
-          frame_color = "#1a1c1b";
-          font = "Monospace 8";
-        };
-
-        urgency_normal = {
-          background = "#1a1c1b";
-          foreground = "#eceff1";
-          timeout = 10;
-        };
-      };
-    };
   };
 }

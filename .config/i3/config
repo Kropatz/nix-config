@@ -12,8 +12,8 @@ font pango:monospace 8
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
@@ -34,6 +34,8 @@ bindsym $mod+e exec dolphin
 bindsym Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 # kill focused window
 bindsym $mod+c kill
+# lock with wallpaper
+bindsym $mod+l exec --no-startup-id loginctl lock-session
 
 #####################################
 # Application menu handled by rofi: #
@@ -63,10 +65,10 @@ bindsym $mod+a exec --no-startup-id rofi -show window \
 
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+#bindsym $mod+h focus left
+#bindsym $mod+j focus down
+#bindsym $mod+k focus up
+#bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -75,10 +77,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+#bindsym $mod+Shift+h move left
+#bindsym $mod+Shift+j move down
+#bindsym $mod+Shift+k move up
+#bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -87,10 +89,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+#bindsym $mod+h split h
 
 # split in vertical orientation
-bindsym $mod+n split v
+#bindsym $mod+n split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -185,9 +187,9 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command i3status
-}
+#bar {
+#        status_command i3status
+#}
 
 ##############################
 # extra options for windows: #
@@ -230,7 +232,6 @@ default_border pixel 2
 #exec_always --no-startup-id picom -b
 #
 # for custom config:
-#exec --no-startup-id picom --config  ~/.config/picom/picom.conf
 
 #############################################
 # autostart applications/services on login: #
@@ -244,12 +245,52 @@ exec --no-startup-id "xrandr --output HDMI-0 --left-of DP-0 && xrandr --output D
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
+# start picom compositor
+exec --no-startup-id picom --config  ~/.config/picom/picom.conf
+
+#status bar
+exec --no-startup-id ~/.config/i3/scripts/launch-polybar.sh
+
+
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+set $BLANK #00000000
+set $CLEAR #ffffff22
+set $DEFAULT #ff00ffcc
+set $TEXT #ee00eeee
+set $WRONG #880000bb
+set $VERIFYING #bb00bbbb
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-color --nofork \
+--insidever-color=$CLEAR     \
+--ringver-color=$VERIFYING   \
+\
+--insidewrong-color=$CLEAR   \
+--ringwrong-color=$WRONG     \
+\
+--inside-color=$BLANK        \
+--ring-color=$DEFAULT        \
+--line-color=$BLANK          \
+--separator-color=$DEFAULT   \
+\
+--verif-color=$TEXT          \
+--wrong-color=$TEXT          \
+--time-color=$TEXT           \
+--date-color=$TEXT           \
+--layout-color=$TEXT         \
+--keyhl-color=$WRONG         \
+--bshl-color=$WRONG          \
+--fill                       \
+-i ~/.config/wallpapers/yuyukowallpaper.png \
+--clock                      \
+--indicator                  \
+--time-str="%H:%M:%S"        \
+--date-str="%A, %Y-%m-%d"       \
+--keylayout 1                \
+
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -286,6 +327,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # exec --no-startup-id sleep 2 && nitrogen --restore
 exec_always --no-startup-id sleep 1 && feh --bg-fill $HOME/.config/wallpapers/yuyukowallpaper.png
 
+# set default microphone input
+exec_always --no-startup-id sleep 5 && pactl list short sources | grep 'alsa_input.usb-Razer' | awk '{print $2}' | xargs pactl set-default-source 
+
 # set powersavings for display:
 # exec --no-startup-id xset s 480 dpms 600 600 600
 #exec --no-startup-id xset s off 
@@ -313,7 +357,7 @@ exec_always --no-startup-id sleep 1 && feh --bg-fill $HOME/.config/wallpapers/yu
 #exec --no-startup-id /usr/bin/dunst --config ~/.config/dunst/dunstrc
 # may need to run dbus-launch explicitly: 
 #exec --no-startup-id dbus-launch /usr/bin/dunst
-#exec --no-startup-id /usr/bin/env dunst
+exec --no-startup-id /usr/bin/env dunst
 # alternative if you installed aside with XFCE4:
 # exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
 

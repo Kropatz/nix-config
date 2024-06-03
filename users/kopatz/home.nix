@@ -24,6 +24,7 @@
     ../../home-manager/lf.nix
     ../../home-manager/nixvim
     ../../home-manager/rofi.nix
+    ../../home-manager/dunst.nix
     #../../home-manager/theme.nix
     ../../home-manager/zsh.nix
     ../../home-manager/i3.nix

@@ -35,7 +35,10 @@ in {
     in mkIf cfg.enable {
 
       home-manager = lib.mkIf config.custom.graphical.i3.enable {
-        users.${config.mainUser.name}.stylix.targets.kde.enable = false;
+        users.${config.mainUser.name}.stylix = {
+          targets.kde.enable = false;
+          base16Scheme = config.stylix.base16Scheme // cfg.override;
+        };
       };
       stylix = {
         autoEnable = mkForce true;
