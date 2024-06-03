@@ -1,5 +1,6 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, lib, ... }: {
 
+  imports = [ ./vm-common.nix ];
   age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];
   mainUser.layout = "de";
   mainUser.variant = "us";
@@ -15,25 +16,13 @@
       ld.enable = true;
       settings.enable = true;
     };
-    services = {
-      #adam-site.enable = true;
-      kop-fileshare = { 
-        enable = true;
-        basePath = "/stash";
-      };
+    graphical = {
+      i3.enable = true;
     };
-    graphical = { lxqt.enable = true; };
   };
+  networking.networkmanager.enable = true;
 
-  environment.systemPackages = [ pkgs.firefox ];
-  services.nginx = {
-    enable = true;
-    virtualHosts = {
-      "localhost" = {
-        forceSSL = false;
-        enableACME = false;
-        locations."/stash".proxyPass = "http://127.0.0.1:7777";
-      };
-    };
-  };
+
+  environment.systemPackages = with pkgs; [ firefox ];
+
 }

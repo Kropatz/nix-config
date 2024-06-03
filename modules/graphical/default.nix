@@ -4,7 +4,9 @@
   imports = [
     ./audio.nix
     ./code.nix
+    ./awesome.nix
     ./emulators.nix
+    ./i3.nix
     ./gamemode.nix
     ./games.nix
     ./gnome.nix

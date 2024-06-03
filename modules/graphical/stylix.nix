@@ -6,7 +6,7 @@ in {
     enable = mkEnableOption "Enables stylix";
     image = mkOption {
       type = types.path;
-      default = ../../yuyukowallpaper1809.png;
+      default = ../../yuyukowallpaper.png;
       description = ''
         The wallpaper to use.
       '';
@@ -33,6 +33,10 @@ in {
   config =
     let nerdfonts = pkgs.nerdfonts.override { fonts = [ "Hack" "Noto" ]; };
     in mkIf cfg.enable {
+
+      home-manager = lib.mkIf config.custom.graphical.i3.enable {
+        users.${config.mainUser.name}.stylix.targets.kde.enable = false;
+      };
       stylix = {
         autoEnable = mkForce true;
         polarity = "dark";

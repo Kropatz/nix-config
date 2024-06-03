@@ -7,12 +7,6 @@
 {
   imports = [ ../default.nix ]; 
   mainUser.name = "vm";
-  virtualisation.vmVariant = {
-    virtualisation = {
-      memorySize = 8192; 
-      cores = 8;         
-    };
-  };
 
   home-manager = {
     users.${config.mainUser.name} = import ./home.nix;
