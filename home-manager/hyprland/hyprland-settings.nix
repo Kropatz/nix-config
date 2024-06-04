@@ -25,7 +25,7 @@ in {
           # laptop
           "eDP-1,3840x2160@60,0x0,2"
           #"DP-3,1920x1080@60,1920x0,1"
-          ",preferred,auto,auto" 
+          ",preferred,auto,1,mirror,eDP-1" 
         ] else [
           # Default
           ",preferred,auto,auto" 

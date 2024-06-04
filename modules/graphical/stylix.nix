@@ -57,6 +57,7 @@ in {
           desktop = 0.7;
           terminal = 0.7;
         };
+        targets.hyprland.enable = false;
         fonts = {
           serif = config.stylix.fonts.sansSerif;
           sansSerif = {
