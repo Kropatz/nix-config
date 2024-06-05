@@ -39,11 +39,12 @@
       btrfs.enable = true;
       backup = let 
         kavita = "/data/kavita";
+        gitolite = "/var/lib/gitolite";
         syncthing = [ "/synced/default/" "/synced/work_drive/" ];
         syncthingFull = syncthing ++ [ "/synced/fh/" "/synced/books/" ];
-        backupPathsSmall = [ "/home" ] ++ syncthing;
-        backupPathsMedium = [ "/home" ] ++ syncthing;
-        backupPathsFull = [ "/home" kavita ] ++ syncthingFull;
+        backupPathsSmall = [ "/home" gitolite ] ++ syncthing;
+        backupPathsMedium = [ "/home" gitolite ] ++ syncthing;
+        backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull;
       in
       {
         enable = true;
