@@ -45,6 +45,7 @@ in {
       brightnessctl
       i3blocks
       autotiling
+      pmutils # suspend with pm-suspend
       lm_sensors # for cpu in polybar
       feh # sets the wallpaper
       nm-tray # NetworkManager tray icon
