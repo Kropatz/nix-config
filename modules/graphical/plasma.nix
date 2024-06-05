@@ -17,12 +17,6 @@ in {
       #displayManager.sddm.settings.Wayland.SessionDir = "${pkgs.plasma5Packages.plasma-workspace}/share/wayland-sessions";
       #displayManager.sddm.wayland.enable = true;
 
-      libinput = {
-        enable = true;
-
-        # disabling mouse acceleration
-        mouse = { accelProfile = "flat"; };
-      };
     };
     services.xserver.desktopManager.plasma5.enable = true;
 
