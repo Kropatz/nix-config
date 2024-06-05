@@ -54,6 +54,7 @@
     };
     services = {
       acme.enable = true;
+      gitolite.enable = true;
       kop-monitor.enable = true;
       kop-fileshare = { 
         basePath = "/stash";
