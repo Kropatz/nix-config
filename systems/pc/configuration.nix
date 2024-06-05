@@ -12,17 +12,6 @@
     ../../modules/support/ntfs.nix
   ];
 
-  #systemd.services.failtest = {
-  #  enable = true;
-  #  description = "Fail Test Service";
-  #  wantedBy = [ "multi-user.target" ];
-
-  #  serviceConfig = {
-  #    Type = "simple";
-  #    ExecStart = "${pkgs.coreutils}/bin/false";
-  #  };
-  #};
-
   custom = {
     tmpfs.enable = true;
     wireshark.enable = true;

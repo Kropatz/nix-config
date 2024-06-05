@@ -19,6 +19,13 @@
     source = ../.config/wallpapers;
     target = ".config/wallpapers";
   };
+
+  home.file.".config/polybar" = {
+    enable = true;
+    recursive = true;
+    source = ../.config/polybar;
+    target = ".config/polybar";
+  };
   services.polybar = {
     enable = true;
     package = pkgs.polybar.override {
@@ -52,7 +59,7 @@
         module-margin = 1;
         modules-left = "i3";
         modules-center = "xwindow";
-        modules-right = "network memory cpu pulseaudio date tray";
+        modules-right = "network memory cpu cpu-temp gpu pulseaudio date tray";
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
         enable-ipc = true;
@@ -161,17 +168,28 @@
       # };
       "module/memory" = {
         type = "internal/memory";
-        interval = 2;
+        interval = 3;
         format-prefix = "RAM ";
         format-prefix-foreground = config.stylix.base16Scheme.base0C;
         label = "%percentage_used:2%%";
       };
       "module/cpu" = {
         type = "internal/cpu";
-        interval = 2;
+        interval = 3;
         format-prefix = "CPU ";
         format-prefix-foreground = config.stylix.base16Scheme.base0D;
         label = "%percentage:2%%";
+      };
+      "module/cpu-temp" = {
+        type = "custom/script";
+        exec = "~/.config/polybar/temperature.sh";
+        interval = 3;
+      };
+
+      "module/gpu" = {
+        type = "custom/script";
+        exec = "~/.config/polybar/nvidia.sh";
+        interval = 3;
       };
       # "network-base" = {
       # type = "internal/network";

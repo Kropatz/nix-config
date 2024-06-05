@@ -9,6 +9,8 @@
         gopls.enable = true;
         nixd.enable = true;
         html.enable = true;
+        tsserver.enable = true;
+        pylsp.enable = true;
         csharp-ls = {
           enable = true;
           package = pkgs.stable.csharp-ls;
