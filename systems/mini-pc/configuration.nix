@@ -37,6 +37,7 @@
     };
     misc = {
       btrfs.enable = true;
+      docker.enable = true;
       backup = let 
         kavita = "/data/kavita";
         gitolite = "/var/lib/gitolite";
