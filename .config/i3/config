@@ -240,7 +240,7 @@ default_border pixel 2
 
 exec_always autotiling
 #fix monitor layout
-exec --no-startup-id "xrandr --output HDMI-0 --left-of DP-0 && xrandr --output DP-0 --mode 2560x1440 --rate 165.00"
+exec --no-startup-id "xrandr --output HDMI-0 --left-of DP-0 && xrandr --output DP-0 --mode 2560x1440 --rate 165.00 --primary"
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart

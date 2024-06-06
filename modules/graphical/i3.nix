@@ -15,12 +15,25 @@ in {
       "/libexec"
     ]; # links /libexec from derivations to /run/current-system/sw
 
+    xdg = {
+      portal = {
+        enable = true;
+        extraPortals = with pkgs; [ libsForQt5.xdg-desktop-portal-kde ];
+      };
+    };
+
     services.xserver = {
       enable = true;
 
+      xkb.layout = config.mainUser.layout;
+      xkb.variant = config.mainUser.variant;
       desktopManager = { xterm.enable = false; };
 
-      displayManager = { defaultSession = "none+i3"; };
+      displayManager = {
+        defaultSession = "none+i3";
+        sddm.enable = true;
+        sddm.theme = "${pkgs.sddm-astronaut}";
+      };
 
       windowManager.i3 = {
         enable = true;
