@@ -23,7 +23,10 @@
     };
     graphical = {
       audio.enable = true;
-      code.enable = true;
+      code = {
+        enable = true;
+        android.enable = true;
+      };
       emulators.enable = true;
       gamemode.enable = true;
       gnome.enable = true;
