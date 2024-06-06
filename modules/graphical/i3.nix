@@ -19,29 +19,32 @@ in {
       portal = {
         enable = true;
         extraPortals = with pkgs; [ libsForQt5.xdg-desktop-portal-kde ];
+        config.common.default = "*";
       };
     };
 
-    services.xserver = {
-      enable = true;
-
-      xkb.layout = config.mainUser.layout;
-      xkb.variant = config.mainUser.variant;
-      desktopManager = { xterm.enable = false; };
-
+    services = {
       displayManager = {
         defaultSession = "none+i3";
         sddm.enable = true;
         sddm.theme = "${pkgs.sddm-astronaut}";
       };
 
-      windowManager.i3 = {
+      xserver = {
         enable = true;
-        extraPackages = with pkgs; [
-          i3status # gives you the default i3 status bar
-          i3lock-color # i3 screen locker
-          i3blocks # if you are planning on using i3blocks over i3status
-        ];
+
+        xkb.layout = config.mainUser.layout;
+        xkb.variant = config.mainUser.variant;
+        desktopManager = { xterm.enable = false; };
+
+        windowManager.i3 = {
+          enable = true;
+          extraPackages = with pkgs; [
+            i3status # gives you the default i3 status bar
+            i3lock-color # i3 screen locker
+            i3blocks # if you are planning on using i3blocks over i3status
+          ];
+        };
       };
     };
 

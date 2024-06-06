@@ -3,8 +3,7 @@
     programs.zsh = {
       enable = true;
       enableCompletion = true;
-      # new option autosuggestion.enable = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       shellAliases = {
           # TODO: gifsicle -O3 --lossy=30 noita-20240328-191617-1612416266-00316616.gif -o noita-20240328-191617-1612416266.gif 
           backupNoita = "cp -r ~/.local/share/Steam/steamapps/compatdata/881100/pfx/drive_c/users/steamuser/AppData/LocalLow/Nolla_Games_Noita/save00 /synced/default/backups/noita_save";

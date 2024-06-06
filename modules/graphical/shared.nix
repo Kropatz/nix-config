@@ -24,17 +24,14 @@ in {
       noto-fonts-cjk
       #font-awesome
     ];
-    services.xserver = {
-      libinput = {
-        enable = true;
+    services.libinput = {
+      enable = true;
 
-        # disabling mouse acceleration
-        mouse = {
-          accelProfile = "flat";
-          middleEmulation = false;
-        };
+      # disabling mouse acceleration
+      mouse = {
+        accelProfile = "flat";
+        middleEmulation = false;
       };
-
     };
 
     networking.firewall = {
