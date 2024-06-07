@@ -52,11 +52,18 @@ in {
 
     #services.xserver.wacom.enable = true;
 
+    services.tumbler.enable = true; # for thumbnails
+    services.gvfs = {
+      enable = true; # for file manager, trash support, etc.
+      package = pkgs.gvfs;
+    };
+
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
       keepassxc
-      xfce.thunar
+      xfce.thunar # file manager
+      gvfs
       remmina
       thunderbird
       localsend

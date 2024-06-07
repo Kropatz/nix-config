@@ -1,8 +1,7 @@
 { lib, config, pkgs, ... }:
-with lib;
 let cfg = config.custom.graphical.stylix;
 in {
-  options.custom.graphical.stylix = {
+  options.custom.graphical.stylix = with lib; {
     enable = mkEnableOption "Enables stylix";
     image = mkOption {
       type = types.path;
@@ -32,16 +31,16 @@ in {
   # https://danth.github.io/stylix/options/nixos.html
   config =
     let nerdfonts = pkgs.nerdfonts.override { fonts = [ "Hack" "Noto" ]; };
-    in mkIf cfg.enable {
+    in lib.mkIf cfg.enable {
 
-      home-manager = lib.mkIf config.custom.graphical.i3.enable {
+      home-manager = {
         users.${config.mainUser.name}.stylix = {
-          targets.kde.enable = false;
+          #targets.kde.enable = lib.mkIf config.custom.graphical.i3.enable false;
           base16Scheme = config.stylix.base16Scheme // cfg.override;
         };
       };
       stylix = {
-        autoEnable = mkForce true;
+        autoEnable = lib.mkForce true;
         polarity = "dark";
         image = cfg.image;
         override = cfg.override;
