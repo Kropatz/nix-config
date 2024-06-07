@@ -28,9 +28,10 @@
     #../../home-manager/theme.nix
     ../../home-manager/zsh.nix
     ../../home-manager/i3.nix
+    ../../home-manager/stylix.nix
     inputs.nixvim.homeManagerModules.nixvim
     inputs.nix-colors.homeManagerModule
-  ] ++ lib.optional osConfig.custom.graphical.i3.enable ../../home-manager/i3.nix; # need this hack because i3 uses stylix, and it errors otherwise
+  ];
 
-  colorScheme = import ../../home-manager/themes/yorha/colors.nix;
+  #colorScheme = import ../../home-manager/themes/yorha/colors.nix;
 }

@@ -28,7 +28,7 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:jalil-salame/stylix/enable-option";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
@@ -41,7 +41,7 @@
       system = "x86_64-linux";
       # helper function to create a machine
       mkHost = { modules, specialArgs ? { pkgsVersion = nixpkgs-unstable; }
-        , system ? "x86_64-linux", minimal ? false, stylixEnabled ? false }:
+        , system ? "x86_64-linux", minimal ? false }:
         specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
           modules = modules ++ [
@@ -59,13 +59,11 @@
           ] ++ (if !minimal then [
             home-manager-unstable.nixosModules.home-manager
             nixos-cosmic.nixosModules.default
+            stylix.nixosModules.stylix
+            ./modules/graphical/stylix.nix
             ./modules/graphical/cosmic.nix
           ] else
-            [ ]) ++ (if stylixEnabled then [
-              stylix.nixosModules.stylix
-              ./modules/graphical/stylix.nix
-            ] else
-              [ ]);
+            [ ]);
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
     in flake-utils.lib.eachDefaultSystem (system: {
@@ -90,7 +88,6 @@
           };
         };
         "kop-pc" = mkHost {
-          stylixEnabled = true;
           modules = [ ./users/kopatz ./systems/pc/configuration.nix ];
         };
         "nix-laptop" = mkHost {

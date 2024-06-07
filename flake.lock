@@ -840,15 +840,16 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1717268716,
-        "narHash": "sha256-hKM/D6Ni3+Ihvmy8pF+rOFgIqhphOEHUWqxJd+5ZV6Y=",
-        "owner": "danth",
+        "lastModified": 1717250350,
+        "narHash": "sha256-l7y55WbUrj4NVCzgo3GLmM1Z2HC2uLb8dLUt7FxfI5g=",
+        "owner": "jalil-salame",
         "repo": "stylix",
-        "rev": "3befd5d693a2669dc7d2086b57298838ff71f24b",
+        "rev": "03a8c7744903f29f017fabeda833834bd873f956",
         "type": "github"
       },
       "original": {
-        "owner": "danth",
+        "owner": "jalil-salame",
+        "ref": "enable-option",
         "repo": "stylix",
         "type": "github"
       }

@@ -40,6 +40,7 @@ in {
         };
       };
       stylix = {
+        enable = true;
         autoEnable = lib.mkForce true;
         polarity = "dark";
         image = cfg.image;
@@ -57,7 +58,7 @@ in {
           desktop = 0.7;
           terminal = 0.7;
         };
-        targets.hyprland.enable = false;
+        #targets.hyprland.enable = false; does not exist in the MR version yet
         fonts = {
           serif = config.stylix.fonts.sansSerif;
           sansSerif = {

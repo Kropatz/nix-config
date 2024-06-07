@@ -21,5 +21,4 @@
     inputs.nix-colors.homeManagerModule
   ];
 
-  colorScheme = inputs.nix-colors.colorSchemes.tokyo-night-dark;
 }
