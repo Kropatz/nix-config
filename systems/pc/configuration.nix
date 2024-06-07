@@ -58,6 +58,7 @@
       noise-supression.enable = true;
       obs.enable = true;
       openrgb.enable = true;
+      nightlight.enable = true;
       #plasma.enable = true;
       i3.enable = true;
       #gnome.enable = true;

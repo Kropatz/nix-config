@@ -22,5 +22,6 @@
     #./stylix.nix
     #./cosmic.nix
     ./shared.nix
+    ./nightlight.nix
   ];
 }
