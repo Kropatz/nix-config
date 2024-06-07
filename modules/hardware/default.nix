@@ -9,5 +9,6 @@
     ./wooting.nix
     ./tpm.nix
     ./tablet.nix
+    ./fingerprint.nix
   ];
 }

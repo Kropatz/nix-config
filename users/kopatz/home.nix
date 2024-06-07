@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ...}:
+{ osConfig, config, pkgs, inputs, lib, ...}:
 {
   home = {
     # This value determines the Home Manager release that your
@@ -30,7 +30,7 @@
     ../../home-manager/i3.nix
     inputs.nixvim.homeManagerModules.nixvim
     inputs.nix-colors.homeManagerModule
-  ];
+  ] ++ lib.optional osConfig.custom.graphical.i3.enable ../../home-manager/i3.nix; # need this hack because i3 uses stylix, and it errors otherwise
 
   colorScheme = import ../../home-manager/themes/yorha/colors.nix;
 }

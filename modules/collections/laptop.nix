@@ -13,21 +13,19 @@
       ld.enable = true;
       settings.enable = true;
     };
-    misc = {
-      docker.enable = true;
-    };
     hardware = {
       firmware.enable = true;
       ssd.enable = true;
-      tablet.enable = true;
+      #tablet.enable = true;
+      #fingerprint.enable = true;
     };
     graphical = {
       audio.enable = true;
       code = {
         enable = true;
-        android.enable = true;
+        #android.enable = true;
       };
-      emulators.enable = true;
+      #emulators.enable = true;
       gamemode.enable = true;
       gnome.enable = true;
       hyprland.enable = true;

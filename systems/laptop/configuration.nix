@@ -59,11 +59,11 @@
   services.xserver.libinput.enable = true;
 
   ### docker
-  virtualisation.docker.enable = true;
+  #virtualisation.docker.enable = true;
 
-  systemd.tmpfiles.rules = [
-    "d /docker-data 0755 kopatz users"
-  ];
+  #systemd.tmpfiles.rules = [
+  #  "d /docker-data 0755 kopatz users"
+  #];
 
   security.pki.certificates = [ ''
 -----BEGIN CERTIFICATE-----

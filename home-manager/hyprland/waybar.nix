@@ -94,6 +94,7 @@ in {
         "backlight".states = [ 0 50 ];
         "backlight".format-icons = [ "" "" ];
         "battery".states.good = 95;
+        "battery".interval = 5;
         "battery".states.warning = 30;
         "battery".states.critical = 15;
         "battery".format = "{capacity}% / {power:.2}W  {icon}";
