@@ -26,7 +26,7 @@
     ../../home-manager/rofi.nix
     ../../home-manager/dunst.nix
     #../../home-manager/theme.nix
-    ../../home-manager/zsh.nix
+    ../../home-manager/zsh
     ../../home-manager/i3.nix
     ../../home-manager/stylix.nix
     inputs.nixvim.homeManagerModules.nixvim

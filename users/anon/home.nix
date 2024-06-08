@@ -15,7 +15,7 @@
   imports = [
     ../../home-manager/nvim.nix
     ../../home-manager/gitconfig.nix
-    ../../home-manager/zsh.nix
+    ../../home-manager/zsh
     ../../home-manager/direnv.nix
     inputs.nixvim.homeManagerModules.nixvim
     inputs.nix-colors.homeManagerModule
