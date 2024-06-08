@@ -79,9 +79,19 @@
       options.desc = "Gitsigns deleted";
     }
     {
+      key = "<leader>gc";
+      action = "<CMD>NvimTreeClose<CR><CMD>Neogit<CR>";
+      options.desc = "Commit changes";
+    }
+    {
       key = "<leader>gd";
-      action = "<CMD>Gitsigns diffthis<CR>";
-      options.desc = "Gitsigns diff this buffer";
+      action = "<CMD>NvimTreeClose<CR><CMD>DiffviewOpen<CR>";
+      options.desc = "View git changes";
+    }
+    {
+      key = "<leader>gq";
+      action = "<CMD>DiffviewClose<CR><CMD>NvimTreeOpen<CR>";
+      options.desc = "Close git changes";
     }
     {
       mode = "n";
