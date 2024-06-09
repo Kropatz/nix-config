@@ -20,6 +20,8 @@
       goto = "cd $(find ~/projects -maxdepth 2 -type d | ${pkgs.fzf}/bin/fzf)";
       dev = "nix-shell --run zsh";
       rm = "trashy put";
+      cat = "bat -P --style plain";
+      cdf = "cd $(find . -type d | fzf)";
     };
     #plugins = with pkgs; [
     #  {

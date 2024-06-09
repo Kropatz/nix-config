@@ -12,6 +12,7 @@ in
     environment.systemPackages = with pkgs; [
       wget
       pciutils
+      rippkgs # faster nixpkgs search, init with `rippkgs-index nixpkgs && mv rippkgs-index.sqlite ~/.local/share/`; 
       nixos-option
       btop
       git
@@ -45,6 +46,8 @@ in
       nvd # nix diff, example: nvd diff /nix/var/nix/profiles/system-389-link /nix/var/nix/profiles/system-390-link
       compsize
       trashy # move files to trash
+      fzf # fuzzy finder
+      bat # fancy cat
     ];
   };
 }

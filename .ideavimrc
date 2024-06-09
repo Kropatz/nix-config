@@ -17,6 +17,7 @@ set notimeout
 set easymotion
 set surround
 
+
 nnoremap <leader>, :action IdeaVim.ReloadVimRc.reload<CR>
 
 nnoremap <SPACE> <Nop>

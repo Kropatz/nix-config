@@ -3,7 +3,7 @@
 
 
 example secrets.nix file
-```
+```nix
 let
   user1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL0idNvgGiucWgup/mP78zyC23uFjYq0evcWdjGQUaBH";
   users = [ user1 ];
@@ -17,7 +17,7 @@ in
 ```
 
 use secret in config
-```
+```nix
 age.secrets.nextcloud = {
   file = ./secrets/secret1.age;
   owner = "nextcloud";

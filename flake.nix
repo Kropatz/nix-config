@@ -62,6 +62,9 @@
             stylix.nixosModules.stylix
             ./modules/graphical/stylix.nix
             ./modules/graphical/cosmic.nix
+            ({ outputs, ... }: {
+              stylix.image = ./yuyukowallpaper.png;
+            })
           ] else
             [ ]);
           specialArgs = specialArgs // { inherit inputs outputs; };

@@ -16,12 +16,9 @@
       ld.enable = true;
       settings.enable = true;
     };
-    graphical = {
-      i3.enable = true;
-    };
+    graphical = { i3.enable = true; };
   };
   networking.networkmanager.enable = true;
-
 
   environment.systemPackages = with pkgs; [ firefox ];
 

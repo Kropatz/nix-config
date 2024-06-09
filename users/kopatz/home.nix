@@ -1,5 +1,4 @@
-{ osConfig, config, pkgs, inputs, lib, ...}:
-{
+{ osConfig, config, pkgs, inputs, lib, ... }: {
   home = {
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
@@ -32,6 +31,67 @@
     inputs.nixvim.homeManagerModules.nixvim
     inputs.nix-colors.homeManagerModule
   ];
+
+  programs.newsboat = {
+    enable = true;
+    extraConfig = ''
+      bind-key j down
+      bind-key k up
+      bind-key J next-feed articlelist
+      bind-key K prev-feed articlelist
+      bind-key G end
+      bind-key g home
+      bind-key l open
+      bind-key h quit
+
+      # general settings
+      auto-reload yes
+      download-full-page yes
+      max-items 100
+      # limit width so articles are more readable
+      text-width 80
+      # solarized
+      color background	color223	default
+      color listnormal	color4		default
+      color listnormal_unread	color2		default
+      color listfocus		color223	color237	bold
+      color listfocus_unread	color223	color237	bold
+      color info		color8		color0
+      color article		color223	default
+
+      # highlights
+      highlight article "^(Feed|Link):.*$" color11 default bold
+      highlight article "^(Title|Date|Author):.*$" color11 default bold
+      highlight article "https?://[^ ]+" color2 default underline
+      highlight article "\\[[0-9]+\\]" color2 default bold
+      highlight article "\\[image\\ [0-9]+\\]" color2 default bold
+      highlight feedlist "^─.*$" color6 color6 bold
+    '';
+    urls = [
+      {
+        title = "r/NixOS";
+        tags = [ "nixos" "nix" "reddit" ];
+        url = "https://www.reddit.com/r/NixOS.rss";
+      }
+      {
+        title = "Hacker News";
+        url = "https://hnrss.org/newest";
+      }
+      {
+        title = "Phoronix";
+        url = "https://www.phoronix.com/rss.php";
+      }
+      {
+        title = "LWN";
+        url = "https://lwn.net/headlines/rss";
+      }
+      {
+        title = "/g/";
+        tags = [ "4chan" "technology" ];
+        url = "https://boards.4channel.org/g/index.rss";
+      }
+    ];
+  };
 
   #colorScheme = import ../../home-manager/themes/yorha/colors.nix;
 }
