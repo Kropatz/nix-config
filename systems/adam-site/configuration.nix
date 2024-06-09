@@ -12,6 +12,7 @@
     services = {
       acme.enable = true;
       adam-site.enable = true;
+      plausible.enable = true;
     };
     nftables.enable = true;
     nix = { settings.enable = true; };
@@ -33,6 +34,11 @@
         forceSSL = true;
         enableACME = true;
         locations."/".proxyPass = "http://127.0.0.1:4000";
+      };
+      "plausible.imbissaggsbachdorf.at" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/".proxyPass = "http://127.0.0.1:8000";
       };
     };
   };

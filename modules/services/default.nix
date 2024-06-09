@@ -14,5 +14,6 @@
     ./kop-monitor.nix
     ./kop-fileshare.nix
     ./adam-site.nix
+    ./plausible.nix
   ];
 }

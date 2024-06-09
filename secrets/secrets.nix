@@ -3,6 +3,7 @@ let
   server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAUA7uVKXAF2UcwaIDSJP2Te8Fi++2zkKzSPoRx1vQrI root@server";
   laptop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqcphdDEJhnSBkAZzQXZJDCzsyb/Tqpcf0pUADFpbd1 root@nix-laptop";
   mini-pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKla9+Gj2i9Ax7cIdnTM6zsmze3g1N/qCPqhga0P+toU root@mini-pc";
+  adam-site = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfaIaKoNStnbfjB9cSJ9+PW0BVO3Uhh1uIbZA2CszDE root@nixos";
   users = [ kop ];
   systems = [ mini-pc server laptop ];
 in
@@ -28,4 +29,6 @@ in
   "fileshelter-conf.age".publicKeys = [ mini-pc server kop ];
   "webhook.age".publicKeys = [ mini-pc server kop ];
   "stash-auth.age".publicKeys = [ mini-pc server kop ];
+  "plausible-admin.age".publicKeys = [ adam-site kop ];
+  "plausible-keybase.age".publicKeys = [ adam-site kop ];
 }
