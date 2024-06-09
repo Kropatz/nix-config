@@ -15,7 +15,7 @@ in {
     };
     useHttps = lib.mkOption {
       type = lib.types.bool;
-      default = lib.true;
+      default = true;
       description = "use https for the adguard instance";
     };
   };
