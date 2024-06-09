@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/services/ssh.nix
+      ../../modules/services/step-ca.nix
       ../../modules/services/syncthing.nix
       ../../modules/fail2ban.nix
       ../../modules/logging.nix

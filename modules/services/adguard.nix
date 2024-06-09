@@ -40,6 +40,9 @@ in {
         proxyWebsockets = true;
       };
     };
+    systemd.services.adguardhome = {
+      after = [ "nginx.service" "step-ca.service" ];
+    };
 
     services.adguardhome = {
       enable = true;
