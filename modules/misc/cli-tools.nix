@@ -48,6 +48,7 @@ in
       trashy # move files to trash
       fzf # fuzzy finder
       bat # fancy cat
+      shell-gpt
     ];
   };
 }

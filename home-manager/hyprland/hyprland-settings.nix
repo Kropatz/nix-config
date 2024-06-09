@@ -251,7 +251,7 @@ in {
         dunstify = "${pkgs.dunst}/bin/dunstify";
         dunstctl = "${pkgs.dunst}/bin/dunstctl";
         pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
-        path = "/synced/fh/cloud_computing/scriptum";
+        path = "/synced/fh/mobile_systems_authentication/slides";
       in ''
         bind = $mainMod, A, submap, notes
 
@@ -265,10 +265,12 @@ in {
         # trim
         bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}
         bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
+        bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
         bind = $mainMod, D, exec, ${dunstctl} close-all
+        # I win
+        bind = $mainMod, P, exec, ${wl-paste} | sgpt --model="gpt-4o" "Respond with the correct answer to the following Question." | ${wl-copy}
         # notes
 
-        bind = $mainMod, 1, exec, ${wl-paste} | xargs -I {} grep -C 15 -h -i "{}" ~/Nextcloud/fh/pentest/folien/answers | ${wl-copy}
         bind = $mainMod, 2, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
         bind = $mainMod, 3, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
         bind = $mainMod, 4, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
