@@ -840,11 +840,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1717250350,
-        "narHash": "sha256-l7y55WbUrj4NVCzgo3GLmM1Z2HC2uLb8dLUt7FxfI5g=",
+        "lastModified": 1717980664,
+        "narHash": "sha256-L+IzjhovTTqOzqLXjrfGFsDPVuCLWZTah+rt7wRkGJ8=",
         "owner": "jalil-salame",
         "repo": "stylix",
-        "rev": "03a8c7744903f29f017fabeda833834bd873f956",
+        "rev": "03f335c8a2de70d46376cd72eb1874f5a8c18a69",
         "type": "github"
       },
       "original": {
