@@ -78,8 +78,9 @@ in {
       brightnessctl
       #wacomtablet
       wl-clipboard
-      libsForQt5.kolourpaint
-      libsForQt5.kcalc
+      pinta
+      qalculate-qt
+      #libsForQt5.kcalc
       syncthingtray
       v4l-utils
       logseq
