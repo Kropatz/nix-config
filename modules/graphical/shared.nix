@@ -78,12 +78,13 @@ in {
       brightnessctl
       #wacomtablet
       wl-clipboard
-      pinta
-      qalculate-qt
+      pinta # paint
+      qalculate-qt # calculator
       #libsForQt5.kcalc
       syncthingtray
       v4l-utils
-      logseq
+      logseq # notes
+      xarchiver # archive tool
     ];
   };
 }
