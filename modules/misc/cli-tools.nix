@@ -49,6 +49,7 @@ in
       fzf # fuzzy finder
       bat # fancy cat
       shell-gpt
+      libheif #convert heic to jpg with `heif-convert something.heic something.jpg` 
     ];
   };
 }
