@@ -24,6 +24,7 @@
     ../../home-manager/nixvim
     ../../home-manager/rofi.nix
     ../../home-manager/dunst.nix
+    ../../home-manager/opensnitch-ui.nix
     #../../home-manager/theme.nix
     ../../home-manager/zsh
     ../../home-manager/i3.nix

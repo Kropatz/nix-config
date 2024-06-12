@@ -1,13 +1,11 @@
-{lib, config, pkgs, ...}:
+{ lib, config, pkgs, ... }:
 with lib;
-let
-  cfg = config.custom.hardware.nvidia;
-in
-{
+let cfg = config.custom.hardware.nvidia;
+in {
   options.custom.hardware.nvidia = {
     enable = mkEnableOption "Enables nvidia gpus";
   };
-  
+
   config = mkIf cfg.enable {
     # Enable OpenGL
     hardware.opengl = {
@@ -15,8 +13,8 @@ in
       driSupport = true;
       driSupport32Bit = true;
     };
-  
-    services.xserver.videoDrivers = ["nvidia"];
+
+    services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
       # Modesetting is required.
       modesetting.enable = true;
@@ -34,7 +32,7 @@ in
       # Currently alpha-quality/buggy, so false is currently the recommended setting.
       open = true;
       # Enable the Nvidia settings menu,
-        # accessible via `nvidia-settings`.
+      # accessible via `nvidia-settings`.
       nvidiaSettings = true;
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.beta;

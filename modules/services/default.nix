@@ -2,6 +2,7 @@
 {
   imports = [
     ./acme.nix
+    ./opensnitch.nix
     ./adguard.nix
     ./dnsmasq.nix
     ./gitolite.nix
