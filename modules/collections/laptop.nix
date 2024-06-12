@@ -1,5 +1,4 @@
-{pkgs, config, ...}:
-{
+{ pkgs, config, ... }: {
   imports = [
     ../kernel.nix # use latest kernel
     ../services/wireguard-client.nix
@@ -13,6 +12,7 @@
       ld.enable = true;
       settings.enable = true;
     };
+    misc = { podman.enable = true; };
     hardware = {
       firmware.enable = true;
       ssd.enable = true;

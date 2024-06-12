@@ -45,17 +45,8 @@ in {
     
       programs.hyprland = {
         enable = true;
-        package = pkgs.unstable.hyprland;
       };
     
-      security.pam.services = {
-        swaylock = {
-          fprintAuth = false;
-          text = ''
-            auth include login
-          '';
-        };
-      };
       security.pam.services.hyprlock = {};
             
       # List packages installed in system profile. To search, run:

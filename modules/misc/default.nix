@@ -10,5 +10,6 @@
     ./tmpfs.nix
     ./virt-manager.nix
     ./wireshark.nix
+    ./podman.nix
   ];
 }

@@ -72,6 +72,10 @@ in {
           #allow_tearing = true;
         };
 
+        misc = {
+          vfr = true;
+        };
+
         decoration = {
           # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
