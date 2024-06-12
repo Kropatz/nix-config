@@ -25,7 +25,8 @@ in {
           # laptop
           "eDP-1,1920x1080@60,0x0,1"
           #"DP-3,1920x1080@60,1920x0,1"
-          ",preferred,auto,1,mirror,eDP-1" 
+          #",preferred,auto,1,mirror,eDP-1" 
+          ",preferred,auto,auto" 
         ] else [
           # Default
           ",preferred,auto,auto" 
@@ -163,6 +164,7 @@ in {
             $mainMod, S, exec, cat ~/songs | shuf -n 1 | sed "s/^/b.p /g" | ${wl-copy}''
           "$mainMod, R, exec, ${swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
           "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
+          "$mainMod, Print, exec, ${grim} -g \"$(${slurp} -d)\" /tmp/$(date +'%s_grim.png')"
           "$mainMod, SPACE, exec, ${rofi} -show combi"
           " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
           " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
