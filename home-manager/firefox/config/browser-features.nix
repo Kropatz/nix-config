@@ -28,6 +28,7 @@
   # Mozilla shield studies (https://wiki.mozilla.org/Firefox/Shield) is a feature
   # which allows mozilla to remotely install experimental addons.
   "app.normandy.enabled" = false;
+  "messaging-system.rsexperimentloader.enabled" = false;
   "app.normandy.api_url" = "";
   "app.shield.optoutstudies.enabled" = false;
   "extensions.shield-recipe-client.enabled" = false;
@@ -122,6 +123,7 @@
 
   # copied these from a blog 
   "browser.newtabpage.activity-stream.feeds.telemetry" = false;	
+  "browser.newtabpage.activity-stream.feeds.asrouterfeed" = false;
   "browser.newtabpage.activity-stream.telemetry" = false;	
   "browser.ping-centre.telemetry" = false;
   "devtools.onboarding.telemetry.logged" = false;
