@@ -91,6 +91,77 @@
         tags = [ "4chan" "technology" ];
         url = "https://boards.4channel.org/g/index.rss";
       }
+      {
+        title = "ZDI Blog";
+        tags = [ "zeroday" "security" ];
+        url = "https://www.zerodayinitiative.com/blog/?format=rss";
+      }
+      {
+        title = "ZDI Published Advisories";
+        tags = [ "zeroday" "security" ];
+        url = "https://www.zerodayinitiative.com/rss/published/";
+      }
+      {
+        title = "ZDI Upcoming Advisories";
+        tags = [ "zeroday" "security" ];
+        url = "https://www.zerodayinitiative.com/rss/upcoming/";
+      }
+      {
+        title = "The Hackers News";
+        tags = [ "security" ];
+        url = "https://feeds.feedburner.com/TheHackersNews";
+      }
+      {
+        title = "NIST";
+        tags = [ "security" ];
+        url = "https://www.nist.gov/news-events/cybersecurity/rss.xml";
+      }
+      {
+        title = "The Register";
+        tags = [ "news" "technology" ];
+        url = "https://www.theregister.com/headlines.rss";
+      }
+      {
+        title = "Darknet Hackers";
+        tags = [ "security" ];
+        url = "http://feeds.feedburner.com/darknethackers";
+      }
+      {
+        title = "Dark Reading";
+        tags = [ "security" ];
+        url = "http://www.darkreading.com/rss.xml";
+      }
+      {
+        title = "InfoSecurity Magazine";
+        tags = [ "security" ];
+        url = "http://www.infosecurity-magazine.com/rss/news/";
+      }
+      {
+        title = "Krebs on Security";
+        tags = [ "security" ];
+        url = "http://krebsonsecurity.com/feed/";
+      }
+      {
+        title = "Schneier on Security";
+        tags = [ "security" ];
+        url = "http://www.schneier.com/blog/index.rdf";
+      }
+      {
+        title = "ThreatPost";
+        tags = [ "security" ];
+        url = "http://threatpost.com/feed/";
+      }
+      {
+        title = "CVE Feed all";
+        tags = [ "security" ];
+        url = "https://cvefeed.io/rssfeed/latest.xml";
+      }
+      {
+        title = "CVE Feed critical and high";
+        tags = [ "security" ];
+        url = "https://cvefeed.io/rssfeed/severity/high.xml";
+      }
+
     ];
   };
 

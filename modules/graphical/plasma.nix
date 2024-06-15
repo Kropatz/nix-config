@@ -28,6 +28,7 @@ in {
     #  MOZ_ENABLE_WAYLAND = "1";
     #  NIXOS_OZONE_WL = "1";
     #};
+    programs.kdeconnect.enable = true;
 
     xdg = {
       portal = {

@@ -12,7 +12,6 @@ in {
     '';
   in mkIf cfg.enable {
     programs.dconf.enable = true;
-    programs.kdeconnect.enable = true;
 
     fonts.fontDir.enable = true;
     fonts.packages = with pkgs; [
