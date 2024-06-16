@@ -51,6 +51,7 @@ in
       shell-gpt
       libheif #convert heic to jpg with `heif-convert something.heic something.jpg` 
       tree
+      kop-newproject # creates a shell.nix and .envrc
     ];
   };
 }
