@@ -84,6 +84,7 @@ in {
       v4l-utils
       logseq # notes
       xarchiver # archive tool
+      ani-cli
     ];
   };
 }
