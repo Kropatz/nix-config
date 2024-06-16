@@ -50,15 +50,8 @@ in {
         more_set_headers "Permissions-Policy: geolocation=(), microphone=()";
       '';
 
-      virtualHosts = {
-        "kopatz.ddns.net" = {
-          serverAliases = [
-                "kop.oasch.net"
-            #    "server.home"
-            #    "server.home.arpa"
-            #    "192.168.0.6"
-            #  "localhost"
-          ];
+      virtualHosts = let
+        kopConfig = {
           root = pkgs.kop-website;
           forceSSL = cfg.https;
           enableACME = cfg.https;
@@ -69,7 +62,7 @@ in {
               add_header Access-Control-Allow-Origin *;
             '';
             "/stash" = {
-              basicAuthFile =  config.age.secrets.stash-auth.path;
+              basicAuthFile = config.age.secrets.stash-auth.path;
               extraConfig = ''
                 client_max_body_size    5000M;
                 proxy_redirect          off;
@@ -92,6 +85,9 @@ in {
             };
           };
         };
+      in {
+        "kopatz.ddns.net" = kopConfig;
+        "kop.oasch.net" = kopConfig;
         #discord bot for tracking useractivity public version 
         "activitytracker.site" = {
           #serverAliases = [
