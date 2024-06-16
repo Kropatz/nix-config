@@ -71,6 +71,10 @@ in {
               "answer" = ip;
             }
             {
+              "domain" = "kop.oasch.net";
+              "answer" = ip;
+            }
+            {
               "domain" = "kavita-kopatz.duckdns.org";
               "answer" = ip;
             }

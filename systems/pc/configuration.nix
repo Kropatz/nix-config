@@ -45,9 +45,7 @@
       tpm.enable = true;
       tablet.enable = true;
     };
-    services = {
-      opensnitch.enable = true;
-    };
+    services = { opensnitch.enable = true; };
     graphical = {
       audio.enable = true;
       code = {
@@ -91,6 +89,14 @@
       '';
     }
   ];
+
+  # fix index
+  services.xserver.extraConfig = ''
+    Section "Monitor"
+      Identifier "DisplayPort-1"
+      Option "PreferredMode" "2880x1600"
+    EndSection
+  '';
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
