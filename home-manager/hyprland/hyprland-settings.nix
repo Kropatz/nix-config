@@ -169,6 +169,7 @@ in {
           "$mainMod, R, exec, ${swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
           "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
           "$mainMod, Print, exec, ${grim} -g \"$(${slurp} -d)\" /tmp/$(date +'%s_grim.png')"
+          "Shift_L, Print, exec, ${grim} -g \"$(${slurp} -d)\" ~/Pictures/$(date +'%s_grim.png')"
           "$mainMod, SPACE, exec, ${rofi} -show combi"
           " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
           " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
