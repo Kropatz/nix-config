@@ -4,6 +4,7 @@
   imports = [
     ./audio.nix
     ./code.nix
+    ./sddm.nix
     ./code-android.nix
     ./awesome.nix
     ./emulators.nix

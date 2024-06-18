@@ -23,11 +23,10 @@ in {
       };
     };
 
+    custom.graphical.sddm.enable = true;
     services = {
       displayManager = {
         defaultSession = "none+i3";
-        sddm.enable = true;
-        sddm.theme = "${pkgs.sddm-astronaut}";
       };
 
       xserver = {
