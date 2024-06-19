@@ -12,7 +12,7 @@ in {
     services.radicale = {
       enable = true;
       settings = {
-        server = { hosts = [ "192.168.2.1:5232" "192.168.0.10:5232" ]; };
+        server = { hosts = [ "127.0.0.1:5232" ]; };
         #server = { hosts = [ "192.168.0.11:5232" ]; };
         auth = {
           type = "htpasswd";
