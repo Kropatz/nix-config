@@ -71,6 +71,8 @@
     };
   };
 
+  nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
+
   mainUser.layout = "de";
   mainUser.variant = "us";
   age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];

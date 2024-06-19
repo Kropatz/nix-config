@@ -37,6 +37,7 @@
     unstable = import inputs.nixpkgs-unstable {
       system = final.system;
       config.allowUnfree = true;
+      config.permittedInsecurePackages = [ "electron-27.3.11" ];
     };
   };
   stable-packages = final: _prev: {
