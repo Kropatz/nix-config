@@ -1,9 +1,8 @@
 { config, pkgs, lib, inputs, ... }:
-with lib;
 let cfg = config.custom.services.caldav;
 in {
   options.custom.services.caldav = {
-    enable = mkEnableOption "Enables caldav server";
+    enable = lib.mkEnableOption "Enables caldav server";
   };
   config = lib.mkIf cfg.enable {
     age.secrets.radicale-users = {

@@ -83,6 +83,9 @@ in {
               '';
               proxyPass = "http://127.0.0.1:8080";
             };
+            "/radicale/" = {
+              proxyPass = "http://localhost:5232/";
+            };
           };
         };
       in {
