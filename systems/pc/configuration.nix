@@ -45,7 +45,7 @@
       tpm.enable = true;
       tablet.enable = true;
     };
-    services = { opensnitch.enable = true; };
+    services = { caldav.enable = true; };
     graphical = {
       audio.enable = true;
       code = {

@@ -5,16 +5,15 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/services/ssh.nix
-      ../../modules/services/step-ca.nix
-      ../../modules/services/syncthing.nix
-      ../../modules/fail2ban.nix
-      ../../modules/logging.nix
-      ../../modules/motd.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/services/ssh.nix
+    ../../modules/services/step-ca.nix
+    ../../modules/services/syncthing.nix
+    ../../modules/fail2ban.nix
+    ../../modules/logging.nix
+    ../../modules/motd.nix
+  ];
 
   networking.firewall.allowedTCPPorts = [ 25565 ];
 
@@ -39,7 +38,7 @@
     misc = {
       btrfs.enable = true;
       docker.enable = true;
-      backup = let 
+      backup = let
         kavita = "/data/kavita";
         gitolite = "/var/lib/gitolite";
         syncthing = [ "/synced/default/" "/synced/work_drive/" ];
@@ -47,8 +46,7 @@
         backupPathsSmall = [ "/home" gitolite ] ++ syncthing;
         backupPathsMedium = [ "/home" gitolite ] ++ syncthing;
         backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull;
-      in
-      {
+      in {
         enable = true;
         small = backupPathsSmall; # goes to backblaze
         medium = backupPathsMedium; # goes to gdrive
@@ -58,8 +56,9 @@
     services = {
       acme.enable = true;
       gitolite.enable = true;
+      caldav.enable = true;
       kop-monitor.enable = true;
-      kop-fileshare = { 
+      kop-fileshare = {
         basePath = "/stash";
         dataDir = "/1tbssd/kop-fileshare";
         enable = true;

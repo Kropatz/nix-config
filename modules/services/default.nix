@@ -2,6 +2,7 @@
 {
   imports = [
     ./acme.nix
+    ./caldav.nix
     ./opensnitch.nix
     ./adguard.nix
     ./dnsmasq.nix

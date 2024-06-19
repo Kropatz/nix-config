@@ -31,4 +31,5 @@ in
   "stash-auth.age".publicKeys = [ mini-pc server kop ];
   "plausible-admin.age".publicKeys = [ adam-site kop ];
   "plausible-keybase.age".publicKeys = [ adam-site kop ];
+  "radicale.age".publicKeys = [ mini-pc kop ];
 }
