@@ -22,5 +22,10 @@ in {
         storage = { filesystem_folder = "/var/lib/radicale/collections"; };
       };
     };
+    custom.misc.backup = lib.mkIf config.custom.misc.backup.enable {
+      small = [ "/var/lib/radicale/"];
+      medium = [ "/var/lib/radicale/"];
+      large = [ "/var/lib/radicale/"];
+    };
   };
 }

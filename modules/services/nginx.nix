@@ -84,6 +84,9 @@ in {
               proxyPass = "http://127.0.0.1:8080";
             };
             "/radicale/" = {
+              extraConfig = ''
+                proxy_set_header  X-Script-Name /radicale;
+              '';
               proxyPass = "http://localhost:5232/";
             };
           };
