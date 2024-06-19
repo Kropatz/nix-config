@@ -44,7 +44,7 @@ in
         };
         phone = {
           id = "XFQ7MV6-MKBYQXH-WGYVQUB-BYJJPFJ-HJTNZEP-PXWAMYY-DMADWSU-PQOTVAI";
-          addresses = [ "tcp://192.168.0.15" "tcp://192.168.2.30" ];
+          addresses = [ "tcp://192.168.0.15" "tcp://192.168.2.20" ];
         };
       };
 
