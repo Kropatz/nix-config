@@ -18,26 +18,26 @@ in {
       #displayManager.sddm.wayland.enable = true;
 
     };
-    services.xserver.desktopManager.plasma5.enable = true;
+    #services.xserver.desktopManager.plasma5.enable = true;
 
-    #services.desktopManager.plasma6.enable = true;
-    #environment.plasma6.excludePackages = with pkgs.kdePackages; [ ocean-sound-theme spectacle ];
+    services.desktopManager.plasma6.enable = true;
+    environment.plasma6.excludePackages = with pkgs.kdePackages; [ ocean-sound-theme spectacle kwallet dolphin ];
 
-    #environment.sessionVariables = {
+    environment.sessionVariables = {
     #  __GL_YIELD = "usleep";
-    #  MOZ_ENABLE_WAYLAND = "1";
-    #  NIXOS_OZONE_WL = "1";
-    #};
+      MOZ_ENABLE_WAYLAND = "1";
+      #NIXOS_OZONE_WL = "1";
+    };
     programs.kdeconnect.enable = true;
 
     xdg = {
       portal = {
         enable = true;
-        extraPortals = with pkgs;
-          [
-            xdg-desktop-portal-wlr
-            #xdg-desktop-portal-gtk
-          ];
+        #extraPortals = with pkgs;
+        #  [
+        #    xdg-desktop-portal-wlr
+        #    #xdg-desktop-portal-gtk
+        #  ];
       };
     };
 

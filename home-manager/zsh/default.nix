@@ -21,7 +21,7 @@
       dev = "nix-shell --run zsh";
       rm = "trashy put";
       cat = "bat -P --style plain";
-      cdf = "cd $(find . -type d | fzf)";
+      cdf = "cd $(fd --type d --exclude node_modules --exclude bin --exclude target --exclude .cache . | fzf)";
     };
     #plugins = with pkgs; [
     #  {
