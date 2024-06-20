@@ -11,20 +11,26 @@ in {
       enable = true;
       xkb.layout = config.mainUser.layout;
       xkb.variant = config.mainUser.variant;
-      displayManager = {
-        sddm.enable = true;
-      };
+
       #displayManager.sddm.settings.Wayland.SessionDir = "${pkgs.plasma5Packages.plasma-workspace}/share/wayland-sessions";
-      #displayManager.sddm.wayland.enable = true;
 
     };
     #services.xserver.desktopManager.plasma5.enable = true;
 
-    services.desktopManager.plasma6.enable = true;
-    environment.plasma6.excludePackages = with pkgs.kdePackages; [ ocean-sound-theme spectacle kwallet dolphin ];
+    services.displayManager.sddm.enable = true;
+    #services.displayManager.sddm.wayland.enable = true;
+    services.desktopManager.plasma6 = {
+      enable = true;
+    };
+    environment.plasma6.excludePackages = with pkgs.kdePackages; [
+      ocean-sound-theme
+      spectacle
+      kwallet
+      dolphin
+    ];
 
     environment.sessionVariables = {
-    #  __GL_YIELD = "usleep";
+      #  __GL_YIELD = "usleep";
       MOZ_ENABLE_WAYLAND = "1";
       #NIXOS_OZONE_WL = "1";
     };

@@ -14,7 +14,7 @@
         ripgrep
         fd
         cmake
-        nodePackages.pyright
+        pyright
         nodePackages.eslint
         ccls
         nodejs_22

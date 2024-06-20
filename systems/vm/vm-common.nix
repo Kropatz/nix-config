@@ -2,7 +2,7 @@
   services.xserver = {
     enable = true;
     displayManager = {
-      autoLogin.enable = true;
+      autoLogin.enable = false;
       autoLogin.user = "vm";
     };
 

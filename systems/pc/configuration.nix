@@ -85,13 +85,13 @@
     #    waitPID=$!
     #  '';
     #}
-    {
-      manage = "desktop";
-      name = "plasma5";
-      start = ''
-        env ${pkgs.plasma-workspace}/bin/startplasma-x11
-      '';
-    }
+    #{
+    #  manage = "desktop";
+    #  name = "plasma5";
+    #  start = ''
+    #    env ${pkgs.plasma-workspace}/bin/startplasma-x11
+    #  '';
+    #}
   ];
 
   # fix index

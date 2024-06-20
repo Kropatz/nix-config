@@ -15,6 +15,7 @@ in {
       displayManager = {
         sddm.enable = true;
         sddm.theme = "${pkgs.sddm-astronaut}";
+        #sddm.theme = "breeze";
       };
     };
   };

@@ -16,7 +16,11 @@
       ld.enable = true;
       settings.enable = true;
     };
-    graphical = { i3.enable = true; };
+    graphical = {
+      i3.enable = true;
+      plasma.enable = true;
+      sddm.enable = true;
+    };
   };
   networking.networkmanager.enable = true;
 
