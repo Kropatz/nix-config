@@ -38,6 +38,7 @@
     #};
     misc = { docker.enable = true; };
     hardware = {
+      android.enable = true;
       nvidia.enable = true;
       firmware.enable = true;
       ssd.enable = true;
@@ -45,7 +46,6 @@
       tpm.enable = true;
       tablet.enable = true;
     };
-    services = { caldav.enable = true; };
     graphical = {
       audio.enable = true;
       code = {

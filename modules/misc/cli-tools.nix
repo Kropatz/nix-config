@@ -10,6 +10,13 @@ in
   
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
+      fzf # fuzzy finder
+      bat # fancy cat
+      fd # nicer find
+      duf # nicer du
+      eza # nicer ls
+      ripgrep # faster grep
+      gdu
       wget
       pciutils
       rippkgs # faster nixpkgs search, init with `rippkgs-index nixpkgs && mv rippkgs-index.sqlite ~/.local/share/`; 
@@ -23,7 +30,6 @@ in
       inputs.agenix.packages."x86_64-linux".default
       fastfetch
       pdfgrep
-      ncdu
       glxinfo
       vulkan-tools
       ffmpeg
@@ -40,19 +46,15 @@ in
       screen
       tmux
       fatrace # monitor filesystem events
-      ripgrep
       nh
       nix-output-monitor # nom
       nvd # nix diff, example: nvd diff /nix/var/nix/profiles/system-389-link /nix/var/nix/profiles/system-390-link
       compsize
       trashy # move files to trash
-      fzf # fuzzy finder
-      bat # fancy cat
       shell-gpt
       libheif #convert heic to jpg with `heif-convert something.heic something.jpg` 
       tree
       kop-newproject # creates a shell.nix and .envrc
-      fd # nicer find
     ];
   };
 }

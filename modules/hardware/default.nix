@@ -1,6 +1,6 @@
-{ pkgs, config, ...}:
-{
+{ pkgs, config, ... }: {
   imports = [
+    ./android.nix
     ./firmware.nix
     ./nvidia.nix
     ./scheduler.nix

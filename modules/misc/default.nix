@@ -1,6 +1,7 @@
 { pkgs, config, ...}:
 {
   imports = [
+    ./packages-list.nix
     ./backup.nix
     ./btrfs.nix
     ./cli-tools.nix

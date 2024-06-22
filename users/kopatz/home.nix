@@ -161,6 +161,11 @@
         tags = [ "security" ];
         url = "https://cvefeed.io/rssfeed/severity/high.xml";
       }
+      {
+        title = "Terminal Trove";
+        tags = [ "terminal" "cli" ];
+        url = "https://terminaltrove.com/new.xml";
+      }
 
     ];
   };
