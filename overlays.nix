@@ -14,6 +14,11 @@
     waybar = prev.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     });
+
+    # .png doesnt work :(
+    #fastfetch = prev.fastfetch.overrideAttrs (oldAttrs: {
+    #  cmakeFlags = [ (prev.lib.cmakeBool "ENABLE_IMAGEMAGICK6" true) (prev.lib.cmakeBool "ENABLE_IMAGEMAGICK7" true) (prev.lib.cmakeBool "ENABLE_CHAFA" true)  ];
+    #});
     trashy = prev.trashy.overrideAttrs rec {
       version = "unstable-2.0.0";
       src = prev.fetchFromGitHub {

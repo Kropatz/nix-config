@@ -3,6 +3,7 @@
     enable = true;
 
     settings = {
+      #logo = { source = ../test.sixel; type = "raw"; width = 40; height = 40; };
       display = { separator = ""; };
 
       # https://www.nerdfonts.com/cheat-sheet

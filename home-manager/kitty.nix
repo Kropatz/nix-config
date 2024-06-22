@@ -3,6 +3,7 @@
   programs.kitty = {
     enable = true;
     settings = {
+      scrollback_lines = 20000;
       #foreground = "#${config.colorScheme.colors.base05}";
       #background = "#${config.colorScheme.colors.base00}";
 
