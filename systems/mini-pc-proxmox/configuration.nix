@@ -6,6 +6,7 @@
 
 {
   imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
     ../../modules/services/ssh.nix
     ../../modules/services/step-ca.nix
     ../../modules/services/syncthing.nix
@@ -27,10 +28,6 @@
       loader.timeout = lib.mkForce 1;
     };
 
-    services.cloud-init = {
-      enable = true;
-      network.enable = true;
-    };
   networking.firewall.allowedTCPPorts = [ 25565 ];
 
   mainUser.layout = "de";
@@ -99,7 +96,7 @@
     };
   };
 
-  networking.hostName = "mini-pc"; # Define your hostname.
+  networking.hostName = "mini-pc-proxmox"; # Define your hostname.
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
