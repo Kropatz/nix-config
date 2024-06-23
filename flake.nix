@@ -40,7 +40,7 @@
       inherit (self) outputs;
       system = "x86_64-linux";
       # helper function to create a machine
-      mkHost = { modules, specialArgs ? { pkgsVersion = nixpkgs-unstable; }
+      mkHost = { modules, specialArgs ? { pkgsVersion = nixpkgs-unstable; home-manager-version = home-manager-unstable; }
         , system ? "x86_64-linux", minimal ? false }:
         specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
@@ -57,7 +57,7 @@
               ];
             })
           ] ++ (if !minimal then [
-            home-manager-unstable.nixosModules.home-manager
+            specialArgs.home-manager-version.nixosModules.home-manager
             nixos-cosmic.nixosModules.default
             stylix.nixosModules.stylix
             ./modules/graphical/stylix.nix
@@ -125,6 +125,14 @@
             pkgsVersion = nixpkgs;
           };
           modules = [ ./users/anon ./systems/mini-pc/configuration.nix ];
+        };
+        "mini-pc-proxmox" = mkHost {
+          specialArgs = {
+            vars = import ./systems/userdata-default.nix;
+            pkgsVersion = nixpkgs;
+            home-manager-version = home-manager;
+          };
+          modules = [ ./users/anon ./systems/mini-pc-proxmox/configuration.nix ];
         };
         # build vm -> nixos-rebuild build-vm  --flake .#vm
         "vm" = mkHost {
