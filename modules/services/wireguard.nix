@@ -38,7 +38,7 @@ in lib.mkIf cfg.enable {
           allowedIPs = [
             "192.168.2.2/32"
           ];
-          publicKey = "dUBPIEnAiHIZCMjqV0ya8qotN3UnMhlEVyGNQcR3gVI=";
+          publicKey = "YgecbWSNRqOmylYqxr/V21LL3UpKEr5x42lXPAxriSc=";
         }
         {
           allowedIPs = [
