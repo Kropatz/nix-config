@@ -58,8 +58,8 @@
       ime.enable = true;
       noise-supression.enable = true;
       obs.enable = true;
-      sddm.enable = true;
       #openrgb.enable = true;
+      sddm.enable = true;
       nightlight.enable = true;
       #plasma.enable = true;
       i3.enable = true;

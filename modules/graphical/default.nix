@@ -3,6 +3,7 @@
 
   imports = [
     ./audio.nix
+    ./lightdm.nix
     ./code.nix
     ./sddm.nix
     ./code-android.nix

@@ -9,7 +9,8 @@ in {
       xkb.layout = config.mainUser.layout;
       xkb.variant = config.mainUser.variant;
       enable = true;
-      displayManager.gdm.enable = true;
+      displayManager.gdm.enable =
+        lib.mkIf (!config.custom.graphical.sddm.enable) true;
       desktopManager.gnome.enable = true;
     };
 

@@ -19,7 +19,7 @@
     graphical = {
       i3.enable = true;
       plasma.enable = true;
-      sddm.enable = true;
+      lightdm.enable = true;
     };
   };
   networking.networkmanager.enable = true;
