@@ -69,7 +69,7 @@ in {
       listener = [
         {
           timeout = 600;
-          on-timeout = "hyprlock";
+          on-timeout = "loginctl lock-session";
         }
         {
           timeout = 900;
