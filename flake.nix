@@ -99,6 +99,7 @@
             vars = import ./systems/userdata-default.nix
               // import ./systems/laptop/userdata.nix;
             pkgsVersion = nixpkgs-unstable;
+            home-manager-version = home-manager-unstable;
             inherit nix-colors;
           };
           modules = [

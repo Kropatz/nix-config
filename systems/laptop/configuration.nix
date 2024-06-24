@@ -10,6 +10,8 @@
 	#<home-manager/nixos>
     ];
 
+
+  nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
   services.blueman.enable = true;
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth

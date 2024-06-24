@@ -12,7 +12,10 @@
       ld.enable = true;
       settings.enable = true;
     };
-    misc = { podman.enable = true; };
+    misc = {
+      podman.enable = true;
+      firejail.enable = true;
+    };
     hardware = {
       firmware.enable = true;
       ssd.enable = true;
@@ -34,4 +37,9 @@
       shared.enable = true;
     };
   };
+  programs.firejail.wrappedBinaries = with pkgs;
+    let inherit (config.custom.misc.firejail) mk;
+    in lib.mkMerge [
+      (mk "Discord" { pkg = discord; })
+    ];
 }

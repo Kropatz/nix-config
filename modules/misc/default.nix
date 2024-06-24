@@ -4,6 +4,7 @@
     ./packages-list.nix
     ./backup.nix
     ./btrfs.nix
+    ./firejail.nix
     ./cli-tools.nix
     ./docker.nix
     ./nftables.nix
