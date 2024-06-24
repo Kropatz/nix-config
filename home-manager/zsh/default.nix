@@ -13,7 +13,7 @@
       collectGarbage = "nh clean all";
       edit = "cd ~/projects/github/nix-config && nvim .";
       ll = "ls -l";
-      ls = "eza --icons";
+      ls = "eza --icons always";
       la = "eza -la --icons --group-directories-first";
       ssh = "TERM=xterm-256color ssh";
       update = "sudo nixos-rebuild switch";
