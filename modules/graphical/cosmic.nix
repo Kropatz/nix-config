@@ -16,7 +16,6 @@ in
     boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
     services.desktopManager.cosmic.enable = true;
     services.displayManager.cosmic-greeter.enable = true;
-
   };
 }
 

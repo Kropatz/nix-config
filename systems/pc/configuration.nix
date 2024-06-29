@@ -65,13 +65,13 @@
       i3.enable = true;
       #hyprland.enable = true;
       #gnome.enable = true;
-      #cosmic.enable = true;
+      cosmic.enable = true;
       shared.enable = true;
       stylix.enable = true;
     };
   };
 
-  nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
+  nixpkgs.config.permittedInsecurePackages = [ "electron-28.3.3" ];
 
   mainUser.layout = "de";
   mainUser.variant = "us";

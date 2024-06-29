@@ -54,25 +54,29 @@ in {
           addresses = [ "tcp://192.168.0.15" "tcp://192.168.2.20" ];
         };
       };
-      folders."${basePath}/default" = {
+      folders."default" = {
         id = "default";
+        path = "${basePath}/default";
         devices =
           [ "kop-pc" "server" "laptop" "mini-pc" "mini-pc-proxmox" "phone" ];
         ignorePerms = false;
       };
 
-      folders."${basePath}/books" = {
+      folders."books" = {
         id = "books";
+        path = "${basePath}/books";
         devices = [ "kop-pc" "server" "laptop" "mini-pc" "mini-pc-proxmox" ];
       };
 
-      folders."${basePath}/fh" = {
+      folders."fh" = {
         id = "fh";
+        path = "${basePath}/fh";
         devices = [ "kop-pc" "server" "laptop" "mini-pc" "mini-pc-proxmox" ];
       };
 
-      folders."${basePath}/work_drive" = {
+      folders."work_drive" = {
         id = "work_drive";
+        path = "${basePath}/work_drive";
         devices = [ "kop-pc" "server" "laptop" "mini-pc" "mini-pc-proxmox" ];
       };
     };

@@ -88,6 +88,7 @@
             vars = import ./systems/userdata-default.nix
               // import ./systems/server/userdata.nix;
             pkgsVersion = nixpkgs;
+            home-manager-version = home-manager;
           };
         };
         "kop-pc" = mkHost {
@@ -122,14 +123,13 @@
         };
         "mini-pc" = mkHost {
           specialArgs = {
-            vars = import ./systems/userdata-default.nix;
             pkgsVersion = nixpkgs;
+            home-manager-version = home-manager;
           };
           modules = [ ./users/anon ./systems/mini-pc/configuration.nix ];
         };
         "mini-pc-proxmox" = mkHost {
           specialArgs = {
-            vars = import ./systems/userdata-default.nix;
             pkgsVersion = nixpkgs;
             home-manager-version = home-manager;
           };
@@ -137,10 +137,6 @@
         };
         # build vm -> nixos-rebuild build-vm  --flake .#vm
         "vm" = mkHost {
-          specialArgs = {
-            vars = import ./systems/userdata-default.nix;
-            pkgsVersion = nixpkgs-unstable;
-          };
           modules = [ ./users/vm ./systems/vm/configuration.nix ];
         };
         "wsl" = mkHost {
