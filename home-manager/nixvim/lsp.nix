@@ -9,6 +9,7 @@
         gopls.enable = true;
         nixd.enable = true;
         html.enable = true;
+        dartls.enable = true;
         tsserver.enable = true;
         pylsp.enable = true;
         csharp-ls = {

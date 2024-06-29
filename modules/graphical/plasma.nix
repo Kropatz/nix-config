@@ -21,6 +21,7 @@ in {
       enable = true;
     };
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
+      plasma-browser-integration
       ocean-sound-theme
       spectacle
       kwallet
@@ -30,20 +31,19 @@ in {
     environment.sessionVariables = {
       #  __GL_YIELD = "usleep";
       MOZ_ENABLE_WAYLAND = "1";
-      #NIXOS_OZONE_WL = "1";
+      NIXOS_OZONE_WL = "1";
     };
-    programs.kdeconnect.enable = true;
 
-    xdg = {
-      portal = {
-        enable = true;
-        #extraPortals = with pkgs;
-        #  [
-        #    xdg-desktop-portal-wlr
-        #    #xdg-desktop-portal-gtk
-        #  ];
-      };
-    };
+    #xdg = {
+    #  portal = {
+    #    enable = true;
+    #    #extraPortals = with pkgs;
+    #    #  [
+    #    #    xdg-desktop-portal-wlr
+    #    #    #xdg-desktop-portal-gtk
+    #    #  ];
+    #  };
+    #};
 
     environment.systemPackages = with pkgs; [
       libsForQt5.bismuth # auto tiling

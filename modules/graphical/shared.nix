@@ -62,6 +62,7 @@ in {
     environment.systemPackages = with pkgs; [
       keepassxc
       xfce.thunar # file manager
+      discord
       gvfs
       remmina
       thunderbird
