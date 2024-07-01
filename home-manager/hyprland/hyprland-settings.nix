@@ -259,7 +259,7 @@ in {
         dunstify = "${pkgs.dunst}/bin/dunstify";
         dunstctl = "${pkgs.dunst}/bin/dunstctl";
         pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep --cache";
-        path = "/synced/fh/os-hardening/**/slides/*.pdf";
+        path = "/synced/fh/os-hardening/**/slides";
       in ''
         bind = $mainMod, A, submap, notes
 
