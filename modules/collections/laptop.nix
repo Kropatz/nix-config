@@ -22,6 +22,9 @@
       #tablet.enable = true;
       #fingerprint.enable = true;
     };
+    services = {
+      syncthing.enable = true;
+    };
     graphical = {
       audio.enable = true;
       code = {
@@ -37,6 +40,8 @@
       shared.enable = true;
     };
   };
+
+  nixpkgs.config.permittedInsecurePackages = [ "electron-28.3.3" ];
   programs.firejail.wrappedBinaries = with pkgs;
     let inherit (config.custom.misc.firejail) mk;
     in lib.mkMerge [

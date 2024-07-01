@@ -109,8 +109,7 @@
             ./systems/laptop/configuration.nix
             ./modules/collections/laptop.nix
             ./modules/ecryptfs.nix
-            ./modules/services/syncthing.nix
-            ./modules/fh/scanning.nix
+            #./modules/fh/scanning.nix
             ./modules/support/ntfs.nix
             ./modules/thunderbolt.nix
             #./modules/vmware-host.nix
