@@ -22,10 +22,10 @@
     cores = 8;
     net0 = "virtio=00:00:00:00:00:00,bridge=vmbr0,firewall=1";
   };
-    boot = {
-      kernelParams = [ "console=tty0" "console=ttyS0" ];
-      loader.timeout = lib.mkForce 1;
-    };
+  boot = {
+    kernelParams = [ "console=tty0" "console=ttyS0" ];
+    loader.timeout = lib.mkForce 1;
+  };
 
   networking.firewall.allowedTCPPorts = [ 25565 ];
 
@@ -52,8 +52,9 @@
       backup = let
         kavita = "/data/kavita";
         gitolite = "/var/lib/gitolite";
-        syncthing = [ "/synced/default/" "/synced/work_drive/" ];
-        syncthingFull = syncthing ++ [ "/synced/fh/" "/synced/books/" ];
+        syncthing = [ "/data/synced/default/" "/data/synced/work_drive/" ];
+        syncthingFull = syncthing
+          ++ [ "/data/synced/fh/" "/data/synced/books/" ];
         backupPathsSmall = [ "/home" gitolite ] ++ syncthing;
         backupPathsMedium = [ "/home" gitolite ] ++ syncthing;
         backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull;
