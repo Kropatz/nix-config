@@ -24,9 +24,7 @@ in {
     };
 
     services = {
-      displayManager = {
-        defaultSession = "none+i3";
-      };
+      displayManager = { defaultSession = "none+i3"; };
 
       xserver = {
         enable = true;
@@ -42,6 +40,24 @@ in {
             i3lock-color # i3 screen locker
             i3blocks # if you are planning on using i3blocks over i3status
           ];
+        };
+      };
+    };
+
+    security.polkit.enable = true;
+    systemd = {
+      user.services.polkit-gnome-authentication-agent-1 = {
+        description = "polkit-gnome-authentication-agent-1";
+        wantedBy = [ "graphical-session.target" ];
+        wants = [ "graphical-session.target" ];
+        after = [ "graphical-session.target" ];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart =
+            "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
         };
       };
     };

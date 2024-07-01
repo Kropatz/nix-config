@@ -37,6 +37,7 @@
     #  server = [ "192.168.0.10" ];
     #};
     misc = { docker.enable = true; };
+    services = { syncthing = { enable = true; }; };
     hardware = {
       android.enable = true;
       nvidia.enable = true;
@@ -65,7 +66,7 @@
       i3.enable = true;
       #hyprland.enable = true;
       #gnome.enable = true;
-      cosmic.enable = true;
+      #cosmic.enable = true;
       shared.enable = true;
       stylix.enable = true;
     };

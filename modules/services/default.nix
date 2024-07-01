@@ -17,5 +17,6 @@
     ./kop-fileshare.nix
     ./adam-site.nix
     ./plausible.nix
+    ./syncthing.nix
   ];
 }

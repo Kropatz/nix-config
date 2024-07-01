@@ -9,7 +9,6 @@
     ./hardware-configuration.nix
     ../../modules/services/ssh.nix
     ../../modules/services/step-ca.nix
-    ../../modules/services/syncthing.nix
     ../../modules/fail2ban.nix
     ../../modules/logging.nix
     ../../modules/motd.nix
@@ -86,6 +85,10 @@
         ip = "192.168.2.1";
       };
       adguard.enable = true;
+      syncthing = {
+        enable = true;
+        basePath = "/data/synced";
+      };
     };
     nftables.enable = true;
     cli-tools.enable = true;
