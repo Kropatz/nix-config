@@ -40,8 +40,10 @@
       inherit (self) outputs;
       system = "x86_64-linux";
       # helper function to create a machine
-      mkHost = { modules, specialArgs ? { pkgsVersion = nixpkgs-unstable; home-manager-version = home-manager-unstable; }
-        , system ? "x86_64-linux", minimal ? false }:
+      mkHost = { modules, specialArgs ? {
+        pkgsVersion = nixpkgs-unstable;
+        home-manager-version = home-manager-unstable;
+      }, system ? "x86_64-linux", minimal ? false }:
         specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
           modules = modules ++ [
@@ -62,9 +64,7 @@
             stylix.nixosModules.stylix
             ./modules/graphical/stylix.nix
             ./modules/graphical/cosmic.nix
-            ({ outputs, ... }: {
-              stylix.image = ./yuyukowallpaper.png;
-            })
+            ({ outputs, ... }: { stylix.image = ./yuyukowallpaper.png; })
           ] else
             [ ]);
           specialArgs = specialArgs // { inherit inputs outputs; };
@@ -132,12 +132,12 @@
             pkgsVersion = nixpkgs;
             home-manager-version = home-manager;
           };
-          modules = [ ./users/anon ./systems/mini-pc-proxmox/configuration.nix ];
+          modules =
+            [ ./users/anon ./systems/mini-pc-proxmox/configuration.nix ];
         };
         # build vm -> nixos-rebuild build-vm  --flake .#vm
-        "vm" = mkHost {
-          modules = [ ./users/vm ./systems/vm/configuration.nix ];
-        };
+        "vm" =
+          mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
         "wsl" = mkHost {
           modules = [
             #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
@@ -152,6 +152,10 @@
         "adam-site" = mkHost {
           minimal = true;
           system = "aarch64-linux";
+          specialArgs = {
+            pkgsVersion = nixpkgs;
+            home-manager-version = home-manager;
+          };
           modules =
             [ disko.nixosModules.disko ./systems/adam-site/configuration.nix ];
         };
