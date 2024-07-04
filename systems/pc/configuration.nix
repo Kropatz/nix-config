@@ -72,7 +72,7 @@
     };
   };
 
-  nixpkgs.config.permittedInsecurePackages = [ "electron-28.3.3" ];
+  nixpkgs.config.permittedInsecurePackages = [ "electron-28.3.3" "electron-27.3.11" ];
 
   mainUser.layout = "de";
   mainUser.variant = "us";

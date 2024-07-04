@@ -7,7 +7,7 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    #discord = prev.discord.override { withVencord = true; };
+    discord = prev.discord.override { withVencord = true; };
     #discord = prev.vesktop;
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     nerdfonts = prev.nerdfonts.override { fonts = [ "Hack" "Noto" ]; };

@@ -79,7 +79,7 @@ in {
       #wacomtablet
       wl-clipboard
       pinta # paint
-      qalculate-qt # calculator
+      #qalculate-qt # calculator TODO build broken
       #libsForQt5.kcalc
       syncthingtray
       v4l-utils
