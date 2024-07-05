@@ -18,7 +18,7 @@
     };
     graphical = {
       #i3.enable = true;
-      plasma.enable = true;
+      hyprland.enable = true;
       #lightdm.enable = true;
       #sddm.enable = true;
       #cosmic.enable = true;
@@ -26,7 +26,13 @@
   };
   networking.networkmanager.enable = true;
   virtualisation.vmVariant = {
-    virtualisation.qemu.options = [ "-vga qxl" ];
+    #virtualisation.qemu.options = [
+    #      "-device virtio-vga-gl"
+    #      "-display sdl,gl=on,show-cursor=off"
+    #      "-audio pa,model=hda"
+    #      #"-full-screen"
+    #    ];
+    #virtualisation.qemu.options = [ "-vga qxl" ];
     #[ "-vga none" "-device virtio-gpu-gl-pci" "-display default,gl=on" ];
   };
 
