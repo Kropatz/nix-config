@@ -4,10 +4,15 @@ let cfg = config.custom.nix.settings;
 in {
   options.custom.nix.settings = {
     enable = mkEnableOption "Enables various nix settings";
+    optimise = mkOption {
+      type = with types; bool;
+      default = true;
+      description = "Optimise nix store";
+    };
   };
 
   config = mkIf cfg.enable {
-    nix.optimise.automatic = true;
+    nix.optimise.automatic = cfg.optimise;
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nix.registry.nixpkgs.flake = pkgsVersion;
     nix.gc = {

@@ -1,11 +1,6 @@
 { pkgs, lib, ... }: {
   services.xserver = {
     enable = true;
-    displayManager = {
-      autoLogin.enable = false;
-      autoLogin.user = "vm";
-    };
-
     resolutions = lib.mkOverride 9 ([ ] ++ [{
       x = 1680;
       y = 1050;
