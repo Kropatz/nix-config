@@ -9,6 +9,9 @@ in {
     programs.adb = {
       enable = true;
     };
+    environment.systemPackages = with pkgs;[
+      scrcpy # mirrors screen to pc, -S turns off screen while active, --render-driver opengl uses opengl for rendering
+    ];
     users.users.${config.mainUser.name}.extraGroups = [ "adbusers" ];
   };
 }
