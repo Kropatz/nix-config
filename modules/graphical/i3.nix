@@ -18,7 +18,7 @@ in {
     xdg = {
       portal = {
         enable = true;
-        extraPortals = with pkgs; [ libsForQt5.xdg-desktop-portal-kde ];
+        extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
         config.common.default = "*";
       };
     };
@@ -79,6 +79,7 @@ in {
       lm_sensors # for cpu in polybar
       feh # sets the wallpaper
       networkmanagerapplet
+      caffeine-ng # prevent the system from going to sleep
     ];
   };
 }

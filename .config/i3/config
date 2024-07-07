@@ -270,6 +270,8 @@ exec --no-startup-id nm-applet
 # set lock timeout to 20 minutes
 exec_always --no-startup-id xset dpms 0 0 1200 &
 exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/lock.sh
+# prevent screen locking
+exec --no-startup-id caffeine
 
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
