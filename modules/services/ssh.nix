@@ -6,7 +6,7 @@
         settings.PasswordAuthentication = false;
         settings.KbdInteractiveAuthentication = false;
         settings.X11Forwarding = false;
-        settings.PermitRootLogin = "no";
+        settings.PermitRootLogin = "prohibit-password";
         extraConfig = ''
             AllowAgentForwarding no
             AllowStreamLocalForwarding no

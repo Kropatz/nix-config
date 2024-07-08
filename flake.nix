@@ -159,6 +159,11 @@
           modules =
             [ disko.nixosModules.disko ./systems/adam-site/configuration.nix ];
         };
+        "proxmox-test-vm" = mkHost {
+          minimal = true;
+          modules =
+            [ disko.nixosModules.disko ./systems/proxmox-test-vm/configuration.nix ];
+        };
       };
     };
 }
