@@ -66,6 +66,33 @@ in {
             "tls://dot.seby.io"
           ];
           use_http3_upstreams = true;
+        };
+        querylog = { enabled = false; };
+        filters = [
+          {
+            enabled = true;
+            url =
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt";
+            name = "adguard dns list";
+            id = 1;
+          }
+          {
+            enabled = true;
+            url =
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt";
+            name = "adguard block list";
+            id = 2;
+          }
+          {
+            enabled = true;
+            url = "https://dbl.oisd.nl/";
+            name = "big block list";
+            id = 3;
+          }
+        ];
+        dhcp = { enabled = false; };
+        tls = { enabled = false; };
+        filtering = {
           rewrites = [
             {
               "domain" = "kopatz.ddns.net";
@@ -133,31 +160,6 @@ in {
             }
           ];
         };
-        querylog = { enabled = false; };
-        filters = [
-          {
-            enabled = true;
-            url =
-              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt";
-            name = "adguard dns list";
-            id = 1;
-          }
-          {
-            enabled = true;
-            url =
-              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_2.txt";
-            name = "adguard block list";
-            id = 2;
-          }
-          {
-            enabled = true;
-            url = "https://dbl.oisd.nl/";
-            name = "big block list";
-            id = 3;
-          }
-        ];
-        dhcp = { enabled = false; };
-        tls = { enabled = false; };
       };
     };
   };
