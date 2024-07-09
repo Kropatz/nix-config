@@ -157,7 +157,7 @@ in {
         ];
         dhcp = { enabled = false; };
         dhcpv6 = { enabled = false; };
-        tls = { enabled = true; };
+        tls = { enabled = false; };
       };
     };
   };
