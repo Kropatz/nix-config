@@ -94,7 +94,7 @@ in lib.mkIf cfg.enable {
  #   '';
  # };
   security.acme.certs."${fqdn}" = lib.mkIf useStepCa { 
-    server = "https://127.0.0.1:8443/acme/acme/directory";
+    server = "https://127.0.0.1:8443/acme/kop-acme/directory";
   };
   services.nginx.virtualHosts."${fqdn}" = {
     forceSSL = useHttps;

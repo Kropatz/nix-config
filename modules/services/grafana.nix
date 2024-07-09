@@ -55,7 +55,7 @@ in
     after = [ "step-ca.service" ];
   };
 
-  security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
+  security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/kop-acme/directory";
   # nginx reverse proxy
   services.nginx.virtualHosts.${fqdn} = {
     forceSSL = useHttps;

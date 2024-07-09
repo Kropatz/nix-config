@@ -72,7 +72,7 @@ in
         provisioners = [
           {
             type = "ACME";
-            name = "acme";
+            name = "kop-acme";
             forceCN = true;
           }
         ];

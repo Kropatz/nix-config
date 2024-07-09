@@ -49,7 +49,7 @@ in
     nginx.enable = false;
   };
 
-  security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/acme/directory";
+  security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/kop-acme/directory";
   services.nginx.virtualHosts."${fqdn}" = {
     forceSSL = useHttps;
     enableACME = useHttps;

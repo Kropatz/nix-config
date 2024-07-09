@@ -27,7 +27,7 @@ in {
     networking.firewall.allowedUDPPorts = [ 53 ];
 
     security.acme.certs."${cfg.fqdn}".server =
-      "https://127.0.0.1:8443/acme/acme/directory";
+      "https://127.0.0.1:8443/acme/kop-acme/directory";
     # nginx reverse proxy
     services.nginx.virtualHosts.${cfg.fqdn} = {
       forceSSL = cfg.useHttps;
@@ -47,7 +47,7 @@ in {
     services.adguardhome = {
       enable = true;
       settings = {
-        schema_version = 20;
+        schema_version = 28;
         users = [{
           name = "admin";
           password =
@@ -59,6 +59,7 @@ in {
           protection_enabled = true;
           filtering_enabled = true;
           upstream_dns = [
+            "https://dns10.quad9.net/dns-query"
             "https://doh.tiar.app/dns-query"
             "tls://getdnsapi.net"
             "https://dns.adguard-dns.com/dns-query"
@@ -156,7 +157,6 @@ in {
           }
         ];
         dhcp = { enabled = false; };
-        dhcpv6 = { enabled = false; };
         tls = { enabled = false; };
       };
     };
