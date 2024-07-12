@@ -23,7 +23,7 @@ in {
       WLR_NO_HARDWARE_CURSORS = "1";
       #WLR_DRM_NO_ATOMIC="1";
       #WLR_DRM_DEVICES = "/dev/dri/card0";
-      WLR_RENDERER_ALLOW_SOFTWARE = "1";
+      #WLR_RENDERER_ALLOW_SOFTWARE = "1";
     } // lib.mkIf config.custom.hardware.nvidia.enable {
       LIBVA_DRIVER_NAME = "nvidia";
       # black screen :(
@@ -36,9 +36,6 @@ in {
     hardware = {
       # Opengl
       opengl.enable = true;
-      # Most wayland compositors need this
-      nvidia.modesetting.enable =
-        lib.mkIf config.custom.hardware.nvidia.enable true;
     };
 
     xdg.portal.enable = true;

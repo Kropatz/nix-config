@@ -63,6 +63,7 @@ in {
       keepassxc
       xfce.thunar # file manager
       discord
+      vesktop
       gvfs
       remmina
       thunderbird

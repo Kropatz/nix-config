@@ -1,5 +1,4 @@
 { config, osConfig, pkgs, inputs, lib, ... }:
-with lib;
 let cfg = osConfig.custom.graphical.hyprland;
 in {
   config = lib.mkIf cfg.enable {
@@ -57,6 +56,9 @@ in {
         shadow_passes = 2;
       }];
     };
+
+    # don't autostart
+    systemd.user.services.hypridle.Service.ExecStart = lib.mkForce "true";
     services.hypridle.enable = true;
     services.hypridle.settings = {
       general = {

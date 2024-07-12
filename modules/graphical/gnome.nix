@@ -19,7 +19,6 @@ in {
     systemd.services."autovt@tty1".enable = false;
     services.gnome.gnome-keyring.enable = true;
 
-    boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     environment.gnome.excludePackages = (with pkgs; [

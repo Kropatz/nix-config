@@ -64,7 +64,7 @@
       nightlight.enable = true;
       #plasma.enable = true;
       i3.enable = true;
-      #hyprland.enable = true;
+      hyprland.enable = true;
       #gnome.enable = true;
       #cosmic.enable = true;
       shared.enable = true;
@@ -72,7 +72,8 @@
     };
   };
 
-  nixpkgs.config.permittedInsecurePackages = [ "electron-28.3.3" "electron-27.3.11" ];
+  nixpkgs.config.permittedInsecurePackages =
+    [ "electron-28.3.3" "electron-27.3.11" ];
 
   mainUser.layout = "de";
   mainUser.variant = "us";

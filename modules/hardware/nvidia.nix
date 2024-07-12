@@ -12,7 +12,7 @@ in {
       enable = true;
       enable32Bit = true;
     };
-
+    boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
       # Modesetting is required.

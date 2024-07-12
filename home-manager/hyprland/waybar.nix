@@ -118,7 +118,7 @@ in {
 
         "hyprland/workspaces" = {
           "disable-scroll" = true;
-          "all-outputs" = true;
+          "all-outputs" = false;
           "active-only" = false;
           "on-click" = "activate";
           "format" = "{icon} {windows}";

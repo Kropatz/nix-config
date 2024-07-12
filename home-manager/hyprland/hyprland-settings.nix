@@ -1,14 +1,13 @@
 { config, osConfig, pkgs, inputs, lib, ... }:
-with lib;
 let cfg = osConfig.custom.graphical.hyprland;
 in {
   config = lib.mkIf cfg.enable {
-    programs.swaylock.enable = true;
+    #programs.swaylock.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
       #enableNvidiaPatches = true;
       xwayland.enable = true;
-      package = pkgs.unstable.hyprland;
+      package = pkgs.hyprland;
       settings = {
         #
         # Please note not all available settings / options are set here.
@@ -26,12 +25,13 @@ in {
           "eDP-1,1920x1080@60,0x0,1"
           #"DP-3,1920x1080@60,1920x0,1"
           #",preferred,auto,1,mirror,eDP-1" 
-          ",preferred,auto,auto" 
-        ] else [
-          # Default
-          ",preferred,auto,auto" 
-        ];
-        
+          ",preferred,auto,auto"
+        ] else
+          [
+            # Default
+            ",preferred,auto,auto"
+          ];
+
         # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
         # Execute your favorite apps at launch
@@ -56,7 +56,7 @@ in {
 
           touchpad = { natural_scroll = true; };
 
-          sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+          sensitivity = if osConfig.networking.hostName == "kop-pc" then -0.1 else 0; # -1.0 - 1.0, 0 means no modification.
         };
 
         general = {
@@ -72,9 +72,7 @@ in {
           #allow_tearing = true;
         };
 
-        misc = {
-          vfr = true;
-        };
+        misc = { vfr = true; };
 
         decoration = {
           # See https://wiki.hyprland.org/Configuring/Variables/ for more
@@ -152,7 +150,7 @@ in {
           swww = "${pkgs.swww}/bin/swww";
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
           brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
-          swaylock = "${pkgs.swaylock}/bin/swaylock";
+          #swaylock = "${pkgs.swaylock}/bin/swaylock";
           hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
           playerctl = "${pkgs.playerctl}/bin/playerctl";
         in [
@@ -169,8 +167,10 @@ in {
             $mainMod, S, exec, cat ~/songs | shuf -n 1 | sed "s/^/b.p /g" | ${wl-copy}''
           "$mainMod, R, exec, ${swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
           "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
-          "$mainMod, Print, exec, ${grim} -g \"$(${slurp} -d)\" /tmp/$(date +'%s_grim.png')"
-          "Shift_L, Print, exec, ${grim} -g \"$(${slurp} -d)\" ~/Pictures/$(date +'%s_grim.png')"
+          ''
+            $mainMod, Print, exec, ${grim} -g "$(${slurp} -d)" /tmp/$(date +'%s_grim.png')''
+          ''
+            Shift_L, Print, exec, ${grim} -g "$(${slurp} -d)" ~/Pictures/$(date +'%s_grim.png')''
           "$mainMod, SPACE, exec, ${rofi} -show combi"
           " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
           " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
@@ -250,6 +250,7 @@ in {
           "${pkgs.swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
           "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
           "${pkgs.waybar}/bin/waybar &"
+          "hypridle &"
           #"${pkgs.dunst}/bin/dunst &"
         ];
       };
