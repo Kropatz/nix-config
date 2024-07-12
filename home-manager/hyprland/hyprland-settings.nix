@@ -56,7 +56,7 @@ in {
 
           touchpad = { natural_scroll = true; };
 
-          sensitivity = if osConfig.networking.hostName == "kop-pc" then -0.1 else 0; # -1.0 - 1.0, 0 means no modification.
+          sensitivity = if osConfig.networking.hostName == "kop-pc" then -0.3 else 0; # -1.0 - 1.0, 0 means no modification.
         };
 
         general = {

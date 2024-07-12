@@ -6,6 +6,7 @@
     ./opensnitch.nix
     ./adguard.nix
     ./dnsmasq.nix
+    ./games
     ./gitolite.nix
     ./ente.nix
     ./kubernetes.nix

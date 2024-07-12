@@ -90,6 +90,7 @@
         enable = true;
         basePath = "/data/synced";
       };
+      terraria.enable = true;
     };
     nftables.enable = true;
     cli-tools.enable = true;
