@@ -32,7 +32,7 @@ in {
         middleEmulation = false;
       };
     };
-
+    programs.kdeconnect.enable = true;
     networking.firewall = {
       enable = true;
       allowedTCPPorts = [ 25565 53317 ]; # localsend

@@ -53,6 +53,7 @@ in
       trashy # move files to trash
       shell-gpt
       libheif #convert heic to jpg with `heif-convert something.heic something.jpg` 
+      imagemagick #convert images
       tree
       kop-newproject # creates a shell.nix and .envrc
     ];
