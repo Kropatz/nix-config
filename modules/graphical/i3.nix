@@ -75,6 +75,7 @@ in {
       brightnessctl
       i3blocks
       autotiling
+      flameshot
       pmutils # suspend with pm-suspend
       lm_sensors # for cpu in polybar
       feh # sets the wallpaper

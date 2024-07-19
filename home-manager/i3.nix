@@ -43,7 +43,8 @@ in {
           line-size = "3pt";
           font-0 = "Noto Sans:size=11;1";
           font-1 = "Hack-Regular.ttf: Hack:style=Regular";
-          font-2 = "Noto Sans CJK JP:style=Regular";
+          font-2 = "HackNerdFont-Regular.ttf: Hack Nerd Font:style=Regular";
+          font-3 = "Noto Sans CJK JP:style=Regular";
           border-top-size = 0;
           border-right-size = 0;
           border-left-size = 0;
@@ -52,10 +53,10 @@ in {
           padding-left = 2;
           padding-right = 2;
           module-margin = 1;
-          modules-left = "i3";
-          modules-center = "xwindow";
+          modules-left = "i3 xwindow";
+          modules-center = "";
           modules-right =
-            "network memory cpu cpu-temp gpu pulseaudio date tray";
+            "music network memory cpu cpu-temp gpu pulseaudio date tray";
           cursor-click = "pointer";
           cursor-scroll = "ns-resize";
           enable-ipc = true;
@@ -186,6 +187,14 @@ in {
           type = "custom/script";
           exec = "~/.config/polybar/nvidia.sh";
           interval = 3;
+        };
+        "module/music" = {
+          type = "custom/script";
+          exec = "~/.config/polybar/player-mpris-simple.sh";
+          interval = 3;
+          "click-left" = "playerctl previous &";
+          "click-right" = "playerctl next &";
+          "click-middle" = "playerctl play-pause &";
         };
         # "network-base" = {
         # type = "internal/network";
