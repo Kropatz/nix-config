@@ -1,6 +1,8 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $LeftMonitor HDMI-0
+set $RightMonitor DP-0
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -131,8 +133,8 @@ set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws9 "9:Discord"
+set $ws10 "10:Firefox"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -213,6 +215,11 @@ default_border pixel 2
 # window title alignment
 #title_align center
 
+workspace $ws9 output $LeftMonitor
+workspace $ws10 output $LeftMonitor
+
+assign [class="discord"] $ws9
+
 ##############
 # compositor #
 ##############
@@ -247,7 +254,7 @@ default_border pixel 2
 
 exec_always autotiling
 #fix monitor layout
-exec --no-startup-id "xrandr --output HDMI-0 --left-of DP-0 && xrandr --output DP-0 --mode 2560x1440 --rate 165.00 --primary"
+exec --no-startup-id "xrandr --output $LeftMonitor --left-of $RightMonitor && xrandr --output $RightMonitor --mode 2560x1440 --rate 165.00 --primary"
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -354,6 +361,8 @@ exec --no-startup-id /usr/bin/env dunst
 #exec --no-startup-id sleep 2 && xfce4-terminal
 #exec --no-startup-id sleep 7 && firefox https://github.com/endeavouros-team/endeavouros-i3wm-setup/blob/main/force-knowledge.md
 #exec --no-startup-id sleep 3 && thunar
+exec --no-startup-id i3-msg workspace $ws9; exec discord
+exec --no-startup-id i3-msg workspace $ws10; exec firefox
 
 ###############
 # system tray #
