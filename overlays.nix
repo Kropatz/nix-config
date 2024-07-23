@@ -19,19 +19,6 @@
     #fastfetch = prev.fastfetch.overrideAttrs (oldAttrs: {
     #  cmakeFlags = [ (prev.lib.cmakeBool "ENABLE_IMAGEMAGICK6" true) (prev.lib.cmakeBool "ENABLE_IMAGEMAGICK7" true) (prev.lib.cmakeBool "ENABLE_CHAFA" true)  ];
     #});
-    trashy = prev.trashy.overrideAttrs rec {
-      version = "unstable-2.0.0";
-      src = prev.fetchFromGitHub {
-        owner = "oberblastmeister";
-        repo = "trashy";
-        rev = "7c48827e55bca5a3188d3de44afda3028837b34b";
-        sha256 = "1pxmeXUkgAITouO0mdW6DgZR6+ai2dax2S4hV9jcJLM=";
-      };
-      cargoDeps = prev.rustPlatform.fetchCargoTarball {
-        inherit src;
-        hash = "sha256-/q/ZCpKkwhnPh3MMVNYZw6XvjyQpoZDBXCPagliGr1M=";
-      };
-    };
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });

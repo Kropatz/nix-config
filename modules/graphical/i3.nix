@@ -70,7 +70,6 @@ in {
       dex # starts applications according to .desktop files
       xss-lock # locks the screen when the system is idle
       pavucontrol
-      libsForQt5.dolphin
       playerctl
       brightnessctl
       i3blocks

@@ -50,18 +50,19 @@ in {
     };
 
     #services.xserver.wacom.enable = true;
-
     services.tumbler.enable = true; # for thumbnails
-    services.gvfs = {
-      enable = true; # for file manager, trash support, etc.
-      package = pkgs.gvfs;
-    };
+    programs.file-roller.enable = true;
+    programs.thunar.enable = true;
+    programs.thunar.plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+    services.gvfs.enable = true; # for file manager, trash support, etc.
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
       keepassxc
-      xfce.thunar # file manager
       discord
       vesktop
       gvfs
@@ -82,7 +83,7 @@ in {
       pinta # paint
       #qalculate-qt # calculator TODO build broken
       #libsForQt5.kcalc
-      syncthingtray
+      #syncthingtray #doesnt work with socket yet
       v4l-utils
       logseq # notes
       xarchiver # archive tool

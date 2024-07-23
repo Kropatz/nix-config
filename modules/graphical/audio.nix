@@ -10,7 +10,6 @@ in
   
   config = mkIf cfg.enable {
     # Enable sound with pipewire.
-    sound.enable = false;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
   

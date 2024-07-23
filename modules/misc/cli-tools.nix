@@ -56,6 +56,7 @@ in
       imagemagick #convert images
       tree
       kop-newproject # creates a shell.nix and .envrc
+      nix-tree # show nix derivations
     ];
   };
 }
