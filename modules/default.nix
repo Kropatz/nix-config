@@ -2,7 +2,6 @@
 {
   imports = [
     ./fh
-    ./graphical
     ./hardware
     ./misc
     ./nix

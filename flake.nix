@@ -43,8 +43,9 @@
       mkHost = { modules, specialArgs ? {
         pkgsVersion = nixpkgs-unstable;
         home-manager-version = home-manager-unstable;
-      }, system ? "x86_64-linux", minimal ? false }:
-        specialArgs.pkgsVersion.lib.nixosSystem {
+      }, system ? "x86_64-linux", minimal ? false, graphical ? true }:
+        let lib = specialArgs.pkgsVersion.lib;
+        in specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
           modules = modules ++ [
             ./modules
@@ -58,15 +59,16 @@
                 nur.overlay
               ];
             })
-          ] ++ (if !minimal then [
-            specialArgs.home-manager-version.nixosModules.home-manager
-            nixos-cosmic.nixosModules.default
-            stylix.nixosModules.stylix
-            ./modules/graphical/stylix.nix
-            ./modules/graphical/cosmic.nix
-            ({ outputs, ... }: { stylix.image = ./yuyukowallpaper.png; })
-          ] else
-            [ ]);
+          ] ++ lib.lists.optionals (!minimal)
+            [ specialArgs.home-manager-version.nixosModules.home-manager ]
+            ++ lib.lists.optionals (!minimal && graphical) [
+              ./modules/graphical
+              stylix.nixosModules.stylix
+              ./modules/graphical/stylix.nix
+              nixos-cosmic.nixosModules.default
+              ./modules/graphical/cosmic.nix
+              ({ outputs, ... }: { stylix.image = ./yuyukowallpaper.png; })
+            ];
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
     in flake-utils.lib.eachDefaultSystem (system: {
@@ -89,6 +91,7 @@
               // import ./systems/server/userdata.nix;
             pkgsVersion = nixpkgs;
             home-manager-version = home-manager;
+            graphical = false;
           };
         };
         "kop-pc" = mkHost {
@@ -124,6 +127,7 @@
           specialArgs = {
             pkgsVersion = nixpkgs;
             home-manager-version = home-manager;
+            graphical = false;
           };
           modules = [ ./users/anon ./systems/mini-pc/configuration.nix ];
         };
@@ -131,6 +135,7 @@
           specialArgs = {
             pkgsVersion = nixpkgs;
             home-manager-version = home-manager;
+            graphical = false;
           };
           modules =
             [ ./users/anon ./systems/mini-pc-proxmox/configuration.nix ];
@@ -161,8 +166,10 @@
         };
         "proxmox-test-vm" = mkHost {
           minimal = true;
-          modules =
-            [ disko.nixosModules.disko ./systems/proxmox-test-vm/configuration.nix ];
+          modules = [
+            disko.nixosModules.disko
+            ./systems/proxmox-test-vm/configuration.nix
+          ];
         };
       };
     };
