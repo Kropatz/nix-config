@@ -16,7 +16,7 @@
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
-  age.identityPaths = [ /home/kopatz/.ssh/id_ed25519 "/etc/ssh/ssh_host_ed25519_key" ];
+  age.identityPaths = [ "/home/kopatz/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key" ];
   mainUser.layout = "at";
   mainUser.variant = "";
   # Bootloader.

@@ -39,6 +39,15 @@
     let
       inherit (self) outputs;
       system = "x86_64-linux";
+      overlays = { outputs, ... }: {
+        nixpkgs.overlays = with outputs.overlays; [
+          additions
+          modifications
+          unstable-packages
+          stable-packages
+          nur.overlay
+        ];
+      };
       # helper function to create a machine
       mkHost = { modules, specialArgs ? {
         pkgsVersion = nixpkgs-unstable;
@@ -50,15 +59,7 @@
           modules = modules ++ [
             ./modules
             agenix.nixosModules.default
-            ({ outputs, ... }: {
-              nixpkgs.overlays = with outputs.overlays; [
-                additions
-                modifications
-                unstable-packages
-                stable-packages
-                nur.overlay
-              ];
-            })
+            overlays
           ] ++ lib.lists.optionals (!minimal)
             [ specialArgs.home-manager-version.nixosModules.home-manager ]
             ++ lib.lists.optionals (!minimal && graphical) [
@@ -71,6 +72,21 @@
             ];
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
+      mkStableServer = { modules, specialArgs ? {
+        pkgsVersion = nixpkgs;
+        home-manager-version = home-manager;
+      }, system ? "x86_64-linux", minimal ? false }:
+        let lib = specialArgs.pkgsVersion.lib;
+        in specialArgs.pkgsVersion.lib.nixosSystem {
+          inherit system;
+          modules = modules ++ [
+            ./modules
+            agenix.nixosModules.default
+            overlays
+          ] ++ lib.lists.optionals (!minimal)
+            [ specialArgs.home-manager-version.nixosModules.home-manager ];
+          specialArgs = specialArgs // { inherit inputs outputs; };
+        };
     in flake-utils.lib.eachDefaultSystem (system: {
       packages =
         import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
@@ -79,21 +95,6 @@
       overlays = import ./overlays.nix { inherit inputs; };
 
       nixosConfigurations = {
-        server = mkHost {
-          modules = [
-            ./users/anon
-            ./modules/collections/server.nix
-            ./systems/server/configuration.nix
-          ];
-          specialArgs = {
-            ## Custom variables (e.g. ip, interface, etc)
-            vars = import ./systems/userdata-default.nix
-              // import ./systems/server/userdata.nix;
-            pkgsVersion = nixpkgs;
-            home-manager-version = home-manager;
-            graphical = false;
-          };
-        };
         "kop-pc" = mkHost {
           modules = [ ./users/kopatz ./systems/pc/configuration.nix ];
         };
@@ -123,26 +124,13 @@
             nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           ];
         };
-        "mini-pc" = mkHost {
-          specialArgs = {
-            pkgsVersion = nixpkgs;
-            home-manager-version = home-manager;
-            graphical = false;
-          };
+        "mini-pc" = mkStableServer {
           modules = [ ./users/anon ./systems/mini-pc/configuration.nix ];
         };
-        "mini-pc-proxmox" = mkHost {
-          specialArgs = {
-            pkgsVersion = nixpkgs;
-            home-manager-version = home-manager;
-            graphical = false;
-          };
+        "mini-pc-proxmox" = mkStableServer {
           modules =
             [ ./users/anon ./systems/mini-pc-proxmox/configuration.nix ];
         };
-        # build vm -> nixos-rebuild build-vm  --flake .#vm
-        "vm" =
-          mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
         "wsl" = mkHost {
           modules = [
             #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
@@ -154,7 +142,7 @@
         };
         #initial install done with nix run github:nix-community/nixos-anywhere/73a6d3fef4c5b4ab9e4ac868f468ec8f9436afa7 -- --flake .#adam-site root@<ip>
         #update with nixos-rebuild switch --flake .#adam-site --target-host "root@<ip>"
-        "adam-site" = mkHost {
+        "adam-site" = mkStableServer {
           minimal = true;
           system = "aarch64-linux";
           specialArgs = {
@@ -171,6 +159,8 @@
             ./systems/proxmox-test-vm/configuration.nix
           ];
         };
+        # build vm -> nixos-rebuild build-vm  --flake .#vm
+        "vm" = mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
       };
     };
 }

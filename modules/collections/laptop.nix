@@ -41,7 +41,7 @@
     };
   };
 
-  nixpkgs.config.permittedInsecurePackages = [ "electron-28.3.3" ];
+  nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" "electron-28.3.3" ];
   programs.firejail.wrappedBinaries = with pkgs;
     let inherit (config.custom.misc.firejail) mk;
     in lib.mkMerge [

@@ -1,17 +1,26 @@
-{ lib, config, pkgs, ... }:
-with lib;
+{ lib, config, pkgs, inputs, pkgsVersion, ... }:
 let cfg = config.custom.hardware.nvidia;
 in {
   options.custom.hardware.nvidia = {
-    enable = mkEnableOption "Enables nvidia gpus";
+    enable = lib.mkEnableOption "Enables nvidia gpus";
   };
 
-  config = mkIf cfg.enable {
-    # Enable OpenGL
-    hardware.graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
+  config = let
+    # the option was renamed in unstable
+    nvidiaOption =
+      if (pkgsVersion == inputs.nixpkgs-unstable) then {
+        hardware.graphics = {
+          enable = true;
+          enable32Bit = true;
+        };
+      } else {
+        hardware.opengl = {
+          enable = true;
+          driSupport = true;
+          driSupport32Bit = true;
+        };
+      };
+  in lib.mkIf cfg.enable nvidiaOption // {
     boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
