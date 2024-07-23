@@ -61,9 +61,7 @@ in {
           upstream_dns = [
             "https://dns10.quad9.net/dns-query"
             "https://doh.tiar.app/dns-query"
-            "tls://getdnsapi.net"
             "https://dns.adguard-dns.com/dns-query"
-            "tls://dot.seby.io"
           ];
           use_http3_upstreams = true;
         };

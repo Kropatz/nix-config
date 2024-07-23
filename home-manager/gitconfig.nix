@@ -25,4 +25,7 @@
     source = ./.gitconfig-evolit;
     target = ".gitconfig-evolit";
   };
+  home.file.".gitconfig-itexperts" = {
+    source = ./.gitconfig-itexperts;
+  };
 }

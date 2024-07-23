@@ -42,3 +42,5 @@
     path = .gitconfig-evolit
 [includeIf "gitdir/i:~/projects/selfhosted/**"]
     path = .gitconfig-selfhosted
+[includeIf "gitdir/i:~/projects/it-experts/**"]
+    path = .gitconfig-itexperts
