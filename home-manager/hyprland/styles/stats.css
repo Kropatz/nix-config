@@ -1,3 +1,5 @@
+@define-color nvidia-green #76b900;
+
 #other,
 #other-drawer,
 #stats,
@@ -16,6 +18,7 @@
 #memory,
 #temperature,
 #disk,
+#nvidia,
 #network {
   padding: 0 0.5em;
 }
@@ -34,6 +37,10 @@
 
 #network {
   color: @blue;
+}
+
+#custom-nvidia {
+  color: @nvidia-green;
 }
 
 #network.disconnected {

@@ -11,6 +11,11 @@ in {
     statsStyle = builtins.readFile ./styles/stats.css;
     workspacesStyle = builtins.readFile ./styles/workspaces.css;
   in lib.mkIf cfg.enable {
+
+    home.file.".config/waybar" = {
+      recursive = true;
+      source = ../../.config/waybar;
+    };
     programs.waybar = {
       enable = true;
       #systemd.enable = true;
@@ -29,7 +34,7 @@ in {
         modules-right = [ "group/stats" "group/other" ];
         "group/stats" = {
           "orientation" = "horizontal";
-          "modules" = [ "network" "cpu" "memory" "disk" "temperature" ];
+          "modules" = [ "network" "cpu" "memory" "disk" "temperature" "custom/nvidia" ];
         };
         "group/other" = {
           "orientation" = "horizontal";
@@ -135,6 +140,12 @@ in {
             "mpv" = "🎵";
           };
           "status-icons" = { "paused" = "⏸"; };
+        };
+        "custom/nvidia" = {
+          "format" = "{}";
+          "interval" = 5;
+          "exec" = "~/.config/waybar/nvidia.sh";
+          "exec-if" = "nvidia-smi";
         };
         "tray".icon-size = 21;
         "tray".spacing = 10;
