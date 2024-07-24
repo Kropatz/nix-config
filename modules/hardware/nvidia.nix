@@ -20,7 +20,7 @@ in {
           driSupport32Bit = true;
         };
       };
-  in lib.mkIf cfg.enable nvidiaOption // {
+  in lib.mkIf cfg.enable (lib.recursiveUpdate nvidiaOption {
     boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
@@ -45,5 +45,5 @@ in {
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
-  };
+  });
 }

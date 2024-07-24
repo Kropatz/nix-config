@@ -32,6 +32,7 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
   outputs = { self, nur, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable
     , agenix, home-manager, home-manager-unstable, nix-colors, nixos-cosmic
@@ -56,11 +57,9 @@
         let lib = specialArgs.pkgsVersion.lib;
         in specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
-          modules = modules ++ [
-            ./modules
-            agenix.nixosModules.default
-            overlays
-          ] ++ lib.lists.optionals (!minimal)
+          modules = modules
+            ++ [ ./modules agenix.nixosModules.default overlays ]
+            ++ lib.lists.optionals (!minimal)
             [ specialArgs.home-manager-version.nixosModules.home-manager ]
             ++ lib.lists.optionals (!minimal && graphical) [
               ./modules/graphical
@@ -79,11 +78,9 @@
         let lib = specialArgs.pkgsVersion.lib;
         in specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
-          modules = modules ++ [
-            ./modules
-            agenix.nixosModules.default
-            overlays
-          ] ++ lib.lists.optionals (!minimal)
+          modules = modules
+            ++ [ ./modules agenix.nixosModules.default overlays ]
+            ++ lib.lists.optionals (!minimal)
             [ specialArgs.home-manager-version.nixosModules.home-manager ];
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
@@ -160,7 +157,8 @@
           ];
         };
         # build vm -> nixos-rebuild build-vm  --flake .#vm
-        "vm" = mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
+        "vm" =
+          mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
       };
     };
 }

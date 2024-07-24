@@ -7,7 +7,6 @@ in {
       enable = true;
       #enableNvidiaPatches = true;
       xwayland.enable = true;
-      package = pkgs.hyprland;
       settings = {
         #
         # Please note not all available settings / options are set here.
@@ -290,7 +289,9 @@ in {
 
         bind = , escape, submap, reset
         submap = reset
+
       '';
+        #experimental:explicit_sync = true
     };
   };
 }

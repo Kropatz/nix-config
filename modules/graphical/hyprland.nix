@@ -32,6 +32,12 @@ in {
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       #WLR_BACKENDS="x11,way
     };
+    nix.settings = {
+      substituters = [ "https://hyprland.cachix.org" ];
+      trusted-public-keys = [
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      ];
+    };
 
     hardware = {
       # Opengl

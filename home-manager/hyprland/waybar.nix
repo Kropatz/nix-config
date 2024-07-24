@@ -17,7 +17,7 @@ in {
       #systemd.target = "sway-session.target";
       settings.main = {
         layer = "top";
-        position = "top";
+        position = "bottom";
         #output = lib.mapAttrsToList (n: v: v.monitor) outputs;
         height = 25;
         spacing = 4;
@@ -27,6 +27,15 @@ in {
         ];
         modules-center = [ ];
         modules-right = [ "group/stats" "group/other" ];
+        "group/stats" = {
+          "orientation" = "horizontal";
+          "modules" = [ "network" "cpu" "memory" "disk" "temperature" ];
+        };
+        "group/other" = {
+          "orientation" = "horizontal";
+          "modules" =
+            [ "tray" "backlight" "pulseaudio" "mpris" "battery" "clock" ];
+        };
         "cpu" = {
           "format" = "  {usage}%";
           "tooltip" = true;
@@ -64,11 +73,11 @@ in {
         "pulseaudio" = {
           "format" = "{volume}% {icon}";
           "format-bluetooth" = "{volume}% {icon}";
-          "format-muted" = "🚫";
+          "format-muted" = "";
           "format-icons" = {
-            "headphone" = "";
-            "hands-free" = "";
-            "headset" = "";
+            "headphone" = " ";
+            "hands-free" = " ";
+            "headset" = " ";
             "phone" = "";
             "portable" = "";
             "car" = "";
@@ -99,18 +108,36 @@ in {
         "battery".states.critical = 15;
         "battery".format = "{capacity}% / {power:.2}W  {icon}";
         "battery".format-icons = [ "" "" "" "" "" ];
-        "clock".format = "{:%F %H:%M}";
-        "clock".tooltip-format = "<tt><small>{calendar}</small></tt>";
+        "clock" = {
+          format = "{:%F %H:%M}";
+          tooltip-format = "<tt><small>{calendar}</small></tt>";
+          "calendar" = {
+            "mode" = "year";
+            "mode-mon-col" = 3;
+            "weeks-pos" = "right";
+            "on-scroll" = 1;
+            "format" = {
+              "months" = "<span color='#ffead3'><b>{}</b></span>";
+              "days" = "<span color='#ecc6d9'><b>{}</b></span>";
+              "weeks" = "<span color='#99ffdd'><b>W{}</b></span>";
+              "weekdays" = "<span color='#ffcc66'><b>{}</b></span>";
+              "today" = "<span color='#ff6699'><b><u>{}</u></b></span>";
+            };
+          };
+        };
+        "mpris" = {
+          "format" = "{player_icon} {dynamic}";
+          "format-paused" = "{status_icon} <i>{dynamic}</i>";
+          "title-len" = 35;
+          "dynamic-len" = 35;
+          "player-icons" = {
+            "default" = "▶";
+            "mpv" = "🎵";
+          };
+          "status-icons" = { "paused" = "⏸"; };
+        };
         "tray".icon-size = 21;
         "tray".spacing = 10;
-        "group/stats" = {
-          "orientation" = "horizontal";
-          "modules" = [ "network" "cpu" "memory" "disk" "temperature" ];
-        };
-        "group/other" = {
-          "orientation" = "horizontal";
-          "modules" = [ "tray" "backlight" "pulseaudio" "battery" "clock" ];
-        };
         "hyprland/window" = {
           "format" = "{}";
           "separate-outputs" = true;

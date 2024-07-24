@@ -14,6 +14,7 @@
     waybar = prev.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     });
+    hyprland = inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
 
     # .png doesnt work :(
     #fastfetch = prev.fastfetch.overrideAttrs (oldAttrs: {
