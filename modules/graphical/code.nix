@@ -14,6 +14,7 @@ in
       man-pages
       kate
       jetbrains.idea-ultimate
+      typescript
       #jetbrains.clion
       insomnia
       nodejs_22 # needed for tabby extension

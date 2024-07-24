@@ -1,17 +1,15 @@
-{config, lib, pkgs, ...}:
-with lib;
+{config, pkgs, lib, ...}:
 let
     cfg = config.custom.graphical.noise-supression;
 in
 {
     options.custom.graphical.noise-supression = {
-        enable = mkEnableOption "Enables noise-supression";
+        enable = lib.mkEnableOption "Enables noise-supression";
     };
     
-    config = mkIf cfg.enable {
-        programs.noisetorch.enable = true;
-        environment.systemPackages = [
-            pkgs.easyeffects
+    config = lib.mkIf cfg.enable {
+        environment.systemPackages = with pkgs; [
+            easyeffects
         ];
     };
 }

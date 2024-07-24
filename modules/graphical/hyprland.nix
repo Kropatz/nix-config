@@ -45,7 +45,7 @@ in {
     };
 
     xdg.portal.enable = true;
-    xdg.portal.extraPortals = lib.mkDefault [ pkgs.xdg-desktop-portal-gtk ];
+    xdg.portal.extraPortals = lib.mkDefault [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland ];
 
     programs.hyprland = { enable = true; };
 
@@ -62,6 +62,7 @@ in {
       networkmanagerapplet
       wayland
       wl-clipboard
+      dex # starts applications according to .desktop files
       #qt5.qtwayland
       #qt6.qmake
       #qt6.qtwayland

@@ -15,6 +15,7 @@
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     });
     hyprland = inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
+    xdg-desktop-portal-hyprland = inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     # .png doesnt work :(
     #fastfetch = prev.fastfetch.overrideAttrs (oldAttrs: {

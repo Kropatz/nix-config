@@ -31,6 +31,17 @@ in {
             ",preferred,auto,auto"
           ];
 
+        workspace =
+          lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
+            "1,monitor:DP-1"
+            "2,monitor:DP-1"
+            "3,monitor:DP-1"
+            "4,monitor:DP-1"
+            "5,monitor:DP-1"
+            "9,monitor:HDMI-A-1"
+            "10,monitor:HDMI-A-1"
+          ];
+
         # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
         # Execute your favorite apps at launch
@@ -50,12 +61,15 @@ in {
           kb_options = "";
           kb_rules = "";
 
-          follow_mouse = 2;
+          follow_mouse = 1;
           float_switch_override_focus = 2;
 
           touchpad = { natural_scroll = true; };
 
-          sensitivity = if osConfig.networking.hostName == "kop-pc" then -0.3 else 0; # -1.0 - 1.0, 0 means no modification.
+          sensitivity = if osConfig.networking.hostName == "kop-pc" then
+            -0.3
+          else
+            0; # -1.0 - 1.0, 0 means no modification.
         };
 
         general = {
@@ -249,8 +263,12 @@ in {
           "${pkgs.swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
           "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
           "${pkgs.waybar}/bin/waybar &"
+          "dex --autostart --environment Hyprland"
           "hypridle &"
           #"${pkgs.dunst}/bin/dunst &"
+        ] ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
+          "[workspace 9 silent] vesktop"
+          "[workspace 10 silent] firefox"
         ];
       };
       extraConfig = let
@@ -291,7 +309,7 @@ in {
         submap = reset
 
       '';
-        #experimental:explicit_sync = true
+      #experimental:explicit_sync = true
     };
   };
 }
