@@ -68,6 +68,7 @@
     services = {
       acme.enable = true;
       gitolite.enable = true;
+      github-runner.enable = true;
       caldav.enable = true;
       kop-monitor.enable = true;
       kop-fileshare = {

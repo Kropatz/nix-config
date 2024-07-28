@@ -4,6 +4,7 @@
     ./acme.nix
     ./caldav.nix
     ./opensnitch.nix
+    ./github-runner.nix
     ./adguard.nix
     ./dnsmasq.nix
     ./games
