@@ -6,7 +6,7 @@ buildNpmPackage rec {
   src = fetchGit {
     url = "git@github.com:oberprofis/adams.git";
     ref = "main";
-    rev = "95d7f5d21f129949c75bd23ee5edbf84595ceec3";
+    rev = "921d3deff4d4777b6948e642ae5f27d43b1e2e26";
   };
   npmDepsHash="sha256-PRFHBlVIdHfATAAKVKax+bY4o+9czdfl7HjFnKk4KtI=";
   installPhase = ''
