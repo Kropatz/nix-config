@@ -18,6 +18,11 @@
     nix = { settings.enable = true; };
   };
 
+  age.secrets.stash-auth = {
+    file = ../../secrets/adminarea.age;
+    owner = "nginx";
+  };
+
   services.nginx = {
     enable = true;
 
@@ -33,7 +38,17 @@
       "imbissaggsbachdorf.at" = {
         forceSSL = true;
         enableACME = true;
-        locations."/".proxyPass = "http://127.0.0.1:4000";
+        locations = {
+          "/".proxyPass = "http://127.0.0.1:4000";
+          "/admin" = {
+            basicAuthFile = config.age.secrets.stash-auth.path;
+            proxyPass = "http://127.0.0.1:4000";
+          };
+          "/api/admin" = {
+            basicAuthFile = config.age.secrets.stash-auth.path;
+            proxyPass = "http://127.0.0.1:4000";
+          };
+        };
       };
       "plausible.imbissaggsbachdorf.at" = {
         forceSSL = true;
