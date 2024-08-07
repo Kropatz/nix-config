@@ -55,7 +55,7 @@ in
       libheif #convert heic to jpg with `heif-convert something.heic something.jpg` 
       imagemagick #convert images
       tree
-      kop-newproject # creates a shell.nix and .envrc
+      #kop-newproject # creates a shell.nix and .envrc
       nix-tree # show nix derivations
     ];
   };

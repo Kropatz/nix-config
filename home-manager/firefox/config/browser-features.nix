@@ -127,4 +127,5 @@
   "browser.newtabpage.activity-stream.telemetry" = false;	
   "browser.ping-centre.telemetry" = false;
   "devtools.onboarding.telemetry.logged" = false;
+  "accessibility.force_disabled" = 1;
 }

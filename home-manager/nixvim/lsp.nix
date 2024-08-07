@@ -1,6 +1,10 @@
 {pkgs, ...}:
 {
   plugins = {
+    otter = { # provide lsp functionality for code embedded in other languages
+      enable = true;
+      settings.handle_leading_whitespace = true;
+    };
     lsp = {
       enable = true;
       servers = {
