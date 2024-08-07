@@ -67,7 +67,7 @@ in {
           touchpad = { natural_scroll = true; };
 
           sensitivity = if osConfig.networking.hostName == "kop-pc" then
-            -0.3
+            -0.4
           else
             0; # -1.0 - 1.0, 0 means no modification.
         };
@@ -184,7 +184,7 @@ in {
             $mainMod, Print, exec, ${grim} -g "$(${slurp} -d)" /tmp/$(date +'%s_grim.png')''
           ''
             Shift_L, Print, exec, ${grim} -g "$(${slurp} -d)" ~/Pictures/$(date +'%s_grim.png')''
-          "$mainMod, SPACE, exec, ${rofi} -show combi"
+          "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi" 
           " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
           " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
           " , XF86AudioPlay, exec, ${playerctl} play-pause"

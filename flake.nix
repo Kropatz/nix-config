@@ -1,38 +1,60 @@
 {
   description = "Kop's NixOS Flake";
   inputs = {
-    # secrets management
-    agenix.url = "github:ryantm/agenix";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    # nix user repository
+    nur = { url = "github:nix-community/NUR"; };
+    ## stable
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager-unstable = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # secrets management
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-colors.url = "github:misterio77/nix-colors";
-    nur = { url = "github:nix-community/NUR"; };
+    ## unstable
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    # cosmic testing
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    # vim configuration with nix
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager-unstable";
     };
-    stylix.url = "github:danth/stylix";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-    flake-utils.url = "github:numtide/flake-utils";
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # styling
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager-unstable";
+    };
+    # disk management
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager-unstable";
+    };
+    hyprland = {
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
   outputs = { self, nur, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable
     , agenix, home-manager, home-manager-unstable, nix-colors, nixos-cosmic

@@ -3,7 +3,7 @@
     diffview = { enable = true; };
     neogit = {
       enable = true;
-      integrations = { diffview = true; };
+      settings.integrations = { diffview = true; };
     };
     gitsigns = {
       enable = true;

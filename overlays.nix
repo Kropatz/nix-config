@@ -14,6 +14,14 @@
     waybar = prev.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     });
+    egl-wayland = prev.egl-wayland.overrideAttrs (oldAttrs: {
+      src = prev.fetchFromGitHub {
+        owner = "Nvidia";
+        repo = "egl-wayland";
+        rev = "c439cd596fb7eadae69012eaba013c39b2377771";
+        hash = "sha256-+J2BTxY9c1EUOwUzLxomROM2raRwVCKXE2xq0jsDgLE=";
+      };
+    });
     hyprland =
       inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
     xdg-desktop-portal-hyprland =
