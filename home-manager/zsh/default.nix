@@ -21,8 +21,8 @@
       updateOffline = "sudo nixos-rebuild switch --option substitute false";
       goto = "cd $(find ~/projects -maxdepth 2 -type d | ${pkgs.fzf}/bin/fzf)";
       dev = "nix-shell --run zsh";
-      rm = "trash put";
-      cat = "bat -P --style plain";
+      rmt = "trash put";
+      bat = "bat -P --style plain";
       cdf = "cd $(fd --type d --exclude node_modules --exclude bin --exclude target --exclude .cache . | fzf)";
     };
     #plugins = with pkgs; [
