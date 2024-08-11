@@ -51,7 +51,13 @@ in {
         # source = ~/.config/hypr/myColors.conf
 
         # Some default env vars.
-        env = [ "XCURSOR_SIZE,24" "NIXOS_OZONE_WL,1" ];
+        env =
+          [ "XCURSOR_SIZE,24" "NIXOS_OZONE_WL,1" "WLR_NO_HARDWARE_CURSORS,1" ]
+          // lib.optional osConfig.custom.hardware.nvidia.enable [
+            "LIBVA_DRIVER_NAME,nvidia"
+            "GBM_BACKEND,nvidia-drm"
+            "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+          ];
 
         # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
         input = {
@@ -184,7 +190,7 @@ in {
             $mainMod, Print, exec, ${grim} -g "$(${slurp} -d)" /tmp/$(date +'%s_grim.png')''
           ''
             Shift_L, Print, exec, ${grim} -g "$(${slurp} -d)" ~/Pictures/$(date +'%s_grim.png')''
-          "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi" 
+          "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
           " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
           " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
           " , XF86AudioPlay, exec, ${playerctl} play-pause"
