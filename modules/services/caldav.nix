@@ -36,11 +36,12 @@ in {
 
       serviceConfig = let 
         # stinky
-        dir = "${config.services.radicale.settings.storage.filesystem_folder}/collection-root/kopatz/b6d2c446-8109-714a-397f-1f35d3136639";
+        radicale = builtins.elemAt config.services.radicale.settings.storage.filesystem_folder 0;
+        working = "${radicale}/collection-root/kopatz/b6d2c446-8109-714a-397f-1f35d3136639";
         in {
         ExecStart = "${pkgs.kop-fhcalendar}/bin/kop-fhcalendar";
-        WorkingDirectory = dir;
-        BindPaths = [ "${dir}" ];
+        WorkingDirectory = working;
+        BindPaths = [ working ];
         User = "radicale";
         Restart = "on-failure";
         RestartSec = "5s";
