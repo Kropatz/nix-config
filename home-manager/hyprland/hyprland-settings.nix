@@ -53,7 +53,7 @@ in {
         # Some default env vars.
         env =
           [ "XCURSOR_SIZE,24" "NIXOS_OZONE_WL,1" "WLR_NO_HARDWARE_CURSORS,1" ]
-          // lib.optional osConfig.custom.hardware.nvidia.enable [
+          ++ lib.optionals osConfig.custom.hardware.nvidia.enable [
             "LIBVA_DRIVER_NAME,nvidia"
             "GBM_BACKEND,nvidia-drm"
             "__GLX_VENDOR_LIBRARY_NAME,nvidia"

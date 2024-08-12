@@ -27,5 +27,37 @@ in {
       medium = [ "/var/lib/radicale/"];
       large = [ "/var/lib/radicale/"];
     };
+
+    systemd.services.kop-fhcalendar = {
+      description = "Download fh calendar";
+      wants = [ "network-online.target" ];
+      after = [ "network.target" "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
+
+      serviceConfig = let 
+        # stinky
+        dir = "${config.services.radicale.settings.storage.filesystem_folder}/collection-root/kopatz/b6d2c446-8109-714a-397f-1f35d3136639";
+        in {
+        ExecStart = "${pkgs.kop-fhcalendar}/bin/kop-fhcalendar";
+        WorkingDirectory = dir;
+        BindPaths = [ "${dir}" ];
+        User = "radicale";
+        Restart = "on-failure";
+        RestartSec = "5s";
+        PrivateMounts = lib.mkDefault true;
+        PrivateTmp = lib.mkDefault true;
+        PrivateUsers = lib.mkDefault true;
+        ProtectClock = lib.mkDefault true;
+        ProtectControlGroups = lib.mkDefault true;
+        ProtectHome = lib.mkDefault true;
+        ProtectHostname = lib.mkDefault true;
+        ProtectKernelLogs = lib.mkDefault true;
+        ProtectKernelModules = lib.mkDefault true;
+        ProtectKernelTunables = lib.mkDefault true;
+        ProtectSystem = lib.mkDefault "strict";
+        # Needs network access
+        PrivateNetwork = lib.mkDefault false;
+      };
+    };
   };
 }
