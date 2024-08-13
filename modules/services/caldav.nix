@@ -23,22 +23,26 @@ in {
       };
     };
     custom.misc.backup = lib.mkIf config.custom.misc.backup.enable {
-      small = [ "/var/lib/radicale/"];
-      medium = [ "/var/lib/radicale/"];
-      large = [ "/var/lib/radicale/"];
+      small = [ "/var/lib/radicale/" ];
+      medium = [ "/var/lib/radicale/" ];
+      large = [ "/var/lib/radicale/" ];
     };
 
-    systemd.services.kop-fhcalendar = {
+    systemd.services.kop-fhcalendar = let
+      radicale = builtins.elemAt
+        config.services.radicale.settings.storage.filesystem_folder 0;
+      # not reproducible
+      working =
+        "${radicale}/collection-root/kopatz/b6d2c446-8109-714a-397f-1f35d3136639";
+    in {
       description = "Download fh calendar";
       wants = [ "network-online.target" ];
       after = [ "network.target" "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
+      startAt = "*-*-* 06:00:00";
 
-      serviceConfig = let 
-        # stinky
-        radicale = builtins.elemAt config.services.radicale.settings.storage.filesystem_folder 0;
-        working = "${radicale}/collection-root/kopatz/b6d2c446-8109-714a-397f-1f35d3136639";
-        in {
+      serviceConfig = {
+        Type = "oneshot";
         ExecStart = "${pkgs.kop-fhcalendar}/bin/kop-fhcalendar";
         WorkingDirectory = working;
         BindPaths = [ working ];
