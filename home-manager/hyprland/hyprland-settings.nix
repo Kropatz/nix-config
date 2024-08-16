@@ -78,6 +78,15 @@ in {
             0; # -1.0 - 1.0, 0 means no modification.
         };
 
+        cursor = {
+          no_hardware_cursors = true;
+        };
+
+        render = {
+          explicit_sync = 1;
+          explicit_sync_kms = 0;
+        };
+
         general = {
           # See https://wiki.hyprland.org/Configuring/Variables
 

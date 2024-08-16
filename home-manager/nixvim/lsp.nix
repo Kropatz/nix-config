@@ -20,7 +20,7 @@
           enable = true;
           package = pkgs.stable.csharp-ls;
         };
-        typst-lsp.enable = true;
+        #typst-lsp.enable = true;
       };
       keymaps.lspBuf = {
         gd = {
