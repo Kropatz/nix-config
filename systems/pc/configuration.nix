@@ -66,7 +66,7 @@
       i3.enable = true;
       hyprland.enable = true;
       #gnome.enable = true;
-      #cosmic.enable = true;
+      cosmic.enable = true;
       shared.enable = true;
       stylix.enable = true;
     };
