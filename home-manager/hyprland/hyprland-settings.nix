@@ -2,6 +2,8 @@
 let cfg = osConfig.custom.graphical.hyprland;
 in {
   config = lib.mkIf cfg.enable {
+
+    home.file.".config/hypr/hyprshade.toml".source = ../../.config/hypr/hyprshade.toml;
     #programs.swaylock.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
@@ -277,9 +279,10 @@ in {
           "${pkgs.swww}/bin/swww init; sleep 1;"
           "${pkgs.swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
           "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
-          "${pkgs.waybar}/bin/waybar &"
+          "${pkgs.hyprshade}/bin/hyprshade auto"
           "dex --autostart --environment Hyprland"
           "hypridle &"
+          "${pkgs.waybar}/bin/waybar &"
           #"${pkgs.dunst}/bin/dunst &"
         ] ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
           "[workspace 9 silent] vesktop"
