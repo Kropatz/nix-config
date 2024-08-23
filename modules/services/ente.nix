@@ -12,7 +12,6 @@ in
       enable = true;
       systemCronJobs = [
         "0 23 * * *      root    /data/ente/backup/backup.sh"
-        "0 23 * * *      root    /data/ente-public/backup/backup.sh"
       ];
     };
   };
