@@ -89,24 +89,6 @@ in {
       in {
         "kopatz.ddns.net" = kopConfig;
         "kop.oasch.net" = kopConfig;
-        #discord bot for tracking useractivity public version 
-        "activitytracker.site" = {
-          #serverAliases = [
-          #     "localhost"
-          #]; 
-          root = "/data/website/tracker-site-public";
-          forceSSL = cfg.https;
-          enableACME = cfg.https;
-          quic = cfg.https;
-          http3 = cfg.https;
-          locations."/" = { tryFiles = "$uri $uri/ /index.html =404"; };
-          locations."/api" = {
-            extraConfig = ''
-              rewrite /api/(.*) /$1 break;
-            '';
-            proxyPass = "http://127.0.0.1:8081";
-          };
-        };
       };
     };
   };

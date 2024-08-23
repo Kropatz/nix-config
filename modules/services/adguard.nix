@@ -113,10 +113,6 @@ in {
               "answer" = ip;
             }
             {
-              "domain" = "activitytracker.site";
-              "answer" = ip;
-            }
-            {
               "domain" = "adguard.home.arpa";
               "answer" = ip;
             }
