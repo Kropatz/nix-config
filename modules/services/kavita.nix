@@ -75,6 +75,8 @@ in lib.mkIf cfg.enable {
       ${mangal} inline -S Mangapill --query "Frieren" --manga first --download -f
       ${mangal} inline -S Mangapill --query "Chainsaw" --manga first --download
       ${mangal} inline -S Mangapill --query "Jujutsu%20Kaisen" --manga first --download
+      ${mangal} inline -S Mangapill --query "solo-leveling" --manga first --download
+      ${mangal} inline -S Mangapill --query "berserk" --manga first --download
     '';
     serviceConfig = {
     	PrivateTmp = true;
