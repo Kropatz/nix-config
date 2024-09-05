@@ -23,6 +23,8 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
     ## unstable
+    #TODO: wait until https://github.com/NixOS/nixpkgs/pull/339641 is in unstable https://nixpk.gs/pr-tracker.html?pr=339641
+    #nixpkgs-unstable.url = "github:nixos/nixpkgs/a6916c76a7d202e3c02134e620f6477b8600ce9d";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
@@ -36,7 +38,7 @@
     # vim configuration with nix
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      #inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.home-manager.follows = "home-manager-unstable";
     };
     # styling

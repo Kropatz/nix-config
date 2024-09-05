@@ -51,7 +51,6 @@ search = {
 in {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-beta;
     policies = {
       Extensions = {
         Uninstall = [

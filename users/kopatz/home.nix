@@ -20,7 +20,7 @@
     ../../home-manager/hyprland
     #../../home-manager/kde-path.nix
     ../../home-manager/kitty.nix
-    ../../home-manager/lf.nix
+    #../../home-manager/lf.nix broken atm
     ../../home-manager/nixvim
     ../../home-manager/rofi.nix
     ../../home-manager/dunst.nix
