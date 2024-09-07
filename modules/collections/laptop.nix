@@ -2,6 +2,7 @@
   imports = [
     ../kernel.nix # use latest kernel
     ../services/wireguard-client.nix
+    ../services/ssh.nix
   ];
   custom = {
     cli-tools.enable = true;
@@ -35,7 +36,7 @@
       gamemode.enable = true;
       gnome.enable = true;
       hyprland.enable = true;
-      games.enable = true;
+      #games.enable = true;
       ime.enable = true;
       shared.enable = true;
     };
