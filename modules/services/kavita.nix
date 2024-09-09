@@ -9,7 +9,7 @@ in {
       default = true;
       description = "Should it use https?";
     };
-    autoDownload = {
+    autoDownload = mkOption {
       type = types.bool;
       default = true;
       description = "Should it auto download?";
@@ -19,6 +19,7 @@ in {
       type = types.path;
       description = "data path";
     };
+    isTest = mkEnableOption "Is this a test vm?";
   };
   config = let
     fqdn = "kavita-kopatz.duckdns.org";
@@ -38,7 +39,7 @@ in {
     ] ++ lib.optional githubRunnerEnabled
       "d ${baseDir}/github 0770 github-actions-runner kavita -";
 
-    age.secrets.kavita = {
+    age.secrets.kavita = mkIf (!cfg.isTest) {
       file = ../../secrets/kavita.age;
       owner = "kavita";
       group = "kavita";
@@ -48,47 +49,54 @@ in {
       enable = true;
       user = "kavita";
       package = let
-        backend = pkgs.kavita.backend.overrideAttrs
+        backend = pkgs.unstable.kavita.backend.overrideAttrs
           (old: { patches = old.patches ++ [ ./kavita-patches.diff ]; });
-        kavitaPatched = pkgs.kavita.overrideAttrs (old: { backend = backend; });
+        kavitaPatched = pkgs.unstable.kavita.overrideAttrs (old: { backend = backend; });
       in kavitaPatched;
-      settings.Port = 5000;
+      settings = {
+        Port = 5000;
+        IpAddresses = "127.0.0.1";
+        BaseUrl = "/kavita";
+      };
       dataDir = baseDir;
-      tokenKeyFile = config.age.secrets.kavita.path;
-      settings.IpAddresses = "127.0.0.1";
-      settings.BaseUrl = "/kavita";
+      tokenKeyFile = if cfg.isTest then
+        (builtins.toFile "test"
+          "wWKNeGUslGILrUUp8Dnn4xyYnivZWBb8uqjKg3ALyCs7reV5v3CtE/E2b6i0Mwz1Xw1p9a0wcduRDNoa8Yh8kQ==")
+      else
+        config.age.secrets.kavita.path;
     };
 
     #todo: base url needs new kavita version
-    systemd.services.kavita = {
-      after = [ "nginx.service" ] ++ lib.optional useStepCa "step-ca.service";
-    };
+    systemd.services = {
+      kavita = {
+        after = [ "nginx.service" ] ++ lib.optional useStepCa "step-ca.service";
+      };
+      download-manga = mkIf cfg.autoDownload {
+        wantedBy = [ "multi-user.target" ];
 
-    systemd.services.download-manga = {
-      wantedBy = [ "multi-user.target" ];
-
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      startAt = "*-*-* 19:00:00";
-      restartIfChanged = false;
-      script = ''
-        ${mangal} clear -q
-        ${mangal} clear -c
-        ${mangal} inline -S Mangapill -q omniscient -m first -d
-        ${mangal} inline -S Mangapill --query "oshi-no-ko" --manga first --download
-        ${mangal} inline -S Mangapill --query "Frieren" --manga first --download -f
-        ${mangal} inline -S Mangapill --query "Chainsaw" --manga first --download
-        ${mangal} inline -S Mangapill --query "Jujutsu%20Kaisen" --manga first --download
-        ${mangal} inline -S Mangapill --query "solo-leveling" --manga first --download
-        ${mangal} inline -S Mangapill --query "berserk" --manga first --download
-        ${mangal} inline -S Mangapill --query "the-greatest-real-estate" --manga first --download
-      '';
-      serviceConfig = {
-        PrivateTmp = true;
-        User = "kavita";
-        Group = "kavita";
-        Type = "oneshot";
-        WorkingDirectory = "${baseDir}/manga";
+        wants = [ "network-online.target" ];
+        after = [ "network-online.target" ];
+        startAt = "*-*-* 19:00:00";
+        restartIfChanged = false;
+        script = ''
+          ${mangal} clear -q
+          ${mangal} clear -c
+          ${mangal} inline -S Mangapill -q omniscient -m first -d
+          ${mangal} inline -S Mangapill --query "oshi-no-ko" --manga first --download
+          ${mangal} inline -S Mangapill --query "Frieren" --manga first --download -f
+          ${mangal} inline -S Mangapill --query "Chainsaw" --manga first --download
+          ${mangal} inline -S Mangapill --query "Jujutsu%20Kaisen" --manga first --download
+          ${mangal} inline -S Mangapill --query "solo-leveling" --manga first --download
+          ${mangal} inline -S Mangapill --query "berserk" --manga first --download
+          ${mangal} inline -S Mangapill --query "the-greatest-real-estate" --manga first --download
+        '';
+        serviceConfig = {
+          PrivateTmp = true;
+          User = "kavita";
+          Group = "kavita";
+          Type = "oneshot";
+          WorkingDirectory = "${baseDir}/manga";
+        };
       };
     };
 

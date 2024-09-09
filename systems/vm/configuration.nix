@@ -1,7 +1,7 @@
 { pkgs, config, lib, modulesPath, ... }: {
 
   imports = [
-    #./vm-common.nix
+    ./vm-common.nix
     (modulesPath + "/profiles/qemu-guest.nix")
     #(modulesPath + "/profiles/minimal.nix")
   ];
@@ -25,7 +25,26 @@
       #sddm.enable = true;
       #cosmic.enable = true;
     };
+    services = {
+      kavita = {
+        enable = true;
+        https = false;
+        autoDownload = false;
+        isTest = true;
+      };
+    };
   };
+  services.xserver = {
+    enable = true;
+    desktopManager = {
+      xterm.enable = false;
+      xfce.enable = true;
+    };
+    displayManager.defaultSession = "xfce";
+  };
+
+  programs.firefox.enable = true;
+
   virtualisation.vmVariant = {
     #virtualisation.qemu.options = [
     #      "-device virtio-vga-gl"
