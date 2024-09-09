@@ -50,7 +50,7 @@ in {
       user = "kavita";
       package = let
         backend = pkgs.unstable.kavita.backend.overrideAttrs
-          (old: { patches = old.patches ++ [ ./kavita-patches.diff ]; });
+          (old: { patches = old.patches ++ [ ./kavita-patches.diff ./kavita-patches-chapter-parsing.diff]; });
         kavitaPatched = pkgs.unstable.kavita.overrideAttrs (old: { backend = backend; });
       in kavitaPatched;
       settings = {
@@ -87,7 +87,6 @@ in {
           ${mangal} inline -S Mangapill --query "Chainsaw" --manga first --download
           ${mangal} inline -S Mangapill --query "Jujutsu%20Kaisen" --manga first --download
           ${mangal} inline -S Mangapill --query "solo-leveling" --manga first --download
-          ${mangal} inline -S Mangapill --query "berserk" --manga first --download
           ${mangal} inline -S Mangapill --query "the-greatest-real-estate" --manga first --download
         '';
         serviceConfig = {

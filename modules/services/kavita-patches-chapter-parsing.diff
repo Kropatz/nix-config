@@ -1,0 +1,57 @@
+diff --git a/API.Tests/Parsing/MangaParsingTests.cs b/API.Tests/Parsing/MangaParsingTests.cs
+index 64d303f4..db1ed1e4 100644
+--- a/API.Tests/Parsing/MangaParsingTests.cs
++++ b/API.Tests/Parsing/MangaParsingTests.cs
+@@ -84,6 +84,8 @@ public class MangaParsingTests
+     [InlineData("Accel World Chapter 001 Volume 002", "2")]
+     [InlineData("Accel World Volume 2", "2")]
+     [InlineData("Nagasarete Airantou - Vol. 30 Ch. 187.5 - Vol.31 Omake", "30")]
++    [InlineData("[0001]_Chapter_1.pdf", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("[0112]_Chapter_110.2.pdf", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+     public void ParseVolumeTest(string filename, string expected)
+     {
+         Assert.Equal(expected, API.Services.Tasks.Scanner.Parser.Parser.ParseVolume(filename, LibraryType.Manga));
+@@ -212,6 +214,8 @@ public class MangaParsingTests
+     [InlineData("หนึ่งความคิด นิจนิรันดร์ เล่ม 2", "หนึ่งความคิด นิจนิรันดร์")]
+     [InlineData("不安の種\uff0b - 01", "不安の種\uff0b")]
+     [InlineData("Giant Ojou-sama - Ch. 33.5 - Volume 04 Bonus Chapter", "Giant Ojou-sama")]
++    [InlineData("[0001]_Chapter_1.pdf", "")]
++    [InlineData("[0112]_Chapter_110.2.pdf", "")]
+     public void ParseSeriesTest(string filename, string expected)
+     {
+         Assert.Equal(expected, API.Services.Tasks.Scanner.Parser.Parser.ParseSeries(filename, LibraryType.Manga));
+@@ -304,6 +308,10 @@ public class MangaParsingTests
+     [InlineData("เด็กคนนี้ขอลาออกจากการเป็นเจ้าของปราสาท เล่ม 1 ตอนที่ 3", "3")]
+     [InlineData("Max Level Returner ตอนที่ 5", "5")]
+     [InlineData("หนึ่งความคิด นิจนิรันดร์ บทที่ 112", "112")]
++    [InlineData("[0001]_Chapter_1.pdf", "1")]
++    [InlineData("[0112]_Chapter_110.2.pdf", "110.2")]
++    [InlineData("Chapter_13_3.pdf", "13_3")]
++    [InlineData("Chapter_100.pdf", "100")]
+     public void ParseChaptersTest(string filename, string expected)
+     {
+         Assert.Equal(expected, API.Services.Tasks.Scanner.Parser.Parser.ParseChapter(filename, LibraryType.Manga));
+@@ -342,6 +350,7 @@ public class MangaParsingTests
+     [InlineData("The League of Extra-ordinary Gentlemen", false)]
+     [InlineData("Dr. Ramune - Mysterious Disease Specialist v01 (2020) (Digital) (danke-Empire)", false)]
+     [InlineData("Hajime no Ippo - Artbook", false)]
++    [InlineData("[0001]_Chapter_1.pdf", false)]
+     public void IsMangaSpecialTest(string input, bool expected)
+     {
+         Assert.Equal(expected, API.Services.Tasks.Scanner.Parser.Parser.IsSpecial(input, LibraryType.Manga));
+diff --git a/API/Services/Tasks/Scanner/Parser/Parser.cs b/API/Services/Tasks/Scanner/Parser/Parser.cs
+index 840e7a6d..b49fd0b0 100644
+--- a/API/Services/Tasks/Scanner/Parser/Parser.cs
++++ b/API/Services/Tasks/Scanner/Parser/Parser.cs
+@@ -614,6 +614,10 @@ public static class Parser
+         new Regex(
+             @"(?<Series>.*)\sS(?<Volume>\d+)\s(?<Chapter>\d+(?:.\d+|-\d+)?)",
+             MatchOptions, RegexTimeout),
++        // [0001]_Chapter_1.pdf, [0112]_Chapter_110.2.pdf, Chapter_13_3.pdf, Chapter_100.pdf
++        new Regex(
++            @"(?:^|_)Chapter_(?<Chapter>\d+(\.\d+|_\d+)?)", //(?:.\d+|-\d+)?
++            MatchOptions, RegexTimeout),
+         // Beelzebub_01_[Noodles].zip, Beelzebub_153b_RHS.zip
+         new Regex(
+             @"^((?!v|vo|vol|Volume).)*(\s|_)(?<Chapter>\.?\d+(?:.\d+|-\d+)?)(?<Part>b)?(\s|_|\[|\()",
+
