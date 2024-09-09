@@ -27,8 +27,6 @@
     loader.timeout = lib.mkForce 1;
   };
 
-  networking.firewall.allowedTCPPorts = [ 25565 ];
-
   mainUser.layout = "de";
   mainUser.variant = "us";
   custom = {
@@ -101,6 +99,7 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 25565 25566 ];
   networking.hostName = "mini-pc-proxmox"; # Define your hostname.
 
   # Set your time zone.

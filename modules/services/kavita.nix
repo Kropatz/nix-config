@@ -67,6 +67,7 @@ in lib.mkIf cfg.enable {
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
     startAt = "*-*-* 19:00:00";
+    restartIfChanged = false;
     script = ''
       ${mangal} clear -q
       ${mangal} clear -c
@@ -77,6 +78,7 @@ in lib.mkIf cfg.enable {
       ${mangal} inline -S Mangapill --query "Jujutsu%20Kaisen" --manga first --download
       ${mangal} inline -S Mangapill --query "solo-leveling" --manga first --download
       ${mangal} inline -S Mangapill --query "berserk" --manga first --download
+      ${mangal} inline -S Mangapill --query "the-greatest-real-estate" --manga first --download
     '';
     serviceConfig = {
     	PrivateTmp = true;
