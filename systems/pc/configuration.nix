@@ -55,7 +55,10 @@
       };
       #emulators.enable = true;
       gamemode.enable = true;
-      games.enable = true;
+      games = {
+        enable = true;
+        enablePreinstalled = true;
+      };
       ime.enable = true;
       noise-supression.enable = true;
       obs.enable = true;

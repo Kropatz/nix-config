@@ -18,7 +18,7 @@ in {
       extraCompatPackages = with pkgs; [ proton-ge-bin ];
     };
     environment.systemPackages = [ pkgs.mangohud ]
-      // optional cfg.enablePreinstalled (with pkgs; [
+      ++ optionals cfg.enablePreinstalled (with pkgs; [
         taisei
         osu-lazer-bin
         wineWowPackages.unstableFull

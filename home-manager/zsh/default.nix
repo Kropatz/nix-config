@@ -3,6 +3,11 @@
     enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
+    initExtra = ''
+      compressImage () {
+        magick $1 -strip -resize 1920x1080 -quality 85% compressed.jpg
+      }
+    '';
     shellAliases = {
       # TODO: gifsicle -O3 --lossy=30 noita-20240328-191617-1612416266-00316616.gif -o noita-20240328-191617-1612416266.gif 
       backupNoita =
