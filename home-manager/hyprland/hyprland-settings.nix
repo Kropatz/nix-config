@@ -1,9 +1,13 @@
 { config, osConfig, pkgs, inputs, lib, ... }:
-let cfg = osConfig.custom.graphical.hyprland;
+let
+  cfg = osConfig.custom.graphical.hyprland;
+  isPc = osConfig.networking.hostName == "kop-pc";
+  isLaptop = osConfig.networking.hostName == "nix-laptop";
 in {
   config = lib.mkIf cfg.enable {
 
-    home.file.".config/hypr/hyprshade.toml".source = ../../.config/hypr/hyprshade.toml;
+    home.file.".config/hypr/hyprshade.toml".source =
+      ../../.config/hypr/hyprshade.toml;
     #programs.swaylock.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
@@ -16,12 +20,11 @@ in {
         #
 
         # See https://wiki.hyprland.org/Configuring/Monitors/
-        monitor = if osConfig.networking.hostName == "kop-pc" then [
-          # PC
+        monitor = if isPc then [
           "HDMI-A-1,1920x1080@60,0x0,1"
           "DP-1,2560x1440@165,1920x0,1"
           "Unknown-1,disable"
-        ] else if osConfig.networking.hostName == "nix-laptop" then [
+        ] else if isLaptop then [
           # laptop
           "eDP-1,1920x1080@60,0x0,1"
           #"DP-3,1920x1080@60,1920x0,1"
@@ -80,9 +83,7 @@ in {
             0; # -1.0 - 1.0, 0 means no modification.
         };
 
-        cursor = {
-          no_hardware_cursors = true;
-        };
+        cursor = { no_hardware_cursors = true; };
 
         render = {
           explicit_sync = 1;
@@ -103,6 +104,7 @@ in {
         };
 
         misc = { vfr = true; };
+        xwayland = lib.mkIf isPc { force_zero_scaling = true; };
 
         decoration = {
           # See https://wiki.hyprland.org/Configuring/Variables/ for more
