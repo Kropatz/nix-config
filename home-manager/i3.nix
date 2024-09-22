@@ -182,9 +182,10 @@ in {
           exec = "~/.config/polybar/temperature.sh";
           interval = 3;
         };
-
         "module/gpu" = {
           type = "custom/script";
+          format-foreground = "76b900"; #nvidia green
+          label = "%output:0:35:...%";
           exec = "~/.config/polybar/nvidia.sh";
           interval = 3;
         };
