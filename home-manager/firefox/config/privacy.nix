@@ -70,11 +70,11 @@
   # setting overrides both with " " without disabling WebGL.
   "webgl.renderer-string-override" = " ";
   "webgl.vendor-string-override" = " ";
-  # Disable WebRTC
+  # Disable WebRTC (disabled)
   # Disables the WebRTC function, which gives away your local ips. Some addons like
   # uBlock origin provide settings to prevent WebRTC from exposing local ips without
   # disabling WebRTC.
-  "media.peerconnection.enabled" = false;
+  "media.peerconnection.enabled" = true;
   # Disable the clipboardevents.
   # Disable that websites can get notifications if you copy, paste, or cut something
   # from a web page, and it lets them know which part of the page had been selected.

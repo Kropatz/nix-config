@@ -40,7 +40,10 @@
     services = { syncthing = { enable = true; }; };
     hardware = {
       android.enable = true;
-      nvidia.enable = true;
+      nvidia = {
+        enable = true;
+        powerLimit.enable = true;
+      };
       firmware.enable = true;
       ssd.enable = true;
       wooting.enable = true;

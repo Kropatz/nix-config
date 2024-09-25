@@ -3,6 +3,14 @@ let cfg = config.custom.hardware.nvidia;
 in {
   options.custom.hardware.nvidia = {
     enable = lib.mkEnableOption "Enables nvidia gpus";
+    powerLimit = {
+      enable = lib.mkEnableOption "Increase GPU power limit";
+      wattage = lib.mkOption {
+        type = lib.types.int;
+        default = 300;
+        description = "The power limit to set the GPU to";
+      };
+    };
   };
 
   config = let
@@ -22,6 +30,9 @@ in {
   in lib.mkIf cfg.enable (lib.recursiveUpdate nvidiaOption {
     boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
     services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.deviceSection = ''
+      Option "Coolbits" "24"
+    '';
     hardware.nvidia = {
       # Modesetting is required.
       modesetting.enable = true;
@@ -43,20 +54,26 @@ in {
       nvidiaSettings = true;
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       package = config.boot.kernelPackages.nvidiaPackages.stable;
-        #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-        #  version = "560.35.03";
-        #  sha256_64bit = "sha256-8pMskvrdQ8WyNBvkU/xPc/CtcYXCa7ekP73oGuKfH+M=";
-        #  sha256_aarch64 = "sha256-s8ZAVKvRNXpjxRYqM3E5oss5FdqW+tv1qQC2pDjfG+s=";
-        #  openSha256 = "sha256-/32Zf0dKrofTmPZ3Ratw4vDM7B+OgpC4p7s+RHUjCrg=";
-        #  settingsSha256 = "sha256-kQsvDgnxis9ANFmwIwB7HX5MkIAcpEEAHc8IBOLdXvk=";
-        #  persistencedSha256 =
-        #    "sha256-E2J2wYYyRu7Kc3MMZz/8ZIemcZg68rkzvqEwFAL3fFs=";
-        #  preInstall = ''
-        #    rm -f ./libnvidia-egl-wayland.so*
-        #    cp ${pkgs.egl-wayland}/lib/libnvidia-egl-wayland.so.1.* .
-        #    chmod 777 ./libnvidia-egl-wayland.so.1.*
-        #  '';
-        #};
+      #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      #  version = "560.35.03";
+      #  sha256_64bit = "sha256-8pMskvrdQ8WyNBvkU/xPc/CtcYXCa7ekP73oGuKfH+M=";
+      #  sha256_aarch64 = "sha256-s8ZAVKvRNXpjxRYqM3E5oss5FdqW+tv1qQC2pDjfG+s=";
+      #  openSha256 = "sha256-/32Zf0dKrofTmPZ3Ratw4vDM7B+OgpC4p7s+RHUjCrg=";
+      #  settingsSha256 = "sha256-kQsvDgnxis9ANFmwIwB7HX5MkIAcpEEAHc8IBOLdXvk=";
+      #  persistencedSha256 =
+      #    "sha256-E2J2wYYyRu7Kc3MMZz/8ZIemcZg68rkzvqEwFAL3fFs=";
+      #  preInstall = ''
+      #    rm -f ./libnvidia-egl-wayland.so*
+      #    cp ${pkgs.egl-wayland}/lib/libnvidia-egl-wayland.so.1.* .
+      #    chmod 777 ./libnvidia-egl-wayland.so.1.*
+      #  '';
+      #};
+    };
+
+    systemd.services.nvpl = lib.mkIf cfg.powerLimit.enable {
+      description = "Increase GPU power limit to ${toString cfg.powerLimit.wattage} watts";
+      script = "/run/current-system/sw/bin/nvidia-smi -pl=${toString cfg.powerLimit.wattage}";
+      wantedBy = [ "multi-user.target" ];
     };
   });
 }
