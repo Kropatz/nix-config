@@ -84,6 +84,7 @@ in {
               '';
               proxyPass = "http://localhost:5232/";
             };
+            "/socket.io" = { proxyPass = "http://localhost:9955"; proxyWebsockets = true; };
           };
         };
       in {
