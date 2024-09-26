@@ -192,6 +192,7 @@ in {
         "module/music" = {
           type = "custom/script";
           exec = "~/.config/polybar/player-mpris-simple.sh";
+          label = "%output:0:35:...%";
           interval = 3;
           "click-left" = "playerctl previous &";
           "click-right" = "playerctl next &";
