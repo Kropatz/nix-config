@@ -29,6 +29,7 @@
     ../../home-manager/zsh
     ../../home-manager/i3.nix
     ../../home-manager/stylix.nix
+    ../../home-manager/mpv.nix
     inputs.nixvim.homeManagerModules.nixvim
     inputs.nix-colors.homeManagerModule
   ];

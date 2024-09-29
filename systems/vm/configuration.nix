@@ -23,25 +23,18 @@
       #hyprland.enable = true;
       #lightdm.enable = true;
       #sddm.enable = true;
+      plasma.enable = true;
       #cosmic.enable = true;
     };
-    services = {
-      kavita = {
-        enable = true;
-        https = false;
-        autoDownload = false;
-        isTest = true;
-      };
-    };
   };
-  services.xserver = {
-    enable = true;
-    desktopManager = {
-      xterm.enable = false;
-      xfce.enable = true;
-    };
-    displayManager.defaultSession = "xfce";
-  };
+  #services.xserver = {
+  #  enable = true;
+  #  desktopManager = {
+  #    xterm.enable = false;
+  #    xfce.enable = true;
+  #  };
+  #  displayManager.defaultSession = "xfce";
+  #};
 
   programs.firefox.enable = true;
 

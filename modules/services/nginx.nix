@@ -86,8 +86,16 @@ in {
             };
             "/socket.io" = { proxyPass = "http://localhost:9955"; proxyWebsockets = true; };
             "/comms/" = {
+              extraConfig = ''
+                  more_set_headers "Permissions-Policy: geolocation=(), microphone=(self), camera=(self)";
+              '';
               alias = "/comms/";
-              tryFiles = "$uri $uri/ /index.html";
+              tryFiles = "$uri $uri/ /comms/index.html";
+            };
+            "/comms" = {
+              extraConfig = ''
+                return 301 /comms/;
+              '';
             };
           };
         };

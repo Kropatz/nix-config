@@ -74,7 +74,6 @@ in {
       libreoffice-fresh
       screenshot
       anki
-      mpv
       p7zip
       qbittorrent
       brightnessctl

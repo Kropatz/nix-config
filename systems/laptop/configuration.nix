@@ -54,7 +54,8 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # disable until CVE-2024-47176, CVE-2024-47076, CVE-2024-47175, and CVE-2024-47177 is fixed
+  services.printing.enable = false;
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
