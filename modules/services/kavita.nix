@@ -88,6 +88,12 @@ in {
           ${mangal} inline -S Mangapill --query "Jujutsu%20Kaisen" --manga first --download
           ${mangal} inline -S Mangapill --query "solo-leveling" --manga first --download
           ${mangal} inline -S Mangapill --query "the-greatest-real-estate" --manga first --download
+          ${mangal} inline -S Mangapill --query "66666_years" --manga first --download
+          ${mangal} inline -S Mangapill --query "Return_of_the_blossoming" --manga first --download
+          ${mangal} inline -S Mangapill --query "path_of_the_shaman" --manga first --download
+          ${mangal} inline -S Mangapill --query "pick_me_up" --manga first --download
+          ${mangal} inline -S Mangapill --query "revenge_of_the_iron_blooded" --manga first --download
+          ${mangal} inline -S Mangapill --query "northern_blade" --manga first --download
         '';
         serviceConfig = {
           PrivateTmp = true;
