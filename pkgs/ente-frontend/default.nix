@@ -18,6 +18,6 @@ buildNpmPackage rec {
   installPhase = ''
     mkdir -p $out
     ls .
-    cp -r ./dist/tracker-site/* $out
+    cp -r ./dist/tracker-site/browser/* $out
   '';
 }
