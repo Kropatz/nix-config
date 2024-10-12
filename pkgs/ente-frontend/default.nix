@@ -7,9 +7,9 @@ buildNpmPackage rec {
   src = "${(fetchGit {
     url = "git@github.com:oberprofis/ente.git";
     ref = "master";
-    rev = "336db364d0a16f8a64abf309f3f1dede6caab2f2";
+    rev = "c8021cc1162dfa509425205014cc5e55ca6086d7";
   })}/website/tracker-site";
-  npmDepsHash = "sha256-pNU7Y/73iltMSzGbQwUZWdD7GbIToXMFR5y763Bi50o=";
+  npmDepsHash = "sha256-CMgFHB1gSGagE4QWwTIgWLat698vHBnuGk/Qe4HfYnc=";
 
   # The prepack script runs the build script, which we'd rather do in the build phase.
   npmPackFlags = [ "--ignore-scripts" ];
