@@ -1,4 +1,4 @@
-{ lib, buildNpmPackage, fetchFromGitHub }:
+{ lib, buildNpmPackage, fetchFromGitHub, npm-lockfile-fix }:
 
 buildNpmPackage rec {
   pname = "ente-website";
@@ -13,6 +13,8 @@ buildNpmPackage rec {
 
   # The prepack script runs the build script, which we'd rather do in the build phase.
   npmPackFlags = [ "--ignore-scripts" ];
+  npmFlags = [ "--legacy-peer-deps" ];
+
   installPhase = ''
     mkdir -p $out
     ls .
