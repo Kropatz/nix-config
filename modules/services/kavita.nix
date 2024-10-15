@@ -94,6 +94,7 @@ in {
           ${mangal} inline -S Mangapill --query "pick_me_up" --manga first --download
           ${mangal} inline -S Mangapill --query "revenge_of_the_iron_blooded" --manga first --download
           ${mangal} inline -S Mangapill --query "northern_blade" --manga first --download
+          ${mangal} inline -S Mangapill --query "Dungeon_reset" --manga first --download
         '';
         serviceConfig = {
           PrivateTmp = true;
