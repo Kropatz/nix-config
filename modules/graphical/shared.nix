@@ -73,7 +73,7 @@ in {
       krita
       libreoffice-fresh
       screenshot
-      anki
+      #anki TODO broken because pyqt6 build fails
       p7zip
       qbittorrent
       brightnessctl
