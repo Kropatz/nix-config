@@ -62,6 +62,11 @@ in {
   programs.firefox = {
     enable = true;
     policies = {
+      DisableTelemetry = true;
+      DontCheckDefaultBrowser = true;
+      DisablePocket = true;
+      DisableFirefoxStudies = true;
+      DisableFeedbackCommands = true;
       Extensions = {
         Uninstall = [
           "google@search.mozilla.org"
@@ -96,6 +101,7 @@ in {
           (import ./config/tracking.nix)
           (import ./config/tracking-webaudio.nix)
           (import ./config/security.nix)
+          (import ./config/speed.nix)
         ];
         userChrome = ''
           /* Hide tab bar. Used with Sidebery */
@@ -123,6 +129,7 @@ in {
           (import ./config/privacy.nix)
           (import ./config/tracking.nix)
           (import ./config/security.nix)
+          (import ./config/speed.nix)
         ];
         userChrome = ''
           /* Hide tab bar. Used with Sidebery */
@@ -153,7 +160,10 @@ in {
             visibility: collapse !important;
           }
         '';
-        settings = merge [ (import ./config/preferences.nix) ];
+        settings = merge [
+          (import ./config/preferences.nix)
+          (import ./config/speed.nix)
+        ];
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
