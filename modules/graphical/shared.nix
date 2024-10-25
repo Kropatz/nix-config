@@ -20,7 +20,7 @@ in {
       nerdfonts # noto and hack
       #noto-fonts
       #noto-fonts-emoji
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       #font-awesome
     ];
     services.libinput = {

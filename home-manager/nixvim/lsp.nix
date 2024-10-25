@@ -14,9 +14,9 @@
         nixd.enable = true;
         html.enable = true;
         dartls.enable = true;
-        tsserver.enable = true;
+        ts_ls.enable = true;
         pylsp.enable = true;
-        csharp-ls = {
+        csharp_ls = {
           enable = true;
           package = pkgs.stable.csharp-ls;
         };
@@ -71,8 +71,8 @@
     };
     lsp-lines = {
       enable = true;
-      currentLine = true;
     };
-    rust-tools.enable = true;
+    rustaceanvim.enable = true;
   };
+  diagnostics.virtual_lines.only_current_line = true;
 }
