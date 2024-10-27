@@ -95,6 +95,12 @@ in {
           ${mangal} inline -S Mangapill --query "revenge_of_the_iron_blooded" --manga first --download
           ${mangal} inline -S Mangapill --query "northern_blade" --manga first --download
           ${mangal} inline -S Mangapill --query "Dungeon_reset" --manga first --download
+          ${mangal} inline -S Mangapill --query "iruma-kun" --manga first --download
+          ${mangal} inline -S Manganato --query "grand_blue" --manga first --download
+          ${mangal} inline -S Manganato --query "sss-class_suicide" --manga first --download
+          ${mangal} inline -S Manganato --query "cultivation_chat" --manga first --download
+          ${mangal} inline -S Manganato --query "gokushufudo" --manga first --download
+          ${mangal} inline -S Manganato --query "slime" --manga first --download
         '';
         serviceConfig = {
           PrivateTmp = true;
