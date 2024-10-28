@@ -1,0 +1,13 @@
+diff --git a/API/Controllers/OPDSController.cs b/API/Controllers/OPDSController.cs
+index 3466b558..824b6efc 100644
+--- a/API/Controllers/OPDSController.cs
++++ b/API/Controllers/OPDSController.cs
+@@ -75,7 +75,7 @@ public class OpdsController : BaseApiController
+ 
+     private readonly FilterV2Dto _filterV2Dto = new FilterV2Dto();
+     private readonly ChapterSortComparerDefaultLast _chapterSortComparerDefaultLast = ChapterSortComparerDefaultLast.Default;
+-    private const int PageSize = 20;
++    private const int PageSize = 100;
+ 
+     public OpdsController(IUnitOfWork unitOfWork, IDownloadService downloadService,
+         IDirectoryService directoryService, ICacheService cacheService,
