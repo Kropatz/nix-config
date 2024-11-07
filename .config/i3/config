@@ -59,7 +59,7 @@ bindsym $mod+space exec --no-startup-id rofi -modi drun -show drun \
 
 bindsym $mod+a exec --no-startup-id rofi -show window \
 		-config ~/.config/rofi/rofidmenu.rasi
-
+bindsym $mod+period exec --no-startup-id rofimoji
 #bindsym F10 exec --no-startup-id rofi -show window \
 #		-config ~/.config/rofi/rofidmenu.rasi
 

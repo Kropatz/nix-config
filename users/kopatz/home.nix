@@ -34,6 +34,22 @@
     inputs.nix-colors.homeManagerModule
   ];
 
+  programs.feh = {
+    enable = true;
+    buttons = {
+      # Unbind existing scroll operations
+      prev_img = null;
+      next_img = null;
+      # Set <action> <mouse button>
+      zoom_in = 4;
+      zoom_out = 5;
+    };
+    keybindings = {
+      prev_img = [ "h" "Left" ];
+      next_img = [ "l" "Right" ];
+    };
+  };
+
   programs.newsboat = {
     enable = true;
     extraConfig = ''

@@ -65,6 +65,7 @@ in {
     environment.systemPackages = with pkgs; [
       picom # compositor
       rofi # application
+      rofimoji
       maim # takes screenshots
       xclip
       dex # starts applications according to .desktop files
