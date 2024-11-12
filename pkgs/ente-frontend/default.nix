@@ -9,7 +9,7 @@ buildNpmPackage rec {
     ref = "master";
     rev = "1b6219ee1d9c7be207cc8a2e8282704fb577356c";
   })}/website/tracker-site";
-  npmDepsHash = "sha256-CMgFHB1gSGagE4QWwTIgWLat698vHBnuGk/Qe4HfYnc=";
+  npmDepsHash = "sha256-fYTRhIU+8pdIm3wC5wJRcDUhgN3d+mmvfmVzuu0pjLQ=";
 
   # The prepack script runs the build script, which we'd rather do in the build phase.
   npmPackFlags = [ "--ignore-scripts" ];
