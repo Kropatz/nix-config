@@ -1,5 +1,5 @@
 # This file defines overlays
-{ inputs, ... }: 
+{ inputs, ... }:
 let
   addPatches = pkg: patches:
     pkg.overrideAttrs
@@ -16,7 +16,18 @@ in {
     #discord = prev.vesktop;
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     nerdfonts = prev.nerdfonts.override { fonts = [ "Hack" "Noto" ]; };
-    #waybar = prev.waybar.overrideAttrs (oldAttrs: {
+    hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
+      version = "0.45.0";
+
+      src = prev.fetchFromGitHub {
+        owner = "hyprwm";
+        repo = "hyprland";
+        fetchSubmodules = true;
+        rev = "refs/tags/v0.45.0";
+        hash = "sha256-//Ib7gXCA8jq8c+QGTTIO0oH0rUYYBXGp8sqpI1jlhA=";
+      };
+    });
+
     #  mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     #});
     #hyprland =
