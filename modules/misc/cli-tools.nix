@@ -8,8 +8,30 @@ in
     enable = mkEnableOption "Enables cli-tools";
   };
   
-  config = mkIf cfg.enable {
+  config = let 
+      getTotalPowerUsed = pkgs.writeShellScriptBin "total-power" ''
+        echo "$(sudo cat /sys/class/powercap/*/energy_uj | awk 'BEGIN { sum = 0; } { sum += $1; } END { print sum; }' "$@") / 1000000" | bc | xargs -I _ echo "_ W"
+      '';
+      watchCurrentPowerUsed = pkgs.writeShellScriptBin "watch-current-power" ''
+        function getCurrentPowerUsed() {
+          local energy_uj=$(sudo cat $energy_path | awk 'BEGIN { sum = 0; } { sum += $1; } END { print sum; }' "$@")
+          echo "scale=2; $energy_uj / 1000000" | bc
+        }
+
+        energy_path=$(grep package /sys/class/powercap/*/name | sed 's/name.*$/energy_uj/')
+        power_prev=0
+        power_curr=$(getCurrentPowerUsed)
+        while true; do
+          power_prev=$power_curr
+          sleep 1
+          power_curr=$(getCurrentPowerUsed)
+          echo "scale=2; ($power_curr - $power_prev) / 1" | bc | xargs -I _ echo "_ W"
+        done
+      '';
+    in mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
+      getTotalPowerUsed
+      watchCurrentPowerUsed
       fzf # fuzzy finder
       bat # fancy cat
       fd # nicer find

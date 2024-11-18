@@ -115,7 +115,7 @@ in {
           #blur_passes = 1
           #blur_new_optimizations = on
 
-          shadow =  {
+         shadow =  {
             enabled = true;
             range = 4;
             render_power = 3;
@@ -277,6 +277,7 @@ in {
           ##! Disable window flicker when autocomplete or tooltips appear
           #"nofocus,class:^(jetbrains-.*)$,title:^(win.*)$,floating:1"
           ##"immediate, class:^(Risk.*)$"
+          "stayfocused,class:(steam_app_107410)"
         ];
 
         exec-once = [

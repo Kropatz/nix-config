@@ -88,6 +88,7 @@ in {
       xarchiver # archive tool
       ani-cli
       mangal
+      gnome.adwaita-icon-theme
     ];
   };
 }
