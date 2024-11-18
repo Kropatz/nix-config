@@ -32,6 +32,7 @@ in
     environment.systemPackages = with pkgs; [
       getTotalPowerUsed
       watchCurrentPowerUsed
+      powerjoular # monitor power usage
       fzf # fuzzy finder
       bat # fancy cat
       fd # nicer find

@@ -112,6 +112,11 @@
     EndSection
   '';
 
+
+  #zenpower for ryzen
+  boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
+  boot.kernelModules = ["zenpower"];
+  boot.blacklistedKernelModules = [ "k10temp" ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

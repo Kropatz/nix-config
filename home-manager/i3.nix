@@ -56,7 +56,7 @@ in {
           modules-left = "i3 xwindow";
           modules-center = "";
           modules-right =
-            "music network memory cpu cpu-temp gpu pulseaudio date tray";
+            "music network memory cpu cpu-wattage cpu-temp gpu pulseaudio date tray";
           cursor-click = "pointer";
           cursor-scroll = "ns-resize";
           enable-ipc = true;
@@ -176,6 +176,11 @@ in {
           format-prefix = "CPU ";
           format-prefix-foreground = config.stylix.base16Scheme.base0D;
           label = "%percentage:2%%";
+        };
+        "module/cpu-wattage" = {
+          type = "custom/script";
+          exec = "~/.config/polybar/cpu-wattage.sh";
+          interval = 3;
         };
         "module/cpu-temp" = {
           type = "custom/script";
