@@ -5,11 +5,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   custom = {
     #tmpfs.enable = true;
@@ -51,15 +49,34 @@
       nightlight.enable = true;
       i3.enable = true;
       shared.enable = true;
-      games = {
-        enable = true;
-      };
+      games = { enable = true; };
     };
   };
   mainUser.layout = "de";
   mainUser.variant = "us";
 
-  virtualisation.vmware.host.enable = true; 
+  virtualisation.vmware.host.enable = true;
+
+  systemd.services.start-vm = {
+    description = "Start VM";
+    wants = [ "network-online.target" ];
+    after = [ "network.target" "network-online.target" "vmware-networks.service" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Type = "forking"; #?????? doesnt work without it, thanks vmware
+      ExecStart = let
+        script = pkgs.writeShellScript "start-vm" ''
+          ${pkgs.vmware-workstation}/bin/vmrun start /root/vmware/server/server.vmx nogui
+        '';
+      in "${script}";
+      User = "root";
+      Restart = "on-failure";
+      RestartSec = "5s";
+      ProtectHome = false;
+      ProtectSystem = false;
+    };
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -70,7 +87,7 @@
 
   #zenpower for ryzen
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
-  boot.kernelModules = ["zenpower"];
+  boot.kernelModules = [ "zenpower" ];
   boot.blacklistedKernelModules = [ "k10temp" ];
 
   services.xserver.desktopManager = {
@@ -96,4 +113,3 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
-

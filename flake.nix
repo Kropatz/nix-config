@@ -191,9 +191,9 @@
         # build vm -> nixos-rebuild build-vm  --flake .#vm
         "vm" =
           mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
-
+        # nixos-rebuild switch --flake .#server-vm --target-host root@192.168.0.21 
         "server-vm" =
-          mkHost { modules = [ ./users/anon ./systems/server-vm/configuration.nix ]; };
+          mkHost { modules = [ ./users/anon ./systems/amd-server-vm/configuration.nix ]; };
       };
 
       packages.x86_64-linux = {
@@ -205,7 +205,7 @@
             pkgsVersion = nixpkgs-unstable;
           } // {inherit inputs outputs; };
           lib = nixpkgs-unstable.legacyPackages.x86_64-linux.lib;
-          modules = defaultModules ++ [ home-manager-unstable.nixosModules.home-manager ./users/anon ./systems/server-vm/configuration.nix {
+          modules = defaultModules ++ [ home-manager-unstable.nixosModules.home-manager ./users/anon ./systems/amd-server-vm/configuration.nix {
             # 100G disk;
             virtualisation.diskSize = 100 * 1024;
           } 

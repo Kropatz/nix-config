@@ -7,13 +7,13 @@ buildNpmPackage rec {
   src = "${(fetchGit {
     url = "git@github.com:oberprofis/ente.git";
     ref = "master";
-    rev = "1b6219ee1d9c7be207cc8a2e8282704fb577356c";
+    rev = "42ccf9f7427d8007fce65526e9b9d0443115e476";
   })}/website/tracker-site";
   npmDepsHash = "sha256-fYTRhIU+8pdIm3wC5wJRcDUhgN3d+mmvfmVzuu0pjLQ=";
 
   # The prepack script runs the build script, which we'd rather do in the build phase.
-  npmPackFlags = [ "--ignore-scripts" ];
-  npmFlags = [ "--legacy-peer-deps" ];
+  #npmPackFlags = [ "--ignore-scripts" ];
+  #npmFlags = [ "--legacy-peer-deps" ];
 
   installPhase = ''
     mkdir -p $out

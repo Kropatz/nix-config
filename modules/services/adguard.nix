@@ -54,7 +54,7 @@ in {
             "$2y$15$iPzjmUJPTwWUOsDp46GOPO/LYor/jDJjndwy2QlPddaKSD4QXvq9W";
         }];
         dns = {
-          bind_hosts = [ "127.0.0.1" ip wireguardIp ];
+          bind_hosts = [ "127.0.0.1" ip ] ++ lib.lists.optionals config.custom.services.wireguard.enable  [ wireguardIp ];
           port = 53;
           protection_enabled = true;
           filtering_enabled = true;

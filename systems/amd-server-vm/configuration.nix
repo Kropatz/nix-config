@@ -19,6 +19,7 @@
     loader.grub = {
       efiSupport = true;
       efiInstallAsRemovable = true;
+      device = "nodev";
     };
   };
 
@@ -27,10 +28,9 @@
   custom = {
     static-ip = {
       enable = true;
-      ip = "192.168.0.21";
+      ip = "192.168.0.10";
       interface = "eth0";
-      #dns = "127.0.0.1";
-      dns = "192.168.0.10";
+      dns = "127.0.0.1";
     };
     user = {
       name = "anon";
@@ -43,48 +43,48 @@
     };
     misc = {
       docker.enable = true;
-      #backup = let
-      #  kavita = "/data/kavita";
-      #  gitolite = "/var/lib/gitolite";
-      #  syncthing = [ "/data/synced/default/" "/data/synced/work_drive/" ];
-      #  syncthingFull = syncthing
-      #    ++ [ "/data/synced/fh/" "/data/synced/books/" ];
-      #  backupPathsSmall = [ "/home" gitolite ] ++ syncthing;
-      #  backupPathsMedium = [ "/home" gitolite ] ++ syncthing;
-      #  backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull;
-      #in {
-      #  enable = true;
-      #  small = backupPathsSmall; # goes to backblaze
-      #  medium = backupPathsMedium; # goes to gdrive
-      #  large = backupPathsFull; # goes to local storage medium
-      #};
+      backup = let
+        kavita = "/data/kavita";
+        gitolite = "/var/lib/gitolite";
+        syncthing = [ "/data/synced/default/" "/data/synced/work_drive/" ];
+        syncthingFull = syncthing
+          ++ [ "/data/synced/fh/" "/data/synced/books/" ];
+        backupPathsSmall = [ "/home" gitolite ] ++ syncthing;
+        backupPathsMedium = [ "/home" gitolite ] ++ syncthing;
+        backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull;
+      in {
+        enable = true;
+        small = backupPathsSmall; # goes to backblaze
+        medium = backupPathsMedium; # goes to gdrive
+        large = backupPathsFull; # goes to local storage medium
+      };
     };
     services = {
       acme.enable = true;
-      #gitolite.enable = true;
-      #github-runner.enable = true;
+      gitolite.enable = true;
+      github-runner.enable = true;
       #caldav.enable = true;
-      #kop-monitor.enable = true;
+      kop-monitor.enable = true;
       kop-fileshare = {
         basePath = "/stash";
         dataDir = "/1tbssd/kop-fileshare";
         enable = true;
       };
-      #nginx.enable = true;
-      #ente.enable = true;
-      #kavita = {
-      #  enable = true;
-      #  dir = "/data/kavita";
-      #};
-      #wireguard = {
-      #  enable = true;
-      #  ip = "192.168.2.1";
-      #};
-      #adguard.enable = true;
-      #syncthing = {
-      #  enable = true;
-      #  basePath = "/data/synced";
-      #};
+      nginx.enable = true;
+      ente.enable = true;
+      kavita = {
+        enable = true;
+        dir = "/data/kavita";
+      };
+      wireguard = {
+        enable = true;
+        ip = "192.168.2.1";
+      };
+      adguard.enable = true;
+      syncthing = {
+        enable = true;
+        basePath = "/data/synced";
+      };
     };
     nftables.enable = true;
     cli-tools.enable = true;
@@ -98,6 +98,16 @@
   virtualisation.vmware.guest.enable = true;
   services.xserver.videoDrivers = [ "vmware" ];
 
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
+    options = [ "defaults" "noatime" ];
+  };
+  fileSystems."/boot" =
+  { device = "/dev/disk/by-label/ESP";
+      fsType = "vfat";
+  };
   fileSystems."/data" = {
     device = "/dev/disk/by-uuid/d117419d-fce9-4d52-85c7-e3481feaa22a";
     fsType = "btrfs";
