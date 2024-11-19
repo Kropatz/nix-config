@@ -12,10 +12,9 @@
 
 
   custom = {
-    tmpfs.enable = true;
+    #tmpfs.enable = true;
     nftables.enable = true;
     cli-tools.enable = true;
-    virt-manager.enable = true;
     nix = {
       index.enable = true;
       ld.enable = true;
@@ -59,6 +58,8 @@
   };
   mainUser.layout = "de";
   mainUser.variant = "us";
+
+  virtualisation.vmware.host.enable = true; 
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

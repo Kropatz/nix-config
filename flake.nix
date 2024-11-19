@@ -11,6 +11,10 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     # secrets management
     agenix = {
       url = "github:ryantm/agenix";
@@ -60,7 +64,7 @@
   };
   outputs = { self, nur, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable
     , agenix, home-manager, home-manager-unstable, nix-colors, nixos-cosmic
-    , nixvim, stylix, disko, flake-utils, ... }@inputs:
+    , nixvim, nixos-generators, stylix, disko, flake-utils, ... }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -73,6 +77,7 @@
           nur.overlay
         ];
       };
+      defaultModules = [ ./modules agenix.nixosModules.default overlays ];
       # helper function to create a machine
       mkHost = { modules, specialArgs ? {
         pkgsVersion = nixpkgs-unstable;
@@ -82,7 +87,7 @@
         in specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
           modules = modules
-            ++ [ ./modules agenix.nixosModules.default overlays ]
+            ++ defaultModules
             ++ lib.lists.optionals (!minimal)
             [ specialArgs.home-manager-version.nixosModules.home-manager ]
             ++ lib.lists.optionals (!minimal && graphical) [
@@ -186,6 +191,27 @@
         # build vm -> nixos-rebuild build-vm  --flake .#vm
         "vm" =
           mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
+
+        "server-vm" =
+          mkHost { modules = [ ./users/anon ./systems/server-vm/configuration.nix ]; };
+      };
+
+      packages.x86_64-linux = {
+        "server-vm" = nixos-generators.nixosGenerate {
+          format = "vmware";
+          system = "x86_64-linux";
+          #pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
+          specialArgs = {
+            pkgsVersion = nixpkgs-unstable;
+          } // {inherit inputs outputs; };
+          lib = nixpkgs-unstable.legacyPackages.x86_64-linux.lib;
+          modules = defaultModules ++ [ home-manager-unstable.nixosModules.home-manager ./users/anon ./systems/server-vm/configuration.nix {
+            # 100G disk;
+            virtualisation.diskSize = 100 * 1024;
+          } 
+          ];
+
+        };
       };
     };
 }

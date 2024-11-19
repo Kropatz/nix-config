@@ -4,25 +4,35 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/a3c34c9e-06be-49dc-a5d3-4156defa11e7";
-      fsType = "btrfs";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/a3c34c9e-06be-49dc-a5d3-4156defa11e7";
+    fsType = "btrfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/AE1C-16B9";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/AE1C-16B9";
+    fsType = "vfat";
+    options = [ "fmask=0077" "dmask=0077" ];
+  };
+
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/d117419d-fce9-4d52-85c7-e3481feaa22a";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" "nofail" ];
+  };
+  fileSystems."/1tbssd" = {
+    device = "/dev/disk/by-uuid/801d9217-9c38-4ca8-914e-e31361603892";
+    fsType = "ext4";
+    options = [ "defaults" "nofail" "noatime" ];
+  };
 
   swapDevices = [ ];
 
@@ -34,5 +44,6 @@
   # networking.interfaces.enp6s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
