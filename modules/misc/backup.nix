@@ -77,6 +77,10 @@ in mkIf cfg.enable {
             passwordFile = config.age.secrets.restic-pw.path;
             exclude = cfg.excludePaths;
             paths = cfg.large;
+            timerConfig = {
+              OnCalendar = "04:00";
+              Persistent = true;
+            };
             pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             repository = "/1tbssd/restic";
         };
@@ -113,7 +117,7 @@ in mkIf cfg.enable {
             paths = cfg.small;
             pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             timerConfig = {
-              OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 00:00:00";
+              OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
               Persistent = true;
             };
             repository = "s3:s3.us-west-002.backblazeb2.com/kop-bucket";
