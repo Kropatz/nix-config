@@ -15,6 +15,7 @@
     tmpfs.enable = true;
     nftables.enable = true;
     cli-tools.enable = true;
+    virt-manager.enable = true;
     nix = {
       index.enable = true;
       ld.enable = true;
@@ -39,7 +40,6 @@
     #  enable = true;
     #  server = [ "192.168.0.10" ];
     #};
-    misc = { docker.enable = true; };
     services = { syncthing = { enable = true; }; };
     hardware = {
       firmware.enable = true;
