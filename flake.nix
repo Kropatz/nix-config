@@ -180,6 +180,9 @@
             ./systems/proxmox-test-vm/configuration.nix
           ];
         };
+        "amd-server" = mkHost {
+          modules = [ ./users/kopatz ./systems/amd-server/configuration.nix ];
+        };
         # build vm -> nixos-rebuild build-vm  --flake .#vm
         "vm" =
           mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
