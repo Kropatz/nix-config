@@ -16,4 +16,8 @@
     };
     useUserPackages = true;
   };
+
+  users.users.root = {
+      openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];
+  };
 }
