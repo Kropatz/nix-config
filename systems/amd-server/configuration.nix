@@ -49,7 +49,6 @@
       nightlight.enable = true;
       i3.enable = true;
       shared.enable = true;
-      games = { enable = true; };
     };
   };
   mainUser.layout = "de";
@@ -67,6 +66,7 @@
       Type = "forking"; #?????? doesnt work without it, thanks vmware
       ExecStart = let
         script = pkgs.writeShellScript "start-vm" ''
+          sleep 10
           ${pkgs.vmware-workstation}/bin/vmrun start /root/vmware/server/server.vmx nogui
         '';
       in "${script}";
