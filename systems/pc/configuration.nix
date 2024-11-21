@@ -78,6 +78,8 @@
     };
   };
 
+  #nvidida drivers fail to build on new kernel https://github.com/NixOS/nixpkgs/issues/357643
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_11;
   nixpkgs.config.permittedInsecurePackages =
     [ "electron-28.3.3" "electron-27.3.11" ];
 

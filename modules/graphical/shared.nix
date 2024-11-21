@@ -71,7 +71,7 @@ in {
       localsend
       #element-desktop
       krita
-      libreoffice-fresh
+      libreoffice
       screenshot
       #anki TODO broken because pyqt6 build fails
       p7zip
@@ -82,7 +82,7 @@ in {
       pinta # paint
       #qalculate-qt # calculator TODO build broken
       #libsForQt5.kcalc
-      #syncthingtray #doesnt work with socket yet
+      syncthingtray #doesnt work with socket yet
       v4l-utils
       logseq # notes
       xarchiver # archive tool
