@@ -8,6 +8,7 @@
     ../../modules/fail2ban.nix
     ../../modules/logging.nix
     ../../modules/motd.nix
+    ../../modules/kernel.nix
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
   ];

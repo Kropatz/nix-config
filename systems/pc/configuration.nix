@@ -77,6 +77,10 @@
       stylix.enable = true;
     };
   };
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
 
   #nvidida drivers fail to build on new kernel https://github.com/NixOS/nixpkgs/issues/357643
   boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_11;
@@ -114,10 +118,9 @@
     EndSection
   '';
 
-
   #zenpower for ryzen
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
-  boot.kernelModules = ["zenpower"];
+  boot.kernelModules = [ "zenpower" ];
   boot.blacklistedKernelModules = [ "k10temp" ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

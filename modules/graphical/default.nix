@@ -25,5 +25,6 @@
     #./cosmic.nix
     ./shared.nix
     ./nightlight.nix
+    ./xfce.nix
   ];
 }

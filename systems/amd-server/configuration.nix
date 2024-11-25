@@ -7,6 +7,7 @@
 {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../modules/kernel.nix
   ];
 
   custom = {
@@ -48,6 +49,7 @@
       sddm.enable = true;
       nightlight.enable = true;
       i3.enable = true;
+      xfce.enable = true;
       shared.enable = true;
     };
   };
@@ -59,11 +61,12 @@
   systemd.services.start-vm = {
     description = "Start VM";
     wants = [ "network-online.target" ];
-    after = [ "network.target" "network-online.target" "vmware-networks.service" ];
+    after =
+      [ "network.target" "network-online.target" "vmware-networks.service" ];
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {
-      Type = "forking"; #?????? doesnt work without it, thanks vmware
+      Type = "forking"; # ?????? doesnt work without it, thanks vmware
       ExecStart = let
         script = pkgs.writeShellScript "start-vm" ''
           sleep 10
@@ -89,11 +92,6 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
   boot.kernelModules = [ "zenpower" ];
   boot.blacklistedKernelModules = [ "k10temp" ];
-
-  services.xserver.desktopManager = {
-    xfce.enable = true;
-    xterm.enable = false;
-  };
 
   networking.hostName = "amd-server"; # Define your hostname.
   nixpkgs.config.permittedInsecurePackages =
