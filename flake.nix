@@ -78,6 +78,9 @@
         ];
       };
       defaultModules = [ ./modules agenix.nixosModules.default overlays ];
+      merge = list:
+        builtins.foldl' (acc: elem: nixpkgs.lib.recursiveUpdate acc elem) { }
+        list;
       # helper function to create a machine
       mkHost = { modules, specialArgs ? {
         pkgsVersion = nixpkgs-unstable;
@@ -86,9 +89,7 @@
         let lib = specialArgs.pkgsVersion.lib;
         in specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
-          modules = modules
-            ++ defaultModules
-            ++ lib.lists.optionals (!minimal)
+          modules = modules ++ defaultModules ++ lib.lists.optionals (!minimal)
             [ specialArgs.home-manager-version.nixosModules.home-manager ]
             ++ lib.lists.optionals (!minimal && graphical) [
               ./modules/graphical
@@ -113,11 +114,11 @@
             [ specialArgs.home-manager-version.nixosModules.home-manager ];
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
-    in flake-utils.lib.eachDefaultSystem (system: {
-      packages =
-        import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
-    }) // {
-
+      customPackages = flake-utils.lib.eachDefaultSystem (system: {
+        packages =
+          import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
+      });
+    in {
       overlays = import ./overlays.nix { inherit inputs; };
 
       nixosConfigurations = {
@@ -192,26 +193,35 @@
         "vm" =
           mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
         # nixos-rebuild switch --flake .#server-vm --target-host root@192.168.0.21 
-        "server-vm" =
-          mkHost { modules = [ ./users/anon ./systems/amd-server-vm/configuration.nix ]; };
-      };
-
-      packages.x86_64-linux = {
-        "server-vm" = nixos-generators.nixosGenerate {
-          format = "vmware";
-          system = "x86_64-linux";
-          #pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
-          specialArgs = {
-            pkgsVersion = nixpkgs-unstable;
-          } // {inherit inputs outputs; };
-          lib = nixpkgs-unstable.legacyPackages.x86_64-linux.lib;
-          modules = defaultModules ++ [ home-manager-unstable.nixosModules.home-manager ./users/anon ./systems/amd-server-vm/configuration.nix {
-            # 100G disk;
-            virtualisation.diskSize = 100 * 1024;
-          } 
-          ];
-
+        "server-vm" = mkHost {
+          modules = [ ./users/anon ./systems/amd-server-vm/configuration.nix ];
         };
       };
+
+      packages = merge [
+        customPackages.packages
+        {
+          x86_64-linux."server-vm" = nixos-generators.nixosGenerate {
+            format = "vmware";
+            system = "x86_64-linux";
+            #pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
+            specialArgs = {
+              pkgsVersion = nixpkgs-unstable;
+            } // {
+              inherit inputs outputs;
+            };
+            lib = nixpkgs-unstable.legacyPackages.x86_64-linux.lib;
+            modules = defaultModules ++ [
+              home-manager-unstable.nixosModules.home-manager
+              ./users/anon
+              ./systems/amd-server-vm/configuration.nix
+              {
+                # 100G disk;
+                virtualisation.diskSize = 100 * 1024;
+              }
+            ];
+          };
+        }
+      ];
     };
 }
