@@ -32,7 +32,7 @@ in
     environment.systemPackages = with pkgs; [
       getTotalPowerUsed
       watchCurrentPowerUsed
-      powerjoular # monitor power usage
+      (if lib.versionOlder lib.version "25.05" then wget else powerjoular) # monitor power usage
       fzf # fuzzy finder
       bat # fancy cat
       fd # nicer find

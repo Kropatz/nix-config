@@ -57,10 +57,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.home-manager.follows = "home-manager-unstable";
     };
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    #hyprland = {
+    #  url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    #  inputs.nixpkgs.follows = "nixpkgs-unstable";
+    #};
   };
   outputs = { self, nur, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable
     , agenix, home-manager, home-manager-unstable, nix-colors, nixos-cosmic

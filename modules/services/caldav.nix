@@ -29,7 +29,11 @@ in {
     };
 
     systemd.services.kop-fhcalendar = let
-      radicale = config.services.radicale.settings.storage.filesystem_folder;
+      radicale = if lib.versionOlder lib.version "25.05" then
+        (builtins.elemAt
+          config.services.radicale.settings.storage.filesystem_folder 0)
+      else
+        config.services.radicale.settings.storage.filesystem_folder;
       # not reproducible
       working =
         "${radicale}/collection-root/kopatz/b6d2c446-8109-714a-397f-1f35d3136639";

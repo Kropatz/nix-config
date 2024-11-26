@@ -14,4 +14,20 @@
       graphics = true; # Boot the vm in a window.
     };
   };
+  boot = {
+    kernelParams = [ "console=tty0" "console=ttyS0" ];
+    loader.timeout = lib.mkForce 1;
+
+    loader.grub = {
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+      device = "nodev";
+    };
+  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/sda1";
+      fsType = "ext4";
+    };
+  };
 }

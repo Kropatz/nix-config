@@ -2,6 +2,7 @@
 
   imports = [
     ./vm-common.nix
+    (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
     #(modulesPath + "/profiles/minimal.nix")
   ];

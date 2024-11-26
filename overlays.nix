@@ -16,17 +16,17 @@ in {
     #discord = prev.vesktop;
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     nerdfonts = prev.nerdfonts.override { fonts = [ "Hack" "Noto" ]; };
-    hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
-      version = "0.45.0";
+      #hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
+      #  version = "0.45.0";
 
-      src = prev.fetchFromGitHub {
-        owner = "hyprwm";
-        repo = "hyprland";
-        fetchSubmodules = true;
-        rev = "refs/tags/v0.45.0";
-        hash = "sha256-//Ib7gXCA8jq8c+QGTTIO0oH0rUYYBXGp8sqpI1jlhA=";
-      };
-    });
+      #  src = prev.fetchFromGitHub {
+      #    owner = "hyprwm";
+      #    repo = "hyprland";
+      #    fetchSubmodules = true;
+      #    rev = "refs/tags/v0.45.0";
+      #    hash = "sha256-//Ib7gXCA8jq8c+QGTTIO0oH0rUYYBXGp8sqpI1jlhA=";
+      #  };
+      #});
 
     #  mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     #});

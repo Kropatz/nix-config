@@ -56,12 +56,10 @@ in {
       gnomeExtensions.dash2dock-lite
       gnomeExtensions.dash-to-dock
       gnomeExtensions.vitals
-      gnomeExtensions.rounded-window-corners
-      gnomeExtensions.wallpaper-switcher
+      gnomeExtensions.rounded-window-corners-reborn
       gnomeExtensions.backslide
       gnomeExtensions.tray-icons-reloaded
       gnomeExtensions.blur-my-shell
-      gnomeExtensions.material-shell
       gnomeExtensions.paperwm
     ];
   };
