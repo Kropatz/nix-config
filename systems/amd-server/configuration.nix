@@ -8,6 +8,7 @@
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/kernel.nix
+    ../../modules/services/ssh.nix
   ];
 
   custom = {
@@ -62,7 +63,7 @@
 
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager = "xfce4-session";
-  services.xrdp.openFirewall = true;
+  services.xrdp.openFirewall = false;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -87,9 +88,6 @@
     wget
     git
   ];
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
 
   system.stateVersion = "24.05"; # Did you read the comment?
 

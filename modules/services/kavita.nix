@@ -101,6 +101,7 @@ in {
           ${mangal} inline -S Manganato --query "cultivation_chat" --manga first --download
           ${mangal} inline -S Manganato --query "gokushufudo" --manga first --download
           ${mangal} inline -S Manganato --query "slime" --manga first --download
+          ${mangal} inline -S Manganato --query "nano_machine" --manga first --download
         '';
         serviceConfig = {
           PrivateTmp = true;
