@@ -82,6 +82,14 @@
     acceleration = "cuda";
   };
 
+
+  # apple shit
+  services.usbmuxd.enable = true;
+  environment.systemPackages = with pkgs; [
+    libimobiledevice
+    ifuse # optional, to mount using 'ifuse'
+  ];
+
   #nvidida drivers fail to build on new kernel https://github.com/NixOS/nixpkgs/issues/357643
   boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_11;
   nixpkgs.config.permittedInsecurePackages =

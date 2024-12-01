@@ -6,9 +6,9 @@
     # nix user repository
     nur = { url = "github:nix-community/NUR"; };
     ## stable
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-generators = {
@@ -116,7 +116,29 @@
         };
       customPackages = flake-utils.lib.eachDefaultSystem (system: {
         packages =
-          import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
+          import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; }
+          // {
+            "server-vm" = nixos-generators.nixosGenerate {
+              format = "vmware";
+              inherit system;
+              #pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
+              specialArgs = {
+                pkgsVersion = nixpkgs-unstable;
+              } // {
+                inherit inputs outputs;
+              };
+              lib = nixpkgs-unstable.legacyPackages.x86_64-linux.lib;
+              modules = defaultModules ++ [
+                home-manager-unstable.nixosModules.home-manager
+                ./users/anon
+                ./systems/amd-server-vm/configuration.nix
+                {
+                  # 100G disk;
+                  virtualisation.diskSize = 100 * 1024;
+                }
+              ];
+            };
+          };
       });
     in {
       overlays = import ./overlays.nix { inherit inputs; };
@@ -198,30 +220,6 @@
         };
       };
 
-      packages = merge [
-        customPackages.packages
-        {
-          x86_64-linux."server-vm" = nixos-generators.nixosGenerate {
-            format = "vmware";
-            system = "x86_64-linux";
-            #pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
-            specialArgs = {
-              pkgsVersion = nixpkgs-unstable;
-            } // {
-              inherit inputs outputs;
-            };
-            lib = nixpkgs-unstable.legacyPackages.x86_64-linux.lib;
-            modules = defaultModules ++ [
-              home-manager-unstable.nixosModules.home-manager
-              ./users/anon
-              ./systems/amd-server-vm/configuration.nix
-              {
-                # 100G disk;
-                virtualisation.diskSize = 100 * 1024;
-              }
-            ];
-          };
-        }
-      ];
+      packages = customPackages.packages;
     };
 }
