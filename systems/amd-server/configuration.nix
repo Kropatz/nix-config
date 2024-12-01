@@ -14,30 +14,12 @@
     #tmpfs.enable = true;
     nftables.enable = true;
     cli-tools.enable = true;
+    virt-manager.enable = true;
     nix = {
       index.enable = true;
       ld.enable = true;
       settings.enable = true;
     };
-    static-ip = {
-      enable = true;
-      ip = "192.168.0.20";
-      interface = "enp6s0";
-      dns = "192.168.0.10";
-    };
-    #   static-ip = {
-    #     enable = true;
-    #     interface = "enp42s0";
-    #     ip = "192.168.0.11";
-    #     #dns = "127.0.0.1";
-    #     dns = "192.168.10";
-    #     #gateway = "192.168.0.10";
-    #   };
-    # It uses 1.1.1.1 for some reason? set in /etc/dnsmasq-resolv.conf. no idea why
-    #services.dnsmasq = {
-    #  enable = true;
-    #  server = [ "192.168.0.10" ];
-    #};
     services = { syncthing = { enable = true; }; };
     hardware = {
       firmware.enable = true;
@@ -56,30 +38,31 @@
   mainUser.layout = "de";
   mainUser.variant = "us";
 
-  virtualisation.vmware.host.enable = true;
+  networking = {
+    useNetworkd = true; # Ensure networkd is used, as it handles bridging well
+    defaultGateway.interface = "br0"; # Set the default gateway
+    defaultGateway.address = "192.168.0.1";
+    useDHCP = false;
+    nameservers = [ "192.168.0.10" "1.1.1.1" ];
+    interfaces.enp6s0 = {
+      name = "eth0";
+      ipv4.addresses = [];
+    };
 
-  systemd.services.start-vm = {
-    description = "Start VM";
-    wants = [ "network-online.target" ];
-    after =
-      [ "network.target" "network-online.target" "vmware-networks.service" ];
-    wantedBy = [ "multi-user.target" ];
-
-    serviceConfig = {
-      Type = "forking"; # ?????? doesnt work without it, thanks vmware
-      ExecStart = let
-        script = pkgs.writeShellScript "start-vm" ''
-          sleep 10
-          ${pkgs.vmware-workstation}/bin/vmrun start /root/vmware/server/server.vmx nogui
-        '';
-      in "${script}";
-      User = "root";
-      Restart = "on-failure";
-      RestartSec = "5s";
-      ProtectHome = false;
-      ProtectSystem = false;
+    bridges.br0 = {
+      interfaces = [ "eth0" ]; # Add eth0 to the bridge
+    };
+    interfaces.br0 = {
+      ipv4.addresses = [{
+        address = "192.168.0.20";
+        prefixLength = 24;
+      }];
     };
   };
+
+  services.xrdp.enable = true;
+  services.xrdp.defaultWindowManager = "xfce4-session";
+  services.xrdp.openFirewall = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

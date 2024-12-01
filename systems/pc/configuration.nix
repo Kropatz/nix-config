@@ -54,7 +54,7 @@
       audio.enable = true;
       code = {
         enable = true;
-        #android.enable = true;
+        android.enable = true;
       };
       #emulators.enable = true;
       gamemode.enable = true;

@@ -216,7 +216,11 @@
           mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
         # nixos-rebuild switch --flake .#server-vm --target-host root@192.168.0.21 
         "server-vm" = mkHost {
-          modules = [ ./users/anon ./systems/amd-server-vm/configuration.nix ];
+          modules = [
+            ./users/anon
+            ./systems/amd-server-vm/configuration.nix
+            disko.nixosModules.disko
+          ];
         };
       };
 

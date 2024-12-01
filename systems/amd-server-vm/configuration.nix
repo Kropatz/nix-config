@@ -9,6 +9,7 @@
     ../../modules/logging.nix
     ../../modules/motd.nix
     ../../modules/kernel.nix
+    ./disk-config.nix
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
@@ -100,15 +101,15 @@
   services.xserver.videoDrivers = [ "vmware" ];
 
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
-    options = [ "defaults" "noatime" ];
-  };
-  fileSystems."/boot" =
-  { device = "/dev/disk/by-label/ESP";
-      fsType = "vfat";
-  };
+  #fileSystems."/" = {
+  #  device = "/dev/disk/by-label/nixos";
+  #  fsType = "ext4";
+  #  options = [ "defaults" "noatime" ];
+  #};
+  #fileSystems."/boot" =
+  #{ device = "/dev/disk/by-label/ESP";
+  #    fsType = "vfat";
+  #};
   fileSystems."/data" = {
     device = "/dev/disk/by-uuid/d117419d-fce9-4d52-85c7-e3481feaa22a";
     fsType = "btrfs";
