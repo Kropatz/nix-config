@@ -44,7 +44,7 @@ in {
       wmctrl
       rofi-wayland
       gnome.mutter
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
       gnome.gnome-settings-daemon
       gnome.gnome-tweaks
       gnome.dconf-editor

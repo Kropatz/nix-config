@@ -29,9 +29,7 @@ in {
   };
 
   # https://danth.github.io/stylix/options/nixos.html
-  config =
-    let nerdfonts = pkgs.nerdfonts.override { fonts = [ "Hack" "Noto" ]; };
-    in lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
       home-manager = {
         users.${config.mainUser.name}.stylix = {
@@ -72,7 +70,7 @@ in {
             terminal = 12;
           };
           monospace = {
-            package = nerdfonts;
+            package = pkgs.nerd-fonts.hack;
             name = "Hack";
           };
         };

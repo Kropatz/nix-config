@@ -17,7 +17,8 @@ in {
     fonts.packages = with pkgs; [
       #uw-ttyp0
       #corefonts
-      nerdfonts # noto and hack
+      nerd-fonts.noto
+      nerd-fonts.hack
       #noto-fonts
       #noto-fonts-emoji
       noto-fonts-cjk-sans
@@ -88,7 +89,7 @@ in {
       xarchiver # archive tool
       ani-cli
       mangal
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
     ];
   };
 }
