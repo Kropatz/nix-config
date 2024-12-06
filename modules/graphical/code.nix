@@ -12,7 +12,6 @@ in
     documentation.dev.enable = true;
     environment.systemPackages = with pkgs; [
       man-pages
-      kate
       jetbrains.idea-ultimate
       typescript
       #jetbrains.clion

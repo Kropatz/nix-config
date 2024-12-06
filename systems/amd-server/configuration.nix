@@ -40,19 +40,11 @@
   mainUser.variant = "us";
 
   networking = {
-    useNetworkd = true; # Ensure networkd is used, as it handles bridging well
-    defaultGateway.interface = "br0"; # Set the default gateway
-    defaultGateway.address = "192.168.0.1";
     useDHCP = false;
+    defaultGateway.address = "192.168.0.1";
     nameservers = [ "192.168.0.10" "1.1.1.1" ];
-    interfaces.enp6s0 = {
-      name = "eth0";
-      ipv4.addresses = [];
-    };
 
-    bridges.br0 = {
-      interfaces = [ "eth0" ]; # Add eth0 to the bridge
-    };
+    bridges.br0 = { interfaces = [ "enp6s0" ]; };
     interfaces.br0 = {
       ipv4.addresses = [{
         address = "192.168.0.20";

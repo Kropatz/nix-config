@@ -65,7 +65,7 @@ in {
     environment.systemPackages = with pkgs; [
       keepassxc
       discord
-      vesktop
+        #vesktop
       gvfs
       remmina
       thunderbird
@@ -83,7 +83,7 @@ in {
       pinta # paint
       #qalculate-qt # calculator TODO build broken
       #libsForQt5.kcalc
-      syncthingtray #doesnt work with socket yet
+        #syncthingtray #doesnt work with socket yet
       v4l-utils
       logseq # notes
       xarchiver # archive tool
