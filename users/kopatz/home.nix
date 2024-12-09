@@ -51,7 +51,7 @@
   };
 
   programs.newsboat = {
-    enable = true;
+    enable = false;
     extraConfig = ''
       bind-key j down
       bind-key k up
