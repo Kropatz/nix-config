@@ -74,6 +74,7 @@
       #gnome.enable = true;
       #cosmic.enable = true;
       shared.enable = true;
+      basics.enable = true;
       stylix.enable = true;
     };
   };

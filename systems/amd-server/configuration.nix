@@ -34,6 +34,8 @@
       i3.enable = true;
       xfce.enable = true;
       shared.enable = true;
+      games.enable = true;
+      basics.enable = true;
     };
   };
   mainUser.layout = "de";

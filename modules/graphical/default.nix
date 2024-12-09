@@ -26,5 +26,6 @@
     ./shared.nix
     ./nightlight.nix
     ./xfce.nix
+    ./basics.nix
   ];
 }

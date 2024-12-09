@@ -19,8 +19,8 @@ in {
     };
     environment.systemPackages = [ pkgs.mangohud ]
       ++ optionals cfg.enablePreinstalled (with pkgs; [
-        taisei
-        osu-lazer-bin
+        #taisei
+        #osu-lazer-bin
         wineWowPackages.unstableFull
         winetricks
         lutris

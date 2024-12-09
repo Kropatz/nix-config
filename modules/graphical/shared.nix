@@ -64,31 +64,9 @@ in {
     # $ nix search wget
     environment.systemPackages = with pkgs; [
       keepassxc
-      discord
-        #vesktop
-      gvfs
-      remmina
-      thunderbird
-      localsend
-      #element-desktop
-      krita
-      libreoffice
       screenshot
-      #anki TODO broken because pyqt6 build fails
-      p7zip
-      qbittorrent
-      brightnessctl
-      #wacomtablet
       wl-clipboard
-      pinta # paint
-      #qalculate-qt # calculator TODO build broken
-      #libsForQt5.kcalc
-        #syncthingtray #doesnt work with socket yet
-      v4l-utils
-      logseq # notes
       xarchiver # archive tool
-      ani-cli
-      mangal
       adwaita-icon-theme
     ];
   };
