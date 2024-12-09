@@ -10,6 +10,7 @@
 	#<home-manager/nixos>
     ];
 
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
 
   services.blueman.enable = true;
 
