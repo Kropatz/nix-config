@@ -57,7 +57,6 @@
         android.enable = true;
       };
       #emulators.enable = true;
-      gamemode.enable = true;
       games = {
         enable = true;
         enablePreinstalled = true;

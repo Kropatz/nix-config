@@ -10,7 +10,6 @@
     ./awesome.nix
     ./emulators.nix
     ./i3.nix
-    ./gamemode.nix
     ./games.nix
     ./gnome.nix
     ./gnome-settings.nix

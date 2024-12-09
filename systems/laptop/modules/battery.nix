@@ -6,7 +6,7 @@
   services.system76-scheduler.settings.cfsProfiles.enable = true;
 
   services.upower.enable = true;
-  environment.systemPackages = with pkgs; [ gnome.gnome-power-manager ];
+  environment.systemPackages = with pkgs; [ gnome-power-manager ];
 
   # Enable TLP (better than gnomes internal power manager)
   services.tlp = {

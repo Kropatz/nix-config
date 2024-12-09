@@ -222,6 +222,12 @@
             disko.nixosModules.disko
           ];
         };
+        "portable-ssd" = mkHost {
+          modules = [
+            ./users/kopatz
+            ./systems/portable-ssd/configuration.nix
+          ];
+        };
       };
 
       packages = customPackages.packages;

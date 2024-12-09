@@ -17,6 +17,13 @@ in {
       gamescopeSession.enable = true;
       extraCompatPackages = with pkgs; [ proton-ge-bin ];
     };
+    programs.gamemode = {
+      enable = true;
+      settings.custom = {
+        start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
+        end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+      };
+    };
     environment.systemPackages = [ pkgs.mangohud ]
       ++ optionals cfg.enablePreinstalled (with pkgs; [
         #taisei

@@ -1,5 +1,6 @@
 { pkgs, config, ... }: {
   imports = [
+    ./amd-gpu.nix
     ./android.nix
     ./firmware.nix
     ./nvidia.nix

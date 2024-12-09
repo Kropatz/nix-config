@@ -24,9 +24,8 @@ in {
     environment.gnome.excludePackages = (with pkgs; [
       gnome-photos
       gnome-tour
+      cheese
       gedit # text editor
-    ]) ++ (with pkgs.gnome; [
-      cheese # webcam tool
       gnome-music
       gnome-terminal
       epiphany # web browser
@@ -43,11 +42,11 @@ in {
     environment.systemPackages = with pkgs; [
       wmctrl
       rofi-wayland
-      gnome.mutter
+      mutter
       adwaita-icon-theme
-      gnome.gnome-settings-daemon
-      gnome.gnome-tweaks
-      gnome.dconf-editor
+      gnome-settings-daemon
+      gnome-tweaks
+      dconf-editor
       #gruvbox-gtk-theme
       colloid-icon-theme
       gnomeExtensions.appindicator

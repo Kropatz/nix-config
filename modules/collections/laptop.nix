@@ -33,7 +33,6 @@
         #android.enable = true;
       };
       #emulators.enable = true;
-      gamemode.enable = true;
       gnome.enable = true;
       hyprland.enable = true;
       #games.enable = true;
