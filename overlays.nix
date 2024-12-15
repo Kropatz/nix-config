@@ -15,17 +15,16 @@ in {
     discord = prev.discord-canary.override { withVencord = true; };
     #discord = prev.vesktop;
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
-      #hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
-      #  version = "0.45.0";
-
-      #  src = prev.fetchFromGitHub {
-      #    owner = "hyprwm";
-      #    repo = "hyprland";
-      #    fetchSubmodules = true;
-      #    rev = "refs/tags/v0.45.0";
-      #    hash = "sha256-//Ib7gXCA8jq8c+QGTTIO0oH0rUYYBXGp8sqpI1jlhA=";
-      #  };
-      #});
+    #hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
+    #  version = "0.45.0";
+    #  src = prev.fetchFromGitHub {
+    #    owner = "hyprwm";
+    #    repo = "hyprland";
+    #    fetchSubmodules = true;
+    #    rev = "refs/tags/v0.45.0";
+    #    hash = "sha256-//Ib7gXCA8jq8c+QGTTIO0oH0rUYYBXGp8sqpI1jlhA=";
+    #  };
+    #});
 
     #  mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     #});

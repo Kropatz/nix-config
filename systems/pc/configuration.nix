@@ -2,12 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, inputs, ... }: {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/flatpak.nix
     ../../modules/gpg.nix
-    ../../modules/kernel.nix # use latest kernel
+    ../../modules/xanmod-kernel.nix
+    #../../modules/kernel.nix
     ../../modules/services/syncthing.nix
     ../../modules/support/ntfs.nix
   ];
@@ -81,7 +82,7 @@
     enable = false;
     acceleration = "cuda";
   };
-
+  virtualisation.waydroid.enable = true;
 
   # apple shit
   services.usbmuxd.enable = true;
@@ -90,8 +91,7 @@
     ifuse # optional, to mount using 'ifuse'
   ];
 
-  nixpkgs.config.permittedInsecurePackages =
-    [ "electron-27.3.11" ];
+  nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
 
   networking.firewall.allowedTCPPorts = [ 6567 ]; # mindustry
   networking.firewall.allowedUDPPorts = [ 6567 ]; # mindustry

@@ -97,6 +97,14 @@ in {
                 return 301 /comms/;
               '';
             };
+            "/kavita-client" = {
+              extraConfig = ''
+                return 301 /kavita-client/;
+              '';
+            };
+            "/kavita-client/" = {
+              alias = "/kavita-client/";
+            };
           };
         };
       in {

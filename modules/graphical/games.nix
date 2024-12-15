@@ -32,6 +32,7 @@ in {
         winetricks
         lutris
         prismlauncher
+        steamtinkerlaunch
         #tetrio-desktop #fuck you osk
         #libs
       ]);
