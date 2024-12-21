@@ -26,5 +26,6 @@
     ./nightlight.nix
     ./xfce.nix
     ./basics.nix
+    ./sway.nix
   ];
 }

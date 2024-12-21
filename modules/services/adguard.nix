@@ -60,7 +60,6 @@ in {
           filtering_enabled = true;
           upstream_dns = [
             "https://dns10.quad9.net/dns-query"
-            "https://doh.tiar.app/dns-query"
             "https://dns.adguard-dns.com/dns-query"
           ];
           use_http3_upstreams = true;

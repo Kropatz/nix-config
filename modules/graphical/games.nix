@@ -5,6 +5,7 @@ in {
   options.custom.graphical.games = {
     enable = mkEnableOption "Enables games";
     enablePreinstalled = mkEnableOption "Enables preinstalled games";
+    enableVr = mkEnableOption "Enables VR support";
   };
 
   config = mkIf cfg.enable {
@@ -24,6 +25,11 @@ in {
         end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
       };
     };
+    nixpkgs.config.permittedInsecurePackages = [
+      "dotnet-runtime-wrapped-7.0.20"
+      "dotnet-runtime-wrapped-7.0.20"
+      "dotnet-runtime-wrapped-7.0.20"
+    ];
     environment.systemPackages = [ pkgs.mangohud ]
       ++ optionals cfg.enablePreinstalled (with pkgs; [
         #taisei
@@ -35,6 +41,7 @@ in {
         steamtinkerlaunch
         #tetrio-desktop #fuck you osk
         #libs
-      ]);
+      ]) ++ optionals cfg.enableVr (with pkgs; [ beatsabermodmanager ]);
+
   };
 }
