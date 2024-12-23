@@ -102,6 +102,10 @@ in {
           ${mangal} inline -S Manganato --query "gokushufudo" --manga first --download
           ${mangal} inline -S Manganato --query "slime" --manga first --download
           ${mangal} inline -S Manganato --query "nano_machine" --manga first --download
+          ${mangal} inline -S Manganato --query "kill_the_hero" --manga first --download
+          ${mangal} inline -S Manganato --query "Seoul_Station_Necromancer" --manga first --download
+          ${mangal} inline -S Manganato --query "grandmaster_of_demonic" --manga first --download
+          ${mangal} inline -S Manganato --query "becoming_the_monarch" --manga first --download
         '';
         serviceConfig = {
           PrivateTmp = true;
