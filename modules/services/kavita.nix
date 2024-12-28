@@ -26,7 +26,7 @@ in {
     useStepCa = false; # config.services.step-ca.enable;
     useHttps = cfg.https;
     baseDir = cfg.dir;
-    mangal = "${pkgs.mangal}/bin/mangal";
+    mangal = "${pkgs.mangal-patched}/bin/mangal";
     githubRunnerEnabled = config.services.github-runners ? oberprofis.enable;
   in lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 5000 ];

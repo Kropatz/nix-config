@@ -11,3 +11,18 @@ index e7d0c62..7af6542 100644
  		return fmt.Sprintf(template, query)
  	},
  	MangaExtractor: &generic.Extractor{
+diff --git a/inline/inline.go b/inline/inline.go
+index 26ad0c6..dc02fda 100644
+--- a/inline/inline.go
++++ b/inline/inline.go
+@@ -131,6 +132,10 @@ func Run(options *Options) (err error) {
+ 			if err != nil {
+ 				log.Warn(err)
+ 			}
++			// free memory after downloading
++			for _, page := range chapter.Pages {
++				page.Contents = nil
++			}
+ 		} else {
+ 			err := downloader.Read(chapter, func(string) {})
+ 			if err != nil {

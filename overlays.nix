@@ -53,7 +53,6 @@ in {
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
-    mangal = addPatches prev.mangal [ ./pkgs/patches/mangal.diff ];
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

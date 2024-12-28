@@ -29,7 +29,7 @@ in {
       v4l-utils
       logseq # notes
       ani-cli
-      mangal
+      mangal-patched
     ];
   };
 }
