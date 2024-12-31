@@ -5,6 +5,7 @@ in {
     stylix = {
       enable = true;
       targets = {
+        hyprlock.enable = false;
         hyprland.enable = false;
         waybar.enable = false;
       };

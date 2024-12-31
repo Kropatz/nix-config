@@ -1,16 +1,13 @@
-{ rustPlatform
-, lib
-, pkgs
-, ...
-}:
+{ rustPlatform, lib, pkgs, ... }:
 rustPlatform.buildRustPackage {
   pname = "kop-newproject";
   version = "1.0.0";
 
-  src = fetchGit {
-    url = "git@github.com:kropatz/kop-newproject.git";
-    ref = "master";
-    rev = "b52483c933495715f7ea1530cdd9cfcff6d9c4d8";
+  src = pkgs.fetchFromGitHub {
+    owner = "Kropatz";
+    repo = "kop-newproject";
+    rev = "0c1e64c0ab8d5b81a12562665b903240a02e315a";
+    hash = "sha256-Va6q9aDbX5Kag96WK1XAhDMb7VDzZzfp24t89C9oRuY=";
   };
 
   cargoHash = "sha256-FR4H3H+LOF0ZjWIoY5dTU9oKyvwmnWndnkVw3Y42bBg=";

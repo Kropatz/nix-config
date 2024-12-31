@@ -1,38 +1,37 @@
-{lib,  config, pkgs, inputs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 with lib;
-let
-  cfg = config.custom.cli-tools;
-in
-{
-  options.custom.cli-tools = {
-    enable = mkEnableOption "Enables cli-tools";
-  };
-  
-  config = let 
-      getTotalPowerUsed = pkgs.writeShellScriptBin "total-power" ''
-        echo "$(sudo cat /sys/class/powercap/*/energy_uj | awk 'BEGIN { sum = 0; } { sum += $1; } END { print sum; }' "$@") / 1000000" | bc | xargs -I _ echo "_ W"
-      '';
-      watchCurrentPowerUsed = pkgs.writeShellScriptBin "watch-current-power" ''
-        function getCurrentPowerUsed() {
-          local energy_uj=$(sudo cat $energy_path | awk 'BEGIN { sum = 0; } { sum += $1; } END { print sum; }' "$@")
-          echo "scale=2; $energy_uj / 1000000" | bc
-        }
+let cfg = config.custom.cli-tools;
+in {
+  options.custom.cli-tools = { enable = mkEnableOption "Enables cli-tools"; };
 
-        energy_path=$(grep package /sys/class/powercap/*/name | sed 's/name.*$/energy_uj/')
-        power_prev=0
+  config = let
+    getTotalPowerUsed = pkgs.writeShellScriptBin "total-power" ''
+      echo "$(sudo cat /sys/class/powercap/*/energy_uj | awk 'BEGIN { sum = 0; } { sum += $1; } END { print sum; }' "$@") / 1000000" | bc | xargs -I _ echo "_ W"
+    '';
+    watchCurrentPowerUsed = pkgs.writeShellScriptBin "watch-current-power" ''
+      function getCurrentPowerUsed() {
+        local energy_uj=$(sudo cat $energy_path | awk 'BEGIN { sum = 0; } { sum += $1; } END { print sum; }' "$@")
+        echo "scale=2; $energy_uj / 1000000" | bc
+      }
+
+      energy_path=$(grep package /sys/class/powercap/*/name | sed 's/name.*$/energy_uj/')
+      power_prev=0
+      power_curr=$(getCurrentPowerUsed)
+      while true; do
+        power_prev=$power_curr
+        sleep 1
         power_curr=$(getCurrentPowerUsed)
-        while true; do
-          power_prev=$power_curr
-          sleep 1
-          power_curr=$(getCurrentPowerUsed)
-          echo "scale=2; ($power_curr - $power_prev) / 1" | bc | xargs -I _ echo "_ W"
-        done
-      '';
-    in mkIf cfg.enable {
+        echo "scale=2; ($power_curr - $power_prev) / 1" | bc | xargs -I _ echo "_ W"
+      done
+    '';
+  in mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       getTotalPowerUsed
       watchCurrentPowerUsed
-      (if lib.versionOlder lib.version "25.05" then wget else powerjoular) # monitor power usage
+      (if lib.versionOlder lib.version "25.05" then
+        wget
+      else
+        powerjoular) # monitor power usage
       fzf # fuzzy finder
       bat # fancy cat
       fd # nicer find
@@ -42,11 +41,11 @@ in
       gdu
       wget
       pciutils
-      rippkgs # faster nixpkgs search, init with `rippkgs-index nixpkgs && mv rippkgs-index.sqlite ~/.local/share/`; 
+      rippkgs # faster nixpkgs search, init with `rippkgs-index nixpkgs && mv rippkgs-index.sqlite ~/.local/share/`;
       nixos-option
       btop
       git
-      gh #github
+      gh # github
       killall
       xclip
       usbutils
@@ -75,12 +74,12 @@ in
       compsize
       trashy # move files to trash
       shell-gpt
-      libheif #convert heic to jpg with `heif-convert something.heic something.jpg` 
-      imagemagick #convert images
+      libheif # convert heic to jpg with `heif-convert something.heic something.jpg`
+      imagemagick # convert images
       tree
-        #kop-newproject # creates a shell.nix and .envrc
+      kop-newproject # creates a shell.nix and .envrc
       nix-tree # show nix derivations
+      binwalk # show what's inside a binary
     ];
   };
 }
-

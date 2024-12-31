@@ -36,6 +36,8 @@ in {
     hardware.nvidia = {
       # Modesetting is required.
       modesetting.enable = true;
+      # Stutters in VR - https://github.com/ValveSoftware/SteamVR-for-Linux/issues/631
+      gsp.enable = false;
       # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
       powerManagement.enable = false;
       # Fine-grained power management. Turns off GPU when not in use.
@@ -47,8 +49,8 @@ in {
       # supported GPUs is at: 
       # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
       # Only available from driver 515.43.04+
-      # Currently alpha-quality/buggy, so false is currently the recommended setting.
-      open = true;
+      # GSP must be enabled for this to work.
+      open = false;
       # Enable the Nvidia settings menu,
       # accessible via `nvidia-settings`.
       nvidiaSettings = true;

@@ -22,7 +22,7 @@ in {
         # See https://wiki.hyprland.org/Configuring/Monitors/
         monitor = if isPc then [
           "HDMI-A-1,1920x1080@60,0x0,1"
-          "DP-1,2560x1440@165,1920x0,1"
+          "DP-1,2560x1440@150,1920x0,1"
           "Unknown-1,disable"
         ] else if isLaptop then [
           # laptop
