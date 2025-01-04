@@ -106,6 +106,10 @@ in {
           ${mangal} inline -S Manganato --query "Seoul_Station_Necromancer" --manga first --download
           ${mangal} inline -S Manganato --query "grandmaster_of_demonic" --manga first --download
           ${mangal} inline -S Manganato --query "becoming_the_monarch" --manga first --download
+          ${mangal} inline -S Manganato --query "sleeping" --manga first --download
+          ${mangal} inline -S Manganato --query "Terror_man" --manga first --download
+          ${mangal} inline -S Manganato --query "I_Stole_the_Number_One_Ranker" --manga first --download
+          ${mangal} inline -S Manganato --query "hidan_no_aria" --manga first --download
         '';
         serviceConfig = {
           PrivateTmp = true;

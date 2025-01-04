@@ -1,37 +1,402 @@
 diff --git a/API.Tests/Parsing/MangaParsingTests.cs b/API.Tests/Parsing/MangaParsingTests.cs
-index 64d303f4..db1ed1e4 100644
+index a975cc7e..d63498f6 100644
 --- a/API.Tests/Parsing/MangaParsingTests.cs
 +++ b/API.Tests/Parsing/MangaParsingTests.cs
-@@ -84,6 +84,8 @@ public class MangaParsingTests
-     [InlineData("Accel World Chapter 001 Volume 002", "2")]
-     [InlineData("Accel World Volume 2", "2")]
-     [InlineData("Nagasarete Airantou - Vol. 30 Ch. 187.5 - Vol.31 Omake", "30")]
+@@ -14,203 +14,208 @@ public class MangaParsingTests
+     }
+ 
+     [Theory]
+-    [InlineData("Killing Bites Vol. 0001 Ch. 0001 - Galactica Scanlations (gb)", "1")]
+-    [InlineData("My Girlfriend Is Shobitch v01 - ch. 09 - pg. 008.png", "1")]
+-    [InlineData("Historys Strongest Disciple Kenichi_v11_c90-98.zip", "11")]
+-    [InlineData("B_Gata_H_Kei_v01[SlowManga&OverloadScans]", "1")]
+-    [InlineData("BTOOOM! v01 (2013) (Digital) (Shadowcat-Empire)", "1")]
+-    [InlineData("Gokukoku no Brynhildr - c001-008 (v01) [TrinityBAKumA]", "1")]
+-    [InlineData("Dance in the Vampire Bund v16-17 (Digital) (NiceDragon)", "16-17")]
+-    [InlineData("Akame ga KILL! ZERO v01 (2016) (Digital) (LuCaZ).cbz", "1")]
+-    [InlineData("v001", "1")]
+-    [InlineData("Vol 1", "1")]
+-    [InlineData("vol_356-1", "356")] // Mangapy syntax
++    [InlineData("Killing Bites Vol. 0001 Ch. 0001 - Galactica Scanlations (gb)", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("My Girlfriend Is Shobitch v01 - ch. 09 - pg. 008.png", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Historys Strongest Disciple Kenichi_v11_c90-98.zip", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("B_Gata_H_Kei_v01[SlowManga&OverloadScans]", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("BTOOOM! v01 (2013) (Digital) (Shadowcat-Empire)", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Gokukoku no Brynhildr - c001-008 (v01) [TrinityBAKumA]", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Dance in the Vampire Bund v16-17 (Digital) (NiceDragon)", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Akame ga KILL! ZERO v01 (2016) (Digital) (LuCaZ).cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("v001", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Vol 1", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("vol_356-1", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)] // Mangapy syntax
+     [InlineData("No Volume", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+-    [InlineData("U12 (Under 12) Vol. 0001 Ch. 0001 - Reiwa Scans (gb)", "1")]
+-    [InlineData("[Suihei Kiki]_Kasumi_Otoko_no_Ko_[Taruby]_v1.1.zip", "1.1")]
+-    [InlineData("Tonikaku Cawaii [Volume 11].cbz", "11")]
+-    [InlineData("[WS]_Ichiban_Ushiro_no_Daimaou_v02_ch10.zip", "2")]
+-    [InlineData("[xPearse] Kyochuu Rettou Volume 1 [English] [Manga] [Volume Scans]", "1")]
+-    [InlineData("Tower Of God S01 014 (CBT) (digital).cbz", "1")]
+-    [InlineData("Tenjou_Tenge_v17_c100[MT].zip", "17")]
+-    [InlineData("Shimoneta - Manmaru Hen - c001-006 (v01) [Various].zip", "1")]
+-    [InlineData("Future Diary v02 (2009) (Digital) (Viz).cbz", "2")]
+-    [InlineData("Mujaki no Rakuen Vol12 ch76", "12")]
+-    [InlineData("Ichinensei_ni_Nacchattara_v02_ch11_[Taruby]_v1.3.zip", "2")]
+-    [InlineData("Dorohedoro v01 (2010) (Digital) (LostNerevarine-Empire).cbz", "1")]
+-    [InlineData("Dorohedoro v11 (2013) (Digital) (LostNerevarine-Empire).cbz", "11")]
+-    [InlineData("Yumekui_Merry_v01_c01[Bakayarou-Kuu].rar", "1")]
++    [InlineData("U12 (Under 12) Vol. 0001 Ch. 0001 - Reiwa Scans (gb)", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("[Suihei Kiki]_Kasumi_Otoko_no_Ko_[Taruby]_v1.1.zip", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Tonikaku Cawaii [Volume 11].cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("[WS]_Ichiban_Ushiro_no_Daimaou_v02_ch10.zip", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("[xPearse] Kyochuu Rettou Volume 1 [English] [Manga] [Volume Scans]", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Tower Of God S01 014 (CBT) (digital).cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Tenjou_Tenge_v17_c100[MT].zip", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Shimoneta - Manmaru Hen - c001-006 (v01) [Various].zip", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Future Diary v02 (2009) (Digital) (Viz).cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Mujaki no Rakuen Vol12 ch76", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Ichinensei_ni_Nacchattara_v02_ch11_[Taruby]_v1.3.zip", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Dorohedoro v01 (2010) (Digital) (LostNerevarine-Empire).cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Dorohedoro v11 (2013) (Digital) (LostNerevarine-Empire).cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Yumekui_Merry_v01_c01[Bakayarou-Kuu].rar", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+     [InlineData("Yumekui-Merry_DKThias_Chapter11v2.zip", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+-    [InlineData("Itoshi no Karin - c001-006x1 (v01) [Renzokusei Scans]", "1")]
++    [InlineData("Itoshi no Karin - c001-006x1 (v01) [Renzokusei Scans]", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+     [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 12", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+-    [InlineData("VanDread-v01-c001[MD].zip", "1")]
+-    [InlineData("Ichiban_Ushiro_no_Daimaou_v04_ch27_[VISCANS].zip", "4")]
+-    [InlineData("Mob Psycho 100 v02 (2019) (Digital) (Shizu).cbz", "2")]
+-    [InlineData("Kodomo no Jikan vol. 1.cbz", "1")]
+-    [InlineData("Kodomo no Jikan vol. 10.cbz", "10")]
++    [InlineData("VanDread-v01-c001[MD].zip", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Ichiban_Ushiro_no_Daimaou_v04_ch27_[VISCANS].zip", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Mob Psycho 100 v02 (2019) (Digital) (Shizu).cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Kodomo no Jikan vol. 1.cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Kodomo no Jikan vol. 10.cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+     [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 12 [Dametrans][v2]", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+-    [InlineData("Vagabond_v03", "3")]
+-    [InlineData("Mujaki No Rakune Volume 10.cbz", "10")]
++    [InlineData("Vagabond_v03", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Mujaki No Rakune Volume 10.cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+     [InlineData("Umineko no Naku Koro ni - Episode 3 - Banquet of the Golden Witch #02.cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+-    [InlineData("Volume 12 - Janken Boy is Coming!.cbz", "12")]
+-    [InlineData("[dmntsf.net] One Piece - Digital Colored Comics Vol. 20 Ch. 177 - 30 Million vs 81 Million.cbz", "20")]
+-    [InlineData("Gantz.V26.cbz", "26")]
+-    [InlineData("NEEDLESS_Vol.4_-Simeon_6_v2[SugoiSugoi].rar", "4")]
+-    [InlineData("[Hidoi]_Amaenaideyo_MS_vol01_chp02.rar", "1")]
+-    [InlineData("NEEDLESS_Vol.4_-_Simeon_6_v2_[SugoiSugoi].rar", "4")]
+-    [InlineData("Okusama wa Shougakusei c003 (v01) [bokuwaNEET]", "1")]
+-    [InlineData("Sword Art Online Vol 10 - Alicization Running [Yen Press] [LuCaZ] {r2}.epub", "10")]
++    [InlineData("Volume 12 - Janken Boy is Coming!.cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("[dmntsf.net] One Piece - Digital Colored Comics Vol. 20 Ch. 177 - 30 Million vs 81 Million.cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Gantz.V26.cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("NEEDLESS_Vol.4_-Simeon_6_v2[SugoiSugoi].rar", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("[Hidoi]_Amaenaideyo_MS_vol01_chp02.rar", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("NEEDLESS_Vol.4_-_Simeon_6_v2_[SugoiSugoi].rar", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Okusama wa Shougakusei c003 (v01) [bokuwaNEET]", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Sword Art Online Vol 10 - Alicization Running [Yen Press] [LuCaZ] {r2}.epub", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+     [InlineData("Noblesse - Episode 406 (52 Pages).7z", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+-    [InlineData("X-Men v1 #201 (September 2007).cbz", "1")]
+-    [InlineData("Hentai Ouji to Warawanai Neko. - Vol. 06 Ch. 034.5", "6")]
+-    [InlineData("The 100 Girlfriends Who Really, Really, Really, Really, Really Love You - Vol. 03 Ch. 023.5 - Volume 3 Extras.cbz", "3")]
+-    [InlineData("The 100 Girlfriends Who Really, Really, Really, Really, Really Love You - Vol. 03.5 Ch. 023.5 - Volume 3 Extras.cbz", "3.5")]
+-    [InlineData("幽游白书完全版 第03卷 天下", "3")]
+-    [InlineData("阿衰online 第1册", "1")]
+-    [InlineData("【TFO汉化&Petit汉化】迷你偶像漫画卷2第25话", "2")]
+-    [InlineData("スライム倒して300年、知らないうちにレベルMAXになってました 1巻", "1")]
+-    [InlineData("スライム倒して300年、知らないうちにレベルMAXになってました 1-3巻", "1-3")]
+-    [InlineData("Dance in the Vampire Bund {Special Edition} v03.5 (2019) (Digital) (KG Manga)", "3.5")]
+-    [InlineData("Kebab Том 1 Глава 3", "1")]
++    [InlineData("X-Men v1 #201 (September 2007).cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Hentai Ouji to Warawanai Neko. - Vol. 06 Ch. 034.5", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("The 100 Girlfriends Who Really, Really, Really, Really, Really Love You - Vol. 03 Ch. 023.5 - Volume 3 Extras.cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("The 100 Girlfriends Who Really, Really, Really, Really, Really Love You - Vol. 03.5 Ch. 023.5 - Volume 3 Extras.cbz", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("幽游白书完全版 第03卷 天下", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("阿衰online 第1册", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("【TFO汉化&Petit汉化】迷你偶像漫画卷2第25话", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("スライム倒して300年、知らないうちにレベルMAXになってました 1巻", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("スライム倒して300年、知らないうちにレベルMAXになってました 1-3巻", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Dance in the Vampire Bund {Special Edition} v03.5 (2019) (Digital) (KG Manga)", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Kebab Том 1 Глава 3", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+     [InlineData("Манга Глава 2", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
+-    [InlineData("Манга Тома 1-4", "1-4")]
+-    [InlineData("Манга Том 1-4", "1-4")]
+-    [InlineData("조선왕조실톡 106화", "106")]
+-    [InlineData("죽음 13회", "13")]
+-    [InlineData("동의보감 13장", "13")]
+-    [InlineData("몰?루 아카이브 7.5권", "7.5")]
+-    [InlineData("63권#200", "63")]
+-    [InlineData("시즌34삽화2", "34")]
+-    [InlineData("Accel World Chapter 001 Volume 002", "2")]
+-    [InlineData("Accel World Volume 2", "2")]
+-    [InlineData("Nagasarete Airantou - Vol. 30 Ch. 187.5 - Vol.31 Omake", "30")]
++    [InlineData("Манга Тома 1-4", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Манга Том 1-4", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("조선왕조실톡 106화", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("죽음 13회", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("동의보감 13장", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("몰?루 아카이브 7.5권", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("63권#200", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("시즌34삽화2", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Accel World Chapter 001 Volume 002", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Accel World Volume 2", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
++    [InlineData("Nagasarete Airantou - Vol. 30 Ch. 187.5 - Vol.31 Omake", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
 +    [InlineData("[0001]_Chapter_1.pdf", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
 +    [InlineData("[0112]_Chapter_110.2.pdf", API.Services.Tasks.Scanner.Parser.Parser.LooseLeafVolume)]
      public void ParseVolumeTest(string filename, string expected)
      {
          Assert.Equal(expected, API.Services.Tasks.Scanner.Parser.Parser.ParseVolume(filename, LibraryType.Manga));
-@@ -212,6 +214,8 @@ public class MangaParsingTests
-     [InlineData("หนึ่งความคิด นิจนิรันดร์ เล่ม 2", "หนึ่งความคิด นิจนิรันดร์")]
-     [InlineData("不安の種\uff0b - 01", "不安の種\uff0b")]
-     [InlineData("Giant Ojou-sama - Ch. 33.5 - Volume 04 Bonus Chapter", "Giant Ojou-sama")]
+     }
+ 
+     [Theory]
+-    [InlineData("Killing Bites Vol. 0001 Ch. 0001 - Galactica Scanlations (gb)", "Killing Bites")]
+-    [InlineData("My Girlfriend Is Shobitch v01 - ch. 09 - pg. 008.png", "My Girlfriend Is Shobitch")]
+-    [InlineData("Historys Strongest Disciple Kenichi_v11_c90-98.zip", "Historys Strongest Disciple Kenichi")]
+-    [InlineData("B_Gata_H_Kei_v01[SlowManga&OverloadScans]", "B Gata H Kei")]
+-    [InlineData("BTOOOM! v01 (2013) (Digital) (Shadowcat-Empire)", "BTOOOM!")]
+-    [InlineData("Gokukoku no Brynhildr - c001-008 (v01) [TrinityBAKumA]", "Gokukoku no Brynhildr")]
+-    [InlineData("Dance in the Vampire Bund v16-17 (Digital) (NiceDragon)", "Dance in the Vampire Bund")]
++    [InlineData("Killing Bites Vol. 0001 Ch. 0001 - Galactica Scanlations (gb)", "")]
++    [InlineData("My Girlfriend Is Shobitch v01 - ch. 09 - pg. 008.png", "")]
++    [InlineData("Historys Strongest Disciple Kenichi_v11_c90-98.zip", "")]
++    [InlineData("B_Gata_H_Kei_v01[SlowManga&OverloadScans]", "")]
++    [InlineData("BTOOOM! v01 (2013) (Digital) (Shadowcat-Empire)", "")]
++    [InlineData("Gokukoku no Brynhildr - c001-008 (v01) [TrinityBAKumA]", "")]
++    [InlineData("Dance in the Vampire Bund v16-17 (Digital) (NiceDragon)", "")]
+     [InlineData("v001", "")]
+-    [InlineData("U12 (Under 12) Vol. 0001 Ch. 0001 - Reiwa Scans (gb)", "U12")]
+-    [InlineData("Akame ga KILL! ZERO (2016-2019) (Digital) (LuCaZ)", "Akame ga KILL! ZERO")]
+-    [InlineData("APOSIMZ 017 (2018) (Digital) (danke-Empire).cbz", "APOSIMZ")]
+-    [InlineData("Akiiro Bousou Biyori - 01.jpg", "Akiiro Bousou Biyori")]
+-    [InlineData("Beelzebub_172_RHS.zip", "Beelzebub")]
+-    [InlineData("Dr. STONE 136 (2020) (Digital) (LuCaZ).cbz", "Dr. STONE")]
+-    [InlineData("Cynthia the Mission 29.rar", "Cynthia the Mission")]
+-    [InlineData("Darling in the FranXX - Volume 01.cbz", "Darling in the FranXX")]
+-    [InlineData("Darwin's Game - Volume 14 (F).cbz", "Darwin's Game")]
+-    [InlineData("[BAA]_Darker_than_Black_c7.zip", "Darker than Black")]
+-    [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 19 [Dametrans].zip", "Kedouin Makoto - Corpse Party Musume")]
+-    [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 01", "Kedouin Makoto - Corpse Party Musume")]
+-    [InlineData("[WS]_Ichiban_Ushiro_no_Daimaou_v02_ch10.zip", "Ichiban Ushiro no Daimaou")]
+-    [InlineData("[xPearse] Kyochuu Rettou Volume 1 [English] [Manga] [Volume Scans]", "Kyochuu Rettou")]
+-    [InlineData("Loose_Relation_Between_Wizard_and_Apprentice_c07[AN].zip", "Loose Relation Between Wizard and Apprentice")]
+-    [InlineData("Tower Of God S01 014 (CBT) (digital).cbz", "Tower Of God")]
+-    [InlineData("Tenjou_Tenge_c106[MT].zip", "Tenjou Tenge")]
+-    [InlineData("Tenjou_Tenge_v17_c100[MT].zip", "Tenjou Tenge")]
+-    [InlineData("Shimoneta - Manmaru Hen - c001-006 (v01) [Various].zip", "Shimoneta - Manmaru Hen")]
+-    [InlineData("Future Diary v02 (2009) (Digital) (Viz).cbz", "Future Diary")]
+-    [InlineData("Tonikaku Cawaii [Volume 11].cbz", "Tonikaku Cawaii")]
+-    [InlineData("Mujaki no Rakuen Vol12 ch76", "Mujaki no Rakuen")]
+-    [InlineData("Knights of Sidonia c000 (S2 LE BD Omake - BLAME!) [Habanero Scans]", "Knights of Sidonia")]
++    [InlineData("U12 (Under 12) Vol. 0001 Ch. 0001 - Reiwa Scans (gb)", "")]
++    [InlineData("Akame ga KILL! ZERO (2016-2019) (Digital) (LuCaZ)", "")]
++    [InlineData("APOSIMZ 017 (2018) (Digital) (danke-Empire).cbz", "")]
++    [InlineData("Akiiro Bousou Biyori - 01.jpg", "")]
++    [InlineData("Beelzebub_172_RHS.zip", "")]
++    [InlineData("Dr. STONE 136 (2020) (Digital) (LuCaZ).cbz", "")]
++    [InlineData("Cynthia the Mission 29.rar", "")]
++    [InlineData("Darling in the FranXX - Volume 01.cbz", "")]
++    [InlineData("Darwin's Game - Volume 14 (F).cbz", "")]
++    [InlineData("[BAA]_Darker_than_Black_c7.zip", "")]
++    [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 19 [Dametrans].zip", "")]
++    [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 01", "")]
++    [InlineData("[WS]_Ichiban_Ushiro_no_Daimaou_v02_ch10.zip", "")]
++    [InlineData("[xPearse] Kyochuu Rettou Volume 1 [English] [Manga] [Volume Scans]", "")]
++    [InlineData("Loose_Relation_Between_Wizard_and_Apprentice_c07[AN].zip", "")]
++    [InlineData("Tower Of God S01 014 (CBT) (digital).cbz", "")]
++    [InlineData("Tenjou_Tenge_c106[MT].zip", "")]
++    [InlineData("Tenjou_Tenge_v17_c100[MT].zip", "")]
++    [InlineData("Shimoneta - Manmaru Hen - c001-006 (v01) [Various].zip", "")]
++    [InlineData("Future Diary v02 (2009) (Digital) (Viz).cbz", "")]
++    [InlineData("Tonikaku Cawaii [Volume 11].cbz", "")]
++    [InlineData("Mujaki no Rakuen Vol12 ch76", "")]
++    [InlineData("Knights of Sidonia c000 (S2 LE BD Omake - BLAME!) [Habanero Scans]", "")]
+     [InlineData("Vol 1.cbz", "")]
+-    [InlineData("Ichinensei_ni_Nacchattara_v01_ch01_[Taruby]_v1.1.zip", "Ichinensei ni Nacchattara")]
++    [InlineData("Ichinensei_ni_Nacchattara_v01_ch01_[Taruby]_v1.1.zip", "")]
+     [InlineData("Chrno_Crusade_Dragon_Age_All_Stars[AS].zip", "")]
+-    [InlineData("Ichiban_Ushiro_no_Daimaou_v04_ch34_[VISCANS].zip", "Ichiban Ushiro no Daimaou")]
+-    [InlineData("Rent a Girlfriend v01.cbr", "Rent a Girlfriend")]
+-    [InlineData("Yumekui_Merry_v01_c01[Bakayarou-Kuu].rar", "Yumekui Merry")]
+-    [InlineData("Itoshi no Karin - c001-006x1 (v01) [Renzokusei Scans]", "Itoshi no Karin")]
+-    [InlineData("Tonikaku Kawaii Vol-1 (Ch 01-08)", "Tonikaku Kawaii")]
+-    [InlineData("Tonikaku Kawaii (Ch 59-67) (Ongoing)", "Tonikaku Kawaii")]
+-    [InlineData("7thGARDEN v01 (2016) (Digital) (danke).cbz", "7thGARDEN")]
+-    [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 12", "Kedouin Makoto - Corpse Party Musume")]
+-    [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 09", "Kedouin Makoto - Corpse Party Musume")]
+-    [InlineData("Goblin Slayer Side Story - Year One 025.5", "Goblin Slayer Side Story - Year One")]
+-    [InlineData("Goblin Slayer - Brand New Day 006.5 (2019) (Digital) (danke-Empire)", "Goblin Slayer - Brand New Day")]
+-    [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 01 [Dametrans][v2]", "Kedouin Makoto - Corpse Party Musume")]
+-    [InlineData("Vagabond_v03", "Vagabond")]
+-    [InlineData("[AN] Mahoutsukai to Deshi no Futekisetsu na Kankei Chp. 1", "Mahoutsukai to Deshi no Futekisetsu na Kankei")]
+-    [InlineData("Beelzebub_Side_Story_02_RHS.zip", "Beelzebub Side Story")]
+-    [InlineData("Baketeriya ch01-05.zip", "Baketeriya")]
+-    [InlineData("[PROzess]Kimi_ha_midara_na_Boku_no_Joou_-_Ch01", "Kimi ha midara na Boku no Joou")]
+-    [InlineData("[SugoiSugoi]_NEEDLESS_Vol.2_-_Disk_The_Informant_5_[ENG].rar", "NEEDLESS")]
+-    [InlineData("Fullmetal Alchemist chapters 101-108.cbz", "Fullmetal Alchemist")]
+-    [InlineData("To Love Ru v09 Uncensored (Ch.071-079).cbz", "To Love Ru")]
+-    [InlineData("[dmntsf.net] One Piece - Digital Colored Comics Vol. 20 Ch. 177 - 30 Million vs 81 Million.cbz", "One Piece - Digital Colored Comics")]
+-    [InlineData("Corpse Party -The Anthology- Sachikos game of love Hysteric Birthday 2U Chapter 01", "Corpse Party -The Anthology- Sachikos game of love Hysteric Birthday 2U")]
++    [InlineData("Ichiban_Ushiro_no_Daimaou_v04_ch34_[VISCANS].zip", "")]
++    [InlineData("Rent a Girlfriend v01.cbr", "")]
++    [InlineData("Yumekui_Merry_v01_c01[Bakayarou-Kuu].rar", "")]
++    [InlineData("Itoshi no Karin - c001-006x1 (v01) [Renzokusei Scans]", "")]
++    [InlineData("Tonikaku Kawaii Vol-1 (Ch 01-08)", "")]
++    [InlineData("Tonikaku Kawaii (Ch 59-67) (Ongoing)", "")]
++    [InlineData("7thGARDEN v01 (2016) (Digital) (danke).cbz", "")]
++    [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 12", "")]
++    [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 09", "")]
++    [InlineData("Goblin Slayer Side Story - Year One 025.5", "")]
++    [InlineData("Goblin Slayer - Brand New Day 006.5 (2019) (Digital) (danke-Empire)", "")]
++    [InlineData("Kedouin Makoto - Corpse Party Musume, Chapter 01 [Dametrans][v2]", "")]
++    [InlineData("Vagabond_v03", "")]
++    [InlineData("[AN] Mahoutsukai to Deshi no Futekisetsu na Kankei Chp. 1", "")]
++    [InlineData("Beelzebub_Side_Story_02_RHS.zip", "")]
++    [InlineData("Baketeriya ch01-05.zip", "")]
++    [InlineData("[PROzess]Kimi_ha_midara_na_Boku_no_Joou_-_Ch01", "")]
++    [InlineData("[SugoiSugoi]_NEEDLESS_Vol.2_-_Disk_The_Informant_5_[ENG].rar", "")]
++    [InlineData("Fullmetal Alchemist chapters 101-108.cbz", "")]
++    [InlineData("To Love Ru v09 Uncensored (Ch.071-079).cbz", "")]
++    [InlineData("[dmntsf.net] One Piece - Digital Colored Comics Vol. 20 Ch. 177 - 30 Million vs 81 Million.cbz", "")]
++    [InlineData("Corpse Party -The Anthology- Sachikos game of love Hysteric Birthday 2U Chapter 01", "")]
+     [InlineData("Vol03_ch15-22.rar", "")]
+     [InlineData("Love Hina - Special.cbz", "")] // This has to be a fallback case
+     [InlineData("Ani-Hina Art Collection.cbz", "")] // This has to be a fallback case
+-    [InlineData("Magi - Ch.252-005.cbz", "Magi")]
+-    [InlineData("Umineko no Naku Koro ni - Episode 1 - Legend of the Golden Witch #1", "Umineko no Naku Koro ni")]
+-    [InlineData("Kimetsu no Yaiba - Digital Colored Comics c162 Three Victorious Stars.cbz", "Kimetsu no Yaiba - Digital Colored Comics")]
+-    [InlineData("[Hidoi]_Amaenaideyo_MS_vol01_chp02.rar", "Amaenaideyo MS")]
+-    [InlineData("NEEDLESS_Vol.4_-_Simeon_6_v2_[SugoiSugoi].rar", "NEEDLESS")]
+-    [InlineData("Okusama wa Shougakusei c003 (v01) [bokuwaNEET]", "Okusama wa Shougakusei")]
+-    [InlineData("VanDread-v01-c001[MD].zip", "VanDread")]
+-    [InlineData("Momo The Blood Taker - Chapter 027 Violent Emotion.cbz", "Momo The Blood Taker")]
+-    [InlineData("Kiss x Sis - Ch.15 - The Angst of a 15 Year Old Boy.cbz", "Kiss x Sis")]
+-    [InlineData("Green Worldz - Chapter 112 Final Chapter (End).cbz", "Green Worldz")]
+-    [InlineData("Noblesse - Episode 406 (52 Pages).7z", "Noblesse")]
+-    [InlineData("X-Men v1 #201 (September 2007).cbz", "X-Men")]
+-    [InlineData("Kodoja #001 (March 2016)", "Kodoja")]
+-    [InlineData("Boku No Kokoro No Yabai Yatsu - Chapter 054 I Prayed At The Shrine (V0).cbz", "Boku No Kokoro No Yabai Yatsu")]
+-    [InlineData("Kiss x Sis - Ch.36 - A Cold Home Visit.cbz", "Kiss x Sis")]
+-    [InlineData("Seraph of the End - Vampire Reign 093 (2020) (Digital) (LuCaZ)", "Seraph of the End - Vampire Reign")]
+-    [InlineData("Grand Blue Dreaming - SP02 Extra (2019) (Digital) (danke-Empire).cbz", "Grand Blue Dreaming")]
+-    [InlineData("Yuusha Ga Shinda! - Vol.tbd Chapter 27.001 V2 Infection ①.cbz", "Yuusha Ga Shinda!")]
+-    [InlineData("Seraph of the End - Vampire Reign 093 (2020) (Digital) (LuCaZ).cbz", "Seraph of the End - Vampire Reign")]
+-    [InlineData("Getsuyoubi no Tawawa - Ch. 001 - Ai-chan, Part 1", "Getsuyoubi no Tawawa")]
+-    [InlineData("Please Go Home, Akutsu-San! - Chapter 038.5 - Volume Announcement.cbz", "Please Go Home, Akutsu-San!")]
+-    [InlineData("Killing Bites - Vol 11 Chapter 050 Save Me, Nunupi!.cbz", "Killing Bites")]
+-    [InlineData("Mad Chimera World - Volume 005 - Chapter 026.cbz", "Mad Chimera World")]
+-    [InlineData("Hentai Ouji to Warawanai Neko. - Vol. 06 Ch. 034.5", "Hentai Ouji to Warawanai Neko.")]
+-    [InlineData("The 100 Girlfriends Who Really, Really, Really, Really, Really Love You - Vol. 03 Ch. 023.5 - Volume 3 Extras.cbz", "The 100 Girlfriends Who Really, Really, Really, Really, Really Love You")]
+-    [InlineData("Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo Chapter 1-10", "Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo")]
+-    [InlineData("The Duke of Death and His Black Maid - Ch. 177 - The Ball (3).cbz", "The Duke of Death and His Black Maid")]
+-    [InlineData("The Duke of Death and His Black Maid - Vol. 04 Ch. 054.5 - V4 Omake", "The Duke of Death and His Black Maid")]
++    [InlineData("Magi - Ch.252-005.cbz", "")]
++    [InlineData("Umineko no Naku Koro ni - Episode 1 - Legend of the Golden Witch #1", "")]
++    [InlineData("Kimetsu no Yaiba - Digital Colored Comics c162 Three Victorious Stars.cbz", "")]
++    [InlineData("[Hidoi]_Amaenaideyo_MS_vol01_chp02.rar", "")]
++    [InlineData("NEEDLESS_Vol.4_-_Simeon_6_v2_[SugoiSugoi].rar", "")]
++    [InlineData("Okusama wa Shougakusei c003 (v01) [bokuwaNEET]", "")]
++    [InlineData("VanDread-v01-c001[MD].zip", "")]
++    [InlineData("Momo The Blood Taker - Chapter 027 Violent Emotion.cbz", "")]
++    [InlineData("Kiss x Sis - Ch.15 - The Angst of a 15 Year Old Boy.cbz", "")]
++    [InlineData("Green Worldz - Chapter 112 Final Chapter (End).cbz", "")]
++    [InlineData("Noblesse - Episode 406 (52 Pages).7z", "")]
++    [InlineData("X-Men v1 #201 (September 2007).cbz", "")]
++    [InlineData("Kodoja #001 (March 2016)", "")]
++    [InlineData("Boku No Kokoro No Yabai Yatsu - Chapter 054 I Prayed At The Shrine (V0).cbz", "")]
++    [InlineData("Kiss x Sis - Ch.36 - A Cold Home Visit.cbz", "")]
++    [InlineData("Seraph of the End - Vampire Reign 093 (2020) (Digital) (LuCaZ)", "")]
++    [InlineData("Grand Blue Dreaming - SP02 Extra (2019) (Digital) (danke-Empire).cbz", "")]
++    [InlineData("Yuusha Ga Shinda! - Vol.tbd Chapter 27.001 V2 Infection ①.cbz", "")]
++    [InlineData("Seraph of the End - Vampire Reign 093 (2020) (Digital) (LuCaZ).cbz", "")]
++    [InlineData("Getsuyoubi no Tawawa - Ch. 001 - Ai-chan, Part 1", "")]
++    [InlineData("Please Go Home, Akutsu-San! - Chapter 038.5 - Volume Announcement.cbz", "")]
++    [InlineData("Killing Bites - Vol 11 Chapter 050 Save Me, Nunupi!.cbz", "")]
++    [InlineData("Mad Chimera World - Volume 005 - Chapter 026.cbz", "")]
++    [InlineData("Hentai Ouji to Warawanai Neko. - Vol. 06 Ch. 034.5", "")]
++    [InlineData("The 100 Girlfriends Who Really, Really, Really, Really, Really Love You - Vol. 03 Ch. 023.5 - Volume 3 Extras.cbz", "")]
++    [InlineData("Kimi no Koto ga Daidaidaidaidaisuki na 100-nin no Kanojo Chapter 1-10", "")]
++    [InlineData("The Duke of Death and His Black Maid - Ch. 177 - The Ball (3).cbz", "")]
++    [InlineData("The Duke of Death and His Black Maid - Vol. 04 Ch. 054.5 - V4 Omake", "")]
+     [InlineData("Vol. 04 Ch. 054.5", "")]
+-    [InlineData("Great_Teacher_Onizuka_v16[TheSpectrum]", "Great Teacher Onizuka")]
+-    [InlineData("[Renzokusei]_Kimi_wa_Midara_na_Boku_no_Joou_Ch5_Final_Chapter", "Kimi wa Midara na Boku no Joou")]
+-    [InlineData("Battle Royale, v01 (2000) [TokyoPop] [Manga-Sketchbook]", "Battle Royale")]
+-    [InlineData("Kaiju No. 8 036 (2021) (Digital)", "Kaiju No. 8")]
+-    [InlineData("Seraph of the End - Vampire Reign 093  (2020) (Digital) (LuCaZ).cbz", "Seraph of the End - Vampire Reign")]
+-    [InlineData("Love Hina - Volume 01 [Scans].pdf", "Love Hina")]
+-    [InlineData("It's Witching Time! 001 (Digital) (Anonymous1234)", "It's Witching Time!")]
+-    [InlineData("Zettai Karen Children v02 c003 - The Invisible Guardian (2) [JS Scans]", "Zettai Karen Children")]
+-    [InlineData("My Charms Are Wasted on Kuroiwa Medaka - Ch. 37.5 - Volume Extras", "My Charms Are Wasted on Kuroiwa Medaka")]
+-    [InlineData("Highschool of the Dead - Full Color Edition v02 [Uasaha] (Yen Press)", "Highschool of the Dead - Full Color Edition")]
+-    [InlineData("諌山創] 進撃の巨人 第23巻", "諌山創] 進撃の巨人")]
+-    [InlineData("(一般コミック) [奥浩哉] いぬやしき 第09巻", "いぬやしき")]
+-    [InlineData("Highschool of the Dead - 02", "Highschool of the Dead")]
+-    [InlineData("Kebab Том 1 Глава 3", "Kebab")]
+-    [InlineData("Манга Глава 2", "Манга")]
+-    [InlineData("Манга Глава 2-2", "Манга")]
+-    [InlineData("Манга Том 1 3-4 Глава", "Манга")]
+-    [InlineData("Esquire 6권 2021년 10월호", "Esquire")]
+-    [InlineData("Accel World: Vol 1", "Accel World")]
+-    [InlineData("Accel World Chapter 001 Volume 002", "Accel World")]
+-    [InlineData("Bleach 001-003", "Bleach")]
+-    [InlineData("Accel World Volume 2", "Accel World")]
+-    [InlineData("죠시라쿠! 2년 후 v01", "죠시라쿠! 2년 후")]
+-    [InlineData("죠시라쿠! 2년 후 1권", "죠시라쿠! 2년 후")]
+-    [InlineData("test 2 years 1권", "test 2 years")]
+-    [InlineData("test 2 years 1화", "test 2 years")]
+-    [InlineData("Nagasarete Airantou - Vol. 30 Ch. 187.5 - Vol.30 Omake", "Nagasarete Airantou")]
+-    [InlineData("Cynthia The Mission - c000 - c006 (v06)", "Cynthia The Mission")]
++    [InlineData("Great_Teacher_Onizuka_v16[TheSpectrum]", "")]
++    [InlineData("[Renzokusei]_Kimi_wa_Midara_na_Boku_no_Joou_Ch5_Final_Chapter", "")]
++    [InlineData("Battle Royale, v01 (2000) [TokyoPop] [Manga-Sketchbook]", "")]
++    [InlineData("Kaiju No. 8 036 (2021) (Digital)", "")]
++    [InlineData("Seraph of the End - Vampire Reign 093  (2020) (Digital) (LuCaZ).cbz", "")]
++    [InlineData("Love Hina - Volume 01 [Scans].pdf", "")]
++    [InlineData("It's Witching Time! 001 (Digital) (Anonymous1234)", "")]
++    [InlineData("Zettai Karen Children v02 c003 - The Invisible Guardian (2) [JS Scans]", "")]
++    [InlineData("My Charms Are Wasted on Kuroiwa Medaka - Ch. 37.5 - Volume Extras", "")]
++    [InlineData("Highschool of the Dead - Full Color Edition v02 [Uasaha] (Yen Press)", "")]
++    [InlineData("諌山創] 進撃の巨人 第23巻", "")]
++    [InlineData("(一般コミック) [奥浩哉] いぬやしき 第09巻", "")]
++    [InlineData("Highschool of the Dead - 02", "")]
++    [InlineData("Kebab Том 1 Глава 3", "")]
++    [InlineData("Манга Глава 2", "")]
++    [InlineData("Манга Глава 2-2", "")]
++    [InlineData("Манга Том 1 3-4 Глава", "")]
++    [InlineData("Esquire 6권 2021년 10월호", "")]
++    [InlineData("Accel World: Vol 1", "")]
++    [InlineData("Accel World Chapter 001 Volume 002", "")]
++    [InlineData("Bleach 001-003", "")]
++    [InlineData("Accel World Volume 2", "")]
 +    [InlineData("[0001]_Chapter_1.pdf", "")]
 +    [InlineData("[0112]_Chapter_110.2.pdf", "")]
++    [InlineData("[0011]_Bullet_9_Beneath_The_Bangs.pdf", "")]
++    [InlineData("죠시라쿠! 2년 후 v01", "")]
++    [InlineData("죠시라쿠! 2년 후 1권", "")]
++    [InlineData("test 2 years 1권", "")]
++    [InlineData("test 2 years 1화", "")]
++    [InlineData("Nagasarete Airantou - Vol. 30 Ch. 187.5 - Vol.30 Omake", "")]
++    [InlineData("Cynthia The Mission - c000 - c006 (v06)", "")]
+     [InlineData("เด็กคนนี้ขอลาออกจากการเป็นเจ้าของปราสาท เล่ม 1", "เด็กคนนี้ขอลาออกจากการเป็นเจ้าของปราสาท")]
+     [InlineData("Max Level Returner เล่มที่ 5", "Max Level Returner")]
+     [InlineData("หนึ่งความคิด นิจนิรันดร์ เล่ม 2", "หนึ่งความคิด นิจนิรันดร์")]
+-    [InlineData("不安の種\uff0b - 01", "不安の種\uff0b")]
+-    [InlineData("Giant Ojou-sama - Ch. 33.5 - Volume 04 Bonus Chapter", "Giant Ojou-sama")]
++    [InlineData("不安の種\uff0b - 01", "")]
++    [InlineData("Giant Ojou-sama - Ch. 33.5 - Volume 04 Bonus Chapter", "")]
+     [InlineData("[218565]-(C92) [BRIO (Puyocha)] Mika-nee no Tanryoku Shidou - Mika s Guide to Self-Confidence (THE IDOLM@STE", "")]
      public void ParseSeriesTest(string filename, string expected)
      {
-         Assert.Equal(expected, API.Services.Tasks.Scanner.Parser.Parser.ParseSeries(filename, LibraryType.Manga));
-@@ -304,6 +308,10 @@ public class MangaParsingTests
+@@ -304,6 +309,10 @@ public class MangaParsingTests
      [InlineData("เด็กคนนี้ขอลาออกจากการเป็นเจ้าของปราสาท เล่ม 1 ตอนที่ 3", "3")]
      [InlineData("Max Level Returner ตอนที่ 5", "5")]
      [InlineData("หนึ่งความคิด นิจนิรันดร์ บทที่ 112", "112")]
 +    [InlineData("[0001]_Chapter_1.pdf", "1")]
-+    [InlineData("[0112]_Chapter_110.2.pdf", "110.2")]
++    [InlineData("[0112]_Chapter_110.2.pdf", "112")]
 +    [InlineData("Chapter_13_3.pdf", "13_3")]
 +    [InlineData("Chapter_100.pdf", "100")]
      public void ParseChaptersTest(string filename, string expected)
      {
          Assert.Equal(expected, API.Services.Tasks.Scanner.Parser.Parser.ParseChapter(filename, LibraryType.Manga));
-@@ -342,6 +350,7 @@ public class MangaParsingTests
+@@ -342,6 +351,7 @@ public class MangaParsingTests
      [InlineData("The League of Extra-ordinary Gentlemen", false)]
      [InlineData("Dr. Ramune - Mysterious Disease Specialist v01 (2020) (Digital) (danke-Empire)", false)]
      [InlineData("Hajime no Ippo - Artbook", false)]
@@ -40,18 +405,580 @@ index 64d303f4..db1ed1e4 100644
      {
          Assert.Equal(expected, API.Services.Tasks.Scanner.Parser.Parser.IsSpecial(input, LibraryType.Manga));
 diff --git a/API/Services/Tasks/Scanner/Parser/Parser.cs b/API/Services/Tasks/Scanner/Parser/Parser.cs
-index 840e7a6d..b49fd0b0 100644
+index 12374d67..e5b54d5d 100644
 --- a/API/Services/Tasks/Scanner/Parser/Parser.cs
 +++ b/API/Services/Tasks/Scanner/Parser/Parser.cs
-@@ -614,6 +614,10 @@ public static class Parser
+@@ -130,74 +130,74 @@ public static partial class Parser
+             @"(เล่ม|เล่มที่)(\s)?(\.?)(\s|_)?(?<Volume>\d+(\-\d+)?(\.\d+)?)",
+             MatchOptions, RegexTimeout),
+         // Dance in the Vampire Bund v16-17
+-        new Regex(
+-            @"(?<Series>.*)(\b|_)v(?<Volume>\d+-?\d+)( |_)",
+-            MatchOptions, RegexTimeout),
+-        // Nagasarete Airantou - Vol. 30 Ch. 187.5 - Vol.31 Omake
+-        new Regex(
+-            @"^(?<Series>.+?)(\s*Chapter\s*\d+)?(\s|_|\-\s)+(Vol(ume)?\.?(\s|_)?)(?<Volume>\d+(\.\d+)?)(.+?|$)",
+-            MatchOptions, RegexTimeout),
+-        // Historys Strongest Disciple Kenichi_v11_c90-98.zip or Dance in the Vampire Bund v16-17
+-        new Regex(
+-            @"(?<Series>.*)(\b|_)(?!\[)v(?<Volume>" + NumberRange + @")(?!\])",
+-            MatchOptions, RegexTimeout),
+-        // Kodomo no Jikan vol. 10, [dmntsf.net] One Piece - Digital Colored Comics Vol. 20.5-21.5 Ch. 177
+-        new Regex(
+-            @"(?<Series>.*)(\b|_)(vol\.? ?)(?<Volume>\d+(\.\d)?(-\d+)?(\.\d)?)",
+-            MatchOptions, RegexTimeout),
+-        // Killing Bites Vol. 0001 Ch. 0001 - Galactica Scanlations (gb)
+-        new Regex(
+-            @"(vol\.? ?)(?<Volume>\d+(\.\d)?)",
+-            MatchOptions, RegexTimeout),
+-        // Tonikaku Cawaii [Volume 11].cbz
+-        new Regex(
+-            @"(volume )(?<Volume>\d+(\.\d)?)",
+-            MatchOptions, RegexTimeout),
+-        // Tower Of God S01 014 (CBT) (digital).cbz
+-        new Regex(
+-            @"(?<Series>.*)(\b|_|)(S(?<Volume>\d+))",
+-            MatchOptions, RegexTimeout),
+-        // vol_001-1.cbz for MangaPy default naming convention
+-        new Regex(
+-            @"(vol_)(?<Volume>\d+(\.\d)?)",
+-            MatchOptions, RegexTimeout),
+-
+-        // Chinese Volume: 第n卷 -> Volume n, 第n册 -> Volume n, 幽游白书完全版 第03卷 天下 or 阿衰online 第1册
+-        new Regex(
+-            @"第(?<Volume>\d+)(卷|册)",
+-            MatchOptions, RegexTimeout),
+-        // Chinese Volume: 卷n -> Volume n, 册n -> Volume n
+-        new Regex(
+-            @"(卷|册)(?<Volume>\d+)",
+-            MatchOptions, RegexTimeout),
+-        // Korean Volume: 제n화|권|회|장 -> Volume n, n화|권|회|장 -> Volume n, 63권#200.zip -> Volume 63 (no chapter, #200 is just files inside)
+-        new Regex(
+-            @"제?(?<Volume>\d+(\.\d)?)(권|회|화|장)",
+-            MatchOptions, RegexTimeout),
+-        // Korean Season: 시즌n -> Season n,
+-        new Regex(
+-            @"시즌(?<Volume>\d+\-?\d+)",
+-            MatchOptions, RegexTimeout),
+-        // Korean Season: 시즌n -> Season n, n시즌 -> season n
+-        new Regex(
+-            @"(?<Volume>\d+(\-|~)?\d+?)시즌",
+-            MatchOptions, RegexTimeout),
+-        // Korean Season: 시즌n -> Season n, n시즌 -> season n
+-        new Regex(
+-            @"시즌(?<Volume>\d+(\-|~)?\d+?)",
+-            MatchOptions, RegexTimeout),
+-        // Japanese Volume: n巻 -> Volume n
+-        new Regex(
+-            @"(?<Volume>\d+(?:(\-)\d+)?)巻",
+-            MatchOptions, RegexTimeout),
+-        // Russian Volume: Том n -> Volume n, Тома n -> Volume
+-        new Regex(
+-            @"Том(а?)(\.?)(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)",
+-            MatchOptions, RegexTimeout),
+-        // Russian Volume: n Том -> Volume n
+-        new Regex(
+-            @"(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)(\s|_)Том(а?)",
+-            MatchOptions, RegexTimeout),
++        //new Regex(
++        //    @"(?<Series>.*)(\b|_)v(?<Volume>\d+-?\d+)( |_)",
++        //    MatchOptions, RegexTimeout),
++        //// Nagasarete Airantou - Vol. 30 Ch. 187.5 - Vol.31 Omake
++        //new Regex(
++        //    @"^(?<Series>.+?)(\s*Chapter\s*\d+)?(\s|_|\-\s)+(Vol(ume)?\.?(\s|_)?)(?<Volume>\d+(\.\d+)?)(.+?|$)",
++        //    MatchOptions, RegexTimeout),
++        //// Historys Strongest Disciple Kenichi_v11_c90-98.zip or Dance in the Vampire Bund v16-17
++        //new Regex(
++        //    @"(?<Series>.*)(\b|_)(?!\[)v(?<Volume>" + NumberRange + @")(?!\])",
++        //    MatchOptions, RegexTimeout),
++        //// Kodomo no Jikan vol. 10, [dmntsf.net] One Piece - Digital Colored Comics Vol. 20.5-21.5 Ch. 177
++        //new Regex(
++        //    @"(?<Series>.*)(\b|_)(vol\.? ?)(?<Volume>\d+(\.\d)?(-\d+)?(\.\d)?)",
++        //    MatchOptions, RegexTimeout),
++        //// Killing Bites Vol. 0001 Ch. 0001 - Galactica Scanlations (gb)
++        //new Regex(
++        //    @"(vol\.? ?)(?<Volume>\d+(\.\d)?)",
++        //    MatchOptions, RegexTimeout),
++        //// Tonikaku Cawaii [Volume 11].cbz
++        //new Regex(
++        //    @"(volume )(?<Volume>\d+(\.\d)?)",
++        //    MatchOptions, RegexTimeout),
++        //// Tower Of God S01 014 (CBT) (digital).cbz
++        //new Regex(
++        //    @"(?<Series>.*)(\b|_|)(S(?<Volume>\d+))",
++        //    MatchOptions, RegexTimeout),
++        //// vol_001-1.cbz for MangaPy default naming convention
++        //new Regex(
++        //    @"(vol_)(?<Volume>\d+(\.\d)?)",
++        //    MatchOptions, RegexTimeout),
++
++        //// Chinese Volume: 第n卷 -> Volume n, 第n册 -> Volume n, 幽游白书完全版 第03卷 天下 or 阿衰online 第1册
++        //new Regex(
++        //    @"第(?<Volume>\d+)(卷|册)",
++        //    MatchOptions, RegexTimeout),
++        //// Chinese Volume: 卷n -> Volume n, 册n -> Volume n
++        //new Regex(
++        //    @"(卷|册)(?<Volume>\d+)",
++        //    MatchOptions, RegexTimeout),
++        //// Korean Volume: 제n화|권|회|장 -> Volume n, n화|권|회|장 -> Volume n, 63권#200.zip -> Volume 63 (no chapter, #200 is just files inside)
++        //new Regex(
++        //    @"제?(?<Volume>\d+(\.\d)?)(권|회|화|장)",
++        //    MatchOptions, RegexTimeout),
++        //// Korean Season: 시즌n -> Season n,
++        //new Regex(
++        //    @"시즌(?<Volume>\d+\-?\d+)",
++        //    MatchOptions, RegexTimeout),
++        //// Korean Season: 시즌n -> Season n, n시즌 -> season n
++        //new Regex(
++        //    @"(?<Volume>\d+(\-|~)?\d+?)시즌",
++        //    MatchOptions, RegexTimeout),
++        //// Korean Season: 시즌n -> Season n, n시즌 -> season n
++        //new Regex(
++        //    @"시즌(?<Volume>\d+(\-|~)?\d+?)",
++        //    MatchOptions, RegexTimeout),
++        //// Japanese Volume: n巻 -> Volume n
++        //new Regex(
++        //    @"(?<Volume>\d+(?:(\-)\d+)?)巻",
++        //    MatchOptions, RegexTimeout),
++        //// Russian Volume: Том n -> Volume n, Тома n -> Volume
++        //new Regex(
++        //    @"Том(а?)(\.?)(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)",
++        //    MatchOptions, RegexTimeout),
++        //// Russian Volume: n Том -> Volume n
++        //new Regex(
++        //    @"(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)(\s|_)Том(а?)",
++        //    MatchOptions, RegexTimeout),
+     };
+ 
+     private static readonly Regex[] MangaSeriesRegex = new[]
+@@ -206,175 +206,175 @@ public static partial class Parser
+         new Regex(
+             @"(?<Series>.+?)(เล่ม|เล่มที่)(\s)?(\.?)(\s|_)?(?<Volume>\d+(\-\d+)?(\.\d+)?)",
+             MatchOptions, RegexTimeout),
+-        // Russian Volume: Том n -> Volume n, Тома n -> Volume
+-        new Regex(
+-            @"(?<Series>.+?)Том(а?)(\.?)(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)",
+-            MatchOptions, RegexTimeout),
+-        // Russian Volume: n Том -> Volume n
+-        new Regex(
+-            @"(?<Series>.+?)(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)(\s|_)Том(а?)",
+-            MatchOptions, RegexTimeout),
+-        // Russian Chapter: n Главa -> Chapter n
+-        new Regex(
+-            @"(?<Series>.+?)(?!Том)(?<!Том\.)\s\d+(\s|_)?(?<Chapter>\d+(?:\.\d+|-\d+)?)(\s|_)(Глава|глава|Главы|Глава)",
+-            MatchOptions, RegexTimeout),
+-        // Russian Chapter: Главы n -> Chapter n
+-        new Regex(
+-            @"(?<Series>.+?)(Глава|глава|Главы|Глава)(\.?)(\s|_)?(?<Chapter>\d+(?:.\d+|-\d+)?)",
+-            MatchOptions, RegexTimeout),
+-        // Grand Blue Dreaming - SP02
+-        new Regex(
+-            @"(?<Series>.*)(\b|_|-|\s)(?:sp)\d",
+-            MatchOptions, RegexTimeout),
+-        // Mad Chimera World - Volume 005 - Chapter 026.cbz (couldn't figure out how to get Volume negative lookaround working on below regex),
+-        // The Duke of Death and His Black Maid - Vol. 04 Ch. 054.5 - V4 Omake
+-        new Regex(
+-            @"(?<Series>.+?)(\s|_|-)+(?:Vol(ume|\.)?(\s|_|-)+\d+)(\s|_|-)+(?:(Ch|Chapter|Ch)\.?)(\s|_|-)+(?<Chapter>\d+)",
+-            MatchOptions,
+-            RegexTimeout),
+-        // [SugoiSugoi]_NEEDLESS_Vol.2_-_Disk_The_Informant_5_[ENG].rar, Yuusha Ga Shinda! - Vol.tbd Chapter 27.001 V2 Infection ①.cbz,
+-        // Nagasarete Airantou - Vol. 30 Ch. 187.5 - Vol.30 Omake
+-        new Regex(
+-            @"^(?<Series>.+?)(?:\s*|_|\-\s*)+(?:Ch(?:apter|\.|)\s*\d+(?:\.\d+)?(?:\s*|_|\-\s*)+)?Vol(?:ume|\.|)\s*(?:\d+|tbd)(?:\s|_|\-\s*).+",
+-            MatchOptions, RegexTimeout),
+-        // Ichiban_Ushiro_no_Daimaou_v04_ch34_[VISCANS].zip, VanDread-v01-c01.zip
+-        new Regex(
+-            @"(?<Series>.*)(\b|_)v(?<Volume>\d+-?\d*)(\s|_|-)",
+-            MatchOptions,
+-            RegexTimeout),
+-        // Gokukoku no Brynhildr - c001-008 (v01) [TrinityBAKumA], Black Bullet - v4 c17 [batoto]
+-        new Regex(
+-            @"(?<Series>.+?)( - )(?:v|vo|c|chapters)\d",
+-            MatchOptions, RegexTimeout),
+-        // Kedouin Makoto - Corpse Party Musume, Chapter 19 [Dametrans].zip
+-        new Regex(
+-            @"(?<Series>.*)(?:, Chapter )(?<Chapter>\d+)",
+-            MatchOptions, RegexTimeout),
+-        // Please Go Home, Akutsu-San! - Chapter 038.5 - Volume Announcement.cbz, My Charms Are Wasted on Kuroiwa Medaka - Ch. 37.5 - Volume Extras
+-        new Regex(
+-            @"(?<Series>.+?)(\s|_|-)(?!Vol)(\s|_|-)((?:Chapter)|(?:Ch\.))(\s|_|-)(?<Chapter>\d+)",
+-            MatchOptions, RegexTimeout),
+-        // [dmntsf.net] One Piece - Digital Colored Comics Vol. 20 Ch. 177 - 30 Million vs 81 Million.cbz
+-        new Regex(
+-            @"(?<Series>.+?):? (\b|_|-)(vol)\.?(\s|-|_)?\d+",
+-            MatchOptions, RegexTimeout),
+-        // [xPearse] Kyochuu Rettou Chapter 001 Volume 1 [English] [Manga] [Volume Scans]
+-        new Regex(
+-            @"(?<Series>.+?):?(\s|\b|_|-)Chapter(\s|\b|_|-)\d+(\s|\b|_|-)(vol)(ume)",
+-            MatchOptions,
+-            RegexTimeout),
+-
+-        // [xPearse] Kyochuu Rettou Volume 1 [English] [Manga] [Volume Scans]
+-        new Regex(
+-            @"(?<Series>.+?):? (\b|_|-)(vol)(ume)",
+-            MatchOptions,
+-            RegexTimeout),
+-        //Knights of Sidonia c000 (S2 LE BD Omake - BLAME!) [Habanero Scans]
+-        new Regex(
+-            @"(?<Series>.*?)(?<!\()\bc\d+\b",
+-            MatchOptions, RegexTimeout),
+-        //Tonikaku Cawaii [Volume 11], Darling in the FranXX - Volume 01.cbz
+-        new Regex(
+-            @"(?<Series>.*)(?: _|-|\[|\()\s?vol(ume)?",
+-            MatchOptions, RegexTimeout),
+-        // Momo The Blood Taker - Chapter 027 Violent Emotion.cbz, Grand Blue Dreaming - SP02 Extra (2019) (Digital) (danke-Empire).cbz
+-        new Regex(
+-            @"^(?<Series>(?!Vol).+?)(?:(ch(apter|\.)(\b|_|-|\s))|sp)\d",
+-            MatchOptions, RegexTimeout),
+-        // Historys Strongest Disciple Kenichi_v11_c90-98.zip, Killing Bites Vol. 0001 Ch. 0001 - Galactica Scanlations (gb)
+-        new Regex(
+-            @"(?<Series>.*) (\b|_|-)(v|ch\.?|c|s)\d+",
+-            MatchOptions, RegexTimeout),
+-        // Hinowa ga CRUSH! 018 (2019) (Digital) (LuCaZ).cbz
+-        new Regex(
+-            @"(?<Series>.*)\s+(?<Chapter>\d+)\s+(?:\(\d{4}\))\s",
+-            MatchOptions, RegexTimeout),
+-        // Goblin Slayer - Brand New Day 006.5 (2019) (Digital) (danke-Empire)
+-        new Regex(
+-            @"(?<Series>.*) (-)?(?<Chapter>\d+(?:.\d+|-\d+)?) \(\d{4}\)",
+-            MatchOptions, RegexTimeout),
+-        // Noblesse - Episode 429 (74 Pages).7z
+-        new Regex(
+-            @"(?<Series>.*)(\s|_)(?:Episode|Ep\.?)(\s|_)(?<Chapter>\d+(?:.\d+|-\d+)?)",
+-            MatchOptions, RegexTimeout),
+-        // Akame ga KILL! ZERO (2016-2019) (Digital) (LuCaZ)
+-        new Regex(
+-            @"(?<Series>.*)\(\d",
+-            MatchOptions, RegexTimeout),
+-        // Tonikaku Kawaii (Ch 59-67) (Ongoing)
+-        new Regex(
+-            @"(?<Series>.*)(\s|_)\((c\s|ch\s|chapter\s)",
+-            MatchOptions, RegexTimeout),
+-        // Fullmetal Alchemist chapters 101-108
+-        new Regex(
+-            @"(?<Series>.+?)(\s|_|\-)+?chapters(\s|_|\-)+?\d+(\s|_|\-)+?",
+-            MatchOptions, RegexTimeout),
+-        // It's Witching Time! 001 (Digital) (Anonymous1234)
+-        new Regex(
+-            @"(?<Series>.+?)(\s|_|\-)+?\d+(\s|_|\-)\(",
+-            MatchOptions, RegexTimeout),
+-        //Ichinensei_ni_Nacchattara_v01_ch01_[Taruby]_v1.1.zip must be before [Suihei Kiki]_Kasumi_Otoko_no_Ko_[Taruby]_v1.1.zip
+-        // due to duplicate version identifiers in file.
+-        new Regex(
+-            @"(?<Series>.*)(v|s)\d+(-\d+)?(_|\s)",
+-            MatchOptions, RegexTimeout),
+-        //[Suihei Kiki]_Kasumi_Otoko_no_Ko_[Taruby]_v1.1.zip
+-        new Regex(
+-            @"(?<Series>.*)(v|s)\d+(-\d+)?",
+-            MatchOptions, RegexTimeout),
+-        // Black Bullet (This is very loose, keep towards bottom)
+-        new Regex(
+-            @"(?<Series>.*)(_)(v|vo|c|volume)( |_)\d+",
+-            MatchOptions, RegexTimeout),
+-        // [Hidoi]_Amaenaideyo_MS_vol01_chp02.rar
+-        new Regex(
+-            @"(?<Series>.*)( |_)(vol\d+)?( |_)(?:Chp\.? ?\d+)",
+-            MatchOptions, RegexTimeout),
+-        // Mahoutsukai to Deshi no Futekisetsu na Kankei Chp. 1
+-        new Regex(
+-            @"(?<Series>.*)( |_)(?:Chp.? ?\d+)",
+-            MatchOptions, RegexTimeout),
+-        // Corpse Party -The Anthology- Sachikos game of love Hysteric Birthday 2U Chapter 01
+-        new Regex(
+-            @"^(?!Vol)(?<Series>.*)( |_)Chapter( |_)(\d+)",
+-            MatchOptions, RegexTimeout),
+-
+-        // Fullmetal Alchemist chapters 101-108.cbz
+-        new Regex(
+-            @"^(?!vol)(?<Series>.*)( |_)(chapters( |_)?)\d+-?\d*",
+-            MatchOptions, RegexTimeout),
+-        // Umineko no Naku Koro ni - Episode 1 - Legend of the Golden Witch #1
+-        new Regex(
+-            @"^(?!Vol\.?)(?<Series>.*)( |_|-)(?<!-)(episode|chapter|(ch\.?) ?)\d+-?\d*",
+-            MatchOptions, RegexTimeout),
+-        // Baketeriya ch01-05.zip
+-        new Regex(
+-            @"^(?!Vol)(?<Series>.*)ch\d+-?\d?",
+-            MatchOptions, RegexTimeout),
+-        // Magi - Ch.252-005.cbz
+-        new Regex(
+-            @"(?<Series>.*)( ?- ?)Ch\.\d+-?\d*",
+-            MatchOptions, RegexTimeout),
+-        // Korean catch all for symbols 죠시라쿠! 2년 후 1권
+-        new Regex(
+-            @"^(?!Vol)(?!Chapter)(?<Series>.+?)(-|_|\s|#)\d+(-\d+)?(권|화|話)",
+-            MatchOptions, RegexTimeout),
+-        // [BAA]_Darker_than_Black_Omake-1, Bleach 001-002, Kodoja #001 (March 2016)
+-        new Regex(
+-            @"^(?!Vol)(?!Chapter)(?<Series>.+?)(-|_|\s|#)\d+(-\d+)?",
+-            MatchOptions, RegexTimeout),
+-        // Baketeriya ch01-05.zip, Akiiro Bousou Biyori - 01.jpg, Beelzebub_172_RHS.zip, Cynthia the Mission 29.rar, A Compendium of Ghosts - 031 - The Third Story_ Part 12 (Digital) (Cobalt001)
+-        new Regex(
+-            @"^(?!Vol\.?)(?!Chapter)(?<Series>.+?)(\s|_|-)(?<!-)(ch|chapter)?\.?\d+-?\d*",
+-            MatchOptions, RegexTimeout),
+-        // [BAA]_Darker_than_Black_c1 (This is very greedy, make sure it's close to last)
+-        new Regex(
+-            @"^(?!Vol)(?<Series>.*)( |_|-)(ch?)\d+",
+-            MatchOptions, RegexTimeout),
+-        // Japanese Volume: n巻 -> Volume n
+-        new Regex(
+-            @"(?<Series>.+?)第(?<Volume>\d+(?:(\-)\d+)?)巻",
+-            MatchOptions, RegexTimeout),
++        //// Russian Volume: Том n -> Volume n, Тома n -> Volume
++        //new Regex(
++        //    @"(?<Series>.+?)Том(а?)(\.?)(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)",
++        //    MatchOptions, RegexTimeout),
++        //// Russian Volume: n Том -> Volume n
++        //new Regex(
++        //    @"(?<Series>.+?)(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)(\s|_)Том(а?)",
++        //    MatchOptions, RegexTimeout),
++        //// Russian Chapter: n Главa -> Chapter n
++        //new Regex(
++        //    @"(?<Series>.+?)(?!Том)(?<!Том\.)\s\d+(\s|_)?(?<Chapter>\d+(?:\.\d+|-\d+)?)(\s|_)(Глава|глава|Главы|Глава)",
++        //    MatchOptions, RegexTimeout),
++        //// Russian Chapter: Главы n -> Chapter n
++        //new Regex(
++        //    @"(?<Series>.+?)(Глава|глава|Главы|Глава)(\.?)(\s|_)?(?<Chapter>\d+(?:.\d+|-\d+)?)",
++        //    MatchOptions, RegexTimeout),
++        //// Grand Blue Dreaming - SP02
++        //new Regex(
++        //    @"(?<Series>.*)(\b|_|-|\s)(?:sp)\d",
++        //    MatchOptions, RegexTimeout),
++        //// Mad Chimera World - Volume 005 - Chapter 026.cbz (couldn't figure out how to get Volume negative lookaround working on below regex),
++        //// The Duke of Death and His Black Maid - Vol. 04 Ch. 054.5 - V4 Omake
++        //new Regex(
++        //    @"(?<Series>.+?)(\s|_|-)+(?:Vol(ume|\.)?(\s|_|-)+\d+)(\s|_|-)+(?:(Ch|Chapter|Ch)\.?)(\s|_|-)+(?<Chapter>\d+)",
++        //    MatchOptions,
++        //    RegexTimeout),
++        //// [SugoiSugoi]_NEEDLESS_Vol.2_-_Disk_The_Informant_5_[ENG].rar, Yuusha Ga Shinda! - Vol.tbd Chapter 27.001 V2 Infection ①.cbz,
++        //// Nagasarete Airantou - Vol. 30 Ch. 187.5 - Vol.30 Omake
++        //new Regex(
++        //    @"^(?<Series>.+?)(?:\s*|_|\-\s*)+(?:Ch(?:apter|\.|)\s*\d+(?:\.\d+)?(?:\s*|_|\-\s*)+)?Vol(?:ume|\.|)\s*(?:\d+|tbd)(?:\s|_|\-\s*).+",
++        //    MatchOptions, RegexTimeout),
++        //// Ichiban_Ushiro_no_Daimaou_v04_ch34_[VISCANS].zip, VanDread-v01-c01.zip
++        //new Regex(
++        //    @"(?<Series>.*)(\b|_)v(?<Volume>\d+-?\d*)(\s|_|-)",
++        //    MatchOptions,
++        //    RegexTimeout),
++        //// Gokukoku no Brynhildr - c001-008 (v01) [TrinityBAKumA], Black Bullet - v4 c17 [batoto]
++        //new Regex(
++        //    @"(?<Series>.+?)( - )(?:v|vo|c|chapters)\d",
++        //    MatchOptions, RegexTimeout),
++        //// Kedouin Makoto - Corpse Party Musume, Chapter 19 [Dametrans].zip
++        //new Regex(
++        //    @"(?<Series>.*)(?:, Chapter )(?<Chapter>\d+)",
++        //    MatchOptions, RegexTimeout),
++        //// Please Go Home, Akutsu-San! - Chapter 038.5 - Volume Announcement.cbz, My Charms Are Wasted on Kuroiwa Medaka - Ch. 37.5 - Volume Extras
++        //new Regex(
++        //    @"(?<Series>.+?)(\s|_|-)(?!Vol)(\s|_|-)((?:Chapter)|(?:Ch\.))(\s|_|-)(?<Chapter>\d+)",
++        //    MatchOptions, RegexTimeout),
++        //// [dmntsf.net] One Piece - Digital Colored Comics Vol. 20 Ch. 177 - 30 Million vs 81 Million.cbz
++        //new Regex(
++        //    @"(?<Series>.+?):? (\b|_|-)(vol)\.?(\s|-|_)?\d+",
++        //    MatchOptions, RegexTimeout),
++        //// [xPearse] Kyochuu Rettou Chapter 001 Volume 1 [English] [Manga] [Volume Scans]
++        //new Regex(
++        //    @"(?<Series>.+?):?(\s|\b|_|-)Chapter(\s|\b|_|-)\d+(\s|\b|_|-)(vol)(ume)",
++        //    MatchOptions,
++        //    RegexTimeout),
++
++        //// [xPearse] Kyochuu Rettou Volume 1 [English] [Manga] [Volume Scans]
++        //new Regex(
++        //    @"(?<Series>.+?):? (\b|_|-)(vol)(ume)",
++        //    MatchOptions,
++        //    RegexTimeout),
++        ////Knights of Sidonia c000 (S2 LE BD Omake - BLAME!) [Habanero Scans]
++        //new Regex(
++        //    @"(?<Series>.*?)(?<!\()\bc\d+\b",
++        //    MatchOptions, RegexTimeout),
++        ////Tonikaku Cawaii [Volume 11], Darling in the FranXX - Volume 01.cbz
++        //new Regex(
++        //    @"(?<Series>.*)(?: _|-|\[|\()\s?vol(ume)?",
++        //    MatchOptions, RegexTimeout),
++        //// Momo The Blood Taker - Chapter 027 Violent Emotion.cbz, Grand Blue Dreaming - SP02 Extra (2019) (Digital) (danke-Empire).cbz
++        //new Regex(
++        //    @"^(?<Series>(?!Vol).+?)(?:(ch(apter|\.)(\b|_|-|\s))|sp)\d",
++        //    MatchOptions, RegexTimeout),
++        //// Historys Strongest Disciple Kenichi_v11_c90-98.zip, Killing Bites Vol. 0001 Ch. 0001 - Galactica Scanlations (gb)
++        //new Regex(
++        //    @"(?<Series>.*) (\b|_|-)(v|ch\.?|c|s)\d+",
++        //    MatchOptions, RegexTimeout),
++        //// Hinowa ga CRUSH! 018 (2019) (Digital) (LuCaZ).cbz
++        //new Regex(
++        //    @"(?<Series>.*)\s+(?<Chapter>\d+)\s+(?:\(\d{4}\))\s",
++        //    MatchOptions, RegexTimeout),
++        //// Goblin Slayer - Brand New Day 006.5 (2019) (Digital) (danke-Empire)
++        //new Regex(
++        //    @"(?<Series>.*) (-)?(?<Chapter>\d+(?:.\d+|-\d+)?) \(\d{4}\)",
++        //    MatchOptions, RegexTimeout),
++        //// Noblesse - Episode 429 (74 Pages).7z
++        //new Regex(
++        //    @"(?<Series>.*)(\s|_)(?:Episode|Ep\.?)(\s|_)(?<Chapter>\d+(?:.\d+|-\d+)?)",
++        //    MatchOptions, RegexTimeout),
++        //// Akame ga KILL! ZERO (2016-2019) (Digital) (LuCaZ)
++        //new Regex(
++        //    @"(?<Series>.*)\(\d",
++        //    MatchOptions, RegexTimeout),
++        //// Tonikaku Kawaii (Ch 59-67) (Ongoing)
++        //new Regex(
++        //    @"(?<Series>.*)(\s|_)\((c\s|ch\s|chapter\s)",
++        //    MatchOptions, RegexTimeout),
++        //// Fullmetal Alchemist chapters 101-108
++        //new Regex(
++        //    @"(?<Series>.+?)(\s|_|\-)+?chapters(\s|_|\-)+?\d+(\s|_|\-)+?",
++        //    MatchOptions, RegexTimeout),
++        //// It's Witching Time! 001 (Digital) (Anonymous1234)
++        //new Regex(
++        //    @"(?<Series>.+?)(\s|_|\-)+?\d+(\s|_|\-)\(",
++        //    MatchOptions, RegexTimeout),
++        ////Ichinensei_ni_Nacchattara_v01_ch01_[Taruby]_v1.1.zip must be before [Suihei Kiki]_Kasumi_Otoko_no_Ko_[Taruby]_v1.1.zip
++        //// due to duplicate version identifiers in file.
++        //new Regex(
++        //    @"(?<Series>.*)(v|s)\d+(-\d+)?(_|\s)",
++        //    MatchOptions, RegexTimeout),
++        ////[Suihei Kiki]_Kasumi_Otoko_no_Ko_[Taruby]_v1.1.zip
++        //new Regex(
++        //    @"(?<Series>.*)(v|s)\d+(-\d+)?",
++        //    MatchOptions, RegexTimeout),
++        //// Black Bullet (This is very loose, keep towards bottom)
++        //new Regex(
++        //    @"(?<Series>.*)(_)(v|vo|c|volume)( |_)\d+",
++        //    MatchOptions, RegexTimeout),
++        //// [Hidoi]_Amaenaideyo_MS_vol01_chp02.rar
++        //new Regex(
++        //    @"(?<Series>.*)( |_)(vol\d+)?( |_)(?:Chp\.? ?\d+)",
++        //    MatchOptions, RegexTimeout),
++        //// Mahoutsukai to Deshi no Futekisetsu na Kankei Chp. 1
++        //new Regex(
++        //    @"(?<Series>.*)( |_)(?:Chp.? ?\d+)",
++        //    MatchOptions, RegexTimeout),
++        //// Corpse Party -The Anthology- Sachikos game of love Hysteric Birthday 2U Chapter 01
++        //new Regex(
++        //    @"^(?!Vol)(?<Series>.*)( |_)Chapter( |_)(\d+)",
++        //    MatchOptions, RegexTimeout),
++
++        //// Fullmetal Alchemist chapters 101-108.cbz
++        //new Regex(
++        //    @"^(?!vol)(?<Series>.*)( |_)(chapters( |_)?)\d+-?\d*",
++        //    MatchOptions, RegexTimeout),
++        //// Umineko no Naku Koro ni - Episode 1 - Legend of the Golden Witch #1
++        //new Regex(
++        //    @"^(?!Vol\.?)(?<Series>.*)( |_|-)(?<!-)(episode|chapter|(ch\.?) ?)\d+-?\d*",
++        //    MatchOptions, RegexTimeout),
++        //// Baketeriya ch01-05.zip
++        //new Regex(
++        //    @"^(?!Vol)(?<Series>.*)ch\d+-?\d?",
++        //    MatchOptions, RegexTimeout),
++        //// Magi - Ch.252-005.cbz
++        //new Regex(
++        //    @"(?<Series>.*)( ?- ?)Ch\.\d+-?\d*",
++        //    MatchOptions, RegexTimeout),
++        //// Korean catch all for symbols 죠시라쿠! 2년 후 1권
++        //new Regex(
++        //    @"^(?!Vol)(?!Chapter)(?<Series>.+?)(-|_|\s|#)\d+(-\d+)?(권|화|話)",
++        //    MatchOptions, RegexTimeout),
++        //// [BAA]_Darker_than_Black_Omake-1, Bleach 001-002, Kodoja #001 (March 2016)
++        //new Regex(
++        //    @"^(?!Vol)(?!Chapter)(?<Series>.+?)(-|_|\s|#)\d+(-\d+)?",
++        //    MatchOptions, RegexTimeout),
++        //// Baketeriya ch01-05.zip, Akiiro Bousou Biyori - 01.jpg, Beelzebub_172_RHS.zip, Cynthia the Mission 29.rar, A Compendium of Ghosts - 031 - The Third Story_ Part 12 (Digital) (Cobalt001)
++        //new Regex(
++        //    @"^(?!Vol\.?)(?!Chapter)(?<Series>.+?)(\s|_|-)(?<!-)(ch|chapter)?\.?\d+-?\d*",
++        //    MatchOptions, RegexTimeout),
++        //// [BAA]_Darker_than_Black_c1 (This is very greedy, make sure it's close to last)
++        //new Regex(
++        //    @"^(?!Vol)(?<Series>.*)( |_|-)(ch?)\d+",
++        //    MatchOptions, RegexTimeout),
++        //// Japanese Volume: n巻 -> Volume n
++        //new Regex(
++        //    @"(?<Series>.+?)第(?<Volume>\d+(?:(\-)\d+)?)巻",
++        //    MatchOptions, RegexTimeout),
+ 
+     };
+ 
+@@ -476,38 +476,38 @@ public static partial class Parser
+         new Regex(
+             @"(เล่ม|เล่มที่)(\s)?(\.?)(\s|_)?(?<Volume>\d+(\-\d+)?(\.\d+)?)",
+             MatchOptions, RegexTimeout),
+-        // Teen Titans v1 001 (1966-02) (digital) (OkC.O.M.P.U.T.O.-Novus)
+-        new Regex(
+-            @"^(?<Series>.+?)(?: |_)(t|v)(?<Volume>" + NumberRange + @")",
+-            MatchOptions, RegexTimeout),
+-        // Batgirl Vol.2000 #57 (December, 2004)
+-        new Regex(
+-            @"^(?<Series>.+?)(?:\s|_)(v|vol|tome|t)\.?(\s|_)?(?<Volume>\d+)",
+-            MatchOptions, RegexTimeout),
+-        // Chinese Volume: 第n卷 -> Volume n, 第n册 -> Volume n, 幽游白书完全版 第03卷 天下 or 阿衰online 第1册
+-        new Regex(
+-            @"第(?<Volume>\d+)(卷|册)",
+-            MatchOptions, RegexTimeout),
+-        // Chinese Volume: 卷n -> Volume n, 册n -> Volume n
+-        new Regex(
+-            @"(卷|册)(?<Volume>\d+)",
+-            MatchOptions, RegexTimeout),
+-        // Korean Volume: 제n권 -> Volume n, n권  -> Volume n, 63권#200.zip
+-        new Regex(
+-            @"제?(?<Volume>\d+)권",
+-            MatchOptions, RegexTimeout),
+-        // Japanese Volume: n巻 -> Volume n
+-        new Regex(
+-            @"(?<Volume>\d+(?:(\-)\d+)?)巻",
+-            MatchOptions, RegexTimeout),
+-        // Russian Volume: Том n -> Volume n, Тома n -> Volume
+-        new Regex(
+-            @"Том(а?)(\.?)(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)",
+-            MatchOptions, RegexTimeout),
+-        // Russian Volume: n Том -> Volume n
+-        new Regex(
+-            @"(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)(\s|_)Том(а?)",
+-            MatchOptions, RegexTimeout),
++        //// Teen Titans v1 001 (1966-02) (digital) (OkC.O.M.P.U.T.O.-Novus)
++        //new Regex(
++        //    @"^(?<Series>.+?)(?: |_)(t|v)(?<Volume>" + NumberRange + @")",
++        //    MatchOptions, RegexTimeout),
++        //// Batgirl Vol.2000 #57 (December, 2004)
++        //new Regex(
++        //    @"^(?<Series>.+?)(?:\s|_)(v|vol|tome|t)\.?(\s|_)?(?<Volume>\d+)",
++        //    MatchOptions, RegexTimeout),
++        //// Chinese Volume: 第n卷 -> Volume n, 第n册 -> Volume n, 幽游白书完全版 第03卷 天下 or 阿衰online 第1册
++        //new Regex(
++        //    @"第(?<Volume>\d+)(卷|册)",
++        //    MatchOptions, RegexTimeout),
++        //// Chinese Volume: 卷n -> Volume n, 册n -> Volume n
++        //new Regex(
++        //    @"(卷|册)(?<Volume>\d+)",
++        //    MatchOptions, RegexTimeout),
++        //// Korean Volume: 제n권 -> Volume n, n권  -> Volume n, 63권#200.zip
++        //new Regex(
++        //    @"제?(?<Volume>\d+)권",
++        //    MatchOptions, RegexTimeout),
++        //// Japanese Volume: n巻 -> Volume n
++        //new Regex(
++        //    @"(?<Volume>\d+(?:(\-)\d+)?)巻",
++        //    MatchOptions, RegexTimeout),
++        //// Russian Volume: Том n -> Volume n, Тома n -> Volume
++        //new Regex(
++        //    @"Том(а?)(\.?)(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)",
++        //    MatchOptions, RegexTimeout),
++        //// Russian Volume: n Том -> Volume n
++        //new Regex(
++        //    @"(\s|_)?(?<Volume>\d+(?:(\-)\d+)?)(\s|_)Том(а?)",
++        //    MatchOptions, RegexTimeout),
+     };
+ 
+     private static readonly Regex[] ComicChapterRegex = new[]
+@@ -614,6 +614,14 @@ public static partial class Parser
          new Regex(
              @"(?<Series>.*)\sS(?<Volume>\d+)\s(?<Chapter>\d+(?:.\d+|-\d+)?)",
              MatchOptions, RegexTimeout),
-+        // [0001]_Chapter_1.pdf, [0112]_Chapter_110.2.pdf, Chapter_13_3.pdf, Chapter_100.pdf
++        // [0001]_Chapter_1.pdf, [0112]_Chapter_110.2.pdf
 +        new Regex(
-+            @"(?:^|_)Chapter_(?<Chapter>\d+(\.\d+|_\d+)?)", //(?:.\d+|-\d+)?
++            @"(?:^)\[(?<Chapter>\d+(\.\d+|_\d+)?)\]", //(?:.\d+|-\d+)?
++            MatchOptions, RegexTimeout),
++        // Chapter_13_3.pdf, Chapter_100.pdf
++        new Regex (
++                @"(?:^)(?:Chapter|Ch|Chap|Chp|Ep|Episode|Epi|E)(?:_|\.|\s)(?<Chapter>\d+(\.\d+|_\d+)?)",
 +            MatchOptions, RegexTimeout),
          // Beelzebub_01_[Noodles].zip, Beelzebub_153b_RHS.zip
          new Regex(
              @"^((?!v|vo|vol|Volume).)*(\s|_)(?<Chapter>\.?\d+(?:.\d+|-\d+)?)(?<Part>b)?(\s|_|\[|\()",
-
