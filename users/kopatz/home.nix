@@ -30,6 +30,7 @@
     ../../home-manager/i3.nix
     ../../home-manager/stylix.nix
     ../../home-manager/mpv.nix
+    ../../home-manager/discord-theme.nix
     inputs.nixvim.homeManagerModules.nixvim
     inputs.nix-colors.homeManagerModule
   ];
