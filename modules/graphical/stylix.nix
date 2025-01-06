@@ -33,6 +33,7 @@ in {
 
       home-manager = {
         users.${config.mainUser.name}.stylix = {
+          enable = true;
           #targets.kde.enable = lib.mkIf config.custom.graphical.i3.enable false;
           base16Scheme = config.stylix.base16Scheme // cfg.override;
         };

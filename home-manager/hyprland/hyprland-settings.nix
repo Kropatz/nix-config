@@ -287,7 +287,7 @@ in {
           "${pkgs.hyprshade}/bin/hyprshade auto"
           "dex --autostart --environment Hyprland"
           "hypridle &"
-          "${pkgs.waybar}/bin/waybar &"
+          "sleep 3 && ${pkgs.waybar}/bin/waybar &"
           #"${pkgs.dunst}/bin/dunst &"
         ] ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
           "[workspace 9 silent] vesktop"

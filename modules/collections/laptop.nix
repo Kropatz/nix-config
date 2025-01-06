@@ -39,6 +39,7 @@
       #games.enable = true;
       ime.enable = true;
       shared.enable = true;
+      stylix.enable = true;
     };
   };
 
