@@ -12,8 +12,7 @@ in {
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    discord = prev.discord-canary.override { withVencord = true; };
-    #discord = prev.vesktop;
+    discord-canary = prev.discord-canary.override { withVencord = true; };
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     #hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
     #  version = "0.45.0";

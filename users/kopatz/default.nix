@@ -24,7 +24,6 @@
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
-      #discord
       brave
     ];
     openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];

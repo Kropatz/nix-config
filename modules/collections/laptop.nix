@@ -28,6 +28,7 @@
     };
     graphical = {
       audio.enable = true;
+      basics.enable = true;
       code = {
         enable = true;
         #android.enable = true;

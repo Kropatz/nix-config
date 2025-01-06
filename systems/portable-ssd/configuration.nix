@@ -47,7 +47,7 @@
   networking.useDHCP = lib.mkDefault true;
   networking.networkmanager.enable = true;
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" "sd_mod" "rtsx_pci_sdmmc" "uas" "usbcore" "ehci_hcd" "uhci_hcd" "ohci_hcd" "scsi_mod" ];
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos-ssd";
     fsType = "ext4";
