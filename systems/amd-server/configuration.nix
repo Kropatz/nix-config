@@ -21,7 +21,6 @@
       ld.enable = true;
       settings.enable = true;
     };
-    services = { syncthing = { enable = true; }; };
     hardware = {
       amd-gpu.enable = true;
       firmware.enable = true;

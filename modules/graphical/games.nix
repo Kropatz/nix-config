@@ -39,7 +39,7 @@ in {
         lutris
         prismlauncher
         steamtinkerlaunch
-        #tetrio-desktop #fuck you osk
+        tetrio-desktop
         #libs
       ]) ++ optionals cfg.enableVr (with pkgs; [ beatsabermodmanager ]);
 
