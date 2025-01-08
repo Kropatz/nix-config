@@ -1,23 +1,41 @@
-{ config, pkgs, inputs, ... }:
-{
-  imports =
-    [ # Include the results of the hardware scan.
-	./hardware-configuration.nix
-	./modules/battery.nix
-	#./modules/wireguard.nix
-	## -- set in flake.nix
-	#<nixos-hardware/dell/xps/15-7590/nvidia>
-	#<home-manager/nixos>
-    ];
+{ config, pkgs, inputs, ... }: {
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./modules/battery.nix
+    ../../modules/ecryptfs.nix
+    #../../modules/fh/scanning.nix
+    ../../modules/support/ntfs.nix
+    ../../modules/thunderbolt.nix
+    #../../modules/vmware-host.nix
+    #../../modules/fh/forensik.nix
+    #../../modules/no-sleep-lid-closed.nix
+    #../../modules/static-ip.nix
+    #../../modules/wake-on-lan.nix
+    #./modules/wireguard.nix
+    ## -- set in flake.nix
+    #<nixos-hardware/dell/xps/15-7590/nvidia>
+    #<home-manager/nixos>
+    inputs.nixos-hardware.nixosModules.dell-xps-15-7590
+  ];
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.production;
+  specialisation.nvidia = {
+    configuration = {
+
+      imports = [ inputs.nixos-hardware.nixosModules.dell-xps-15-7590-nvidia ];
+      hardware.nvidia.package =
+        config.boot.kernelPackages.nvidiaPackages.production;
+      hardware.nvidia.open = false;
+    };
+  };
 
   services.blueman.enable = true;
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  hardware.bluetooth.powerOnBoot =
+    true; # powers up the default Bluetooth controller on boot
 
-  age.identityPaths = [ "/home/kopatz/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key" ];
+  age.identityPaths =
+    [ "/home/kopatz/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key" ];
   mainUser.layout = "at";
   mainUser.variant = "";
   # Bootloader.
@@ -31,10 +49,10 @@
   networking.networkmanager.enable = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  networking.extraHosts =
-  ''
-    82.218.12.28 kopatz.ddns.net
-  '';
+  #networking.extraHosts =
+  #''
+  #  82.218.12.28 kopatz.ddns.net
+  #'';
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -68,18 +86,18 @@
   #  "d /docker-data 0755 kopatz users"
   #];
 
-  security.pki.certificates = [ ''
------BEGIN CERTIFICATE-----
-MIIBjTCCATKgAwIBAgIRAMVH2+JHZ3wm2fLUlKjTYDswCgYIKoZIzj0EAwIwJDEM
-MAoGA1UEChMDS29wMRQwEgYDVQQDEwtLb3AgUm9vdCBDQTAeFw0yMzEyMDgxNDUx
-MTZaFw0zMzEyMDUxNDUxMTZaMCQxDDAKBgNVBAoTA0tvcDEUMBIGA1UEAxMLS29w
-IFJvb3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATdZBOkNynShXipzhuX
-f6dUByD3chNupNWsagYC5AlPRJT9fAeHEIK/bxWkFwRtLBDopWvBu9lHahBgpHc7
-y7rTo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNV
-HQ4EFgQU9AVtwipW5HDBLfZRH1KZCnIKCfowCgYIKoZIzj0EAwIDSQAwRgIhAMHj
-AipNdhQKIYPvMt/h1uW4xP3NTkitnmshM09+rIasAiEAlSalGddXDkqJBHhPD+Fr
-gpuVkfVkA8gQCXNs5F9TnxA=
------END CERTIFICATE-----
+  security.pki.certificates = [''
+    -----BEGIN CERTIFICATE-----
+    MIIBjTCCATKgAwIBAgIRAMVH2+JHZ3wm2fLUlKjTYDswCgYIKoZIzj0EAwIwJDEM
+    MAoGA1UEChMDS29wMRQwEgYDVQQDEwtLb3AgUm9vdCBDQTAeFw0yMzEyMDgxNDUx
+    MTZaFw0zMzEyMDUxNDUxMTZaMCQxDDAKBgNVBAoTA0tvcDEUMBIGA1UEAxMLS29w
+    IFJvb3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATdZBOkNynShXipzhuX
+    f6dUByD3chNupNWsagYC5AlPRJT9fAeHEIK/bxWkFwRtLBDopWvBu9lHahBgpHc7
+    y7rTo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNV
+    HQ4EFgQU9AVtwipW5HDBLfZRH1KZCnIKCfowCgYIKoZIzj0EAwIDSQAwRgIhAMHj
+    AipNdhQKIYPvMt/h1uW4xP3NTkitnmshM09+rIasAiEAlSalGddXDkqJBHhPD+Fr
+    gpuVkfVkA8gQCXNs5F9TnxA=
+    -----END CERTIFICATE-----
   ''];
 
   system.stateVersion = "23.05"; # Did you read the comment?

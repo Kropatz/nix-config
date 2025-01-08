@@ -161,16 +161,6 @@
             ./users/kopatz
             ./systems/laptop/configuration.nix
             ./modules/collections/laptop.nix
-            ./modules/ecryptfs.nix
-            #./modules/fh/scanning.nix
-            ./modules/support/ntfs.nix
-            ./modules/thunderbolt.nix
-            #./modules/vmware-host.nix
-            #./modules/fh/forensik.nix
-            #./modules/no-sleep-lid-closed.nix
-            #./modules/static-ip.nix
-            #./modules/wake-on-lan.nix
-            nixos-hardware.nixosModules.dell-xps-15-7590-nvidia
           ];
         };
         "mini-pc" = mkStableServer {

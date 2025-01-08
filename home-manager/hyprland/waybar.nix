@@ -34,7 +34,7 @@ in {
         modules-right = [ "group/stats" "group/other" ];
         "group/stats" = {
           "orientation" = "horizontal";
-          "modules" = [ "network" "cpu" "memory" "disk" "temperature" "custom/nvidia" ];
+          "modules" = [ "network" "cpu" "memory" "disk" "temperature" ] ++ lib.optionals (osConfig.networking.hostName != "nix-laptop") [ "custom/nvidia" ] ;
         };
         "group/other" = {
           "orientation" = "horizontal";

@@ -286,7 +286,7 @@ in {
           "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
           "${pkgs.hyprshade}/bin/hyprshade auto"
           "dex --autostart --environment Hyprland"
-          "hypridle &"
+          "${pkgs.hypridle}/bin/hypridle &"
           "sleep 3 && ${pkgs.waybar}/bin/waybar &"
           #"${pkgs.dunst}/bin/dunst &"
         ] ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [

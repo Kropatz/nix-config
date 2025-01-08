@@ -148,9 +148,25 @@ in {
               "answer" = wireguardIp;
             }
             {
+              "domain" = "powerline.home.arpa";
+              "answer" = "192.168.0.2";
+            }
+            {
+              "domain" = "3neo.home.arpa";
+              "answer" = "192.168.0.4";
+            }
+            {
+              "domain" = "alcatel.home.arpa";
+              "answer" = "192.168.0.5";
+            }
+            {
+              "domain" = "extender.home.arpa";
+              "answer" = "192.168.0.8";
+            }
+            {
               "domain" = "inverter.home.arpa";
               "answer" = "192.168.0.9";
-            }
+            }            
           ];
         };
       };
