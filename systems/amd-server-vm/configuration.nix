@@ -56,6 +56,7 @@
         backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull;
       in {
         enable = true;
+        excludePaths = lib.mkOptionDefault [ "${kavita}/manga" ];
         small = backupPathsSmall; # goes to backblaze
         medium = backupPathsMedium; # goes to gdrive
         large = backupPathsFull; # goes to local storage medium
