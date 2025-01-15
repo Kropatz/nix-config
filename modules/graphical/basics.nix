@@ -17,6 +17,9 @@ in {
       #element-desktop
       krita
       libreoffice
+      hunspell # needed for libreoffice spellcheck
+      hunspellDicts.en_US-large
+      hunspellDicts.de_AT
       #anki TODO broken because pyqt6 build fails
       p7zip
       qbittorrent
@@ -25,7 +28,7 @@ in {
       pinta # paint
       #qalculate-qt # calculator TODO build broken
       #libsForQt5.kcalc
-        #syncthingtray #doesnt work with socket yet
+      #syncthingtray #doesnt work with socket yet
       v4l-utils
       logseq # notes
       ani-cli
