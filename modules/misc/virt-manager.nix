@@ -14,7 +14,7 @@ in {
     boot.extraModprobeConfig = ''
       options kvm ignore_msrs=1
     '';
-
+    networking.firewall.trustedInterfaces = [ "virbr0" ];
     programs.virt-manager.enable = true;
     virtualisation = {
       libvirtd = {
