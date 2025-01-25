@@ -94,6 +94,11 @@ in {
           path = "${cfg.basePath}/no_backup";
           devices = [ "kop-pc" "server" "laptop" "mini-pc" "mini-pc-proxmox" ];
         };
+        folders."emu" = {
+          id = "emu";
+          path = "${cfg.basePath}/emu";
+          devices = [ "kop-pc" "server" "mini-pc" "mini-pc-proxmox" ];
+        };
       };
     };
 

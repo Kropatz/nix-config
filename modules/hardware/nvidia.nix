@@ -19,6 +19,7 @@ in {
       hardware.graphics = {
         enable = true;
         enable32Bit = true;
+        extraPackages = with pkgs; [ nvidia-vaapi-driver ];
       };
     } else {
       hardware.opengl = {
@@ -28,7 +29,8 @@ in {
       };
     };
   in lib.mkIf cfg.enable (lib.recursiveUpdate nvidiaOption {
-    boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
+    boot.kernelParams =
+      [ "nvidia-drm.fbdev=1" "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
     services.xserver.videoDrivers = [ "nvidia" ];
     services.xserver.deviceSection = ''
       Option "Coolbits" "24"
@@ -72,9 +74,19 @@ in {
       #};
     };
 
+    environment.systemPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl
+      libva
+      libva-utils
+    ];
+
     systemd.services.nvpl = lib.mkIf cfg.powerLimit.enable {
-      description = "Increase GPU power limit to ${toString cfg.powerLimit.wattage} watts";
-      script = "/run/current-system/sw/bin/nvidia-smi -pl=${toString cfg.powerLimit.wattage}";
+      description =
+        "Increase GPU power limit to ${toString cfg.powerLimit.wattage} watts";
+      script = "/run/current-system/sw/bin/nvidia-smi -pl=${
+          toString cfg.powerLimit.wattage
+        }";
       wantedBy = [ "multi-user.target" ];
     };
   });
