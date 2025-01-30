@@ -27,9 +27,6 @@
       ssd.enable = true;
       wooting.enable = true;
     };
-    misc = {
-      docker.enable = true;
-    };
     graphical = {
       audio.enable = true;
       sddm.enable = true;

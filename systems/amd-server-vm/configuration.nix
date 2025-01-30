@@ -101,6 +101,10 @@
   virtualisation.vmware.guest.enable = true;
   services.xserver.videoDrivers = [ "vmware" ];
 
+  #services.murmur = {
+  #  enable = true;
+  #  openFirewall = true;
+  #};
 
   #fileSystems."/" = {
   #  device = "/dev/disk/by-label/nixos";
