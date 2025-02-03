@@ -10,6 +10,7 @@
       servers = {
         bashls.enable = true;
         clangd.enable = true;
+        cssls.enable = true;
         gopls.enable = true;
         nixd.enable = true;
         html.enable = true;

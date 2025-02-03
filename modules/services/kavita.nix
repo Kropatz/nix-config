@@ -110,7 +110,7 @@ in {
           ${mangal} inline -S Manganato --query "Terror_man" --manga first --download
           ${mangal} inline -S Manganato --query "I_Stole_the_Number_One_Ranker" --manga first --download
           ${mangal} inline -S Manganato --query "hidan_no_aria" --manga first --download
-          ${mangal} inline -S Manganato --query "the_max_level" --manga first --download
+          ${mangal} inline -S AsuraScans --query "the_max_level" --manga first --download
         '';
         serviceConfig = {
           PrivateTmp = true;

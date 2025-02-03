@@ -9,5 +9,5 @@
   kop-website =
     pkgs.callPackage ./website/default.nix { inherit kop-hub ente-frontend; };
   sddm-astronaut = pkgs.callPackage ./sddm-astronaut/default.nix { };
-  mangal-patched = pkgs.callPackage ./mangal/default.nix { mangal = pkgs.mangal; };
+  mangal-patched = pkgs.callPackage ./mangal/default.nix { };
 }
