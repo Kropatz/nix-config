@@ -290,7 +290,7 @@ in {
           "sleep 3 && ${pkgs.waybar}/bin/waybar &"
           #"${pkgs.dunst}/bin/dunst &"
         ] ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
-          "[workspace 9 silent] vesktop"
+          "[workspace 9 silent] discordcanary"
           "[workspace 10 silent] firefox"
         ];
       };
