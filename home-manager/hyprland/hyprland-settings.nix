@@ -85,10 +85,10 @@ in {
 
         cursor = { no_hardware_cursors = true; };
 
-        render = {
-          explicit_sync = 1;
-          explicit_sync_kms = 0;
-        };
+        #render = {
+        #  explicit_sync = 1;
+        #  explicit_sync_kms = 0;
+        #};
 
         general = {
           # See https://wiki.hyprland.org/Configuring/Variables
@@ -100,7 +100,7 @@ in {
           "col.inactive_border" = "rgba(595959aa)";
 
           layout = "dwindle";
-          #allow_tearing = true;
+          allow_tearing = true;
         };
 
         misc = { vfr = true; };
@@ -278,6 +278,7 @@ in {
           #"nofocus,class:^(jetbrains-.*)$,title:^(win.*)$,floating:1"
           ##"immediate, class:^(Risk.*)$"
           "stayfocused,class:(steam_app_107410)"
+          "immediate, class:^tetrio-desktop$"
         ];
 
         exec-once = [
