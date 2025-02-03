@@ -22,7 +22,7 @@ in {
         # See https://wiki.hyprland.org/Configuring/Monitors/
         monitor = if isPc then [
           "HDMI-A-1,1920x1080@60,0x0,1"
-          "DP-1,2560x1440@150,1920x0,1"
+          "DP-3,2560x1440@150,1920x0,1"
           "Unknown-1,disable"
         ] else if isLaptop then [
           # laptop
@@ -38,11 +38,11 @@ in {
 
         workspace =
           lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
-            "1,monitor:DP-1"
-            "2,monitor:DP-1"
-            "3,monitor:DP-1"
-            "4,monitor:DP-1"
-            "5,monitor:DP-1"
+            "1,monitor:DP-3"
+            "2,monitor:DP-3"
+            "3,monitor:DP-3"
+            "4,monitor:DP-3"
+            "5,monitor:DP-3"
             "9,monitor:HDMI-A-1"
             "10,monitor:HDMI-A-1"
           ];
