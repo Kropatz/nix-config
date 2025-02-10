@@ -11,6 +11,21 @@ in {
         description = "The power limit to set the GPU to";
       };
     };
+    clock = {
+      enable = lib.mkEnableOption "Set GPU clocks";
+      min = lib.mkOption {
+        type = lib.types.int;
+        description = "The minimum GPU clock to set";
+      };
+      max = lib.mkOption {
+        type = lib.types.int;
+        description = "The maximum GPU clock to set";
+      };
+      offset = lib.mkOption {
+        type = lib.types.int;
+        description = "The GPU clock offset to set";
+      };
+    };
   };
 
   config = let
@@ -88,15 +103,37 @@ in {
       libvdpau-va-gl
       libva
       libva-utils
+      (gwe.override { nvidia_x11 = config.hardware.nvidia.package; })
     ];
 
-    systemd.services.nvpl = lib.mkIf cfg.powerLimit.enable {
+    systemd.services.nvidiaSetPower = lib.mkIf cfg.powerLimit.enable {
       description =
         "Increase GPU power limit to ${toString cfg.powerLimit.wattage} watts";
       script = "/run/current-system/sw/bin/nvidia-smi -pl=${
           toString cfg.powerLimit.wattage
         }";
       wantedBy = [ "multi-user.target" ];
+    };
+    systemd.services.nvidiaSetClocks = lib.mkIf cfg.clock.enable {
+      description = "Set GPU clocks";
+      script = ''/run/current-system/sw/bin/nvidia-smi -i 0 -lgc ${toString cfg.clock.min},${toString cfg.clock.max}'';
+      wantedBy = [ "multi-user.target" ];
+      after = [ "display-manager.service" ];
+      requires = [ "display-manager.service" ];
+      environment.DISPLAY = ":0";
+      environment.XAUTHORITY = "/home/kopatz/.Xauthority";
+    };
+    systemd.user.services.nvidiaSetOffset = lib.mkIf cfg.clock.enable {
+      description = "Sets gpu offset";
+      enable = true;
+      serviceConfig = { Type = "oneshot"; };
+      script = ''
+        ${config.hardware.nvidia.package.settings}/bin/nvidia-settings -a "[gpu:0]/GPUGraphicsClockOffsetAllPerformanceLevels=${
+          toString cfg.clock.offset
+        }"'';
+      environment = { DISPLAY = ":0"; };
+      after = [ "xdg-desktop-autostart.target" ];
+      wantedBy = [ "default.target" ];
     };
   });
 }

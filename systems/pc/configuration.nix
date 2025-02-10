@@ -44,7 +44,12 @@
       android.enable = true;
       nvidia = {
         enable = true;
-        powerLimit.enable = true;
+        clock = {
+          enable = true;
+          min = 210;
+          max = 1755;
+          offset = 230;
+        };
       };
       firmware.enable = true;
       ssd.enable = true;
