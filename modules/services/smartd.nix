@@ -5,9 +5,8 @@ let
     source ${config.age.secrets.webhook-smartd.path}
     MSG=$(
       ${pkgs.coreutils}/bin/cat <<EOF
-    Problem detected with disk: $SMARTD_DEVICESTRING
-    Warning message from smartd is:
-
+    **Problem detected with disk**: $SMARTD_DEVICESTRING
+    **Warning message from smartd is**:
     $SMARTD_FULLMESSAGE
     EOF
     )
@@ -24,9 +23,11 @@ in {
     enable = lib.mkEnableOption "Enables smartd monitoring";
   };
   config = lib.mkIf cfg.enable {
-    age.secrets.webhook-smartd = { 
-      file = ../../secrets/webhook.age;
-      mode = "444";
+    age.secrets.webhook-smartd = {
+      file = ../../secrets/webhook.age; #File contains WEBHOOK_URL="https://discord.com/api/webhooks/..."
+      owner = "root";
+      group = "root";
+      mode = "400";
     };
 
     services.smartd = {
