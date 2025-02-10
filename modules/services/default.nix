@@ -2,23 +2,24 @@
 {
   imports = [
     ./acme.nix
-    ./caldav.nix
-    ./opensnitch.nix
-    ./github-runner.nix
-    ./adguard.nix
-    ./dnsmasq.nix
-    ./games
-    ./gitolite.nix
-    ./ente.nix
-    ./kubernetes.nix
-    ./kavita.nix
-    ./nginx.nix
-    ./fileshelter.nix
-    ./wireguard.nix
-    ./kop-monitor.nix
-    ./kop-fileshare.nix
     ./adam-site.nix
+    ./adguard.nix
+    ./caldav.nix
+    ./dnsmasq.nix
+    ./ente.nix
+    ./fileshelter.nix
+    ./games
+    ./github-runner.nix
+    ./gitolite.nix
+    ./kavita.nix
+    ./kop-fileshare.nix
+    ./kop-monitor.nix
+    ./kubernetes.nix
+    ./nginx.nix
+    ./opensnitch.nix
     ./plausible.nix
+    ./smartd.nix
     ./syncthing.nix
+    ./wireguard.nix
   ];
 }

@@ -27,6 +27,9 @@
       ssd.enable = true;
       wooting.enable = true;
     };
+    services = {
+      smartd.enable = true;
+    };
     graphical = {
       audio.enable = true;
       sddm.enable = true;

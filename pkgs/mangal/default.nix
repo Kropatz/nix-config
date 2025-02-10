@@ -12,8 +12,8 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "Kropatz";
     repo = pname;
-    rev = "ed061400fbadb0ecceb4f9ae0a39da42475b709d";
-    hash = "sha256-778jdPJC8wzrwawbuTPbS5vCOAR76G+1WvbMpQ7jpNw=";
+    rev = "ebbbc83ce87f124cc819ef440e40f1c93a5f2ecd";
+    hash = "sha256-++fJhHbEKNg3XaCPrYzUmMpF44IM3C1W69ZsTTSqX2g=";
   };
 
   vendorHash = "sha256-FOi36EmbggxkJ1/wtBO9Vrr716z3dwDevSokFKWwGzY=";
