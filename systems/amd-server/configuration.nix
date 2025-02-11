@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
     ../../modules/kernel.nix
     ../../modules/services/ssh.nix
+    ../../modules/services/nix-cache.nix
   ];
 
   custom = {

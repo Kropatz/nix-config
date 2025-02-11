@@ -57,14 +57,14 @@
   # Load the pages displayed on the new tab page in a private container when
   # creating thumbnails.
   "privacy.usercontext.about_newtab_segregation.enabled" = true;
-  # Disable WebGL
+  # Disable WebGL (override: enabled, to make those websites work.)
   # Disables the WebGL function, to prevent (ab)use the full power of the graphics
   # card (http://www.uniquemachine.org/">fingerprinting with WebGL</a>. Another
   # issue is, that websites can <a
   # href="https://isc.sans.edu/forums/diary/Time+to+disable+WebGL/10867). WebGL is
   # part of some fingerprinting scripts used in the wild. Some interactive websites
   # will not work, which are mostly games.
-  "webgl.disabled" = true;
+  "webgl.disabled" = false;
   # Override graphics card vendor and model strings in the WebGL API
   # Websites can read the graphics card vendor and model using a WebGL API. This
   # setting overrides both with " " without disabling WebGL.

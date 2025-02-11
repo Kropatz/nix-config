@@ -134,6 +134,14 @@
     #}
   ];
 
+  # https://github.com/NixOS/nixpkgs/blob/master/lib/systems/architectures.nix
+  nix.settings.system-features = ["znver3" "gccarch-znver3" ];
+  nixpkgs.hostPlatform = {
+    gcc.arch = "znver3";
+    gcc.tune = "znver3";
+    system = "x86_64-linux";
+  };
+
   # fix index
   services.xserver.extraConfig = ''
     Section "Monitor"

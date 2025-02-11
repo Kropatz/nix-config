@@ -35,4 +35,5 @@ in
   "plausible-keybase.age".publicKeys = [ adam-site kop ];
   "adminarea.age".publicKeys = [ adam-site kop ];
   "radicale.age".publicKeys = [ mini-pc mini-pc-proxmox kop ];
+  "binary-cache.age".publicKeys = [ kop amd-server ];
 }
