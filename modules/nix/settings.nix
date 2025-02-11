@@ -20,11 +20,12 @@ in {
     nix = {
       optimise.automatic = cfg.optimise;
       settings.experimental-features = [ "nix-command" "flakes" ];
-      settings.substituters =
-        lib.mkIf (config.networking.hostName == "kop-pc")
-        [ "http://192.168.0.20:5000" ];
-      settings.trusted-public-keys =
-        [ "amd-server:r5S7vv/3sZ0knhMvpUzRHXFlBHgov2tLhtoKqLXYf28=" ];
+      # not used
+      #settings.substituters =
+      #  lib.mkIf (config.networking.hostName == "kop-pc")
+      #  [ "http://192.168.0.20:5000" ];
+      #settings.trusted-public-keys =
+      #  [ "amd-server:r5S7vv/3sZ0knhMvpUzRHXFlBHgov2tLhtoKqLXYf28=" ];
       registry.nixpkgs.flake = pkgsVersion;
       gc = {
         automatic = true;
