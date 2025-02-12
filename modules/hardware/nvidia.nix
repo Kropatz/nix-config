@@ -116,24 +116,27 @@ in {
     };
     systemd.services.nvidiaSetClocks = lib.mkIf cfg.clock.enable {
       description = "Set GPU clocks";
-      script = ''/run/current-system/sw/bin/nvidia-smi -i 0 -lgc ${toString cfg.clock.min},${toString cfg.clock.max}'';
+      script =
+        "/run/current-system/sw/bin/nvidia-smi -pm 1 && /run/current-system/sw/bin/nvidia-smi -i 0 -lgc ${
+          toString cfg.clock.min
+        },${toString cfg.clock.max}";
       wantedBy = [ "multi-user.target" ];
       after = [ "display-manager.service" ];
       requires = [ "display-manager.service" ];
       environment.DISPLAY = ":0";
       environment.XAUTHORITY = "/home/kopatz/.Xauthority";
     };
-    systemd.user.services.nvidiaSetOffset = lib.mkIf cfg.clock.enable {
-      description = "Sets gpu offset";
-      enable = true;
-      serviceConfig = { Type = "oneshot"; };
-      script = ''
-        ${config.hardware.nvidia.package.settings}/bin/nvidia-settings -a "[gpu:0]/GPUGraphicsClockOffsetAllPerformanceLevels=${
-          toString cfg.clock.offset
-        }"'';
-      environment = { DISPLAY = ":0"; };
-      after = [ "xdg-desktop-autostart.target" ];
-      wantedBy = [ "default.target" ];
-    };
+      # doesn't work
+      #systemd.user.services.nvidiaSetOffset = lib.mkIf cfg.clock.enable {
+      #  description = "Sets gpu offset";
+      #  enable = true;
+      #  serviceConfig = { Type = "oneshot"; };
+      #  script = ''
+      #    ${config.hardware.nvidia.package.settings}/bin/nvidia-settings -a "[gpu:0]/GPUGraphicsClockOffsetAllPerformanceLevels=${
+      #      toString cfg.clock.offset
+      #    }"'';
+      #  environment = { DISPLAY = ":0"; };
+      #  after = [ "graphical-session.target" ];
+      #};
   });
 }
