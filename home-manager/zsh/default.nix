@@ -11,7 +11,7 @@
     shellAliases = {
       # TODO: gifsicle -O3 --lossy=30 noita-20240328-191617-1612416266-00316616.gif -o noita-20240328-191617-1612416266.gif 
       backupNoita =
-        "cp -r ~/.local/share/Steam/steamapps/compatdata/881100/pfx/drive_c/users/steamuser/AppData/LocalLow/Nolla_Games_Noita/save00 /synced/default/backups/noita_save";
+        "cp -r ~/.local/share/Steam/steamapps/compatdata/881100/pfx/drive_c/users/steamuser/AppData/LocalLow/Nolla_Games_Noita/* /synced/default/backups/noita_save";
       checkTime = "(cd /synced/work_drive/TS && nix run)";
       checkWaylandWindowsKDE =
         "qdbus org.kde.KWin /KWin org.kde.KWin.showDebugConsole";
@@ -28,7 +28,15 @@
       dev = "nix-shell --run zsh";
       rmt = "trash put";
       bat = "bat -P --style plain";
-      cdf = "cd $(fd --type d --exclude node_modules --exclude bin --exclude target --exclude .cache . | fzf)";
+      cdf =
+        "cd $(fd --type d --exclude node_modules --exclude bin --exclude target --exclude .cache . | fzf)";
+      cpu_performance =
+        "echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor";
+      cpu_powersave =
+        "echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor";
+      cpu_schedutil =
+        "echo schedutil | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor";
+      cpu_freq = ''watch -n 1 "cat /proc/cpuinfo | grep \"^[c]pu MHz\""'';
     };
     #plugins = with pkgs; [
     #  {

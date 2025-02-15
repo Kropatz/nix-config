@@ -77,10 +77,8 @@ in {
 
           touchpad = { natural_scroll = true; };
 
-          sensitivity = if osConfig.networking.hostName == "kop-pc" then
-            -0.4
-          else
-            0; # -1.0 - 1.0, 0 means no modification.
+          accel_profile = "flat";
+          sensitivity = 0;
         };
 
         cursor = { no_hardware_cursors = true; };
@@ -115,7 +113,7 @@ in {
           #blur_passes = 1
           #blur_new_optimizations = on
 
-         shadow =  {
+          shadow = {
             enabled = true;
             range = 4;
             render_power = 3;

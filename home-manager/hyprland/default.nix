@@ -1,8 +1,9 @@
 {
   imports = [
-  ./hyprland-settings.nix
+    ./hyprland-settings.nix
+    ./hyprspace.nix
     #./hyprland-xwaylandvideobridge.nix not needed anymore
-  ./waybar.nix
-  ./hyprlock.nix
+    ./waybar.nix
+    ./hyprlock.nix
   ];
 }
