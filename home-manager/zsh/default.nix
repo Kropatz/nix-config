@@ -24,7 +24,7 @@
       update = "sudo nixos-rebuild switch";
       updateFancy = "nh os switch";
       updateOffline = "sudo nixos-rebuild switch --option substitute false";
-      goto = "cd $(find ~/projects -maxdepth 2 -type d | ${pkgs.fzf}/bin/fzf)";
+      goto = "cd $(find -L ~/projects -maxdepth 2 -type d | ${pkgs.fzf}/bin/fzf)";
       dev = "nix-shell --run zsh";
       rmt = "trash put";
       bat = "bat -P --style plain";

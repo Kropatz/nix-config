@@ -17,6 +17,7 @@
         dartls.enable = true;
         ts_ls.enable = true;
         pylsp.enable = true;
+        lua_ls.enable = true;
         csharp_ls = {
           enable = true;
           package = pkgs.stable.csharp-ls;
