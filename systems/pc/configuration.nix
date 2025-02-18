@@ -12,6 +12,7 @@
     ../../modules/services/syncthing.nix
     ../../modules/support/ntfs.nix
     ../../modules/fh/writing.nix
+    ../../modules/work/vpn.nix
   ];
 
   custom = {
@@ -168,7 +169,7 @@
   boot.initrd.systemd.network.wait-online.enable = false;
   systemd.network.wait-online.enable = false;
 
-  services.nscd.enableNsncd = false;
+  #services.nscd.enableNsncd = false;
   #disable firewall when doing ipv6 vm stuff
   #networking.firewall.enable = lib.mkForce false;
 
