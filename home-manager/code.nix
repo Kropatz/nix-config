@@ -13,7 +13,7 @@
       };
       extensions = with pkgs.vscode-extensions; [
         jnoortheen.nix-ide
-        rust-lang.rust-analyzer
+        #rust-lang.rust-analyzer broken on unstable
         myriad-dreamin.tinymist
         #tomoki1207.pdf latex-workshop is faster to preview pdf
         james-yu.latex-workshop
