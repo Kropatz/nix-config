@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, osConfig, ... }:
 let
   merge = lib.foldr (a: b: a // b) { };
   search = {
@@ -94,7 +94,7 @@ in {
     profiles = {
       default = {
         name = "privacy-friendly";
-        settings = merge [
+        settings = merge ([
           (import ./config/preferences.nix)
           (import ./config/browser-features.nix)
           (import ./config/privacy.nix)
@@ -102,7 +102,7 @@ in {
           (import ./config/tracking-webaudio.nix)
           (import ./config/security.nix)
           (import ./config/speed.nix)
-        ];
+        ] ++ lib.optionals osConfig.custom.hardware.nvidia.enable [(import ./config/nvidia-fixes.nix)]);
         userChrome = ''
           /* Hide tab bar. Used with Sidebery */
           #TabsToolbar {
@@ -123,14 +123,14 @@ in {
       enable-webaudio = {
         name = "privacy-but-enable-webaudio";
         id = 2;
-        settings = merge [
+        settings = merge ([
           (import ./config/preferences.nix)
           (import ./config/browser-features.nix)
           (import ./config/privacy.nix)
           (import ./config/tracking.nix)
           (import ./config/security.nix)
           (import ./config/speed.nix)
-        ];
+        ] ++ lib.optionals osConfig.custom.hardware.nvidia.enable [(import ./config/nvidia-fixes.nix)]);
         userChrome = ''
           /* Hide tab bar. Used with Sidebery */
           #TabsToolbar {
@@ -160,10 +160,10 @@ in {
             visibility: collapse !important;
           }
         '';
-        settings = merge [
+        settings = merge ([
           (import ./config/preferences.nix)
           (import ./config/speed.nix)
-        ];
+        ] ++ lib.optionals osConfig.custom.hardware.nvidia.enable [(import ./config/nvidia-fixes.nix)]);
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
