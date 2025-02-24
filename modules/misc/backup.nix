@@ -22,7 +22,7 @@ in
       };
       excludePaths = lib.mkOption {
         type = types.listOf types.str;
-        default = [ "**/Cache" "**/.cache" "**/__pycache__" "**/node_modules" "**/venv" ];
+        default = [ "**/Cache" "**/.cache" "**/__pycache__" "**/node_modules" "**/venv" "*.o" "*.out"];
         description = "paths to exclude from the backup";
       };
       excludePathsRemote = lib.mkOption {
