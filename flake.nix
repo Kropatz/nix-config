@@ -55,7 +55,6 @@
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.home-manager.follows = "home-manager-unstable";
     };
     #hyprland = {
     #  url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -74,7 +73,7 @@
           modifications
           unstable-packages
           stable-packages
-          nur.overlay
+          nur.overlays.default
         ];
       };
       defaultModules = [ ./modules agenix.nixosModules.default overlays ];

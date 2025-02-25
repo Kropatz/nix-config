@@ -13,11 +13,8 @@ in {
       xkb.layout = config.mainUser.layout;
       xkb.variant = config.mainUser.variant;
       enable = true;
-      displayManager =
-        lib.mkIf (!config.services.xserver.displayManager.gdm.enable) {
-          sddm.enable = true;
-        };
     };
+    services.displayManager.sddm.enable = !config.services.xserver.displayManager.gdm.enable;
 
     #nix.settings = {
     #  substituters = [ "https://hyprland.cachix.org" ];
@@ -25,11 +22,6 @@ in {
     #    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     #  ];
     #};
-
-    hardware = {
-      # Opengl
-      opengl.enable = true;
-    };
 
     xdg.portal.enable = true;
     xdg.portal.extraPortals = lib.mkDefault [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland ];

@@ -109,7 +109,7 @@ in {
             visibility: collapse !important;
           }
         '';
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
           sponsorblock
@@ -137,7 +137,7 @@ in {
             visibility: collapse !important;
           }
         '';
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
           sponsorblock
@@ -164,7 +164,7 @@ in {
           (import ./config/preferences.nix)
           (import ./config/speed.nix)
         ] ++ lib.optionals osConfig.custom.hardware.nvidia.enable [(import ./config/nvidia-fixes.nix)]);
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
           sponsorblock
