@@ -80,6 +80,7 @@ in {
       kop-newproject # creates a shell.nix and .envrc
       nix-tree # show nix derivations
       binwalk # show what's inside a binary
+      iotop
     ];
   };
 }

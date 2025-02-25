@@ -13,6 +13,7 @@
     ../../modules/support/ntfs.nix
     ../../modules/fh/writing.nix
     ../../modules/work/vpn.nix
+    ../../modules/misc/faster-boot-time.nix
   ];
 
   custom = {
