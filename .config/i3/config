@@ -362,7 +362,7 @@ exec --no-startup-id sleep 5 && nvidia-settings -a "[gpu:0]/GPUGraphicsClockOffs
 #exec --no-startup-id sleep 2 && xfce4-terminal
 #exec --no-startup-id sleep 7 && firefox https://github.com/endeavouros-team/endeavouros-i3wm-setup/blob/main/force-knowledge.md
 #exec --no-startup-id sleep 3 && thunar
-exec --no-startup-id i3-msg workspace $ws9; exec discordcanary 
+exec --no-startup-id i3-msg workspace $ws9; exec discord
 exec --no-startup-id i3-msg workspace $ws10; exec firefox
 
 ###############

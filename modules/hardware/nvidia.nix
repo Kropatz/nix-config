@@ -43,6 +43,7 @@ in {
         driSupport32Bit = true;
       };
     };
+    nvidia_oc = "${pkgs.nvidia_oc}/bin/nvidia_oc";
   in lib.mkIf cfg.enable (lib.recursiveUpdate nvidiaOption {
     boot.kernelParams =
       [ "nvidia-drm.fbdev=1" "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
@@ -109,26 +110,12 @@ in {
     systemd.services.nvidiaSetClocks = lib.mkIf cfg.clock.enable {
       description = "Set GPU clocks";
       script =
-        "/run/current-system/sw/bin/nvidia-smi -pm 1 && /run/current-system/sw/bin/nvidia-smi -i 0 -lgc ${
-          toString cfg.clock.min
-        },${toString cfg.clock.max}";
+        "${nvidia_oc} set -i 0 --min-clock ${toString cfg.clock.min} --max-clock ${
+          toString cfg.clock.max
+        } --freq-offset ${toString cfg.clock.offset}";
       wantedBy = [ "multi-user.target" ];
-      after = [ "display-manager.service" ];
-      requires = [ "display-manager.service" ];
-      environment.DISPLAY = ":0";
-      environment.XAUTHORITY = "/home/kopatz/.Xauthority";
+      after = [ "network.target" ];
     };
-    # doesn't work
-    #systemd.user.services.nvidiaSetOffset = lib.mkIf cfg.clock.enable {
-    #  description = "Sets gpu offset";
-    #  enable = true;
-    #  serviceConfig = { Type = "oneshot"; };
-    #  script = ''
-    #    ${config.hardware.nvidia.package.settings}/bin/nvidia-settings -a "[gpu:0]/GPUGraphicsClockOffsetAllPerformanceLevels=${
-    #      toString cfg.clock.offset
-    #    }"'';
-    #  environment = { DISPLAY = ":0"; };
-    #  after = [ "graphical-session.target" ];
-    #};
+
   });
 }

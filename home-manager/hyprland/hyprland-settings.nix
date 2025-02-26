@@ -286,11 +286,13 @@ in {
           "${pkgs.hyprshade}/bin/hyprshade auto"
           "dex --autostart --environment Hyprland"
           "${pkgs.hypridle}/bin/hypridle &"
-          "sleep 3 && ${pkgs.waybar}/bin/waybar &"
           #"${pkgs.dunst}/bin/dunst &"
         ] ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
+          "[workspace 9 silent] discord"
           "[workspace 9 silent] discordcanary"
           "[workspace 10 silent] firefox"
+        ] ++ [
+          "sleep 3 && ${pkgs.waybar}/bin/waybar &"
         ];
       };
       extraConfig = let

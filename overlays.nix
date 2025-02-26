@@ -13,6 +13,7 @@ in {
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
     discord-canary = prev.discord-canary.override { withVencord = true; };
+    discord = prev.discord.override { withVencord = true; };
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     #hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
     #  version = "0.45.0";

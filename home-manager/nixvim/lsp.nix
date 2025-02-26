@@ -9,6 +9,7 @@
       enable = true;
       servers = {
         bashls.enable = true;
+        #ccls.enable = true; 
         clangd.enable = true;
         cssls.enable = true;
         gopls.enable = true;

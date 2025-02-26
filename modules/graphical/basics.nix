@@ -9,7 +9,7 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       keepassxc
-      discord-canary
+      discord
       gvfs
       remmina
       thunderbird
