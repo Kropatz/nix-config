@@ -24,14 +24,35 @@
     ui = true
 [rerere]
     enabled = true
+    autoupdate = true
 [mergetool]
     keeptemporaries = false
     keepbackups = false
     prompt = false
     trustexitcode = false
+[commit]
+    verbose = true
+[column]
+    ui = auto
 [pull]
     ff = true
-	
+[push]
+    autoSetupRemote = true
+    followTags = true
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
+[diff]
+    algorithm = histogram
+    colorMoved = plain
+    renames = true
+    mnemonicPrefix = true
+[tag]
+    sort = version:refname
+[branch]
+    sort = -committerdate
+
 [includeIf "gitdir/i:~/projects/github/**"]
     path = .gitconfig-github
 [includeIf "gitdir/i:~/projects/gitea/**"]

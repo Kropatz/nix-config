@@ -112,6 +112,7 @@ in {
           ${mangal} inline -S Manganato --query "hidan_no_aria" --manga first --download
           ${mangal} inline -S AsuraScans --query "the_max_level_hero" --manga first --download
           ${mangal} inline -S Manganato --query "Parallel_City" --manga first --download
+          ${mangal} inline -S Manganato --query "Existence" --manga first --download
         '';
         serviceConfig = {
           PrivateTmp = true;

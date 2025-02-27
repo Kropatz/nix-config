@@ -5,6 +5,10 @@
   # Disable new tab page intro
   # Disable the intro to the newtab page on the first run
   "browser.newtabpage.introShown" = false;
+  # Show bookmarks toolbar on new tab page
+  "browser.toolbars.bookmarks.visibility" = "never";
+  # Don't ask to save logins and passwords for websites
+  "signon.rememberSignons" = false;
   # Pocket Reading List
   # No details
   "extensions.pocket.enabled" = false;
@@ -38,6 +42,9 @@
   # Content of the new tab page
   # 
   "browser.newtabpage.enhanced" = false;
+  # Disable the new tab page (blank page)
+  "browser.newtabpage.enabled" = false;
+  "browser.startup.homepage" = "about:blank";
   # Disable autoplay of <code>&lt;video&gt;</code> tags.
   # Per default, <code>&lt;video&gt;</code> tags are allowed to start automatically.
   # Note: When disabling autoplay, you will have to click pause and play again on

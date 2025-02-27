@@ -15,7 +15,8 @@
     ../../home-manager/code.nix
     ../../home-manager/fastfetch.nix
     ../../home-manager/direnv.nix
-    ../../home-manager/firefox
+    #../../home-manager/firefox
+    ../../home-manager/floorp
     ../../home-manager/gitconfig.nix
     ../../home-manager/hyprland
     #../../home-manager/kde-path.nix
