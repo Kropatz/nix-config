@@ -119,9 +119,11 @@ in {
           #blur_size = 3
           #blur_passes = 1
           #blur_new_optimizations = on
-
+          blur = {
+            enabled = false;
+          };
           shadow = {
-            enabled = true;
+            enabled = false;
             range = 4;
             render_power = 3;
             color = "rgba(1a1a1aee)";
@@ -129,7 +131,7 @@ in {
         };
 
         animations = {
-          enabled = true;
+          enabled = false;
 
           # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
 
