@@ -1,5 +1,20 @@
 { osConfig, config, pkgs, inputs, lib, ... }: {
-  config = lib.mkIf osConfig.custom.graphical.code.enable {
+  config = lib.mkIf osConfig.custom.graphical.code.enable rec {
+    home.activation.makeVSCodeConfigWritable = let
+      configDirName = {
+        "vscode" = "Code";
+        "vscode-insiders" = "Code - Insiders";
+        "vscodium" = "VSCodium";
+      }.${programs.vscode.package.pname};
+      configPath =
+        "${config.xdg.configHome}/${configDirName}/User/settings.json";
+    in {
+      after = [ "writeBoundary" ];
+      before = [ ];
+      data = ''
+        install -m 0640 "$(readlink ${configPath})" ${configPath}
+      '';
+    };
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
@@ -10,6 +25,7 @@
         ];
         "editor.mouseWheelZoom" = true;
         "files.autoSave" = "afterDelay";
+        "clangd.path" = "/run/current-system/sw/bin/clangd";
       };
       extensions = with pkgs.vscode-extensions; [
         jnoortheen.nix-ide
@@ -17,6 +33,8 @@
         myriad-dreamin.tinymist
         #tomoki1207.pdf latex-workshop is faster to preview pdf
         james-yu.latex-workshop
+        twxs.cmake
+        llvm-vs-code-extensions.vscode-clangd
       ];
     };
   };

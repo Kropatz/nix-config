@@ -8,7 +8,12 @@ in {
         hyprlock.enable = false;
         hyprland.enable = false;
         waybar.enable = false;
+        gtk.flatpakSupport.enable = true; #edits ~/.themes/adw-gtk3
       };
     };
+
+    wayland.windowManager.hyprland.settings.env = lib.mkIf osConfig.custom.graphical.hyprland.enable [
+      "GTK_THEME,adw-gtk3"
+    ];
   };
 }

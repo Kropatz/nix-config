@@ -3,6 +3,13 @@ let
   cfg = osConfig.custom.graphical.hyprland;
   isPc = osConfig.networking.hostName == "kop-pc";
   isLaptop = osConfig.networking.hostName == "nix-laptop";
+  restartPortals = pkgs.writeShellScript "restart-portals" ''
+    #!/usr/bin/env bash
+    systemctl --user restart xdg-desktop-portal-gtk
+    systemctl --user restart xdg-desktop-portal-hyprland
+    sleep 4
+    systemctl --user restart xdg-desktop-portal
+  '';
 in {
   config = lib.mkIf cfg.enable {
 
@@ -290,9 +297,10 @@ in {
         ] ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
           "[workspace 9 silent] discord"
           "[workspace 9 silent] discordcanary"
-          "[workspace 10 silent] firefox"
+          "[workspace 10 silent] floorp"
         ] ++ [
           "sleep 3 && ${pkgs.waybar}/bin/waybar &"
+          "${restartPortals}"
         ];
       };
       extraConfig = let

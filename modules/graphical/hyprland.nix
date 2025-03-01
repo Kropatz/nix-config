@@ -14,7 +14,8 @@ in {
       xkb.variant = config.mainUser.variant;
       enable = true;
     };
-    services.displayManager.sddm.enable = !config.services.xserver.displayManager.gdm.enable;
+    services.displayManager.sddm.enable =
+      !config.services.xserver.displayManager.gdm.enable;
 
     #nix.settings = {
     #  substituters = [ "https://hyprland.cachix.org" ];
@@ -24,7 +25,10 @@ in {
     #};
 
     xdg.portal.enable = true;
-    xdg.portal.extraPortals = lib.mkDefault [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland ];
+    xdg.portal.extraPortals = lib.mkDefault [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+    ];
 
     programs.hyprland = { enable = true; };
 
@@ -46,8 +50,6 @@ in {
       #qt6.qmake
       #qt6.qtwayland
       #waybar
-      #xdg-desktop-portal-hyprland
-      #xdg-desktop-portal-gtk
       #xdg-utils
       #xwayland
     ];
