@@ -89,6 +89,7 @@ in {
       libvdpau-va-gl
       libva
       libva-utils
+      pkgs.nvidia_oc
       (gwe.override { nvidia_x11 = config.hardware.nvidia.package; })
     ];
 
