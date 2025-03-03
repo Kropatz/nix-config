@@ -3,6 +3,7 @@
     ../kernel.nix # use latest kernel
     ../services/wireguard-client.nix
     ../services/ssh.nix
+    ../work/vpn.nix
   ];
   custom = {
     cli-tools.enable = true;
