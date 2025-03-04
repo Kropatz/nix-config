@@ -12,7 +12,9 @@
       after = [ "writeBoundary" ];
       before = [ ];
       data = ''
-        install -m 0640 "$(readlink ${configPath})" ${configPath}
+        if [ -e "$(readlink ${configPath})" ]; then
+          install -m 0640 "$(readlink ${configPath})" ${configPath}
+        fi
       '';
     };
     programs.vscode = {
