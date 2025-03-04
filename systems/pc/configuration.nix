@@ -89,6 +89,13 @@
   };
   virtualisation.waydroid.enable = true;
 
+  i18n.supportedLocales = [
+    "C.UTF-8/UTF-8"
+    "de_AT.UTF-8/UTF-8"
+    "en_US.UTF-8/UTF-8"
+    "ja_JP.UTF-8/UTF-8"
+  ];
+
   # apple shit
   services.usbmuxd.enable = true;
   environment.systemPackages = with pkgs; [
