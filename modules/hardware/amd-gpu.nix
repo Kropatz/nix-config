@@ -8,5 +8,9 @@ in {
   config = lib.mkIf cfg.enable {
     boot.initrd.kernelModules = [ "amdgpu" ];
     services.xserver.videoDrivers = [ "amdgpu" ];
+    # controller (overclock, undervolt, fan curves)
+    environment.systemPackages = with pkgs; [ lact ];
+    systemd.packages = with pkgs; [ lact ];
+    systemd.services.lactd.wantedBy = [ "multi-user.target" ];
   };
 }
