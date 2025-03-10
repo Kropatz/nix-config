@@ -14,6 +14,7 @@
     ../../modules/fh/writing.nix
     ../../modules/work/vpn.nix
     ../../modules/misc/faster-boot-time.nix
+    ../../modules/hardware/ryzen.nix
   ];
 
   custom = {
@@ -101,6 +102,7 @@
   environment.systemPackages = with pkgs; [
     libimobiledevice
     ifuse # optional, to mount using 'ifuse'
+    gimp3.gimp
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
@@ -155,10 +157,6 @@
     EndSection
   '';
 
-  #zenpower for ryzen
-  boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
-  boot.kernelModules = [ "zenpower" ];
-  boot.blacklistedKernelModules = [ "k10temp" ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

@@ -615,6 +615,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-gimp3": {
+      "locked": {
+        "lastModified": 1735507908,
+        "narHash": "sha256-VA+khC0S0di6w5Yv1kBNRpAihnt2prT/ehQzsKMhEoA=",
+        "owner": "jtojnar",
+        "repo": "nixpkgs",
+        "rev": "771cf18187fefcfaababd35834917c621447fee8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jtojnar",
+        "ref": "gimp-meson",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1697935651,
@@ -793,6 +809,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-gimp3": "nixpkgs-gimp3",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "nur": "nur",

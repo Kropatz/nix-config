@@ -70,4 +70,11 @@ in {
       config.allowUnfree = true;
     };
   };
+
+  gimp3 = final: _prev: {
+    gimp3 = import inputs.nixpkgs-gimp3 {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
 }
