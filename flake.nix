@@ -31,6 +31,7 @@
     #nixpkgs-unstable.url = "github:nixos/nixpkgs/a6916c76a7d202e3c02134e620f6477b8600ce9d";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-gimp3.url = "github:jtojnar/nixpkgs/gimp-meson";
+    nixpkgs-mesa-git.url = "github:kropatz/nixpkgs/mesa-git";
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";

@@ -646,6 +646,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-mesa-git": {
+      "locked": {
+        "lastModified": 1741705751,
+        "narHash": "sha256-TERyCTgLllWgmuYMxbrnjjJQYkj2TT7QoTDUCT/oFOc=",
+        "owner": "kropatz",
+        "repo": "nixpkgs",
+        "rev": "97c017ceecbbc3a5a8e588f3f2e79182afd2dd29",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kropatz",
+        "ref": "mesa-git",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1741332913,
@@ -810,6 +826,7 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "nixpkgs-gimp3": "nixpkgs-gimp3",
+        "nixpkgs-mesa-git": "nixpkgs-mesa-git",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
         "nur": "nur",

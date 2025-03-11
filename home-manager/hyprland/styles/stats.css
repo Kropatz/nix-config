@@ -1,4 +1,5 @@
 @define-color nvidia-green #76b900;
+@define-color amdgpu-red #ed1c24;
 
 #other,
 #other-drawer,
@@ -41,6 +42,10 @@
 
 #custom-nvidia {
   color: @nvidia-green;
+}
+
+#custom-amd-gpu {
+  color: @amdgpu-red;
 }
 
 #network.disconnected {

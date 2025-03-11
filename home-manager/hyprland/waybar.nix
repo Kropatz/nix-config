@@ -34,7 +34,9 @@ in {
         modules-right = [ "group/stats" "group/other" ];
         "group/stats" = {
           "orientation" = "horizontal";
-          "modules" = [ "network" "cpu" "memory" "disk" "temperature" ] ++ lib.optionals (osConfig.networking.hostName != "nix-laptop") [ "custom/nvidia" ] ;
+          "modules" = [ "network" "cpu" "memory" "disk" "temperature" ] 
+              ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "custom/nvidia" ]
+              ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "custom/amd-gpu" ];
         };
         "group/other" = {
           "orientation" = "horizontal";
@@ -146,6 +148,11 @@ in {
           "interval" = 5;
           "exec" = "~/.config/waybar/nvidia.sh";
           "exec-if" = "nvidia-smi";
+        };
+        "custom/amd-gpu" = {
+          "format" = "{}";
+          "interval" = 5;
+          "exec" = "~/.config/waybar/amd-gpu.sh";
         };
         "tray".icon-size = 21;
         "tray".spacing = 10;
