@@ -84,4 +84,11 @@ in {
       config.allowUnfree = true;
     };
   };
+
+  mesa-git = final: _prev: {
+    mesa-git = import inputs.nixpkgs-mesa-git {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
 }
