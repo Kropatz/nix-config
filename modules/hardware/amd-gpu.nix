@@ -11,7 +11,7 @@ in {
       enable = true;
       enable32Bit = true;
       package = lib.mkForce pkgs.mesa-git.mesa.drivers;
-      #extraPackages = with pkgs; [ amdvlk ];
+      extraPackages = with pkgs; [ mesa-git.amdvlk ];
     };
 
     boot.initrd.kernelModules = [ "amdgpu" ];

@@ -90,7 +90,7 @@
     enable = false;
     acceleration = "cuda";
   };
-  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.enable = false;
 
   i18n.supportedLocales = [
     "C.UTF-8/UTF-8"
