@@ -55,8 +55,10 @@ in {
           module-margin = 1;
           modules-left = "i3 xwindow";
           modules-center = "";
-          modules-right =
-            "music network memory cpu cpu-wattage cpu-temp gpu pulseaudio date tray";
+          modules-right = [ "music network memory cpu cpu-wattage cpu-temp" ]
+            ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "nvidia-gpu" ] 
+            ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "amd-gpu" ] 
+            ++ [ "pulseaudio date tray" ];
           cursor-click = "pointer";
           cursor-scroll = "ns-resize";
           enable-ipc = true;
@@ -187,11 +189,18 @@ in {
           exec = "~/.config/polybar/temperature.sh";
           interval = 3;
         };
-        "module/gpu" = {
+        "module/nvidia-gpu" = {
           type = "custom/script";
-          format-foreground = "76b900"; #nvidia green
+          format-foreground = "76b900"; # nvidia green
           label = "%output:0:35:...%";
           exec = "~/.config/polybar/nvidia.sh";
+          interval = 3;
+        };
+        "module/amd-gpu" = {
+          type = "custom/script";
+          format-foreground = "ed1c24"; 
+          label = "%output:0:35:...%";
+          exec = "~/.config/polybar/amd-gpu.sh";
           interval = 3;
         };
         "module/music" = {

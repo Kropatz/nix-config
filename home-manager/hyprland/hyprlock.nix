@@ -58,7 +58,7 @@ in {
     };
 
     # don't autostart
-    systemd.user.services.hypridle.Service.ExecStart = lib.mkForce "true";
+    systemd.user.services.hypridle.Service.ExecStart = lib.mkForce "${pkgs.coreutils}/bin/true";
     systemd.user.services.hypridle.Service.Restart = lib.mkForce "no";
     services.hypridle.enable = true;
     services.hypridle.settings = {

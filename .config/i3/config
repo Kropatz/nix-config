@@ -1,8 +1,8 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $LeftMonitor HDMI-0
-set $RightMonitor DP-4
+set $LeftMonitor HDMI-A-0
+set $RightMonitor DisplayPort-0
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -351,7 +351,6 @@ exec_always --no-startup-id sleep 5 && pactl list short sources | grep 'alsa_inp
 exec --no-startup-id /usr/bin/env dunst
 # alternative if you installed aside with XFCE4:
 # exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd &
-exec --no-startup-id sleep 5 && nvidia-settings -a "[gpu:0]/GPUGraphicsClockOffsetAllPerformanceLevels=230"
 
 # autotiling script
 # https://github.com/nwg-piotr/autotiling

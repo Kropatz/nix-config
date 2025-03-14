@@ -32,6 +32,7 @@ in {
         dates = "weekly";
         options = "--delete-older-than 30d";
       };
+      channel.enable = false;
       extraOptions = ''
         min-free = ${toString (100 * 1024 * 1024)}
         max-free = ${toString (1024 * 1024 * 1024)}

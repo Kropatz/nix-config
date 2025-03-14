@@ -14,6 +14,8 @@
     ../../modules/fh/writing.nix
     ../../modules/work/vpn.nix
     ../../modules/misc/faster-boot-time.nix
+    #../../modules/hardware/ryzenmonitor.nix
+    ../../modules/networkmanager.nix
   ];
 
   custom = {
@@ -39,8 +41,9 @@
     services = { syncthing = { enable = true; }; };
     hardware = {
       android.enable = true;
+      amd-gpu.enable = true;
       nvidia = {
-        enable = true;
+        enable = false;
         clock = {
           enable = true;
           min = 210;
@@ -74,7 +77,7 @@
       nightlight.enable = true;
       #plasma.enable = true;
       i3.enable = true;
-      sway.enable = true;
+      #sway.enable = true;
       hyprland.enable = true;
       #gnome.enable = true;
       #cosmic.enable = true;
@@ -87,13 +90,21 @@
     enable = false;
     acceleration = "cuda";
   };
-  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.enable = false;
+
+  i18n.supportedLocales = [
+    "C.UTF-8/UTF-8"
+    "de_AT.UTF-8/UTF-8"
+    "en_US.UTF-8/UTF-8"
+    "ja_JP.UTF-8/UTF-8"
+  ];
 
   # apple shit
   services.usbmuxd.enable = true;
   environment.systemPackages = with pkgs; [
     libimobiledevice
     ifuse # optional, to mount using 'ifuse'
+    gimp3.gimp
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
@@ -148,10 +159,6 @@
     EndSection
   '';
 
-  #zenpower for ryzen
-  boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
-  boot.kernelModules = [ "zenpower" ];
-  boot.blacklistedKernelModules = [ "k10temp" ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -161,7 +168,6 @@
   networking.hostName = "kop-pc"; # Define your hostname.
 
   # Enable networking
-  networking.networkmanager.enable = true;
   boot.initrd.systemd.network.wait-online.enable = false;
   systemd.network.wait-online.enable = false;
 

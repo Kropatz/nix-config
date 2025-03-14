@@ -4,6 +4,10 @@ let
   addPatches = pkg: patches:
     pkg.overrideAttrs
     (oldAttrs: { patches = (oldAttrs.patches or [ ]) ++ patches; });
+    mesa-git = import inputs.nixpkgs-mesa-git {
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    };
 in {
   # This one brings our custom packages from the 'pkgs' directory
   additions = final: _prev: import ./pkgs { pkgs = final; };
@@ -15,6 +19,9 @@ in {
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
+    lact = prev.rdna4-lact;
+    #mesa = mesa-git.pkgs.mesa;
+    #wayland-protocols = mesa-git.pkgs.wayland-protocols;
     #hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
     #  version = "0.45.0";
     #  src = prev.fetchFromGitHub {
@@ -66,6 +73,20 @@ in {
   };
   stable-packages = final: _prev: {
     stable = import inputs.nixpkgs {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
+
+  gimp3 = final: _prev: {
+    gimp3 = import inputs.nixpkgs-gimp3 {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
+
+  mesa-git = final: _prev: {
+    mesa-git = import inputs.nixpkgs-mesa-git {
       system = final.system;
       config.allowUnfree = true;
     };

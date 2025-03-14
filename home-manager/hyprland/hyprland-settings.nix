@@ -10,6 +10,8 @@ let
     sleep 4
     systemctl --user restart xdg-desktop-portal
   '';
+  monitor1 = if isPc then "DP-1" else if isLaptop then "eDP-1" else "eDP-1";
+  monitor2 = "HDMI-A-1";
 in {
   config = lib.mkIf cfg.enable {
 
@@ -28,8 +30,8 @@ in {
 
         # See https://wiki.hyprland.org/Configuring/Monitors/
         monitor = if isPc then [
-          "HDMI-A-1,1920x1080@60,0x0,1"
-          "DP-3,2560x1440@150,1920x0,1"
+          "${monitor2},1920x1080@60,0x0,1"
+          "${monitor1},2560x1440@144,1920x0,1"
           "Unknown-1,disable"
         ] else if isLaptop then [
           # laptop
@@ -45,13 +47,13 @@ in {
 
         workspace =
           lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
-            "1,monitor:DP-3"
-            "2,monitor:DP-3"
-            "3,monitor:DP-3"
-            "4,monitor:DP-3"
-            "5,monitor:DP-3"
-            "9,monitor:HDMI-A-1"
-            "10,monitor:HDMI-A-1"
+            "1,monitor:${monitor1}"
+            "2,monitor:${monitor1}"
+            "3,monitor:${monitor1}"
+            "4,monitor:${monitor1}"
+            "5,monitor:${monitor1}"
+            "9,monitor:${monitor2}"
+            "10,monitor:${monitor2}"
           ];
 
         # See https://wiki.hyprland.org/Configuring/Keywords/ for more
@@ -64,7 +66,7 @@ in {
 
         # Some default env vars.
         env =
-          [ "XCURSOR_SIZE,24" "NIXOS_OZONE_WL,1" "WLR_NO_HARDWARE_CURSORS,1" ]
+          [ "XCURSOR_SIZE,24" "NIXOS_OZONE_WL,1" ]
           ++ lib.optionals osConfig.custom.hardware.nvidia.enable [
             "LIBVA_DRIVER_NAME,nvidia"
             "GBM_BACKEND,nvidia-drm"
@@ -88,7 +90,7 @@ in {
           sensitivity = 0;
         };
 
-        cursor = { no_hardware_cursors = true; };
+        #cursor = { no_hardware_cursors = true; };
 
         #render = {
         #  explicit_sync = 1;
@@ -303,6 +305,7 @@ in {
         ] ++ [
           "sleep 3 && ${pkgs.waybar}/bin/waybar &"
           "${restartPortals}"
+          "xrandr --monitor ${monitor1} --primary"
         ];
       };
       extraConfig = let

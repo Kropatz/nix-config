@@ -8,7 +8,7 @@
       lib.mkForce [ ]; # Normally ["network-online.target"]
   };
   # mash spacebar to still be able to select a different boot option
-  boot.loader.timeout = 0;
+  boot.loader.timeout = 1;
 
   virtualisation.docker.enableOnBoot = false;
 }

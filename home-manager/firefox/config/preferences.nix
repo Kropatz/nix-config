@@ -58,8 +58,12 @@
   "browser.download.useDownloadDir" = false;
   "browser.download.dir" = "/tmp";
   # Restore previous session automatically
-  "browser.startup.page"= 3;
+  "browser.startup.page" = 3;
   "extensions.activeThemeID" = "{5cd68d86-8324-4ab2-9e0d-3afcc60bee5f}";
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
   "browser.ctrlTab.sortByRecentlyUsed" = true;
+  # Firefox 75+ remembers the last workspace it was opened on as part of its session management.
+  # This is annoying, because I can have a blank workspace, open Firefox and
+  # then have Firefox open on some other workspace
+  "widget.disable-workspace-management" = true;
 }
