@@ -11,7 +11,7 @@ in {
       enable = true;
       enable32Bit = true;
       package = lib.mkForce pkgs.mesa-git.mesa.drivers;
-      extraPackages = with pkgs; [ mesa-git.amdvlk ];
+      #extraPackages = with pkgs; [ mesa-git.amdvlk ];
     };
 
     boot.initrd.kernelModules = [ "amdgpu" ];
@@ -21,9 +21,6 @@ in {
     systemd.packages = with pkgs; [ lact ];
     systemd.services.lactd.wantedBy = [ "multi-user.target" ];
 
-    #system.replaceDependencies.replacements = [
-    #  { oldDependency = pkgs.mesa; newDependency = pkgs.mesa-git.mesa; }
-    #];
     hardware.firmware = with pkgs;
       [
         (linux-firmware.overrideAttrs (old: {
