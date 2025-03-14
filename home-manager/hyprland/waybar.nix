@@ -192,6 +192,7 @@ in {
             "class<Mysql-workbench-bin>" = "";
             "class<Slack>" = "󰒱";
             "class<code>" = "󰨞";
+            "class<codium>" = "󰨞";
             "code-url-handler" = "󰨞";
             "class<discord>" = "󰙯";
             "class<firefox>" = "";
@@ -222,6 +223,9 @@ in {
             "class<org.prismlauncher.PrismLauncher>" = "󰍳";
             "class<minecraft-launcher>" = "󰍳";
             "class<Postman>" = "󰛮";
+            "class<jetbrains-idea>" = "";
+            "class<Logseq>" = "";
+            "class<brave-browser>" = "";
           };
         };
       };
