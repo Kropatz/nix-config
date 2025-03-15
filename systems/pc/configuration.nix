@@ -19,7 +19,7 @@
   ];
 
   custom = {
-    tmpfs.enable = true;
+    #tmpfs.enable = true;
     wireshark.enable = true;
     virt-manager.enable = true;
     nftables.enable = true;

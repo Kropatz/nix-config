@@ -12,9 +12,10 @@ in {
 
   config = lib.mkIf cfg.enable {
     services = {
-      displayManager = {
-        sddm.enable = true;
-        sddm.theme = "${pkgs.sddm-astronaut}";
+      displayManager.sddm = {
+        enable = true;
+        theme = "${pkgs.sddm-astronaut}";
+        #wayland.enable = true;
         #sddm.theme = "breeze";
       };
     };
