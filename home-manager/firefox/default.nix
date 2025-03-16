@@ -59,6 +59,7 @@ let
     };
   };
 in {
+  stylix.targets.firefox.profileNames = [ "default" ];
   programs.firefox = {
     enable = true;
     policies = {
@@ -102,7 +103,8 @@ in {
           (import ./config/tracking-webaudio.nix)
           (import ./config/security.nix)
           (import ./config/speed.nix)
-        ] ++ lib.optionals osConfig.custom.hardware.nvidia.enable [(import ./config/nvidia-fixes.nix)]);
+        ] ++ lib.optionals osConfig.custom.hardware.nvidia.enable
+          [ (import ./config/nvidia-fixes.nix) ]);
         userChrome = ''
           /* Hide tab bar. Used with Sidebery */
           #TabsToolbar {
@@ -130,7 +132,8 @@ in {
           (import ./config/tracking.nix)
           (import ./config/security.nix)
           (import ./config/speed.nix)
-        ] ++ lib.optionals osConfig.custom.hardware.nvidia.enable [(import ./config/nvidia-fixes.nix)]);
+        ] ++ lib.optionals osConfig.custom.hardware.nvidia.enable
+          [ (import ./config/nvidia-fixes.nix) ]);
         userChrome = ''
           /* Hide tab bar. Used with Sidebery */
           #TabsToolbar {
@@ -160,10 +163,10 @@ in {
             visibility: collapse !important;
           }
         '';
-        settings = merge ([
-          (import ./config/preferences.nix)
-          (import ./config/speed.nix)
-        ] ++ lib.optionals osConfig.custom.hardware.nvidia.enable [(import ./config/nvidia-fixes.nix)]);
+        settings = merge
+          ([ (import ./config/preferences.nix) (import ./config/speed.nix) ]
+            ++ lib.optionals osConfig.custom.hardware.nvidia.enable
+            [ (import ./config/nvidia-fixes.nix) ]);
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
