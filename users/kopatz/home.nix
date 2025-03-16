@@ -23,7 +23,7 @@
     ../../home-manager/kitty.nix
     #../../home-manager/lf.nix broken atm
     ../../home-manager/nixvim
-    ../../home-manager/rofi.nix
+    ../../home-manager/rofi
     ../../home-manager/dunst.nix
     ../../home-manager/opensnitch-ui.nix
     #../../home-manager/theme.nix

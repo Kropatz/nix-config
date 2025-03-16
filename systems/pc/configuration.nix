@@ -85,6 +85,7 @@
       basics.enable = true;
       stylix = {
         enable = true;
+        base16Scheme = import ../../modules/themes/tsukasa.nix;
         image = ../../tsukasa.jpg;
       };
     };

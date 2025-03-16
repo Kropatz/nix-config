@@ -10,6 +10,13 @@ in {
         The wallpaper to use.
       '';
     };
+    base16Scheme = mkOption {
+      type = with lib.types; nullOr (oneOf [ path lines attrs ]);
+      default = null;
+      description = ''
+        The base16 scheme to use.
+      '';
+    };
     override = mkOption {
       type = types.attrs;
       #default = {};
@@ -44,6 +51,7 @@ in {
       autoEnable = lib.mkForce true;
       polarity = "dark";
       image = cfg.image;
+      base16Scheme = cfg.base16Scheme;
       override = cfg.override;
       #base16Scheme = ../../home-manager/themes/yorha/scheme.yml;
       #base16Scheme =
@@ -54,9 +62,10 @@ in {
         package = pkgs.libsForQt5.breeze-gtk;
       };
       opacity = {
-        applications = 0.7;
-        desktop = 0.7;
-        terminal = 0.7;
+        applications = 0.85;
+        desktop = 0.85;
+        terminal = 0.85;
+        popups = 0.85;
       };
       #targets.hyprland.enable = false; does not exist in the MR version yet
       fonts = {

@@ -13,12 +13,14 @@ configuration {
     sidebar-mode:        false;
 }
 
-@import "~/.config/rofi/arc_dark_transparent_colors.rasi"
+/*@import "~/.config/rofi/arc_dark_transparent_colors.rasi"*/
+@import "~/.config/rofi/rofi_stylix_colors.rasi"
 
 window {
     background-color: @background;
     border:           2;
-    border-color: #585b70; 
+    /*border-color: #585b70;*/
+    border-color: @border-color;
     padding:          30;
 }
 listview {

@@ -38,7 +38,7 @@ in {
         modules-right = [ "group/stats" "group/other" ];
         "group/stats" = {
           "orientation" = "horizontal";
-          "modules" = [ "network" "cpu" "memory" "disk" "temperature" ] 
+          "modules" = [ "network" "cpu" "memory" "temperature" ] 
               ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "custom/nvidia" ]
               ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "custom/amd-gpu" ];
         };

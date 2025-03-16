@@ -289,6 +289,8 @@ in {
           "stayfocused,class:(steam_app_107410)"
           "immediate, class:^tetrio-desktop$"
           "opacity 0.85, class:thunar"
+          "opacity 0.85, class:discord"
+          "opacity 0.1, title:cava"
         ];
 
         exec-once = [

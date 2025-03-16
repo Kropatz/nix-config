@@ -45,6 +45,7 @@ in {
       networkmanagerapplet
       wayland
       wl-clipboard
+      cava
       dex # starts applications according to .desktop files
       #qt5.qtwayland
       #qt6.qmake
