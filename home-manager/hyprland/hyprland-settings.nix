@@ -209,6 +209,7 @@ in {
           ''
             $mainMod, S, exec, cat ~/songs | shuf -n 1 | sed "s/^/b.p /g" | ${wl-copy}''
           "$mainMod, R, exec, ${swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
+          "$mainMod, W, exec, ${swww} img ${config.stylix.image}"
           "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
           ''
             $mainMod, Print, exec, ${grim} -g "$(${slurp} -d)" /tmp/$(date +'%s_grim.png')''
@@ -295,7 +296,8 @@ in {
 
         exec-once = [
           "${pkgs.swww}/bin/swww init; sleep 1;"
-          "${pkgs.swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
+          #"${pkgs.swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
+          "${pkgs.swww} img ${config.stylix.image}"
           "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
           "${pkgs.hyprshade}/bin/hyprshade auto"
           "dex --autostart --environment Hyprland"
