@@ -4,8 +4,8 @@
   padding-right: 5px;
   color: @peach;
   font-weight: bold;
-  background-color: @surface0;
-  border: 2px solid @surface1;
+  background-color: @backgound;
+  border: 2px solid @border;
 }
 
 #custom-notification,
@@ -30,7 +30,7 @@
 }
 
 #pulseaudio{
-  color: @green;
+  color: @lighttext;
 }
 
 #custom-github {

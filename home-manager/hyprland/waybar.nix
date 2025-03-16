@@ -4,7 +4,11 @@ let cfg = osConfig.custom.graphical.hyprland;
 in {
   config = let
     # styles from https://github.com/khaneliman/khanelinix/blob/8375f8cfbe5bfd87565b4dc34c9d30630c17336d/modules/home/desktop/addons/waybar/default.nix
-    theme = builtins.readFile ./styles/catppuccin.css;
+    base16 = config.stylix.base16Scheme;
+    readAndReplace = path: replace: builtins.readFile (pkgs.replaceVars path replace);
+    # base 1, 7, 0
+    #theme = readAndReplace ./styles/theme.css { BASE="#5c4133"; BORDER="#fef1de"; TEXT="#dab353";};
+    theme = builtins.readFile ./styles/theme.css;
     style = builtins.readFile ./styles/style.css;
     notificationsStyle = builtins.readFile ./styles/notifications.css;
     powerStyle = builtins.readFile ./styles/power.css;

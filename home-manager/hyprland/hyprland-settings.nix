@@ -288,6 +288,7 @@ in {
           ##"immediate, class:^(Risk.*)$"
           "stayfocused,class:(steam_app_107410)"
           "immediate, class:^tetrio-desktop$"
+          "opacity 0.85, class:thunar"
         ];
 
         exec-once = [

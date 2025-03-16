@@ -8,10 +8,11 @@
   margin: 0 0.5em;
   padding-left: 5px;
   padding-right: 5px;
-  color: @peach;
+  /*color: @peach;*/
+  color: @text;
   font-weight: bold;
-  background-color: @surface0;
-  border: 2px solid @surface1;
+  background-color: @background;
+  border: 2px solid @border;
 }
 #battery,
 #backlight
@@ -19,12 +20,16 @@
 #memory,
 #temperature,
 #disk,
-#nvidia,
+#custom-amd-gpu,
+#custom-nvidia,
+#memory,
 #network {
+  color: @text;
   padding: 0 0.5em;
 }
 
 /* Unique colors for modules */
+/*
 #cpu {
   color: @red;
 }
@@ -46,7 +51,7 @@
 
 #custom-amd-gpu {
   color: @amdgpu-red;
-}
+} */
 
 #network.disconnected {
   background-color: #f53c3c;

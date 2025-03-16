@@ -83,7 +83,10 @@
       #cosmic.enable = true;
       shared.enable = true;
       basics.enable = true;
-      stylix.enable = true;
+      stylix = {
+        enable = true;
+        image = ../../tsukasa.jpg;
+      };
     };
   };
   services.ollama = {
