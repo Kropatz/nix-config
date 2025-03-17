@@ -59,7 +59,12 @@ let
     };
   };
 in {
-  stylix.targets.firefox.profileNames = [ "default" ];
+  stylix = lib.mkIf osConfig.custom.graphical.stylix.enable {
+    targets.firefox = {
+      profileNames = [ "default" ];
+      colorTheme.enable = true;
+    };
+  };
   programs.firefox = {
     enable = true;
     policies = {
@@ -111,6 +116,7 @@ in {
             visibility: collapse !important;
           }
         '';
+        extensions.force = true;
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader

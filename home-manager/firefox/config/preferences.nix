@@ -66,4 +66,6 @@
   # This is annoying, because I can have a blank workspace, open Firefox and
   # then have Firefox open on some other workspace
   "widget.disable-workspace-management" = true;
+  # Automatically enable extensions, don't manually confirm if it should be enabled
+  "extensions.autoDisableScopes" = 0;
 }
