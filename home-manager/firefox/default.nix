@@ -116,6 +116,7 @@ in {
             visibility: collapse !important;
           }
         '';
+        # Changes the extension storage backend from IDB to json, wipes all data when switching 
         extensions.force = true;
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
