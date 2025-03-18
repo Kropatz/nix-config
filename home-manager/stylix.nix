@@ -8,7 +8,7 @@ in
     stylix = {
       enable = true;
       targets = {
-        hyprlock.enable = false;
+        hyprlock.enable = true;
         hyprland.enable = false;
         waybar = {
           enable = true;

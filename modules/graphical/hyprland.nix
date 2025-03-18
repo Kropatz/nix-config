@@ -47,6 +47,7 @@ in {
       wl-clipboard
       cava
       dex # starts applications according to .desktop files
+      hyprshade
       #qt5.qtwayland
       #qt6.qmake
       #qt6.qtwayland
