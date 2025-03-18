@@ -119,6 +119,7 @@ in {
             ${mangal} inline -S Manganato --query "Parallel_City" --manga first --download
             ${mangal} inline -S Manganato --query "Existence" --manga first --download
             ${mangal} inline -S Mangapill --query "Call_of_the_Night" --manga first --download
+            ${mangal} inline -S AsuraScans --query "The_tutorial" --manga first --download
           '';
           serviceConfig = {
             PrivateTmp = true;

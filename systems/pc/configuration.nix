@@ -9,7 +9,7 @@
     ../../modules/flatpak.nix
     ../../modules/gpg.nix
     #../../modules/xanmod-kernel.nix
-    ../../modules/kernel.nix
+    ../../modules/kernel-testing.nix
     ../../modules/services/syncthing.nix
     ../../modules/support/ntfs.nix
     ../../modules/fh/writing.nix

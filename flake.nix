@@ -121,6 +121,7 @@
             ./modules/graphical/stylix.nix
             nixos-cosmic.nixosModules.default
             ./modules/graphical/cosmic.nix
+            ({ outputs, ... }: { stylix.image = ./tsukasa.jpg; })
           ];
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
