@@ -75,7 +75,6 @@
           modifications
           unstable-packages
           stable-packages
-          gimp3
           mesa-git
           nur.overlays.default
         ];

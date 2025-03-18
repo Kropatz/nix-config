@@ -228,6 +228,11 @@ in {
           "$mainMod, right, movefocus, r"
           "$mainMod, up, movefocus, u"
           "$mainMod, down, movefocus, d"
+          "$mainMod SHIFT, left, resizeactive, -30 0"
+          "$mainMod SHIFT, right, resizeactive, 30 0"
+          "$mainMod SHIFT, up, resizeactive, 0 -30"
+          "$mainMod SHIFT, down, resizeactive, 0 30"
+
 
           # Switch workspaces with mainMod + [0-9]
           "$mainMod, 1, workspace, 1"

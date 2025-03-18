@@ -648,11 +648,11 @@
     },
     "nixpkgs-mesa-git": {
       "locked": {
-        "lastModified": 1741955369,
-        "narHash": "sha256-J09mVW9X+e1tbHLJcs3qFtGR4jmzc+i9+qjZIeKNGTk=",
+        "lastModified": 1742289590,
+        "narHash": "sha256-q8/3YGv7LLReXOiiAH2S39YWeiM2fi0jlLA0hqdlacY=",
         "owner": "kropatz",
         "repo": "nixpkgs",
-        "rev": "7e984e8442aac2371318f18951edc00f2c675aa7",
+        "rev": "ea362816984b10d5e3714cce63525888db07dda8",
         "type": "github"
       },
       "original": {
