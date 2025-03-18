@@ -1,4 +1,4 @@
-{config, lib,  pkgs, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.custom.nix.ld;
@@ -7,7 +7,7 @@ in
   options.custom.nix.ld = {
     enable = mkEnableOption "Enables nix ld";
   };
-  
+
   config = mkIf cfg.enable {
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [

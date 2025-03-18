@@ -6,7 +6,7 @@
       device = lib.mkDefault "/dev/sda";
       type = "disk";
       content = {
-          type = "gpt";
+        type = "gpt";
         partitions = {
           boot = {
             name = "boot";

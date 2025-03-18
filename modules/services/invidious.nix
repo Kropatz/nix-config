@@ -1,4 +1,4 @@
-{ config, vars, ...} :
+{ config, vars, ... }:
 let
   fqdn = "yt.home.arpa";
   useHttps = config.services.step-ca.enable;

@@ -1,4 +1,3 @@
-
 { config, pkgs, lib, inputs, ... }:
 with lib;
 let cfg = config.custom.services.adam-site;

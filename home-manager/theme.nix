@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ...}:
+{ config, pkgs, inputs, ... }:
 {
   home = {
     pointerCursor = {
@@ -10,7 +10,7 @@
   };
   gtk = {
     enable = true;
-    theme = { 
+    theme = {
       name = "Tokyonight-Dark-BL";
       package = pkgs.tokyo-night-gtk;
     };

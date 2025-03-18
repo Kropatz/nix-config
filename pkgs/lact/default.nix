@@ -1,6 +1,19 @@
-{ lib, rustPlatform, stdenv, fetchFromGitHub, blueprint-compiler, pkg-config
-, wrapGAppsHook4, gdk-pixbuf, gtk4, libdrm, vulkan-loader, coreutils
-, nix-update-script, hwdata, fuse }:
+{ lib
+, rustPlatform
+, stdenv
+, fetchFromGitHub
+, blueprint-compiler
+, pkg-config
+, wrapGAppsHook4
+, gdk-pixbuf
+, gtk4
+, libdrm
+, vulkan-loader
+, coreutils
+, nix-update-script
+, hwdata
+, fuse
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "lact";

@@ -6,7 +6,7 @@
   };
 
   systemd.network.networks.wg0 = {
-    dns = [ "192.168.2.1"];
+    dns = [ "192.168.2.1" ];
   };
   networking.wg-quick.interfaces = {
     wg0 = {
@@ -15,7 +15,7 @@
       privateKeyFile = config.age.secrets.wireguard-client.path;
       listenPort = 51820;
       dns = [ "192.168.2.1" ];
-      address = ["192.168.2.22/24"];
+      address = [ "192.168.2.22/24" ];
       peers = [
         {
           #allowedIPs = [ "192.168.2.0/24" "192.168.0.0/24" ];

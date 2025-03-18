@@ -3,12 +3,13 @@
 let
   addPatches = pkg: patches:
     pkg.overrideAttrs
-    (oldAttrs: { patches = (oldAttrs.patches or [ ]) ++ patches; });
-    mesa-git = import inputs.nixpkgs-mesa-git {
-      system = "x86_64-linux";
-      config.allowUnfree = true;
-    };
-in {
+      (oldAttrs: { patches = (oldAttrs.patches or [ ]) ++ patches; });
+  mesa-git = import inputs.nixpkgs-mesa-git {
+    system = "x86_64-linux";
+    config.allowUnfree = true;
+  };
+in
+{
   # This one brings our custom packages from the 'pkgs' directory
   additions = final: _prev: import ./pkgs { pkgs = final; };
 

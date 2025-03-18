@@ -45,72 +45,74 @@ in {
         more_set_headers "Permissions-Policy: geolocation=(), microphone=()";
       '';
 
-      virtualHosts = let
-        kopConfig = {
-          root = pkgs.kop-website;
-          forceSSL = cfg.https;
-          enableACME = cfg.https;
-          quic = cfg.https;
-          http3 = cfg.https;
-          locations = {
-            "~* \\.(jpg|png)$".extraConfig = ''
-              add_header Access-Control-Allow-Origin *;
-            '';
-            "/stash" = {
-              basicAuthFile = config.age.secrets.stash-auth.path;
-              extraConfig = ''
-                client_max_body_size    20000M;
-                proxy_redirect          off;
-                proxy_set_header        Host $host;
-                proxy_set_header        X-Real-IP $remote_addr;
-                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header        X-Forwarded-Proto $scheme;
-                proxy_set_header        X-NginX-Proxy true;
-                proxy_pass http://localhost:7777;
+      virtualHosts =
+        let
+          kopConfig = {
+            root = pkgs.kop-website;
+            forceSSL = cfg.https;
+            enableACME = cfg.https;
+            quic = cfg.https;
+            http3 = cfg.https;
+            locations = {
+              "~* \\.(jpg|png)$".extraConfig = ''
+                add_header Access-Control-Allow-Origin *;
               '';
-            };
-            "/tracker-site" = {
-              tryFiles = "$uri $uri/ /tracker-site/index.html =404";
-            };
-            "/tracker-site/api" = {
-              extraConfig = ''
-                rewrite /tracker-site/api/(.*) /$1 break;
-              '';
-              proxyPass = "http://127.0.0.1:8080";
-            };
-            "/radicale/" = {
-              extraConfig = ''
-                proxy_set_header  X-Script-Name /radicale;
-              '';
-              proxyPass = "http://localhost:5232/";
-            };
-            "/socket.io" = { proxyPass = "http://localhost:9955"; proxyWebsockets = true; };
-            "/comms/" = {
-              extraConfig = ''
+              "/stash" = {
+                basicAuthFile = config.age.secrets.stash-auth.path;
+                extraConfig = ''
+                  client_max_body_size    20000M;
+                  proxy_redirect          off;
+                  proxy_set_header        Host $host;
+                  proxy_set_header        X-Real-IP $remote_addr;
+                  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header        X-Forwarded-Proto $scheme;
+                  proxy_set_header        X-NginX-Proxy true;
+                  proxy_pass http://localhost:7777;
+                '';
+              };
+              "/tracker-site" = {
+                tryFiles = "$uri $uri/ /tracker-site/index.html =404";
+              };
+              "/tracker-site/api" = {
+                extraConfig = ''
+                  rewrite /tracker-site/api/(.*) /$1 break;
+                '';
+                proxyPass = "http://127.0.0.1:8080";
+              };
+              "/radicale/" = {
+                extraConfig = ''
+                  proxy_set_header  X-Script-Name /radicale;
+                '';
+                proxyPass = "http://localhost:5232/";
+              };
+              "/socket.io" = { proxyPass = "http://localhost:9955"; proxyWebsockets = true; };
+              "/comms/" = {
+                extraConfig = ''
                   more_set_headers "Permissions-Policy: geolocation=(), microphone=(self), camera=(self)";
-              '';
-              alias = "/comms/";
-              tryFiles = "$uri $uri/ /comms/index.html";
-            };
-            "/comms" = {
-              extraConfig = ''
-                return 301 /comms/;
-              '';
-            };
-            "/kavita-client" = {
-              extraConfig = ''
-                return 301 /kavita-client/;
-              '';
-            };
-            "/kavita-client/" = {
-              alias = "/kavita-client/";
+                '';
+                alias = "/comms/";
+                tryFiles = "$uri $uri/ /comms/index.html";
+              };
+              "/comms" = {
+                extraConfig = ''
+                  return 301 /comms/;
+                '';
+              };
+              "/kavita-client" = {
+                extraConfig = ''
+                  return 301 /kavita-client/;
+                '';
+              };
+              "/kavita-client/" = {
+                alias = "/kavita-client/";
+              };
             };
           };
+        in
+        {
+          "kopatz.ddns.net" = kopConfig;
+          "kop.oasch.net" = kopConfig;
         };
-      in {
-        "kopatz.ddns.net" = kopConfig;
-        "kop.oasch.net" = kopConfig;
-      };
     };
   };
 }

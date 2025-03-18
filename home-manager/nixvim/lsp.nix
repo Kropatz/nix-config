@@ -1,19 +1,28 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 {
   plugins = {
-    otter = { # provide lsp functionality for code embedded in other languages
+    otter = {
+      # provide lsp functionality for code embedded in other languages
       enable = true;
       settings.handle_leading_whitespace = true;
     };
     lsp = {
       enable = true;
+      inlayHints = true;
       servers = {
         bashls.enable = true;
         #ccls.enable = true; 
         clangd.enable = true;
         cssls.enable = true;
         gopls.enable = true;
-        nixd.enable = true;
+        nixd = {
+          enable = true;
+          settings = {
+            nixpkgs.expr = ''import <nixpkgs> { }'';
+            formatting.command = [ "nixpkgs-fmt" ];
+            options.nixos.expr = ''(builtins.getFlake ("/home/kopatz/projects/github/nix-config")).nixosConfigurations.kop-pc.options'';
+          };
+        };
         html.enable = true;
         dartls.enable = true;
         ts_ls.enable = true;

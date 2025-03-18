@@ -3,7 +3,8 @@ with lib;
 let
   cfg = config.custom.nix.settings;
   cache = "https://cache.nixos.org";
-in {
+in
+{
   options.custom.nix.settings = {
     enable = mkEnableOption "Enables various nix settings";
     optimise = mkOption {

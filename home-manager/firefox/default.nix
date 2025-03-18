@@ -58,7 +58,8 @@ let
       };
     };
   };
-in {
+in
+{
   stylix = lib.mkIf osConfig.custom.graphical.stylix.enable {
     targets.firefox = {
       profileNames = [ "default" ];

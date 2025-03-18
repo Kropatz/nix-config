@@ -1,8 +1,8 @@
-{ config, pkgs, inputs, ...}:
+{ config, pkgs, inputs, ... }:
 {
-    programs.direnv = {
-      enable = true;
-      enableZshIntegration = true;
-      nix-direnv.enable = true;
-    };
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
 }

@@ -8,7 +8,7 @@ buildNpmPackage rec {
     ref = "main";
     rev = "6575c418f45aef025d2d89d5b0b4ff4fbdffe298";
   };
-  npmDepsHash="sha256-PRFHBlVIdHfATAAKVKax+bY4o+9czdfl7HjFnKk4KtI=";
+  npmDepsHash = "sha256-PRFHBlVIdHfATAAKVKax+bY4o+9czdfl7HjFnKk4KtI=";
   installPhase = ''
     mkdir -p $out
     cp -r ./dist/adams-site/* $out

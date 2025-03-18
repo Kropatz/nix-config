@@ -11,7 +11,8 @@ let
   #    hash = "sha256-aWpTUAm9FBuZI2KwEvhSnLB7Mfp5nYgUwvvLF47FIfM=";
   #  };
   #});
-in {
+in
+{
   options.custom.graphical.games = {
     enable = mkEnableOption "Enables games";
     enablePreinstalled = mkEnableOption "Enables preinstalled games";
@@ -42,16 +43,16 @@ in {
     ];
     environment.systemPackages = [ pkgs.mangohud ]
       ++ optionals cfg.enablePreinstalled (with pkgs; [
-        #taisei
-        #osu-lazer-bin
-        wineWowPackages.unstableFull
-        winetricks
-        lutris
-        prismlauncher
-        steamtinkerlaunch
-        tetrio-desktop
-        #libs
-      ]) ++ optionals cfg.enableVr (with pkgs; [ beatsabermodmanager ]);
+      #taisei
+      #osu-lazer-bin
+      wineWowPackages.unstableFull
+      winetricks
+      lutris
+      prismlauncher
+      steamtinkerlaunch
+      tetrio-desktop
+      #libs
+    ]) ++ optionals cfg.enableVr (with pkgs; [ beatsabermodmanager ]);
 
   };
 }

@@ -1,7 +1,33 @@
-{ lib, stdenv, libXScrnSaver, makeWrapper, fetchurl, wrapGAppsHook3, glib, gtk3
-, unzip, at-spi2-atk, libdrm, libgbm, libxkbcommon, libxshmfence, libGL
-, vulkan-loader, alsa-lib, cairo, cups, dbus, expat, gdk-pixbuf, nss, nspr, xorg
-, pango, systemd, pciutils, }:
+{ lib
+, stdenv
+, libXScrnSaver
+, makeWrapper
+, fetchurl
+, wrapGAppsHook3
+, glib
+, gtk3
+, unzip
+, at-spi2-atk
+, libdrm
+, libgbm
+, libxkbcommon
+, libxshmfence
+, libGL
+, vulkan-loader
+, alsa-lib
+, cairo
+, cups
+, dbus
+, expat
+, gdk-pixbuf
+, nss
+, nspr
+, xorg
+, pango
+, systemd
+, pciutils
+,
+}:
 
 let
   version = "27.3.11";
@@ -96,13 +122,13 @@ let
     stdenv.cc.cc
     systemd
   ] ++ lib.optionals (lib.versionAtLeast version "9.0.0") [ libdrm libgbm ]
-    ++ lib.optionals (lib.versionOlder version "10.0.0") [ libXScrnSaver ]
-    ++ lib.optionals (lib.versionAtLeast version "11.0.0") [ libxkbcommon ]
-    ++ lib.optionals (lib.versionAtLeast version "12.0.0") [ libxshmfence ]
-    ++ lib.optionals (lib.versionAtLeast version "17.0.0") [
-      libGL
-      vulkan-loader
-    ]);
+  ++ lib.optionals (lib.versionOlder version "10.0.0") [ libXScrnSaver ]
+  ++ lib.optionals (lib.versionAtLeast version "11.0.0") [ libxkbcommon ]
+  ++ lib.optionals (lib.versionAtLeast version "12.0.0") [ libxshmfence ]
+  ++ lib.optionals (lib.versionAtLeast version "17.0.0") [
+    libGL
+    vulkan-loader
+  ]);
 
   linux = finalAttrs: {
     buildInputs = [ glib gtk3 ];
@@ -157,6 +183,7 @@ let
 
     passthru.dist = finalAttrs.finalPackage + "/Applications";
   };
-in stdenv.mkDerivation (finalAttrs:
-  lib.recursiveUpdate (common stdenv.hostPlatform)
+in
+stdenv.mkDerivation (finalAttrs:
+lib.recursiveUpdate (common stdenv.hostPlatform)
   ((if stdenv.hostPlatform.isDarwin then darwin else linux) finalAttrs))

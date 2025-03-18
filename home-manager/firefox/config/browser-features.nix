@@ -122,9 +122,9 @@
   "pdfjs.enableScripting" = true;
 
   # copied these from a blog 
-  "browser.newtabpage.activity-stream.feeds.telemetry" = false;	
+  "browser.newtabpage.activity-stream.feeds.telemetry" = false;
   "browser.newtabpage.activity-stream.feeds.asrouterfeed" = false;
-  "browser.newtabpage.activity-stream.telemetry" = false;	
+  "browser.newtabpage.activity-stream.telemetry" = false;
   "browser.ping-centre.telemetry" = false;
   "devtools.onboarding.telemetry.logged" = false;
   "accessibility.force_disabled" = 1;

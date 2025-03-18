@@ -5,13 +5,15 @@
 
 {
   fileSystems."/data" =
-    { device = "/dev/disk/by-uuid/d117419d-fce9-4d52-85c7-e3481feaa22a";
+    {
+      device = "/dev/disk/by-uuid/d117419d-fce9-4d52-85c7-e3481feaa22a";
       fsType = "btrfs";
       options = [ "compress=zstd" "noatime" "nofail" ];
     };
   fileSystems."/1tbssd" =
-    { device = "/dev/disk/by-uuid/801d9217-9c38-4ca8-914e-e31361603892";
+    {
+      device = "/dev/disk/by-uuid/801d9217-9c38-4ca8-914e-e31361603892";
       fsType = "ext4";
-      options = ["defaults" "nofail" "noatime"];
+      options = [ "defaults" "nofail" "noatime" ];
     };
- }
+}

@@ -6,7 +6,7 @@ in
   options.custom.graphical.cosmic = {
     enable = lib.mkEnableOption "Enables cosmic";
   };
-  
+
   config = lib.mkIf cfg.enable {
     nix.settings = {
       substituters = [ "https://cosmic.cachix.org/" ];

@@ -1,3 +1,3 @@
 {
-    services.journald.extraConfig = "SystemMaxUse=4G";
+  services.journald.extraConfig = "SystemMaxUse=4G";
 }

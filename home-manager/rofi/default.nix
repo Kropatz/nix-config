@@ -8,7 +8,8 @@ let
       r = c."${color}-rgb-r";
       g = c."${color}-rgb-g";
       b = c."${color}-rgb-b";
-    in "rgba ( ${r}, ${g}, ${b}, ${opacity} % )";
+    in
+    "rgba ( ${r}, ${g}, ${b}, ${opacity} % )";
   mkRgb = mkRgba "100";
   rofiOpacity =
     builtins.toString (builtins.ceil (config.stylix.opacity.popups * 100));
@@ -55,7 +56,8 @@ let
     alternate-active-text = mkRgb "base0D";
     alternate-urgent-text = mkRgb "base08";
   };
-in {
+in
+{
   home.file.".config/rofi" = {
     enable = true;
     recursive = true;

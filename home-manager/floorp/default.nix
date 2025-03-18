@@ -58,7 +58,8 @@ let
       };
     };
   };
-in {
+in
+{
   programs.floorp = {
     enable = true;
     policies = {

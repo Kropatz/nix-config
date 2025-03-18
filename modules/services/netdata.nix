@@ -1,5 +1,5 @@
 { vars, ... }:
-let 
+let
   ip = vars.ipv4;
   wireguardIp = vars.wireguardIp;
 in
@@ -54,6 +54,6 @@ in
       perf = no
       freeipmi = no
       apps = yes
-      '';
+    '';
   };
 }

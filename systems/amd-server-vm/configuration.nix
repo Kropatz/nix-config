@@ -1,7 +1,8 @@
 { config, pkgs, modulesPath, lib, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     #./hardware-configuration.nix
     ../../modules/services/ssh.nix
     ../../modules/services/step-ca.nix
@@ -45,22 +46,24 @@
     };
     misc = {
       docker.enable = true;
-      backup = let
-        kavita = "/data/kavita";
-        gitolite = "/var/lib/gitolite";
-        syncthing = [ "/data/synced/default/" "/data/synced/work_drive/" ];
-        syncthingFull = syncthing
-          ++ [ "/data/synced/fh/" "/data/synced/books/" ];
-        backupPathsSmall = [ "/home" gitolite ] ++ syncthing;
-        backupPathsMedium = [ "/home" gitolite ] ++ syncthing;
-        backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull;
-      in {
-        enable = true;
-        excludePaths = lib.mkOptionDefault [ "${kavita}/manga" ];
-        small = backupPathsSmall; # goes to backblaze
-        medium = backupPathsMedium; # goes to gdrive
-        large = backupPathsFull; # goes to local storage medium
-      };
+      backup =
+        let
+          kavita = "/data/kavita";
+          gitolite = "/var/lib/gitolite";
+          syncthing = [ "/data/synced/default/" "/data/synced/work_drive/" ];
+          syncthingFull = syncthing
+            ++ [ "/data/synced/fh/" "/data/synced/books/" ];
+          backupPathsSmall = [ "/home" gitolite ] ++ syncthing;
+          backupPathsMedium = [ "/home" gitolite ] ++ syncthing;
+          backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull;
+        in
+        {
+          enable = true;
+          excludePaths = lib.mkOptionDefault [ "${kavita}/manga" ];
+          small = backupPathsSmall; # goes to backblaze
+          medium = backupPathsMedium; # goes to gdrive
+          large = backupPathsFull; # goes to local storage medium
+        };
     };
     services = {
       acme.enable = true;

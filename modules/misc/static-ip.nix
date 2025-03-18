@@ -22,27 +22,28 @@ in {
       description = "Default gateway";
     };
   };
-  config = let fallback = "1.1.1.1";
-  in mkIf cfg.enable {
-    networking = {
-      defaultGateway = cfg.gateway;
-      useDHCP = false;
-      nameservers = [ cfg.dns ]
-        ++ lib.lists.optionals (!config.services.resolved.enable) [ fallback ];
-      interfaces = {
-        ${cfg.interface} = {
-          name = "eth0";
-          ipv4.addresses = [{
-            address = cfg.ip;
-            prefixLength = 24;
-          }];
+  config =
+    let fallback = "1.1.1.1";
+    in mkIf cfg.enable {
+      networking = {
+        defaultGateway = cfg.gateway;
+        useDHCP = false;
+        nameservers = [ cfg.dns ]
+          ++ lib.lists.optionals (!config.services.resolved.enable) [ fallback ];
+        interfaces = {
+          ${cfg.interface} = {
+            name = "eth0";
+            ipv4.addresses = [{
+              address = cfg.ip;
+              prefixLength = 24;
+            }];
+          };
         };
       };
-    };
 
-    services.resolved = lib.mkIf config.services.resolved.enable {
-      llmnr = "false";
-      fallbackDns = [ "1.1.1.1" ];
+      services.resolved = lib.mkIf config.services.resolved.enable {
+        llmnr = "false";
+        fallbackDns = [ "1.1.1.1" ];
+      };
     };
-  };
 }

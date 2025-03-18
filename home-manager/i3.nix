@@ -56,8 +56,8 @@ in {
           modules-left = "i3 xwindow";
           modules-center = "";
           modules-right = [ "music network memory cpu cpu-wattage cpu-temp" ]
-            ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "nvidia-gpu" ] 
-            ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "amd-gpu" ] 
+            ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "nvidia-gpu" ]
+            ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "amd-gpu" ]
             ++ [ "pulseaudio date tray" ];
           cursor-click = "pointer";
           cursor-scroll = "ns-resize";
@@ -68,33 +68,34 @@ in {
           # wm-restack = "i3";
           # override-redirect = true;
         };
-        "module/i3" = let padding = 2;
-        in {
-          type = "internal/i3";
-          pin-workspaces = true;
-          show-urgent = true;
-          strip-wsnumbers = true;
-          index-sort = true;
-          enable-click = true;
-          wrapping-scroll = true;
-          fuzzy-match = true;
-          format = "<label-state> <label-mode>";
-          label-focused = "%name%";
-          label-focused-foreground = config.stylix.base16Scheme.base01;
-          label-focused-background = config.stylix.base16Scheme.base05;
-          label-focused-underline = config.stylix.base16Scheme.base03;
-          label-focused-padding = padding;
-          label-unfocused = "%name%";
-          label-unfocused-padding = padding;
-          label-visible = "%name%";
-          label-visible-underline = config.stylix.base16Scheme.base01;
-          label-visible-padding = padding;
-          label-urgent = "%name%";
-          label-urgent-foreground = config.stylix.base16Scheme.base00;
-          label-urgent-background = config.stylix.base16Scheme.base08;
-          label-urgent-underline = config.stylix.base16Scheme.base0F;
-          label-urgent-padding = padding;
-        };
+        "module/i3" =
+          let padding = 2;
+          in {
+            type = "internal/i3";
+            pin-workspaces = true;
+            show-urgent = true;
+            strip-wsnumbers = true;
+            index-sort = true;
+            enable-click = true;
+            wrapping-scroll = true;
+            fuzzy-match = true;
+            format = "<label-state> <label-mode>";
+            label-focused = "%name%";
+            label-focused-foreground = config.stylix.base16Scheme.base01;
+            label-focused-background = config.stylix.base16Scheme.base05;
+            label-focused-underline = config.stylix.base16Scheme.base03;
+            label-focused-padding = padding;
+            label-unfocused = "%name%";
+            label-unfocused-padding = padding;
+            label-visible = "%name%";
+            label-visible-underline = config.stylix.base16Scheme.base01;
+            label-visible-padding = padding;
+            label-urgent = "%name%";
+            label-urgent-foreground = config.stylix.base16Scheme.base00;
+            label-urgent-background = config.stylix.base16Scheme.base08;
+            label-urgent-underline = config.stylix.base16Scheme.base0F;
+            label-urgent-padding = padding;
+          };
         "module/xworkspaces" = {
           type = "internal/xworkspaces";
           label-active = "%name%";
@@ -198,7 +199,7 @@ in {
         };
         "module/amd-gpu" = {
           type = "custom/script";
-          format-foreground = "ed1c24"; 
+          format-foreground = "ed1c24";
           label = "%output:0:35:...%";
           exec = "~/.config/polybar/amd-gpu.sh";
           interval = 3;

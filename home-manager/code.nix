@@ -1,22 +1,24 @@
 { osConfig, config, pkgs, inputs, lib, ... }: {
   config = lib.mkIf osConfig.custom.graphical.code.enable rec {
-    home.activation.makeVSCodeConfigWritable = let
-      configDirName = {
-        "vscode" = "Code";
-        "vscode-insiders" = "Code - Insiders";
-        "vscodium" = "VSCodium";
-      }.${programs.vscode.package.pname};
-      configPath =
-        "${config.xdg.configHome}/${configDirName}/User/settings.json";
-    in {
-      after = [ "writeBoundary" ];
-      before = [ ];
-      data = ''
-        if [ -e "$(readlink ${configPath})" ]; then
-          install -m 0640 "$(readlink ${configPath})" ${configPath}
-        fi
-      '';
-    };
+    home.activation.makeVSCodeConfigWritable =
+      let
+        configDirName = {
+          "vscode" = "Code";
+          "vscode-insiders" = "Code - Insiders";
+          "vscodium" = "VSCodium";
+        }.${programs.vscode.package.pname};
+        configPath =
+          "${config.xdg.configHome}/${configDirName}/User/settings.json";
+      in
+      {
+        after = [ "writeBoundary" ];
+        before = [ ];
+        data = ''
+          if [ -e "$(readlink ${configPath})" ]; then
+            install -m 0640 "$(readlink ${configPath})" ${configPath}
+          fi
+        '';
+      };
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;

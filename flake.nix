@@ -63,9 +63,25 @@
     #  inputs.nixpkgs.follows = "nixpkgs-unstable";
     #};
   };
-  outputs = { self, nur, nixpkgs, nixos-hardware, nixos-wsl, nixpkgs-unstable
-    , agenix, home-manager, home-manager-unstable, nix-colors, nixos-cosmic
-    , nixvim, nixos-generators, stylix, disko, flake-utils, ... }@inputs:
+  outputs =
+    { self
+    , nur
+    , nixpkgs
+    , nixos-hardware
+    , nixos-wsl
+    , nixpkgs-unstable
+    , agenix
+    , home-manager
+    , home-manager-unstable
+    , nix-colors
+    , nixos-cosmic
+    , nixvim
+    , nixos-generators
+    , stylix
+    , disko
+    , flake-utils
+    , ...
+    }@inputs:
     let
       inherit (self) outputs;
       system = "x86_64-linux";
@@ -82,30 +98,41 @@
       defaultModules = [ ./modules agenix.nixosModules.default overlays ];
       merge = list:
         builtins.foldl' (acc: elem: nixpkgs.lib.recursiveUpdate acc elem) { }
-        list;
+          list;
       # helper function to create a machine
-      mkHost = { modules, specialArgs ? {
-        pkgsVersion = nixpkgs-unstable;
-        home-manager-version = home-manager-unstable;
-      }, system ? "x86_64-linux", minimal ? false, graphical ? true }:
+      mkHost =
+        { modules
+        , specialArgs ? {
+            pkgsVersion = nixpkgs-unstable;
+            home-manager-version = home-manager-unstable;
+          }
+        , system ? "x86_64-linux"
+        , minimal ? false
+        , graphical ? true
+        }:
         let lib = specialArgs.pkgsVersion.lib;
         in specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
           modules = modules ++ defaultModules ++ lib.lists.optionals (!minimal)
             [ specialArgs.home-manager-version.nixosModules.home-manager ]
             ++ lib.lists.optionals (!minimal && graphical) [
-              ./modules/graphical
-              stylix.nixosModules.stylix
-              ./modules/graphical/stylix.nix
-              nixos-cosmic.nixosModules.default
-              ./modules/graphical/cosmic.nix
-            ];
+            ./modules/graphical
+            stylix.nixosModules.stylix
+            ./modules/graphical/stylix.nix
+            nixos-cosmic.nixosModules.default
+            ./modules/graphical/cosmic.nix
+          ];
           specialArgs = specialArgs // { inherit inputs outputs; };
         };
-      mkStableServer = { modules, specialArgs ? {
-        pkgsVersion = nixpkgs;
-        home-manager-version = home-manager;
-      }, system ? "x86_64-linux", minimal ? false }:
+      mkStableServer =
+        { modules
+        , specialArgs ? {
+            pkgsVersion = nixpkgs;
+            home-manager-version = home-manager;
+          }
+        , system ? "x86_64-linux"
+        , minimal ? false
+        }:
         let lib = specialArgs.pkgsVersion.lib;
         in specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
@@ -141,7 +168,8 @@
             };
           };
       });
-    in {
+    in
+    {
       overlays = import ./overlays.nix { inherit inputs; };
 
       nixosConfigurations = {

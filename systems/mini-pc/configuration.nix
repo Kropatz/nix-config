@@ -5,7 +5,8 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/services/ssh.nix
     ../../modules/services/step-ca.nix
@@ -38,20 +39,22 @@
     misc = {
       btrfs.enable = true;
       docker.enable = true;
-      backup = let
-        kavita = "/data/kavita";
-        gitolite = "/var/lib/gitolite";
-        syncthing = [ "/synced/default/" "/synced/work_drive/" ];
-        syncthingFull = syncthing ++ [ "/synced/fh/" "/synced/books/" ];
-        backupPathsSmall = [ "/home" gitolite ] ++ syncthing;
-        backupPathsMedium = [ "/home" gitolite ] ++ syncthing;
-        backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull;
-      in {
-        enable = true;
-        small = backupPathsSmall; # goes to backblaze
-        medium = backupPathsMedium; # goes to gdrive
-        large = backupPathsFull; # goes to local storage medium
-      };
+      backup =
+        let
+          kavita = "/data/kavita";
+          gitolite = "/var/lib/gitolite";
+          syncthing = [ "/synced/default/" "/synced/work_drive/" ];
+          syncthingFull = syncthing ++ [ "/synced/fh/" "/synced/books/" ];
+          backupPathsSmall = [ "/home" gitolite ] ++ syncthing;
+          backupPathsMedium = [ "/home" gitolite ] ++ syncthing;
+          backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull;
+        in
+        {
+          enable = true;
+          small = backupPathsSmall; # goes to backblaze
+          medium = backupPathsMedium; # goes to gdrive
+          large = backupPathsFull; # goes to local storage medium
+        };
     };
     services = {
       acme.enable = true;

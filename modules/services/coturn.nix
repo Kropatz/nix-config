@@ -1,12 +1,12 @@
 { config, pkgs, lib, inputs, ... }:
 {
-    age.secrets.coturn-secret = {
-        file = ../../secrets/coturn-secret.age;
-	owner = "turnserver";
-	group = "turnserver";
-    };
+  age.secrets.coturn-secret = {
+    file = ../../secrets/coturn-secret.age;
+    owner = "turnserver";
+    group = "turnserver";
+  };
 
-  networking.firewall.allowedUDPPortRanges = [ { from = 49000; to=50000; } ];
+  networking.firewall.allowedUDPPortRanges = [{ from = 49000; to = 50000; }];
   networking.firewall.allowedUDPPorts = [ 3478 ]; #5349 ];
   networking.firewall.allowedTCPPorts = [ 3478 ]; #5349 ];
 
@@ -21,10 +21,10 @@
     use-auth-secret = true;
     static-auth-secret-file = config.age.secrets.coturn-secret.path;
     relay-ips = [
-	"192.168.2.1"
+      "192.168.2.1"
     ];
     listening-ips = [
-	"192.168.2.1"
+      "192.168.2.1"
     ];
     realm = "kopatz.ddns.net";
     #cert = "${config.security.acme.certs."kopatz.ddns.net".directory}/full.pem";
@@ -65,9 +65,9 @@
   };
 
   #systemd.services.coturn = {
-#	serviceConfig = {
-#	  User = lib.mkForce "root";
-#	  Group = lib.mkForce "root";
-#	};	 
-#  };
+  #	serviceConfig = {
+  #	  User = lib.mkForce "root";
+  #	  Group = lib.mkForce "root";
+  #	};	 
+  #  };
 }

@@ -9,7 +9,8 @@ let
     add_header Access-Control-Allow-Origin *;
     return 200 '${builtins.toJSON data}';
   '';
-in {
+in
+{
   networking.domain = "kopatz.ddns.net";
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
@@ -59,9 +60,9 @@ in {
   };
 
   age.secrets.matrix-registration = {
-      file = ../../secrets/matrix-registration.age;
-      owner = "matrix-synapse";
-      group = "matrix-synapse";
+    file = ../../secrets/matrix-registration.age;
+    owner = "matrix-synapse";
+    group = "matrix-synapse";
   };
 
   services.matrix-synapse = {
@@ -77,15 +78,16 @@ in {
       config.age.secrets.matrix-registration.path
     ];
     settings.listeners = [
-      { port = 8008;
+      {
+        port = 8008;
         bind_addresses = [ "::1" ];
         type = "http";
         tls = false;
         x_forwarded = true;
-        resources = [ {
+        resources = [{
           names = [ "client" "federation" ];
           compress = true;
-        } ];
+        }];
       }
     ];
   };

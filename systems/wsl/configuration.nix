@@ -5,12 +5,12 @@
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
 
-{ config, lib, pkgs, inputs, ... } : #nixos-wsl, ... }:
+{ config, lib, pkgs, inputs, ... }: #nixos-wsl, ... }:
 
 {
   imports = [
     # include NixOS-WSL modules
-#   <nixos-wsl/modules>
+    #   <nixos-wsl/modules>
   ];
 
   wsl = {
@@ -20,7 +20,7 @@
     wslConf = {
       automount.root = "/mnt";
       user.default = lib.mkForce "anon";
-      interop = { enabled = false; appendWindowsPath = false;};
+      interop = { enabled = false; appendWindowsPath = false; };
     };
   };
 
@@ -32,7 +32,7 @@
   };
   nix.settings.trusted-substituters = [ "https://ai.cachix.org" ];
   nix.settings.trusted-public-keys = [ "ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc=" ];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];  
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   environment.systemPackages = with pkgs; [
     openssh

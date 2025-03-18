@@ -13,17 +13,17 @@ in
   };
   config = lib.mkIf cfg.enable {
     users.users.fileshelter = {
-        isSystemUser = true;
-        uid = cfg.uid;
-        group = "fileshelter";
+      isSystemUser = true;
+      uid = cfg.uid;
+      group = "fileshelter";
     };
-    users.groups.fileshelter = {};
+    users.groups.fileshelter = { };
     age.secrets.fileshelter-conf = {
-        file = ../../secrets/fileshelter-conf.age;
-        owner = "fileshelter";
+      file = ../../secrets/fileshelter-conf.age;
+      owner = "fileshelter";
     };
     systemd.tmpfiles.rules = [
-        "d /data/fileshelter 0770 fileshelter fileshelter -"
+      "d /data/fileshelter 0770 fileshelter fileshelter -"
     ];
     custom.misc.docker.enable = true;
     virtualisation.oci-containers.backend = "docker";

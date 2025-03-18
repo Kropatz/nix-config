@@ -1,4 +1,4 @@
-{pkgs, config, lib, ...}:
+{ pkgs, config, lib, ... }:
 let
   useHttps = config.services.step-ca.enable;
   fqdn = "grafana.home.arpa";
@@ -25,25 +25,25 @@ in
     };
 
     provision.alerting.contactPoints.path = config.age.secrets.grafana-contact-points.path;
-    provision.alerting.policies.path = ./grafana/notification-policies.yml; 
+    provision.alerting.policies.path = ./grafana/notification-policies.yml;
     provision.alerting.templates.path = ./grafana/alerts.yml;
     provision.datasources.settings = {
-     datasources =
-       [
-         {
-           name = "DS_PROMETHEUS";
-           url = "http://127.0.0.1:${toString config.services.prometheus.port}";
-           type = "prometheus";
-           isDefault = true;
-           # This has to match the prometheus scrape interval, otherwise the $__rate_interval variable wont work.
-           jsonData.timeInterval = "60s";
-         }
-         {
-           name = "loki";
-           url = "http://localhost:3100";
-           type = "loki";
-         }
-       ];
+      datasources =
+        [
+          {
+            name = "DS_PROMETHEUS";
+            url = "http://127.0.0.1:${toString config.services.prometheus.port}";
+            type = "prometheus";
+            isDefault = true;
+            # This has to match the prometheus scrape interval, otherwise the $__rate_interval variable wont work.
+            jsonData.timeInterval = "60s";
+          }
+          {
+            name = "loki";
+            url = "http://localhost:3100";
+            type = "loki";
+          }
+        ];
     };
     provision.dashboards.settings.providers = [{
       name = "provisioned-dashboards";
@@ -63,8 +63,8 @@ in
     quic = useHttps;
     http3 = useHttps;
     locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
-        proxyWebsockets = true;
+      proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
+      proxyWebsockets = true;
     };
   };
 
@@ -91,7 +91,7 @@ in
         settings.namespaces = [
           {
             name = "nginxlog";
-            source.files = ["/var/log/nginx/access.log"];
+            source.files = [ "/var/log/nginx/access.log" ];
             format = "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\"";
           }
         ];
@@ -101,18 +101,18 @@ in
       {
         job_name = "scrapema";
         static_configs = [{
-          targets = [ 
-          "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" 
-          ] ++ 
-          (lib.optional config.services.cadvisor.enable "${config.services.cadvisor.listenAddress}:${toString config.services.cadvisor.port}") ++ 
+          targets = [
+            "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
+          ] ++
+          (lib.optional config.services.cadvisor.enable "${config.services.cadvisor.listenAddress}:${toString config.services.cadvisor.port}") ++
           (lib.optional config.services.prometheus.exporters.nginx.enable "127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}") ++
           (lib.optional config.services.prometheus.exporters.nginxlog.enable "127.0.0.1:${toString config.services.prometheus.exporters.nginxlog.port}")
           ;
-        }]; 
+        }];
       }
     ];
   };
-  
+
   services.cadvisor = {
     enable = true;
     listenAddress = "127.0.0.1";

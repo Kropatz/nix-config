@@ -7,7 +7,7 @@ in
   options.custom.graphical.code = {
     enable = mkEnableOption "Enables code";
   };
-  
+
   config = mkIf cfg.enable {
     documentation.dev.enable = true;
     environment.systemPackages = with pkgs; [
@@ -18,7 +18,7 @@ in
       insomnia
       nodejs_22 # needed for tabby extension
     ];
-  
+
     #environment.sessionVariables = {
     #  DOTNET_ROOT = "${pkgs.dotnet-sdk_7}";
     #};

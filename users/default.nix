@@ -5,7 +5,7 @@
 , ...
 }:
 {
-  imports = [ ./option.nix ]; 
+  imports = [ ./option.nix ];
 
   environment.systemPackages = [ pkgs.home-manager ];
   home-manager = {
@@ -18,6 +18,6 @@
   };
 
   users.users.root = {
-      openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];
+    openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];
   };
 }

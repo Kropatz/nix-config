@@ -17,7 +17,8 @@ let
     	--data "$JSON"
   '';
   cfg = config.custom.services.smartd;
-in {
+in
+{
 
   options.custom.services.smartd = {
     enable = lib.mkEnableOption "Enables smartd monitoring";
