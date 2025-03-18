@@ -17,12 +17,12 @@ in {
     services.displayManager.sddm.enable =
       !config.services.xserver.displayManager.gdm.enable;
 
-    #nix.settings = {
-    #  substituters = [ "https://hyprland.cachix.org" ];
-    #  trusted-public-keys = [
-    #    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    #  ];
-    #};
+    nix.settings = {
+      substituters = [ "https://hyprland.cachix.org" ];
+      trusted-public-keys = [
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      ];
+    };
 
     xdg.portal.enable = true;
     xdg.portal.extraPortals = lib.mkDefault [
