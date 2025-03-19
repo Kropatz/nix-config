@@ -15,9 +15,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-
-    home.file.".config/hypr/hyprshade.toml".source =
-      ../../.config/hypr/hyprshade.toml;
     #programs.swaylock.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
@@ -308,7 +305,6 @@ in
           #"${pkgs.swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
           "${pkgs.swww} img ${config.stylix.image}"
           "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
-          "${pkgs.hyprshade}/bin/hyprshade auto"
           "dex --autostart --environment Hyprland"
           "${pkgs.hypridle}/bin/hypridle &"
           #"${pkgs.dunst}/bin/dunst &"
