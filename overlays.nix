@@ -36,10 +36,10 @@ in
 
     #  mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     #});
-    hyprland =
-      inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
-    xdg-desktop-portal-hyprland =
-      inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    #hyprland =
+    #  inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
+    #xdg-desktop-portal-hyprland =
+    #  inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     #delta = prev.delta.overrideAttrs (oldAttrs: rec {
     #  version = "0.17.0-unstable-2024-08-12";
     #  src = prev.fetchFromGitHub {
