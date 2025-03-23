@@ -48,6 +48,7 @@ in {
       cava
       dex # starts applications according to .desktop files
       hyprshade
+      #waybar
       #qt5.qtwayland
       #qt6.qmake
       #qt6.qtwayland

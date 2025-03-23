@@ -17,19 +17,19 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "lact";
-  version = "0.7.1";
+  version = "0.7.2";
 
   src = fetchFromGitHub {
     owner = "ilya-zlobintsev";
     repo = "LACT";
-    #rev = "v${version}";
-    #hash = "sha256-zaN6CQSeeoYFxLO6E1AMKAjeNOcPi2OsGfYkvZLPKcw=";
-    rev = "e472dec45682f96a272b77d368791121e10ba7da";
-    hash = "sha256-d081f49ojJzz0N28lIu3NZ8SSvSuoz2HfjQl5Zu8PpU=";
+    rev = "v${version}";
+    hash = "sha256-6nNt/EnJKHdldjpCW2pLPBkU5TLGEaqtnUUBraeRa3I=";
+    #rev = "e472dec45682f96a272b77d368791121e10ba7da";
+    #hash = "sha256-d081f49ojJzz0N28lIu3NZ8SSvSuoz2HfjQl5Zu8PpU=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-vc8KqMov2Og5wRS4b9n9Vixtg4vwCM/MlkCDbqsG3Kg=";
+  cargoHash = "sha256-NoWngD0LJ+cteoQIJ0iye0MZgmLuuxN2YHHyMqeEABc=";
 
   nativeBuildInputs =
     [ blueprint-compiler pkg-config wrapGAppsHook4 rustPlatform.bindgenHook ];

@@ -217,8 +217,6 @@ in
             ''
               Shift_L, Print, exec, ${grim} -g "$(${slurp} -d)" ~/Pictures/$(date +'%s_grim.png')''
             "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
-            " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
-            " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
             " , XF86AudioPlay, exec, ${playerctl} play-pause"
             " , XF86AudioNext, exec, ${playerctl} next"
             " , XF86AudioPrev, exec, ${playerctl} previous"
@@ -229,11 +227,10 @@ in
             "$mainMod, right, movefocus, r"
             "$mainMod, up, movefocus, u"
             "$mainMod, down, movefocus, d"
-            "$mainMod SHIFT, left, resizeactive, -30 0"
-            "$mainMod SHIFT, right, resizeactive, 30 0"
-            "$mainMod SHIFT, up, resizeactive, 0 -30"
-            "$mainMod SHIFT, down, resizeactive, 0 30"
-
+            "$mainMod CTRL, left, movewindow, l"
+            "$mainMod CTRL, right, movewindow, r"
+            "$mainMod CTRL, up, movewindow, u"
+            "$mainMod CTRL, down, movewindow, d"
 
             # Switch workspaces with mainMod + [0-9]
             "$mainMod, 1, workspace, 1"
@@ -265,6 +262,18 @@ in
 
             # "ALT, Tab, cyclenext,"
             # "ALT, Tab, bringactivetotop,"
+          ];
+
+        # e = repeat when held
+        binde =
+          let brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+          in [
+            " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
+            " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
+            "$mainMod SHIFT, left, resizeactive, -30 0"
+            "$mainMod SHIFT, right, resizeactive, 30 0"
+            "$mainMod SHIFT, up, resizeactive, 0 -30"
+            "$mainMod SHIFT, down, resizeactive, 0 30"
           ];
 
         bindm = [
