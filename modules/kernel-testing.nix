@@ -73,10 +73,8 @@ in
 
           src = fetchurl {
             url =
-              "https://gitlab.freedesktop.org/agd5f/linux/-/archive/amd-drm-next-6.15-2025-03-14/linux-amd-drm-next-6.15-2025-03-14.tar.gz";
-            # After the first build attempt, look for "hash mismatch" and then 2 lines below at the "got:" line.
-            # Use "sha256-....." value here.
-            hash = "sha256-/9EvJNBSKteXljrZzmaQkbZ7o4etCe0yFM3JJg/jD7o=";
+              "https://gitlab.freedesktop.org/agd5f/linux/-/archive/amd-drm-next-6.15-2025-03-21/linux-amd-drm-next-6.15-2025-03-21.tar.gz";
+            hash = "sha256-sLS6uFo2KPbDdz8BhB1X10wQiiYdtT/Ny0Ii19F6feY=";
           };
           kernelPatches = [ ];
 
