@@ -38,6 +38,7 @@
         "echo schedutil | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor";
       cpu_freq = ''watch -n 1 "cat /proc/cpuinfo | grep \"^[c]pu MHz\""'';
       gpu_monitor = "nvidia-smi dmon -s puct";
+      nix-shell = "nix-shell --command zsh";
     };
     #plugins = with pkgs; [
     #  {

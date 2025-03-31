@@ -10,10 +10,10 @@ in {
       mesa-new = pkgs.mesa-git.mesa.overrideAttrs (oldAttrs: {
         src = pkgs.fetchFromGitLab {
           domain = "gitlab.freedesktop.org";
-          owner = "hakzsam";
+          owner = "mesa";
           repo = "mesa";
-          rev = "e76537447570f64b138d6338ca59117da18c113c";
-          hash = "sha256-k618hjo0H0O3FtAJp3YT8+cfFvMXI+wCmbv9lxDhrIc=";
+          rev = "aa8fec638f5e2731e88b9463c67aac7c34bae800";
+          hash = "sha256-j/v5Z8EBgoOuMOXUXxqRQMqBmHMpR5I/Qz7wgcXE7Vk=";
         };
       });
     in

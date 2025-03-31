@@ -27,8 +27,6 @@
     };
     nix-colors.url = "github:misterio77/nix-colors";
     ## unstable
-    #TODO: wait until https://github.com/NixOS/nixpkgs/pull/339641 is in unstable https://nixpk.gs/pr-tracker.html?pr=339641
-    #nixpkgs-unstable.url = "github:nixos/nixpkgs/a6916c76a7d202e3c02134e620f6477b8600ce9d";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-gimp3.url = "github:jtojnar/nixpkgs/gimp-meson";
     nixpkgs-mesa-git.url = "github:kropatz/nixpkgs/mesa-git";
@@ -37,10 +35,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     # cosmic testing
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    #nixos-cosmic = {
+    #  url = "github:lilyinstarlight/nixos-cosmic";
+    #  inputs.nixpkgs.follows = "nixpkgs-unstable";
+    #};
     # vim configuration with nix
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -74,7 +72,7 @@
     , home-manager
     , home-manager-unstable
     , nix-colors
-    , nixos-cosmic
+    #, nixos-cosmic
     , nixvim
     , nixos-generators
     , stylix
@@ -119,8 +117,8 @@
             ./modules/graphical
             stylix.nixosModules.stylix
             ./modules/graphical/stylix.nix
-            nixos-cosmic.nixosModules.default
-            ./modules/graphical/cosmic.nix
+                #nixos-cosmic.nixosModules.default
+                #./modules/graphical/cosmic.nix
             ({ outputs, ... }: { stylix.image = ./tsukasa.jpg; })
           ];
           specialArgs = specialArgs // { inherit inputs outputs; };

@@ -52,7 +52,7 @@ in
       steamtinkerlaunch
       tetrio-desktop
       #libs
-    ]) ++ optionals cfg.enableVr (with pkgs; [ beatsabermodmanager ]);
+    ]) ++ optionals cfg.enableVr (with pkgs; [ bs-manager ]);
 
   };
 }

@@ -2,15 +2,15 @@
 let
   merge = lib.foldr (a: b: a // b) { };
   search = {
-    default = "DuckDuckGo";
+    default = "ddg";
     force = true;
     engines = {
       # don't need these default ones
-      "Amazon.com".metaData.hidden = true;
-      "Bing".metaData.hidden = true;
-      "eBay".metaData.hidden = true;
+      "amazondotcom-us".metaData.hidden = true;
+      "bing".metaData.hidden = true;
+      "ebay".metaData.hidden = true;
 
-      "DuckDuckGo" = {
+      "ddg" = {
         urls = [{
           template = "https://duckduckgo.com";
           params = [{
