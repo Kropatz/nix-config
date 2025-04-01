@@ -129,7 +129,8 @@
     options = [ "defaults" "nofail" "noatime" ];
   };
 
-  networking.firewall.allowedTCPPorts = [ 25565 25566 ];
+  # 8888 = scheibenmeister skip button
+  networking.firewall.allowedTCPPorts = [ 25565 25566 8888 ];
   networking.hostName = "server-vm"; # Define your hostname.
 
   # Set your time zone.

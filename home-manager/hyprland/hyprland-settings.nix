@@ -207,11 +207,10 @@ in
             "$mainMod, F, fullscreen"
             "$mainMod, V, togglefloating"
             "$mainMod, I, exec, ${rofi} -show drun -show-icons"
-            ''
-              $mainMod, S, exec, cat ~/songs | shuf -n 1 | sed "s/^/b.p /g" | ${wl-copy}''
+            ''$mainMod, S, exec, echo "skip" | nc kopatz.ddns.net 8888''
             "$mainMod, R, exec, ${swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
             "$mainMod, W, exec, ${swww} img ${config.stylix.image}"
-            "        , Print, exec, ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy}"
+            "        , Print, exec, hyprshade off && ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy} && hyprshade auto"
             ''
               $mainMod, Print, exec, ${grim} -g "$(${slurp} -d)" /tmp/$(date +'%s_grim.png')''
             ''

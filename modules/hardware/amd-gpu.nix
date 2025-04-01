@@ -12,8 +12,8 @@ in {
           domain = "gitlab.freedesktop.org";
           owner = "mesa";
           repo = "mesa";
-          rev = "aa8fec638f5e2731e88b9463c67aac7c34bae800";
-          hash = "sha256-j/v5Z8EBgoOuMOXUXxqRQMqBmHMpR5I/Qz7wgcXE7Vk=";
+          rev = "69a08fd9b229ee9e859bfca5f4f9052c84714f98";
+          hash = "sha256-6vRcad3a3A/9945gkeFgRrjyoBrtsnZeDnG/zROIA2Q=";
         };
       });
     in
