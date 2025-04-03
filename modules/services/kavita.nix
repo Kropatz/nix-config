@@ -70,6 +70,9 @@ in {
           else
             config.age.secrets.kavita.path;
       };
+        environment.systemPackages = with pkgs; [
+          libgbm
+        ];
 
       #todo: base url needs new kavita version
       systemd.services = {

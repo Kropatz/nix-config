@@ -188,8 +188,7 @@ in
             thunar = "${pkgs.xfce.thunar}/bin/thunar";
             wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
             wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-            grim = "${pkgs.grim}/bin/grim";
-            slurp = "${pkgs.slurp}/bin/slurp";
+            grimblast = "${pkgs.grimblast}/bin/grimblast";
             swww = "${pkgs.swww}/bin/swww";
             pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
             brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
@@ -210,11 +209,11 @@ in
             ''$mainMod, S, exec, echo "skip" | nc kopatz.ddns.net 8888''
             "$mainMod, R, exec, ${swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
             "$mainMod, W, exec, ${swww} img ${config.stylix.image}"
-            "        , Print, exec, hyprshade off && ${grim} -g \"$(${slurp} -d)\" - | ${wl-copy} && hyprshade auto"
+            "        , Print, exec, hyprshade off && ${grimblast} --freeze copy area && hyprshade auto"
             ''
-              $mainMod, Print, exec, ${grim} -g "$(${slurp} -d)" /tmp/$(date +'%s_grim.png')''
+              $mainMod, Print, exec, ${grimblast} --freeze save area /tmp/$(date +'%s_grim.png')''
             ''
-              Shift_L, Print, exec, ${grim} -g "$(${slurp} -d)" ~/Pictures/$(date +'%s_grim.png')''
+              Shift_L, Print, exec, ${grimblast} --freeze save area ~/Pictures/$(date +'%s_grim.png')''
             "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
             " , XF86AudioPlay, exec, ${playerctl} play-pause"
             " , XF86AudioNext, exec, ${playerctl} next"

@@ -3,6 +3,8 @@
 , buildGoModule
 , fetchFromGitHub
 , installShellFiles
+, libgbm
+, makeWrapper
 ,
 }:
 buildGoModule rec {
@@ -23,7 +25,13 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  buildInputs = [ libgbm ];
+  runtimeDeps = [ libgbm ];
+  nativeBuildInputs = [ installShellFiles makeWrapper ];
+
+  preFixup = ''
+    wrapProgram $out/bin/mangal --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libgbm ]}
+  '';
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     # Mangal creates a config file in the folder ~/.config/mangal and fails if not possible
