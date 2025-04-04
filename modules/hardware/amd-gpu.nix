@@ -7,13 +7,23 @@ in {
 
   config =
     let
+      #mesa-new = pkgs.mesa-git.mesa.overrideAttrs (oldAttrs: {
+      #  src = pkgs.fetchFromGitLab {
+      #    domain = "gitlab.freedesktop.org";
+      #    owner = "mesa";
+      #    repo = "mesa";
+      #    rev = "69a08fd9b229ee9e859bfca5f4f9052c84714f98";
+      #    hash = "sha256-6vRcad3a3A/9945gkeFgRrjyoBrtsnZeDnG/zROIA2Q=";
+      #  };
+      #});
+
       mesa-new = pkgs.mesa-git.mesa.overrideAttrs (oldAttrs: {
         src = pkgs.fetchFromGitLab {
           domain = "gitlab.freedesktop.org";
-          owner = "mesa";
+          owner = "hakzsam";
           repo = "mesa";
-          rev = "69a08fd9b229ee9e859bfca5f4f9052c84714f98";
-          hash = "sha256-6vRcad3a3A/9945gkeFgRrjyoBrtsnZeDnG/zROIA2Q=";
+          rev = "9238ae542f15e4566430a540817e15a8ec079a59";
+          hash = "sha256-c/iV/V7m3GuatEuybaetHVIPm66/a6lC1wvV/GGtvnQ=";
         };
       });
     in
@@ -25,7 +35,7 @@ in {
         enable = true;
         enable32Bit = true;
         package = lib.mkForce mesa-new.drivers;
-        extraPackages = with pkgs; [ mesa-git.amdvlk ];
+          #extraPackages = with pkgs; [ mesa-git.amdvlk ];
       };
 
       hardware.amdgpu.initrd.enable = lib.mkDefault true;

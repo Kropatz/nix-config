@@ -302,8 +302,8 @@ in
           ##"immediate, class:^(Risk.*)$"
           "stayfocused,class:(steam_app_107410)"
           "immediate, class:^tetrio-desktop$"
-          "opacity 0.85, class:thunar"
-          "opacity 0.85, class:discord, fullscreen:0"
+          "opacity 0.9, class:thunar"
+          "opacity 0.9, class:discord, fullscreen:0"
           "opacity 0.1, title:cava"
         ];
 
