@@ -21,15 +21,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-colors.url = "github:misterio77/nix-colors";
     ## unstable
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-gimp3.url = "github:jtojnar/nixpkgs/gimp-meson";
-    nixpkgs-mesa-git.url = "github:kropatz/nixpkgs/mesa-git";
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -66,13 +61,12 @@
     , nur
     , nixpkgs
     , nixos-hardware
-    , nixos-wsl
     , nixpkgs-unstable
     , agenix
     , home-manager
     , home-manager-unstable
     , nix-colors
-    #, nixos-cosmic
+      #, nixos-cosmic
     , nixvim
     , nixos-generators
     , stylix
@@ -82,21 +76,15 @@
     }@inputs:
     let
       inherit (self) outputs;
-      system = "x86_64-linux";
       overlays = { outputs, ... }: {
         nixpkgs.overlays = with outputs.overlays; [
+          #unstable-packages
           additions
           modifications
-          unstable-packages
-          stable-packages
-          mesa-git
           nur.overlays.default
         ];
       };
       defaultModules = [ ./modules agenix.nixosModules.default overlays ];
-      merge = list:
-        builtins.foldl' (acc: elem: nixpkgs.lib.recursiveUpdate acc elem) { }
-          list;
       # helper function to create a machine
       mkHost =
         { modules
@@ -117,8 +105,8 @@
             ./modules/graphical
             stylix.nixosModules.stylix
             ./modules/graphical/stylix.nix
-                #nixos-cosmic.nixosModules.default
-                #./modules/graphical/cosmic.nix
+            #nixos-cosmic.nixosModules.default
+            #./modules/graphical/cosmic.nix
             ({ outputs, ... }: { stylix.image = ./tsukasa.jpg; })
           ];
           specialArgs = specialArgs // { inherit inputs outputs; };
@@ -148,7 +136,6 @@
             "server-vm" = nixos-generators.nixosGenerate {
               format = "vmware";
               inherit system;
-              #pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
               specialArgs = {
                 pkgsVersion = nixpkgs-unstable;
               } // {
@@ -197,15 +184,6 @@
         "mini-pc-proxmox" = mkStableServer {
           modules =
             [ ./users/anon ./systems/mini-pc-proxmox/configuration.nix ];
-        };
-        "wsl" = mkHost {
-          modules = [
-            #"${nixpkgs}/nixos/modules/profiles/minimal.nix"
-            ./users/anon
-            ./modules/nix/settings.nix
-            ./systems/wsl/configuration.nix
-            nixos-wsl.nixosModules.wsl
-          ];
         };
         #initial install done with nix run github:nix-community/nixos-anywhere/73a6d3fef4c5b4ab9e4ac868f468ec8f9436afa7 -- --flake .#adam-site root@<ip>
         #update with nixos-rebuild switch --flake .#adam-site --target-host "root@<ip>"

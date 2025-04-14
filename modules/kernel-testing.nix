@@ -49,26 +49,36 @@ let
   amd_drm_next_pkg = { fetchurl, buildLinux, ... }@args:
 
     buildLinux (args // rec {
-      version = "6.14.0-rc4";
+      version = "6.14.0-rc6";
       modDirVersion = version;
 
       src = fetchurl {
         url =
-          "https://gitlab.freedesktop.org/agd5f/linux/-/archive/amd-drm-next-6.15-2025-03-21/linux-amd-drm-next-6.15-2025-03-21.tar.gz";
-        hash = "sha256-sLS6uFo2KPbDdz8BhB1X10wQiiYdtT/Ny0Ii19F6feY=";
+          "https://gitlab.freedesktop.org/agd5f/linux/-/archive/amd-drm-fixes-6.15-2025-04-09/linux-amd-drm-fixes-6.15-2025-04-09.tar.gz";
+        #"https://gitlab.freedesktop.org/agd5f/linux/-/archive/amd-drm-next-6.15-2025-03-21/linux-amd-drm-next-6.15-2025-03-21.tar.gz";
+        hash = "sha256-AhyDuV9KufqDJEJ+Fp+jnAta3OM/a9OcMNG9UV+OgR0=";
       };
       kernelPatches = [ ];
 
-      extraMeta.branch = "6.14.0-rc4";
+      extraMeta.branch = "6.14.0-rc6";
     } // (args.argsOverride or { }));
   linux_amd_drm_next = pkgs.callPackage amd_drm_next_pkg { };
 
+  linux_6_14 = pkgs.buildLinux {
+    version = "6.14.2";
+    extraMeta.branch = "6.14";
+    src = pkgs.fetchzip {
+      url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.14.2.tar.xz";
+      hash = "sha256-RytIKSDT9BMRBZvJER19QAShIqfnpwk59CMFKKgipAU=";
+    };
+  };
+
   linux_6_15 = pkgs.buildLinux {
-    version = "6.15.0-rc1";
+    version = "6.15.0-rc2";
     extraMeta.branch = "6.15";
     src = pkgs.fetchzip {
-      url = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.15-rc1.tar.gz";
-      hash = "sha256-6TIBhh9ZuAcu0nHMeS1goGM43dU/OOOLtBNGaRAu404=";
+      url = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.15-rc2.tar.gz";
+      hash = "sha256-3/GGVyGoLCv4EfG6e+EBM1NO3/FpKthLb8jp6FSVuFE=";
     };
   };
 in
@@ -87,14 +97,16 @@ in
   #  };
   #});
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      linuxPackages_latest = pkgs.linuxPackagesFor linux_6_15;
-    })
-  ];
-  boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor (linux_6_15.override {
-          structuredExtraConfig = with lib.kernel; {
-            SCHED_DEBUG = lib.mkForce unset;
-          };
+  #boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor (linux_6_15.override {
+  #  structuredExtraConfig = with lib.kernel; {
+  #    SCHED_DEBUG = lib.mkForce unset;
+  #  };
+  #}));
+
+  boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor (linux_amd_drm_next.override {
+    structuredExtraConfig = with lib.kernel; {
+      SCHED_DEBUG = lib.mkForce unset;
+    };
   }));
+  #boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_6_14);
 }

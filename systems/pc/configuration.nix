@@ -105,11 +105,11 @@
   ];
 
   # apple shit
-  services.usbmuxd.enable = true;
+  #services.usbmuxd.enable = true;
   environment.systemPackages = with pkgs; [
-    libimobiledevice
-    ifuse # optional, to mount using 'ifuse'
-    mesa-git.gimp
+    #libimobiledevice
+    #ifuse # optional, to mount using 'ifuse'
+    openai-whisper
   ];
 
   nixpkgs.config.permittedInsecurePackages = [

@@ -7,13 +7,13 @@ in {
 
   config =
     let
-      mesa-new = pkgs.mesa-git.mesa.overrideAttrs (oldAttrs: {
+      mesa-new = pkgs.mesa.overrideAttrs (oldAttrs: {
         src = pkgs.fetchFromGitLab {
           domain = "gitlab.freedesktop.org";
           owner = "mesa";
           repo = "mesa";
-          rev = "0f8753ffb83a635f47cb0c79e8a8f86c5343d1cf";
-          hash = "sha256-3Si9bTGO1nUmiJN1X/tIR4vo0EH8Zi2JNUBs2oyuVYM=";
+          rev = "f23b376e847602d4fe7976f3bbb877dfd9d8b417";
+          hash = "sha256-prPhezquh63OFkFdYNCRN1OkdwA+CTu88hUoHQD5kCw=";
         };
       });
 
@@ -35,7 +35,8 @@ in {
         enable = true;
         enable32Bit = true;
         package = lib.mkForce mesa-new.drivers;
-          #extraPackages = with pkgs; [ mesa-git.amdvlk ];
+        #extraPackages = with pkgs; [ mesa-git.amdvlk ];
+          #extraPackages = with pkgs; [ rocmPackages.clr.icd ];
       };
 
       hardware.amdgpu.initrd.enable = lib.mkDefault true;
@@ -48,5 +49,20 @@ in {
       ];
       systemd.packages = with pkgs; [ lact ];
       systemd.services.lactd.wantedBy = [ "multi-user.target" ];
+      #rocm
+        #systemd.tmpfiles.rules =
+        #  let
+        #    rocmEnv = pkgs.symlinkJoin {
+        #      name = "rocm-combined";
+        #      paths = with pkgs.rocmPackages; [
+        #        rocblas
+        #        hipblas
+        #        clr
+        #      ];
+        #    };
+        #  in
+        #  [
+        #    "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+        #  ];
     };
 }
