@@ -17,7 +17,6 @@
     ../../home-manager/gitconfig.nix
     ../../home-manager/zsh
     ../../home-manager/direnv.nix
-    inputs.nix-colors.homeManagerModule
     inputs.nixvim.homeManagerModules.nixvim
   ];
 

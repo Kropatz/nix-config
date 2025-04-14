@@ -21,7 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    nix-colors.url = "github:misterio77/nix-colors";
     ## unstable
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-gimp3.url = "github:jtojnar/nixpkgs/gimp-meson";
@@ -65,7 +64,6 @@
     , agenix
     , home-manager
     , home-manager-unstable
-    , nix-colors
       #, nixos-cosmic
     , nixvim
     , nixos-generators
@@ -169,7 +167,6 @@
               // import ./systems/laptop/userdata.nix;
             pkgsVersion = nixpkgs-unstable;
             home-manager-version = home-manager-unstable;
-            inherit nix-colors;
           };
           modules = [
             ### User specific ###
