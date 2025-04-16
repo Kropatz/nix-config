@@ -7,14 +7,17 @@ in {
 
   config =
     let
-      mesa-new = pkgs.mesa.overrideAttrs (oldAttrs: {
+      mesa-new = pkgs.mesa.overrideAttrs (old: {
         src = pkgs.fetchFromGitLab {
           domain = "gitlab.freedesktop.org";
           owner = "mesa";
           repo = "mesa";
-          rev = "f23b376e847602d4fe7976f3bbb877dfd9d8b417";
-          hash = "sha256-prPhezquh63OFkFdYNCRN1OkdwA+CTu88hUoHQD5kCw=";
+          rev = "93547d45ceb0a59f429f6029b339c044f8aaabaa";
+          hash = "sha256-u5Lksclv0+cMfO02Ilp6v/7UCoTdm5veIvf1uejWlgQ=";
         };
+        patches = [
+          ./opencl.patch
+        ];
       });
 
       #mesa-new = pkgs.mesa-git.mesa.overrideAttrs (oldAttrs: {
@@ -34,9 +37,9 @@ in {
       hardware.graphics = {
         enable = true;
         enable32Bit = true;
-        package = lib.mkForce mesa-new.drivers;
+        package = lib.mkForce mesa-new;
         #extraPackages = with pkgs; [ mesa-git.amdvlk ];
-          #extraPackages = with pkgs; [ rocmPackages.clr.icd ];
+        #extraPackages = with pkgs; [ rocmPackages.clr.icd ];
       };
 
       hardware.amdgpu.initrd.enable = lib.mkDefault true;
@@ -50,19 +53,19 @@ in {
       systemd.packages = with pkgs; [ lact ];
       systemd.services.lactd.wantedBy = [ "multi-user.target" ];
       #rocm
-        #systemd.tmpfiles.rules =
-        #  let
-        #    rocmEnv = pkgs.symlinkJoin {
-        #      name = "rocm-combined";
-        #      paths = with pkgs.rocmPackages; [
-        #        rocblas
-        #        hipblas
-        #        clr
-        #      ];
-        #    };
-        #  in
-        #  [
-        #    "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-        #  ];
+      #systemd.tmpfiles.rules =
+      #  let
+      #    rocmEnv = pkgs.symlinkJoin {
+      #      name = "rocm-combined";
+      #      paths = with pkgs.rocmPackages; [
+      #        rocblas
+      #        hipblas
+      #        clr
+      #      ];
+      #    };
+      #  in
+      #  [
+      #    "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+      #  ];
     };
 }
