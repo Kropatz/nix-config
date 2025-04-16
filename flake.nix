@@ -36,8 +36,7 @@
     # vim configuration with nix
     nixvim = {
       url = "github:nix-community/nixvim";
-      #inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.home-manager.follows = "home-manager-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     # styling
     stylix = {
@@ -129,28 +128,7 @@
         };
       customPackages = flake-utils.lib.eachDefaultSystem (system: {
         packages =
-          import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; }
-          // {
-            "server-vm" = nixos-generators.nixosGenerate {
-              format = "vmware";
-              inherit system;
-              specialArgs = {
-                pkgsVersion = nixpkgs-unstable;
-              } // {
-                inherit inputs outputs;
-              };
-              lib = nixpkgs-unstable.legacyPackages.x86_64-linux.lib;
-              modules = defaultModules ++ [
-                home-manager-unstable.nixosModules.home-manager
-                ./users/anon
-                ./systems/amd-server-vm/configuration.nix
-                {
-                  # 100G disk;
-                  virtualisation.diskSize = 100 * 1024;
-                }
-              ];
-            };
-          };
+          import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
       });
     in
     {
