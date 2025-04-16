@@ -4,7 +4,10 @@
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     # nix user repository
-    nur = { url = "github:nix-community/NUR"; };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     ## stable
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     home-manager = {
@@ -23,7 +26,6 @@
     };
     ## unstable
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-gimp3.url = "github:jtojnar/nixpkgs/gimp-meson";
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
