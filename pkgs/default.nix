@@ -11,6 +11,5 @@
   sddm-astronaut = pkgs.callPackage ./sddm-astronaut/default.nix { };
   mangal-patched = pkgs.callPackage ./mangal/default.nix { };
   electron_27 = pkgs.callPackage ./electron27/default.nix { };
-  logseq = pkgs.callPackage ./logseq/default.nix { inherit electron_27; };
   rdna4-lact = pkgs.callPackage ./lact/default.nix { };
 }
