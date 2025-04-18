@@ -36,11 +36,7 @@ in
         end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
       };
     };
-    nixpkgs.config.permittedInsecurePackages = [
-      "dotnet-runtime-wrapped-7.0.20"
-      "dotnet-runtime-wrapped-7.0.20"
-      "dotnet-runtime-wrapped-7.0.20"
-    ];
+
     environment.systemPackages = [ pkgs.mangohud ]
       ++ optionals cfg.enablePreinstalled (with pkgs; [
       #taisei
