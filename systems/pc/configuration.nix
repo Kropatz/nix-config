@@ -43,6 +43,7 @@
     hardware = {
       android.enable = true;
       amd-gpu.enable = true;
+      amd-gpu.rocm.enable = true;
       nvidia = {
         enable = false;
         clock = {

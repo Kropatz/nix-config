@@ -25,7 +25,6 @@ in
       inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
     xdg-desktop-portal-hyprland =
       inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-    #rocmPackages = prev.rocm-update.rocmPackages;
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

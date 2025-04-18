@@ -3,6 +3,7 @@ let cfg = config.custom.hardware.amd-gpu;
 in {
   options.custom.hardware.amd-gpu = {
     enable = lib.mkEnableOption "Enables amd gpus";
+    rocm.enable = lib.mkEnableOption "Enables rocm";
   };
 
   config =
@@ -39,7 +40,7 @@ in {
         enable32Bit = true;
         package = lib.mkForce mesa-new;
         #extraPackages = with pkgs; [ mesa-git.amdvlk ];
-        #extraPackages = with pkgs; [ rocmPackages.clr.icd ];
+        extraPackages = lib.mkIf cfg.rocm.enable (with pkgs; [ rocmPackages.clr rocmPackages.clr.icd ]);
       };
 
       hardware.amdgpu.initrd.enable = lib.mkDefault true;
@@ -49,23 +50,28 @@ in {
         lact
         nvtopPackages.amd
         amdgpu_top
+      ] ++ lib.optionals cfg.rocm.enable [
+            clinfo
+            rocmPackages.rocminfo
       ];
       systemd.packages = with pkgs; [ lact ];
       systemd.services.lactd.wantedBy = [ "multi-user.target" ];
       #rocm
-      #systemd.tmpfiles.rules =
-      #  let
-      #    rocmEnv = pkgs.symlinkJoin {
-      #      name = "rocm-combined";
-      #      paths = with pkgs.rocmPackages; [
-      #        rocblas
-      #        hipblas
-      #        clr
-      #      ];
-      #    };
-      #  in
-      #  [
-      #    "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-      #  ];
+      systemd.tmpfiles.rules =
+        let
+          rocmEnv = pkgs.symlinkJoin {
+            name = "rocm-combined";
+            paths = with pkgs.rocmPackages; [
+              rocblas
+              hipblas
+              clr
+            ];
+          };
+        in
+        lib.mkIf cfg.rocm.enable
+          [
+            "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+          ];
+
     };
 }
