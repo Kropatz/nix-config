@@ -43,6 +43,7 @@
     hardware = {
       android.enable = true;
       amd-gpu.enable = true;
+      amd-gpu.rocm.enable = true;
       nvidia = {
         enable = false;
         clock = {
@@ -105,23 +106,11 @@
   ];
 
   # apple shit
-  services.usbmuxd.enable = true;
+  #services.usbmuxd.enable = true;
   environment.systemPackages = with pkgs; [
-    libimobiledevice
-    ifuse # optional, to mount using 'ifuse'
-    mesa-git.gimp
-  ];
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-27.3.11"
-
-    "dotnet-runtime-wrapped-7.0.20"
-    "dotnet-runtime-7.0.20"
-    "dotnet-core-combined"
-    "dotnet-sdk-7.0.410"
-    "dotnet-sdk-6.0.428"
-    "dotnet-sdk-wrapped-6.0.428"
-    "dotnet-sdk-wrapped-7.0.410"
+    #libimobiledevice
+    #ifuse # optional, to mount using 'ifuse'
+    openai-whisper
   ];
 
   networking.firewall.allowedTCPPorts = [ 6567 ]; # mindustry

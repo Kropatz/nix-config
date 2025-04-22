@@ -8,7 +8,6 @@
     #../../home-manager/kitty.nix
     #../../home-manager/i3.nix
     #inputs.nixvim.homeManagerModules.nixvim
-    #inputs.nix-colors.homeManagerModule
   ];
 
 }

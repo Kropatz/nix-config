@@ -33,7 +33,6 @@
     ../../home-manager/mpv.nix
     ../../home-manager/discord-theme.nix
     inputs.nixvim.homeManagerModules.nixvim
-    inputs.nix-colors.homeManagerModule
   ];
 
   programs.feh = {
