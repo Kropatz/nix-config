@@ -318,11 +318,11 @@ in
         ] ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
           "[workspace 9 silent] discord"
           "[workspace 9 silent] discordcanary"
-          "[workspace 10 silent] floorp"
+          "[workspace 10 silent] firefox"
+          "xrandr --monitor ${monitor1} --primary"
         ] ++ [
           "sleep 3 && ${pkgs.waybar}/bin/waybar &"
           "${restartPortals}"
-          "xrandr --monitor ${monitor1} --primary"
         ];
       };
       extraConfig =

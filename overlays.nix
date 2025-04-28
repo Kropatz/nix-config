@@ -21,6 +21,7 @@ in
     discord = prev.discord.override { withVencord = true; };
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     lact = prev.rdna4-lact;
+
     hyprland =
       inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
     xdg-desktop-portal-hyprland =

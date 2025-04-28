@@ -40,14 +40,18 @@
       #games.enable = true;
       ime.enable = true;
       shared.enable = true;
-      stylix.enable = true;
+      stylix = {
+        enable = true;
+        base16Scheme = import ../../modules/themes/tsukasa.nix;
+        image = ../../tsukasa.jpg;
+      };
     };
   };
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" "electron-28.3.3" ];
-  programs.firejail.wrappedBinaries = with pkgs;
-    let inherit (config.custom.misc.firejail) mk;
-    in lib.mkMerge [
-      (mk "Discord" { pkg = discord; })
-    ];
+  #programs.firejail.wrappedBinaries = with pkgs;
+  #  let inherit (config.custom.misc.firejail) mk;
+  #  in lib.mkMerge [
+  #    (mk "Discord" { pkg = discord; })
+  #  ];
 }
