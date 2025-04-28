@@ -94,7 +94,7 @@
   };
   services.ollama = {
     enable = false;
-    acceleration = "cuda";
+    acceleration = "rocm";
   };
   virtualisation.waydroid.enable = false;
 
