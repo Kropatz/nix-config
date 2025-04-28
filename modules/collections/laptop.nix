@@ -35,7 +35,6 @@
         #android.enable = true;
       };
       #emulators.enable = true;
-      gnome.enable = true;
       hyprland.enable = true;
       #games.enable = true;
       ime.enable = true;
@@ -49,6 +48,15 @@
   };
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" "electron-28.3.3" ];
+  services.fprintd.enable = true;
+
+  #todo: extract this
+  services.xserver = {
+    xkb.layout = config.mainUser.layout;
+    xkb.variant = config.mainUser.variant;
+    enable = true;
+    displayManager.gdm.enable = true;
+  };
   #programs.firejail.wrappedBinaries = with pkgs;
   #  let inherit (config.custom.misc.firejail) mk;
   #  in lib.mkMerge [

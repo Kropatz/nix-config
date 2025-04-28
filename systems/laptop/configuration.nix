@@ -1,4 +1,5 @@
-{ config, pkgs, inputs, ... }: {
+{ config, pkgs, inputs, lib, ... }:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -16,18 +17,8 @@
     ## -- set in flake.nix
     #<nixos-hardware/dell/xps/15-7590/nvidia>
     #<home-manager/nixos>
-    inputs.nixos-hardware.nixosModules.dell-xps-15-7590
+    inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];
-
-  specialisation.nvidia = {
-    configuration = {
-
-      imports = [ inputs.nixos-hardware.nixosModules.dell-xps-15-7590-nvidia ];
-      hardware.nvidia.package =
-        config.boot.kernelPackages.nvidiaPackages.production;
-      hardware.nvidia.open = false;
-    };
-  };
 
   #services.blueman.enable = true;
 
@@ -37,8 +28,8 @@
 
   age.identityPaths =
     [ "/home/kopatz/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key" ];
-  mainUser.layout = "at";
-  mainUser.variant = "";
+  mainUser.layout = "de";
+  mainUser.variant = "us";
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

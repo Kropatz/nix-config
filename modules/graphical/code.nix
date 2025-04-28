@@ -13,6 +13,7 @@ in
     environment.systemPackages = with pkgs; [
       man-pages
       jetbrains.idea-ultimate
+      jetbrains.rider
       typescript
       #jetbrains.clion
       insomnia
