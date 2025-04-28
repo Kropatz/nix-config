@@ -28,8 +28,28 @@
 
   age.identityPaths =
     [ "/home/kopatz/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key" ];
-  mainUser.layout = "de";
-  mainUser.variant = "us";
+  mainUser.layout = "de_us_swapped";
+  mainUser.variant = "";
+
+  console.useXkbConfig = true;
+  services.xserver.exportConfiguration = lib.mkForce true;
+  services.xserver.extraLayouts = {
+    de_us_swapped = {
+      description = "German (US, Z and Y swapped)";
+      languages = [ "de" ];
+      symbolsFile = pkgs.writeText "symbols" ''
+        default partial alphanumeric_keys
+        xkb_symbols "de_us_swapped" {
+          include "de(us)"
+
+          name[Group1]= "German (US, Z and Y swapped)";
+
+          key <AB01> { [ y, Y ] };
+          key <AD06> { [ z, Z ] };
+        };
+      '';
+    };
+  };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
