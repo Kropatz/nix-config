@@ -36,7 +36,7 @@
       };
       #emulators.enable = true;
       hyprland.enable = true;
-      #games.enable = true;
+      games.enable = true;
       ime.enable = true;
       shared.enable = true;
       stylix = {

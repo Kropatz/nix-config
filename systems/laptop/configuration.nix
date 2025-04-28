@@ -14,9 +14,6 @@
     #../../modules/static-ip.nix
     #../../modules/wake-on-lan.nix
     #./modules/wireguard.nix
-    ## -- set in flake.nix
-    #<nixos-hardware/dell/xps/15-7590/nvidia>
-    #<home-manager/nixos>
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];
 
