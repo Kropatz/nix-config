@@ -14,10 +14,6 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     # secrets management
     agenix = {
       url = "github:ryantm/agenix";
@@ -67,7 +63,6 @@
     , home-manager-unstable
       #, nixos-cosmic
     , nixvim
-    , nixos-generators
     , stylix
     , disko
     , flake-utils
@@ -142,9 +137,6 @@
         };
         "nix-laptop" = mkHost {
           specialArgs = {
-            ## Custom variables (e.g. ip, interface, etc)
-            vars = import ./systems/userdata-default.nix
-              // import ./systems/laptop/userdata.nix;
             pkgsVersion = nixpkgs-unstable;
             home-manager-version = home-manager-unstable;
           };
@@ -154,13 +146,6 @@
             ./systems/laptop/configuration.nix
             ./modules/collections/laptop.nix
           ];
-        };
-        "mini-pc" = mkStableServer {
-          modules = [ ./users/anon ./systems/mini-pc/configuration.nix ];
-        };
-        "mini-pc-proxmox" = mkStableServer {
-          modules =
-            [ ./users/anon ./systems/mini-pc-proxmox/configuration.nix ];
         };
         #initial install done with nix run github:nix-community/nixos-anywhere/73a6d3fef4c5b4ab9e4ac868f468ec8f9436afa7 -- --flake .#adam-site root@<ip>
         #update with nixos-rebuild switch --flake .#adam-site --target-host "root@<ip>"
@@ -173,13 +158,6 @@
           };
           modules =
             [ disko.nixosModules.disko ./systems/adam-site/configuration.nix ];
-        };
-        "proxmox-test-vm" = mkHost {
-          minimal = true;
-          modules = [
-            disko.nixosModules.disko
-            ./systems/proxmox-test-vm/configuration.nix
-          ];
         };
         "amd-server" = mkHost {
           modules = [ ./users/kopatz ./systems/amd-server/configuration.nix ];
