@@ -39,16 +39,6 @@ in {
           };
           server = {
             id =
-              "HZUUQEQ-JOKYHTU-AVFVC3U-7KUAXVC-QY3OJTF-HGU7RZ3-5HA5TOE-VT4FNQB";
-            addresses = [ "tcp://192.168.0.6" "tcp://192.168.2.1" ];
-          };
-          mini-pc = {
-            id =
-              "NKRWOR6-2YNLVY5-GH6TG7T-V3M4VHD-OFS4XR3-Q45CALD-JVSIBKU-JZBGRQ3";
-            addresses = [ "tcp://192.168.0.10" "tcp://192.168.2.1" ];
-          };
-          mini-pc-proxmox = {
-            id =
               "FK3DW4B-6Y7C25O-IDBSOMV-GOUSWZW-KQR7ELS-QUKS4UR-AFZXLZE-67QJXAX";
             addresses = [ "tcp://192.168.0.10" "tcp://192.168.2.1" ];
           };
@@ -67,37 +57,37 @@ in {
           id = "default";
           path = "${cfg.basePath}/default";
           devices =
-            [ "kop-pc" "server" "laptop" "mini-pc" "mini-pc-proxmox" "phone" ];
+            [ "kop-pc" "server" "laptop" "phone" ];
           ignorePerms = false;
         };
 
         folders."books" = {
           id = "books";
           path = "${cfg.basePath}/books";
-          devices = [ "kop-pc" "server" "laptop" "mini-pc" "mini-pc-proxmox" ];
+          devices = [ "kop-pc" "server" "laptop" ];
         };
 
         folders."fh" = {
           id = "fh";
           path = "${cfg.basePath}/fh";
-          devices = [ "kop-pc" "server" "laptop" "mini-pc" "mini-pc-proxmox" ];
+          devices = [ "kop-pc" "server" "laptop" ];
         };
 
         folders."work_drive" = {
           id = "work_drive";
           path = "${cfg.basePath}/work_drive";
-          devices = [ "kop-pc" "server" "laptop" "mini-pc" "mini-pc-proxmox" ];
+          devices = [ "kop-pc" "server" "laptop" ];
         };
 
         folders."no_backup" = {
           id = "no_backup";
           path = "${cfg.basePath}/no_backup";
-          devices = [ "kop-pc" "server" "laptop" "mini-pc" "mini-pc-proxmox" ];
+          devices = [ "kop-pc" "server" "laptop" ];
         };
         folders."emu" = {
           id = "emu";
           path = "${cfg.basePath}/emu";
-          devices = [ "kop-pc" "server" "mini-pc" "mini-pc-proxmox" ];
+          devices = [ "kop-pc" "server" ];
         };
       };
     };

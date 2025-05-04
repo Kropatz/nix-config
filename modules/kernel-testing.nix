@@ -74,11 +74,11 @@ let
   };
 
   linux_6_15 = pkgs.buildLinux {
-    version = "6.15.0-rc2";
+    version = "6.15.0-rc4";
     extraMeta.branch = "6.15";
     src = pkgs.fetchzip {
-      url = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.15-rc2.tar.gz";
-      hash = "sha256-3/GGVyGoLCv4EfG6e+EBM1NO3/FpKthLb8jp6FSVuFE=";
+      url = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.15-rc4.tar.gz";
+      hash = "sha256-snhFNqDZzlINbZWA8ywEKHcTd+z19SoZQPSuldYJ6H0=";
     };
   };
 in
