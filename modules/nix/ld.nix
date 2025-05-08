@@ -43,6 +43,7 @@ in
       libuuid
       libxkbcommon
       libxml2
+      libgbm
       mesa
       nspr
       nspr
