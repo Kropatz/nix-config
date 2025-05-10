@@ -26,21 +26,22 @@ in
       inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
     xdg-desktop-portal-hyprland =
       inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    csharp-ls = prev.csharp-ls-8;
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'
-    #unstable-packages = final: _prev: {
-    #  unstable = import inputs.nixpkgs-unstable {
-    #    system = final.system;
-    #    config.allowUnfree = true;
-    #    config.permittedInsecurePackages = [ "electron-27.3.11" ];
-    #  };
-    #};
-    #stable-packages = final: _prev: {
-    #  stable = import inputs.nixpkgs {
-    #    system = final.system;
-    #    config.allowUnfree = true;
-    #  };
-    #};
+  #unstable-packages = final: _prev: {
+  #  unstable = import inputs.nixpkgs-unstable {
+  #    system = final.system;
+  #    config.allowUnfree = true;
+  #    config.permittedInsecurePackages = [ "electron-27.3.11" ];
+  #  };
+  #};
+  #stable-packages = final: _prev: {
+  #  stable = import inputs.nixpkgs {
+  #    system = final.system;
+  #    config.allowUnfree = true;
+  #  };
+  #};
 }

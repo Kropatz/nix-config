@@ -11,4 +11,5 @@
   sddm-astronaut = pkgs.callPackage ./sddm-astronaut/default.nix { };
   mangal-patched = pkgs.callPackage ./mangal/default.nix { };
   rdna4-lact = pkgs.callPackage ./lact/default.nix { };
+  csharp-ls-8 = pkgs.callPackage ./csharp-lsp/default.nix { };
 }

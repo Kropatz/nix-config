@@ -136,10 +136,6 @@
           modules = [ ./users/kopatz ./systems/pc/configuration.nix ];
         };
         "nix-laptop" = mkHost {
-          specialArgs = {
-            pkgsVersion = nixpkgs-unstable;
-            home-manager-version = home-manager-unstable;
-          };
           modules = [
             ### User specific ###
             ./users/kopatz
