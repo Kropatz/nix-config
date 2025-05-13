@@ -73,6 +73,9 @@ in
       xz
       zlib
       zstd
+      # TriOS
+      harfbuzz
+      libepoxy
     ];
   };
 }
