@@ -21,6 +21,15 @@ in
     discord = prev.discord.override { withVencord = true; };
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     lact = prev.rdna4-lact;
+    vencord = prev.vencord.overrideAttrs {
+      version = "1.12.1";
+      src = prev.fetchFromGitHub {
+        owner = "Vendicated";
+        repo = "Vencord";
+        rev = "v$1.12.1";
+        hash = "sha256-Vs6S8N3q5JzXfeogfD0JrVIhMnYIio7+Dfy12gUJrlU=";
+      };
+    };
 
     hyprland =
       inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
