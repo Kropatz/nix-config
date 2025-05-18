@@ -79,7 +79,7 @@
       sddm.enable = true;
       nightlight.enable = true;
       #plasma.enable = true;
-      i3.enable = true;
+      #i3.enable = true;
       #sway.enable = true;
       hyprland.enable = true;
       #gnome.enable = true;

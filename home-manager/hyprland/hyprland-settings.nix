@@ -316,8 +316,8 @@ in
           "${pkgs.hypridle}/bin/hypridle &"
           #"${pkgs.dunst}/bin/dunst &"
         ] ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
-          "[workspace 9 silent] discord"
-          "[workspace 9 silent] discordcanary"
+          "[workspace 9 silent] sleep 2 && discord"
+          "[workspace 9 silent] sleep 2 && discordcanary"
           "[workspace 10 silent] firefox"
           "xrandr --monitor ${monitor1} --primary"
         ] ++ [

@@ -22,12 +22,12 @@ in
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     lact = prev.rdna4-lact;
     vencord = prev.vencord.overrideAttrs {
-      version = "1.12.1";
+      version = "1.12.2";
       src = prev.fetchFromGitHub {
         owner = "Vendicated";
         repo = "Vencord";
-        rev = "v$1.12.1";
-        hash = "sha256-Vs6S8N3q5JzXfeogfD0JrVIhMnYIio7+Dfy12gUJrlU=";
+        rev = "v1.12.2";
+        hash = "sha256-a4lbeuXEHDMDko8wte7jUdJ0yUcjfq3UPQAuSiz1UQU=";
       };
     };
 
