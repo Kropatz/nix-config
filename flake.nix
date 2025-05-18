@@ -140,7 +140,6 @@
             ### User specific ###
             ./users/kopatz
             ./systems/laptop/configuration.nix
-            ./modules/collections/laptop.nix
           ];
         };
         #initial install done with nix run github:nix-community/nixos-anywhere/73a6d3fef4c5b4ab9e4ac868f468ec8f9436afa7 -- --flake .#adam-site root@<ip>

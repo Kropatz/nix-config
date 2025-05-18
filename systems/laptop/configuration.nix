@@ -8,6 +8,10 @@
     #../../modules/fh/scanning.nix
     ../../modules/support/ntfs.nix
     ../../modules/thunderbolt.nix
+    ../../modules/misc/kernel.nix
+    ../../modules/services/wireguard-client.nix
+    ../../modules/services/ssh.nix
+    ../../modules/work/vpn.nix
     #../../modules/vmware-host.nix
     #../../modules/fh/forensik.nix
     #../../modules/no-sleep-lid-closed.nix
@@ -16,6 +20,64 @@
     #./modules/wireguard.nix
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];
+
+  custom = {
+    cli-tools.enable = true;
+    tmpfs.enable = true;
+    wireshark.enable = true;
+    virt-manager.enable = true;
+    nix = {
+      ld.enable = true;
+      settings.enable = true;
+    };
+    misc = {
+      podman.enable = true;
+      firejail.enable = true;
+    };
+    hardware = {
+      firmware.enable = true;
+      ssd.enable = true;
+      #tablet.enable = true;
+      #fingerprint.enable = true;
+    };
+    services = {
+      syncthing.enable = true;
+    };
+    graphical = {
+      audio.enable = true;
+      basics.enable = true;
+      code = {
+        enable = true;
+        #android.enable = true;
+      };
+      #emulators.enable = true;
+      hyprland.enable = true;
+      games.enable = true;
+      ime.enable = true;
+      shared.enable = true;
+      stylix = {
+        enable = true;
+        base16Scheme = import ../../modules/themes/tsukasa.nix;
+        image = ../../tsukasa.jpg;
+      };
+    };
+  };
+
+  nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" "electron-28.3.3" ];
+  services.fprintd.enable = true;
+
+  #todo: extract this
+  services.xserver = {
+    xkb.layout = config.mainUser.layout;
+    xkb.variant = config.mainUser.variant;
+    enable = true;
+    displayManager.gdm.enable = true;
+  };
+  #programs.firejail.wrappedBinaries = with pkgs;
+  #  let inherit (config.custom.misc.firejail) mk;
+  #  in lib.mkMerge [
+  #    (mk "Discord" { pkg = discord; })
+  #  ];
 
   #services.blueman.enable = true;
 
@@ -62,24 +124,6 @@
   #''
   #  82.218.12.28 kopatz.ddns.net
   #'';
-
-  # Set your time zone.
-  time.timeZone = "Europe/Vienna";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_AT.UTF-8";
-    LC_IDENTIFICATION = "de_AT.UTF-8";
-    LC_MEASUREMENT = "de_AT.UTF-8";
-    LC_MONETARY = "de_AT.UTF-8";
-    LC_NAME = "de_AT.UTF-8";
-    LC_NUMERIC = "de_AT.UTF-8";
-    LC_PAPER = "de_AT.UTF-8";
-    LC_TELEPHONE = "de_AT.UTF-8";
-    LC_TIME = "de_AT.UTF-8";
-  };
 
   # Enable CUPS to print documents.
   # disable until CVE-2024-47176, CVE-2024-47076, CVE-2024-47175, and CVE-2024-47177 is fixed

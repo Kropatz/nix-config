@@ -5,7 +5,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ../../modules/kernel.nix ];
+  imports = [ ../../modules/misc/kernel.nix ];
 
   specialisation = {
     nvidia = {

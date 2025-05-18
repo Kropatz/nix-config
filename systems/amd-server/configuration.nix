@@ -8,7 +8,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../modules/kernel.nix
+    ../../modules/misc/kernel.nix
     ../../modules/services/ssh.nix
   ];
 

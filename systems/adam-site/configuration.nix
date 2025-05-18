@@ -5,7 +5,6 @@
     ./disk-config.nix
   ];
 
-  time.timeZone = "Europe/Vienna";
   services.openssh.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 80 443 ];
   custom = {

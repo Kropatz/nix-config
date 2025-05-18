@@ -6,10 +6,10 @@
     #./hardware-configuration.nix
     ../../modules/services/ssh.nix
     ../../modules/services/step-ca.nix
-    ../../modules/fail2ban.nix
-    ../../modules/logging.nix
-    ../../modules/motd.nix
-    ../../modules/kernel.nix
+    ../../modules/services/fail2ban.nix
+    ../../modules/misc/logging.nix
+    ../../modules/misc/motd.nix
+    ../../modules/misc/kernel.nix
     ./disk-config.nix
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -132,24 +132,6 @@
   # 8888 = scheibenmeister skip button
   networking.firewall.allowedTCPPorts = [ 25565 25566 8888 ];
   networking.hostName = "server-vm"; # Define your hostname.
-
-  # Set your time zone.
-  time.timeZone = "Europe/Vienna";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_AT.UTF-8";
-    LC_IDENTIFICATION = "de_AT.UTF-8";
-    LC_MEASUREMENT = "de_AT.UTF-8";
-    LC_MONETARY = "de_AT.UTF-8";
-    LC_NAME = "de_AT.UTF-8";
-    LC_NUMERIC = "de_AT.UTF-8";
-    LC_PAPER = "de_AT.UTF-8";
-    LC_TELEPHONE = "de_AT.UTF-8";
-    LC_TIME = "de_AT.UTF-8";
-  };
 
   # Configure console keymap
   console.keyMap = "us";
