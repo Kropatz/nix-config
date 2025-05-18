@@ -8,6 +8,7 @@
   kop-newproject = pkgs.callPackage ./kop-newproject/default.nix { };
   kop-website =
     pkgs.callPackage ./website/default.nix { inherit kop-hub ente-frontend; };
+  scheibnkleister-presence = pkgs.callPackage ./scheibnkleister-presence/default.nix { };
   sddm-astronaut = pkgs.callPackage ./sddm-astronaut/default.nix { };
   mangal-patched = pkgs.callPackage ./mangal/default.nix { };
   rdna4-lact = pkgs.callPackage ./lact/default.nix { };

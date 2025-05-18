@@ -99,6 +99,22 @@
   };
   virtualisation.waydroid.enable = false;
 
+  systemd.user.services.scheibnkleister-presence = {
+    description = "scheibnkleister-presence";
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart =
+        "${pkgs.scheibnkleister-presence}/bin/scheibnkleister-presence";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
+
+
   i18n.supportedLocales = [
     "C.UTF-8/UTF-8"
     "de_AT.UTF-8/UTF-8"
@@ -111,7 +127,6 @@
   environment.systemPackages = with pkgs; [
     #libimobiledevice
     #ifuse # optional, to mount using 'ifuse'
-    openai-whisper
   ];
 
   networking.firewall.allowedTCPPorts = [ 6567 ]; # mindustry
@@ -119,32 +134,6 @@
   mainUser.layout = "de";
   mainUser.variant = "us";
   age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];
-  services.xserver.displayManager.session = [
-    #{
-    #  manage = "desktop";
-    #  name = "hyprland";
-    #  start = ''
-    #    ${lib.getExe pkgs.hyprland} &
-    #    waitPID=$!
-    #  '';
-    #}
-    #{
-    #  manage = "desktop";
-    #  name = "plasma5";
-    #  start = ''
-    #    env ${pkgs.plasma-workspace}/bin/startplasma-x11
-    #  '';
-    #}
-  ];
-
-  # not worth it
-  # https://github.com/NixOS/nixpkgs/blob/master/lib/systems/architectures.nix
-  #nix.settings.system-features = ["znver3" "gccarch-znver3" ];
-  #nixpkgs.hostPlatform = {
-  #  gcc.arch = "znver3";
-  #  gcc.tune = "znver3";
-  #  system = "x86_64-linux";
-  #};
 
   # fix index
   services.xserver.extraConfig = ''
@@ -157,7 +146,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   networking.hostName = "kop-pc"; # Define your hostname.
