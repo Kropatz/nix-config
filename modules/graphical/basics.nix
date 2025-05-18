@@ -15,7 +15,8 @@ in {
       thunderbird
       localsend
       #element-desktop
-      krita
+      #krita
+      gimp3
       libreoffice
       hunspell # needed for libreoffice spellcheck
       hunspellDicts.en_US-large
