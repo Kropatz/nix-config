@@ -116,6 +116,9 @@ in
           #TabsToolbar {
             visibility: collapse !important;
           }
+          #navigator-toolbox:not(:hover):not(:focus-within):has(#toolbar-menubar[inactive]) {
+              margin-top: -36px;
+          }
         '';
         # Changes the extension storage backend from IDB to json, wipes all data when switching 
         extensions.force = true;
