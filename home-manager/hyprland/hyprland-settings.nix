@@ -264,10 +264,16 @@ in
 
         # e = repeat when held
         binde =
-          let brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+          let 
+            brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+
           in [
             " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
             " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
+            # Example volume button that allows press and hold, volume limited to 150%
+            " , XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+            # Example volume button that will activate even while an input inhibitor is active
+            " , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
             "$mainMod SHIFT, left, resizeactive, -30 0"
             "$mainMod SHIFT, right, resizeactive, 30 0"
             "$mainMod SHIFT, up, resizeactive, 0 -30"

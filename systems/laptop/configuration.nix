@@ -31,7 +31,7 @@
       settings.enable = true;
     };
     misc = {
-      podman.enable = true;
+      docker.enable = true;
       firejail.enable = true;
     };
     hardware = {
@@ -89,7 +89,6 @@
     [ "/home/kopatz/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key" ];
   mainUser.layout = "de_us_swapped";
   mainUser.variant = "";
-
   console.useXkbConfig = true;
   services.xserver.exportConfiguration = lib.mkForce true;
   services.xserver.extraLayouts = {
