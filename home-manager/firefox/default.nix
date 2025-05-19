@@ -130,6 +130,7 @@ in
           keepassxc-browser
           youtube-nonstop
           sidebery
+          vimium
         ];
         inherit search;
       };

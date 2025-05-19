@@ -96,7 +96,6 @@
           modules = modules ++ defaultModules ++ lib.lists.optionals (!minimal)
             [ specialArgs.home-manager-version.nixosModules.home-manager ]
             ++ lib.lists.optionals (!minimal && graphical) [
-            ./modules/graphical
             stylix.nixosModules.stylix
             ./modules/graphical/stylix.nix
             #nixos-cosmic.nixosModules.default

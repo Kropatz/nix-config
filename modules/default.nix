@@ -7,6 +7,7 @@
     ./nix
     ./services
     ./support
+    ./graphical
   ];
 
   # Set your time zone.
