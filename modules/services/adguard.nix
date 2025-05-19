@@ -102,6 +102,10 @@ in {
                 "answer" = ip;
               }
               {
+                "domain" = "kop.bobin.at";
+                "answer" = ip;
+              }
+              {
                 "domain" = "kavita-kopatz.duckdns.org";
                 "answer" = ip;
               }

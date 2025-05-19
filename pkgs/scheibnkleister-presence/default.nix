@@ -10,7 +10,7 @@ buildNpmPackage rec {
   src = fetchGit {
     url = "git@github.com:oberprofis/scheibnkleister-presence.git";
     ref = "master";
-    rev = "c3157f9be51e49a4fc102d141ab562d38645ffcf";
+    rev = "69b8fbaea6577494d38399ea9d18b1ba2e90c686";
   };
 
   forceGitDeps = true;

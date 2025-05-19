@@ -34,7 +34,7 @@ in {
       url = "https://github.com/oberprofis";
       user = "github-actions-runner";
       workDir = "/github-actions-runner";
-      extraPackages = with pkgs; [ rsync nodePackages.pnpm nodejs_18 ];
+      extraPackages = with pkgs; [ rsync nodePackages.pnpm nodejs ];
       serviceOverrides = {
         BindPaths = [ "/github-actions-runner" ]
           ++ lib.optional config.custom.services.kavita.enable
