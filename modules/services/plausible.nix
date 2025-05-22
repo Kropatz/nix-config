@@ -15,15 +15,16 @@ in {
 
     services.plausible = {
       enable = true;
-      adminUser = {
-        # activate is used to skip the email verification of the admin-user that's
-        # automatically created by plausible. This is only supported if
-        # postgresql is configured by the module. This is done by default, but
-        # can be turned off with services.plausible.database.postgres.setup.
-        activate = true;
-        email = "admin@localhost";
-        passwordFile = config.age.secrets.plausible-admin.path;
-      };
+      # removed, create on initial setup now
+      #adminUser = {
+      #  # activate is used to skip the email verification of the admin-user that's
+      #  # automatically created by plausible. This is only supported if
+      #  # postgresql is configured by the module. This is done by default, but
+      #  # can be turned off with services.plausible.database.postgres.setup.
+      #  activate = true;
+      #  email = "admin@localhost";
+      #  passwordFile = config.age.secrets.plausible-admin.path;
+      #};
       server = {
         baseUrl = "https://plausible.imbissaggsbachdorf.at";
         #baseUrl = "http://localhost";
