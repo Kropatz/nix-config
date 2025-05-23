@@ -79,11 +79,9 @@
   #    (mk "Discord" { pkg = discord; })
   #  ];
 
-  #services.blueman.enable = true;
-
-  #hardware.bluetooth.enable = true; # enables support for Bluetooth
-  #hardware.bluetooth.powerOnBoot =
-  #  true; # powers up the default Bluetooth controller on boot
+  services.blueman.enable = true;
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = false; # powers up the default Bluetooth controller on boot
 
   age.identityPaths =
     [ "/home/kopatz/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key" ];
