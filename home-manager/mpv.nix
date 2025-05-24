@@ -8,6 +8,7 @@
     scripts = with pkgs.mpvScripts; [
       mpris
       videoclip # keybind = c
+      autoload
       #modernx
     ];
   };

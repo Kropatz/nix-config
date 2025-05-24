@@ -59,7 +59,7 @@
         in
         {
           enable = true;
-          excludePaths = lib.mkOptionDefault [ "${kavita}/manga" ];
+          excludePaths = lib.mkOptionDefault [ "${kavita}/manga" "/home/anon/projects" ];
           small = backupPathsSmall; # goes to backblaze
           medium = backupPathsMedium; # goes to gdrive
           large = backupPathsFull; # goes to local storage medium
