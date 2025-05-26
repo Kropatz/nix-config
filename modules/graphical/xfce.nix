@@ -5,7 +5,7 @@ let
 in
 {
   options.custom.graphical.xfce = {
-    enable = mkEnableOption "Enables lxqt";
+    enable = mkEnableOption "Enables xfce";
   };
 
   config = mkIf cfg.enable {
