@@ -15,6 +15,11 @@
         clangd.enable = true;
         cssls.enable = true;
         gopls.enable = true;
+        qmlls =
+          {
+            enable = true;
+            cmd = [ "qmlls" "-E" ];
+          };
         nixd = {
           enable = true;
           settings = {

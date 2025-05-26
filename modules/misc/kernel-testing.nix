@@ -74,11 +74,11 @@ let
   };
 
   linux_6_15 = pkgs.buildLinux {
-    version = "6.15.0-rc4";
+    version = "6.15.0";
     extraMeta.branch = "6.15";
     src = pkgs.fetchzip {
-      url = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.15-rc4.tar.gz";
-      hash = "sha256-snhFNqDZzlINbZWA8ywEKHcTd+z19SoZQPSuldYJ6H0=";
+      url = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.15.tar.gz";
+      hash = "sha256-PQjXBWJV+i2O0Xxbg76HqbHyzu7C0RWkvHJ8UywJSCw=";
     };
   };
 in
@@ -97,16 +97,16 @@ in
   #  };
   #});
 
-  #boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor (linux_6_15.override {
-  #  structuredExtraConfig = with lib.kernel; {
-  #    SCHED_DEBUG = lib.mkForce unset;
-  #  };
-  #}));
-
-  boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor (linux_amd_drm_next.override {
+  boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor (linux_6_15.override {
     structuredExtraConfig = with lib.kernel; {
       SCHED_DEBUG = lib.mkForce unset;
     };
   }));
+
+  #boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor (linux_amd_drm_next.override {
+  #  structuredExtraConfig = with lib.kernel; {
+  #    SCHED_DEBUG = lib.mkForce unset;
+  #  };
+  #}));
   #boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_6_14);
 }

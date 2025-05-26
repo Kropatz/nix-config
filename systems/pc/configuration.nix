@@ -10,7 +10,7 @@
     ../../modules/gpg.nix
     #../../modules/xanmod-kernel.nix
     #../../modules/kernel-testing.nix
-    ../../modules/misc/kernel.nix
+    ../../modules/misc/kernel-testing.nix
     ../../modules/services/syncthing.nix
     ../../modules/support/ntfs.nix
     ../../modules/fh/writing.nix
@@ -118,6 +118,8 @@
   # apple shit
   #services.usbmuxd.enable = true;
   environment.systemPackages = with pkgs; [
+    inputs.quickshell.packages.x86_64-linux.default
+    kdePackages.qtdeclarative
     #libimobiledevice
     #ifuse # optional, to mount using 'ifuse'
   ];
