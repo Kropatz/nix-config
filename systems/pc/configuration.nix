@@ -75,6 +75,7 @@
       ime.enable = true;
       noise-supression.enable = true;
       obs.enable = true;
+      gpu-screen-recorder-ui.enable = true;
       #openrgb.enable = true;
       sddm.enable = true;
       nightlight.enable = true;

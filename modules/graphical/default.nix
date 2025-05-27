@@ -27,5 +27,6 @@
     ./xfce.nix
     ./basics.nix
     ./sway.nix
+    ./gpu-screen-recorder-ui.nix
   ];
 }
