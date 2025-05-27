@@ -65,6 +65,10 @@
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" "electron-28.3.3" ];
   services.fprintd.enable = true;
+  hardware.cpu.amd.ryzen-smu.enable = true;
+  environment.systemPackages = with pkgs; [
+    ryzenadj
+  ];
 
   #todo: extract this
   services.xserver = {
