@@ -316,7 +316,7 @@ in
         exec-once = [
           "${pkgs.swww}/bin/swww init; sleep 1;"
           #"${pkgs.swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
-          "${pkgs.swww} img ${config.stylix.image}"
+          "${pkgs.swww}/bin/swww img ${config.stylix.image}"
           "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
           "dex --autostart --environment Hyprland"
           "${pkgs.hypridle}/bin/hypridle &"
