@@ -54,13 +54,24 @@ in {
             quic = cfg.https;
             http3 = cfg.https;
             locations = {
-              "~* \\.(jpg|png)$".extraConfig = ''
+              "~* ^/assets/.*\\.(jpg|png)$".extraConfig = ''
                 add_header Access-Control-Allow-Origin *;
               '';
               "/stash" = {
                 basicAuthFile = config.age.secrets.stash-auth.path;
                 extraConfig = ''
                   client_max_body_size    20000M;
+                  proxy_redirect          off;
+                  proxy_set_header        Host $host;
+                  proxy_set_header        X-Real-IP $remote_addr;
+                  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header        X-Forwarded-Proto $scheme;
+                  proxy_set_header        X-NginX-Proxy true;
+                  proxy_pass http://localhost:7777;
+                '';
+              };
+              "/stash/files" = {
+                extraConfig = ''
                   proxy_redirect          off;
                   proxy_set_header        Host $host;
                   proxy_set_header        X-Real-IP $remote_addr;
