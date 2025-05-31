@@ -43,13 +43,14 @@ in
     owner = "step-ca";
     group = "step-ca";
   };
+  networking.firewall.allowedTCPPorts = [ 8443 ];
   services.step-ca = {
     enable = true;
-    address = "127.0.0.1";
+    address = "";
     port = 8443;
     intermediatePasswordFile = config.age.secrets.step-ca-pw.path;
     settings = {
-      dnsNames = [ "localhost" "127.0.0.1" "*.home.arpa" ];
+      dnsNames = [ "localhost" "127.0.0.1" "*.home.arpa" "192.168.0.10" ];
       root = pkgs.writeTextFile {
         name = "root.ca";
         text = root_ca;

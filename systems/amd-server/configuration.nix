@@ -17,6 +17,7 @@
     nftables.enable = true;
     cli-tools.enable = true;
     virt-manager.enable = true;
+    static-ip.ip = "192.168.0.20";
     nix = {
       index.enable = true;
       ld.enable = true;
@@ -29,17 +30,22 @@
       wooting.enable = true;
     };
     services = {
+      acme.enable = true;
       smartd.enable = true;
+      #adguard = {
+      #  enable = true;
+      #  acme-url = "https://192.168.0.10:8443/acme/kop-acme/directory";
+      #};
     };
     graphical = {
       audio.enable = true;
       sddm.enable = true;
-      nightlight.enable = true;
-      i3.enable = true;
+      #nightlight.enable = true;
+      #i3.enable = true;
       xfce.enable = true;
       shared.enable = true;
-      games.enable = true;
-      basics.enable = true;
+      #games.enable = true;
+      #basics.enable = true;
     };
   };
   mainUser.layout = "de";
@@ -58,6 +64,22 @@
       }];
     };
   };
+
+  security.pki.certificates = [
+    ''
+      -----BEGIN CERTIFICATE-----
+      MIIBjTCCATKgAwIBAgIRAMVH2+JHZ3wm2fLUlKjTYDswCgYIKoZIzj0EAwIwJDEM
+      MAoGA1UEChMDS29wMRQwEgYDVQQDEwtLb3AgUm9vdCBDQTAeFw0yMzEyMDgxNDUx
+      MTZaFw0zMzEyMDUxNDUxMTZaMCQxDDAKBgNVBAoTA0tvcDEUMBIGA1UEAxMLS29w
+      IFJvb3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATdZBOkNynShXipzhuX
+      f6dUByD3chNupNWsagYC5AlPRJT9fAeHEIK/bxWkFwRtLBDopWvBu9lHahBgpHc7
+      y7rTo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYDVR0TAQH/BAgwBgEB/wIBATAdBgNV
+      HQ4EFgQU9AVtwipW5HDBLfZRH1KZCnIKCfowCgYIKoZIzj0EAwIDSQAwRgIhAMHj
+      AipNdhQKIYPvMt/h1uW4xP3NTkitnmshM09+rIasAiEAlSalGddXDkqJBHhPD+Fr
+      gpuVkfVkA8gQCXNs5F9TnxA=
+      -----END CERTIFICATE-----
+    ''
+  ];
 
   services.xrdp.enable = true;
   services.xrdp.defaultWindowManager = "xfce4-session";

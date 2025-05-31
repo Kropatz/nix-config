@@ -18,6 +18,11 @@ in {
       default = true;
       description = "use https for the adguard instance";
     };
+    acme-url = lib.mkOption {
+      type = lib.types.str;
+      default = "https://127.0.0.1:8443/acme/kop-acme/directory";
+      description = "acme url for the adguard instance";
+    };
   };
   config =
     let
@@ -28,14 +33,12 @@ in {
       networking.firewall.allowedTCPPorts = [ 53 ];
       networking.firewall.allowedUDPPorts = [ 53 ];
 
-      security.acme.certs."${cfg.fqdn}".server =
-        "https://127.0.0.1:8443/acme/kop-acme/directory";
+      security.acme.certs."${cfg.fqdn}".server = cfg.acme-url;
       # nginx reverse proxy
+      services.nginx.enable = true;
       services.nginx.virtualHosts.${cfg.fqdn} = {
         forceSSL = cfg.useHttps;
         enableACME = cfg.useHttps;
-        quic = cfg.useHttps;
-        http3 = cfg.useHttps;
         locations."/" = {
           proxyPass =
             "http://127.0.0.1:${toString config.services.adguardhome.port}";
