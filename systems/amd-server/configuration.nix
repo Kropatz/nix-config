@@ -43,6 +43,8 @@
       #nightlight.enable = true;
       #i3.enable = true;
       xfce.enable = true;
+      #plasma.enable = true;
+      #lxqt.enable = true;
       shared.enable = true;
       #games.enable = true;
       #basics.enable = true;
@@ -81,9 +83,33 @@
     ''
   ];
 
-  services.xrdp.enable = true;
-  services.xrdp.defaultWindowManager = "xfce4-session";
-  services.xrdp.openFirewall = false;
+  services.xrdp = {
+    defaultWindowManager = "xfce4-session";
+    enable = true;
+    openFirewall = false;
+    extraConfDirCommands = ''
+      substituteInPlace $out/sesman.ini \
+        --replace LogLevel=INFO LogLevel=DEBUG \
+        --replace LogFile=/dev/null LogFile=/var/log/xrdp.log
+    '';
+  };
+  security.polkit.enable = true;
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (
+        subject.isInGroup("users")
+          && (
+            action.id == "org.freedesktop.login1.reboot" ||
+            action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+            action.id == "org.freedesktop.login1.power-off" ||
+            action.id == "org.freedesktop.login1.power-off-multiple-sessions"
+          )
+        )
+      {
+        return polkit.Result.YES;
+      }
+    });
+  '';
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
