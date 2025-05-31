@@ -6,6 +6,8 @@ in
 {
   options.custom.graphical.code = {
     enable = mkEnableOption "Enables code";
+    rider = mkEnableOption "Enables Rider";
+    clion = mkEnableOption "Enables Clion";
   };
 
   config = mkIf cfg.enable {
@@ -13,13 +15,15 @@ in
     environment.systemPackages = with pkgs; [
       man-pages
       jetbrains.idea-ultimate
-      #jetbrains.rider
       typescript
-      #jetbrains.clion
       insomnia
       nodejs_22 # needed for tabby extension
       python3
       gcc
+    ] ++ lib.optionals cfg.rider [
+      pkgs.jetbrains.rider
+    ] ++ lib.optionals cfg.clion [
+      pkgs.jetbrains.clion
     ];
 
     #environment.sessionVariables = {
