@@ -7,7 +7,7 @@ let
   importFile = file:
     let config = import file;
     in if builtins.isFunction config then config args else config;
-  configs = map importFile [
+  configs = map importFile ([
     ./config.nix
   ] ++ lib.optionals cfg [
     ./auto-pairs.nix
@@ -29,7 +29,7 @@ let
     ./trouble.nix
     ./which_key.nix
     ./wilder.nix
-  ];
+  ]);
   merged =
     builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;
 in
