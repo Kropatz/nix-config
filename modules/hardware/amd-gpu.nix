@@ -3,12 +3,13 @@ let cfg = config.custom.hardware.amd-gpu;
 in {
   options.custom.hardware.amd-gpu = {
     enable = lib.mkEnableOption "Enables amd gpus";
+    overdrive = lib.mkEnableOption "Enables overdrive";
     rocm.enable = lib.mkEnableOption "Enables rocm";
   };
 
   config =
     lib.mkIf cfg.enable {
-      boot.kernelParams =
+      boot.kernelParams = lib.mkIf cfg.overdrive
         [ "amdgpu.ppfeaturemask=0xfff7ffff" "split_lock_detect=off" ];
 
       hardware.graphics = {
@@ -21,16 +22,17 @@ in {
       services.xserver.videoDrivers = [ "amdgpu" ];
       # controller (overclock, undervolt, fan curves)
       environment.systemPackages = with pkgs; [
-        lact
         nvtopPackages.amd
         amdgpu_top
       ] ++ lib.optionals cfg.rocm.enable [
         clinfo
         rocmPackages.rocminfo
+      ] ++ lib.optionals cfg.overdrive [
+        lact
       ];
       systemd = {
-        packages = with pkgs; [ lact ];
-        services.lactd.wantedBy = [ "multi-user.target" ];
+        packages = lib.mkIf cfg.overdrive (with pkgs; [ lact ]);
+        services.lactd.wantedBy = lib.mkIf cfg.overdrive [ "multi-user.target" ];
         #rocm
         tmpfiles.rules =
           let

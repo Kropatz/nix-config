@@ -26,6 +26,7 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nixpkgs-working-xrdp.url = "github:NixOS/nixpkgs/af3da081316501d9744dbb4d988fafcdda2bf6cb";
     # cosmic testing
     #nixos-cosmic = {
     #  url = "github:lilyinstarlight/nixos-cosmic";
@@ -159,6 +160,13 @@
         };
         "amd-server" = mkHost {
           modules = [ ./users/kopatz ./systems/amd-server/configuration.nix ];
+        };
+        "amd-server-vpn-vm" = mkHost {
+          modules = [
+            ./users/anon
+            ./systems/amd-server-vpn-vm/configuration.nix
+            disko.nixosModules.disko
+          ];
         };
         # build vm -> nixos-rebuild build-vm  --flake .#vm
         "vm" =

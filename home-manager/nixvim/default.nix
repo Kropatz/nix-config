@@ -1,12 +1,15 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, osConfig, ... }:
 # https://nix-community.github.io/nixvim/NeovimOptions/index.html
 let
+  cfg = osConfig.custom.nixvimPlugins;
   args = { inherit lib pkgs; };
 
   importFile = file:
     let config = import file;
     in if builtins.isFunction config then config args else config;
   configs = map importFile [
+    ./config.nix
+  ] ++ lib.optionals cfg [
     ./auto-pairs.nix
     ./autosave.nix
     ./blankline.nix
@@ -26,7 +29,6 @@ let
     ./trouble.nix
     ./which_key.nix
     ./wilder.nix
-    ./config.nix
   ];
   merged =
     builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;

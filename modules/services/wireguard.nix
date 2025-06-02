@@ -11,6 +11,16 @@ in
       type = types.str;
       description = "ipv4 address";
     };
+    secretFile = mkOption {
+      type = types.path;
+      default = ../../secrets/wireguard-private.age;
+      description = "agenix secret file for wireguard";
+    };
+    externalInterface = mkOption {
+      type = types.str;
+      default = "eth0";
+      description = "external interface";
+    };
   };
   config =
     let
@@ -19,11 +29,11 @@ in
     lib.mkIf cfg.enable {
 
       age.secrets.wireguard-private = {
-        file = ../../secrets/wireguard-private.age;
+        file = cfg.secretFile;
       };
 
       networking.nat.enable = true;
-      networking.nat.externalInterface = "eth0";
+      networking.nat.externalInterface = cfg.externalInterface;
       networking.nat.internalInterfaces = [ "wg0" ];
       networking.firewall.allowedUDPPorts = [ 51820 ];
 
@@ -35,6 +45,7 @@ in
             "${wireguardIp}/24"
           ];
           peers = [
+            #pc
             {
               allowedIPs = [
                 "192.168.2.2/32"

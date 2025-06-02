@@ -797,6 +797,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-working-xrdp": {
+      "locked": {
+        "lastModified": 1748395176,
+        "narHash": "sha256-mkXRJlVaWUwRzWPiswA6gGnXno2wzDrHsTGLMknK8ck=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "af3da081316501d9744dbb4d988fafcdda2bf6cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "af3da081316501d9744dbb4d988fafcdda2bf6cb",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -945,6 +961,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-working-xrdp": "nixpkgs-working-xrdp",
         "nixvim": "nixvim",
         "nur": "nur",
         "quickshell": "quickshell",

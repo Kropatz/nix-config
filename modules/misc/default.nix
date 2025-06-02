@@ -13,5 +13,6 @@
     ./virt-manager.nix
     ./wireshark.nix
     ./podman.nix
+    ./nixvim.nix
   ];
 }

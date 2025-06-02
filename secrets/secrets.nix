@@ -6,6 +6,7 @@ let
   mini-pc-proxmox = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP0kX32LfIOv8FDVvdp7lWesVvMGh5tj84nv7TkIR1cs root@mini-pc";
   adam-site = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfaIaKoNStnbfjB9cSJ9+PW0BVO3Uhh1uIbZA2CszDE root@nixos";
   amd-server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/t25OaQF020DZdew53gMFqoeHX1+g3um02mopke2eX root@nixos";
+  amd-server-vpn-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKkTbNz36z1gGbKp+7NyyTpMslXcFLX0tOrfJ/GQFn+g root@amd-server-vpn-vm";
   users = [ kop ];
   systems = [ mini-pc mini-pc-proxmox server laptop ];
 in
@@ -36,4 +37,5 @@ in
   "adminarea.age".publicKeys = [ adam-site kop ];
   "radicale.age".publicKeys = [ mini-pc mini-pc-proxmox kop ];
   "binary-cache.age".publicKeys = [ kop amd-server ];
+  "wireguard-evo-vpn.age".publicKeys = [ kop amd-server-vpn-vm ];
 }

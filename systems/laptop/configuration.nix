@@ -26,6 +26,7 @@
     tmpfs.enable = true;
     wireshark.enable = true;
     virt-manager.enable = true;
+    nixvimPlugins = true;
     nix = {
       ld.enable = true;
       settings.enable = true;

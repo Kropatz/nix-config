@@ -26,6 +26,7 @@
     virt-manager.enable = true;
     nftables.enable = true;
     cli-tools.enable = true;
+    nixvimPlugins = true;
     nix = {
       index.enable = true;
       ld.enable = true;
@@ -43,8 +44,11 @@
     services = { syncthing = { enable = true; }; };
     hardware = {
       android.enable = true;
-      amd-gpu.enable = true;
-      amd-gpu.rocm.enable = true;
+      amd-gpu = {
+        enable = true;
+        rocm.enable = true;
+        overdrive = true;
+      };
       nvidia = {
         enable = false;
         clock = {

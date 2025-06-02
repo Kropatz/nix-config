@@ -13,6 +13,8 @@
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
 
+  services.speechd.enable = false;
+
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";

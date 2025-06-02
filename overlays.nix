@@ -26,6 +26,10 @@ in
         hash = "sha256-a4lbeuXEHDMDko8wte7jUdJ0yUcjfq3UPQAuSiz1UQU=";
       };
     };
+    xrdp = (import inputs.nixpkgs-working-xrdp {
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    }).xrdp;
 
     #hyprland =
     #  inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
