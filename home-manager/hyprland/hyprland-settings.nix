@@ -195,6 +195,7 @@ in
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
             hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
             playerctl = "${pkgs.playerctl}/bin/playerctl";
+            peek = "${pkgs.peek}/bin/peek";
           in
           [
             "$mainMod, Q, exec, ${kitty}"
@@ -214,6 +215,7 @@ in
               $mainMod, Print, exec, ${grimblast} --freeze save area /tmp/$(date +'%s_grim.png')''
             ''
               Shift_L, Print, exec, ${grimblast} --freeze save area ~/Pictures/$(date +'%s_grim.png')''
+            "$mainMod, G, exec, ${peek}" # record gif
             "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
             " , XF86AudioPlay, exec, ${playerctl} play-pause"
             " , XF86AudioNext, exec, ${playerctl} next"
