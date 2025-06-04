@@ -109,7 +109,7 @@ in
           allow_tearing = true;
         };
 
-        misc = { vfr = true; };
+        misc = { vfr = true; middle_click_paste = false; };
         xwayland = lib.mkIf isPc { force_zero_scaling = true; };
 
         decoration = {
@@ -264,10 +264,11 @@ in
 
         # e = repeat when held
         binde =
-          let 
+          let
             brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
 
-          in [
+          in
+          [
             " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
             " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
             # Example volume button that allows press and hold, volume limited to 150%

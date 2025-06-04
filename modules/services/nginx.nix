@@ -19,6 +19,11 @@ in {
       owner = "nginx";
     };
 
+    systemd.tmpfiles.rules = [
+      "d /var/www 0740 nginx nginx -"
+      "d /var/www/misc-files 0740 nginx nginx -"
+    ];
+
     services.nginx = {
       enable = true;
       package = pkgs.nginxQuic;
@@ -116,6 +121,9 @@ in {
               };
               "/kavita-client/" = {
                 alias = "/kavita-client/";
+              };
+              "/misc-files/" = {
+                alias = "/var/www/misc-files/";
               };
             };
           };
