@@ -16,7 +16,6 @@ in
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
-    lact = prev.rdna4-lact;
     vencord = prev.vencord.overrideAttrs {
       version = "1.12.2";
       src = prev.fetchFromGitHub {
