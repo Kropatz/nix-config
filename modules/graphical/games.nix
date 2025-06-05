@@ -44,6 +44,7 @@ in
       wineWowPackages.unstableFull
       winetricks
       lutris
+      heroic
       prismlauncher
       steamtinkerlaunch
       tetrio-desktop
