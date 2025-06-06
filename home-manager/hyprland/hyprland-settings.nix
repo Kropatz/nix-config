@@ -16,6 +16,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     #programs.swaylock.enable = true;
+    services.hyprpaper.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
       #enableNvidiaPatches = true;
@@ -189,7 +190,6 @@ in
             wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
             wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
             grimblast = "${pkgs.grimblast}/bin/grimblast";
-            swww = "${pkgs.swww}/bin/swww";
             pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
             brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
@@ -208,8 +208,8 @@ in
             "$mainMod, V, togglefloating"
             "$mainMod, I, exec, ${rofi} -show drun -show-icons"
             ''$mainMod, S, exec, echo "skip" | nc kopatz.ddns.net 8888''
-            "$mainMod, R, exec, ${swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
-            "$mainMod, W, exec, ${swww} img ${config.stylix.image}"
+            ''$mainMod, R, exec, hyprctl hyprpaper reload ,"$(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"''
+            "$mainMod, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
             "        , Print, exec, hyprshade off && ${grimblast} --freeze copy area && hyprshade auto"
             ''
               $mainMod, Print, exec, ${grimblast} --freeze save area /tmp/$(date +'%s_grim.png')''
@@ -317,9 +317,6 @@ in
         ];
 
         exec-once = [
-          "${pkgs.swww}/bin/swww init; sleep 1;"
-          #"${pkgs.swww} img $(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"
-          "${pkgs.swww}/bin/swww img ${config.stylix.image}"
           "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
           "dex --autostart --environment Hyprland"
           "${pkgs.hypridle}/bin/hypridle &"
