@@ -12,6 +12,7 @@
     co = checkout
     cl = clone
     ci = commit
+    ca = !git add -A && git commit
     st = status -sb
     br = branch
     pr = pull --rebase

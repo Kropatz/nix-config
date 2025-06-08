@@ -29,6 +29,7 @@ let
     ./trouble.nix
     ./which_key.nix
     ./wilder.nix
+    ./typst-preview.nix
   ]);
   merged =
     builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;

@@ -37,7 +37,7 @@
           enable = true;
           package = pkgs.csharp-ls;
         };
-        #typst-lsp.enable = true;
+        tinymist.enable = true; # typst
       };
       keymaps.lspBuf = {
         gd = {
