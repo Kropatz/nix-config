@@ -55,7 +55,7 @@ in {
     environment.systemPackages = with pkgs; [
       # hyprland stuff
       dunst
-      swww
+      hyprpaper
       rofi-wayland
       libnotify
       networkmanagerapplet
