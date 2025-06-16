@@ -37,13 +37,12 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.mangohud ]
+    environment.systemPackages = with pkgs; [ mangohud lutris ]
       ++ optionals cfg.enablePreinstalled (with pkgs; [
       #taisei
       #osu-lazer-bin
       wineWowPackages.unstableFull
       winetricks
-      lutris
       heroic
       prismlauncher
       steamtinkerlaunch

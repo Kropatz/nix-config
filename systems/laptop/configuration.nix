@@ -71,6 +71,8 @@
     ryzenadj
   ];
 
+  services.joycond.enable = true;
+
   #todo: extract this
   services.xserver = {
     xkb.layout = config.mainUser.layout;
