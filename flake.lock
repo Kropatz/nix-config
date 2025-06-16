@@ -465,17 +465,17 @@
     },
     "nixpkgs-working-xrdp": {
       "locked": {
-        "lastModified": 1748395176,
-        "narHash": "sha256-mkXRJlVaWUwRzWPiswA6gGnXno2wzDrHsTGLMknK8ck=",
+        "lastModified": 1750030408,
+        "narHash": "sha256-zVyQgQCtrqJpGw4lzTsdVdIX/qEEi/Spd526E3MXWvk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "af3da081316501d9744dbb4d988fafcdda2bf6cb",
+        "rev": "b26c89e6aa1d7731d5e267656207f2e1c2f37f1d",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "af3da081316501d9744dbb4d988fafcdda2bf6cb",
+        "rev": "b26c89e6aa1d7731d5e267656207f2e1c2f37f1d",
         "type": "github"
       }
     },

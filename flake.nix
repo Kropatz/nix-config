@@ -26,7 +26,7 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nixpkgs-working-xrdp.url = "github:NixOS/nixpkgs/af3da081316501d9744dbb4d988fafcdda2bf6cb";
+    nixpkgs-working-xrdp.url = "github:NixOS/nixpkgs/b26c89e6aa1d7731d5e267656207f2e1c2f37f1d";
     # cosmic testing
     #nixos-cosmic = {
     #  url = "github:lilyinstarlight/nixos-cosmic";
