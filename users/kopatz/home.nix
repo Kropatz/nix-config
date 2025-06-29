@@ -32,6 +32,7 @@
     ../../home-manager/stylix.nix
     ../../home-manager/mpv.nix
     ../../home-manager/discord-theme.nix
+    ../../home-manager/vr.nix
     inputs.nixvim.homeManagerModules.nixvim
   ];
 
