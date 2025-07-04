@@ -29,16 +29,6 @@ in
       system = "x86_64-linux";
       config.allowUnfree = true;
     }).xrdp;
-    linux-firmware = prev.linux-firmware.overrideAttrs (old: rec {
-      pname = "linux-firmware";
-      version = "20250625";
-      src = prev.fetchFromGitLab {
-        owner = "kernel-firmware";
-        repo = "linux-firmware";
-        rev = "cbbce56d6dcc1ec8fb485dfb92c68cb9acd51410";
-        hash = "sha256-7XN2g4cnHLnICs/ynt8dCpTJbbBkbOdtRm3by/XrDps=";
-      };
-    });
 
     #hyprland =
     #  inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
