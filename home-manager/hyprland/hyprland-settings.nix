@@ -196,13 +196,14 @@ in
             hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
             playerctl = "${pkgs.playerctl}/bin/playerctl";
             peek = "${pkgs.peek}/bin/peek";
+            zenity = "${pkgs.zenity}/bin/zenity";
           in
           [
             "$mainMod, Q, exec, ${kitty}"
             "$mainMod, C, killactive"
             #"$mainMod, L, exec, ${swaylock} -f -c 000000"
             "$mainMod, L, exec, ${hyprlock}"
-            "$mainMod, M, exit,"
+            "$mainMod, M, exec, ${zenity} --question --text='Quit Hyprland?' && hyprctl dispatch exit"
             "$mainMod, E, exec, ${thunar}"
             "$mainMod, F, fullscreen"
             "$mainMod, V, togglefloating"
