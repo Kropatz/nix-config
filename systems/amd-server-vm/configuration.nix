@@ -10,6 +10,7 @@
     ../../modules/misc/logging.nix
     ../../modules/misc/motd.nix
     ../../modules/misc/kernel.nix
+    ../../modules/services/duckdns.nix
     ./disk-config.nix
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
