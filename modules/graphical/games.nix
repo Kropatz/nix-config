@@ -48,6 +48,7 @@ in
       prismlauncher
       steamtinkerlaunch
       tetrio-desktop
+      beyond-all-reason
       #libs
     ]) ++ optionals cfg.enableVr (with pkgs; [ bs-manager ]);
 
