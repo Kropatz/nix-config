@@ -184,6 +184,7 @@ in
         bind =
           let
             rofi = "${pkgs.rofi-wayland}/bin/rofi";
+            rofimoji = "${pkgs.rofimoji}/bin/rofimoji";
             kitty = "${pkgs.kitty}/bin/kitty";
             #dolphin = "${pkgs.dolphin}/bin/dolphin";
             thunar = "${pkgs.xfce.thunar}/bin/thunar";
@@ -208,6 +209,7 @@ in
             "$mainMod, F, fullscreen"
             "$mainMod, V, togglefloating"
             "$mainMod, I, exec, ${rofi} -show drun -show-icons"
+            "$mainMod, period, exec, ${rofimoji}"
             ''$mainMod, S, exec, echo "skip" | nc kopatz.ddns.net 8888''
             ''$mainMod, R, exec, hyprctl hyprpaper reload ,"$(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"''
             "$mainMod, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"

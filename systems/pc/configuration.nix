@@ -103,6 +103,7 @@
     enable = false;
     acceleration = "rocm";
   };
+  services.jenkins.enable = false;
   virtualisation.waydroid.enable = false;
 
   systemd.user.services.scheibnkleister-presence = {
