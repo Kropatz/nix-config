@@ -191,6 +191,7 @@ in
             wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
             wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
             grimblast = "${pkgs.grimblast}/bin/grimblast";
+            saved-screenshot-cmd = ''${grimblast} --freeze save area $OUT && notify-send "Saved screenshot to $OUT" -h string:image-path:$OUT'';
             pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
             brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
@@ -215,9 +216,9 @@ in
             "$mainMod, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
             "        , Print, exec, hyprshade off && ${grimblast} --freeze copy area && hyprshade auto"
             ''
-              $mainMod, Print, exec, ${grimblast} --freeze save area /tmp/$(date +'%s_grim.png')''
+              $mainMod, Print, exec, export OUT=/tmp/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
             ''
-              Shift_L, Print, exec, ${grimblast} --freeze save area ~/Pictures/$(date +'%s_grim.png')''
+              Shift_L, Print, exec, export OUT=~/Pictures/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
             "$mainMod, G, exec, ${peek}" # record gif
             "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
             " , XF86AudioPlay, exec, ${playerctl} play-pause"
