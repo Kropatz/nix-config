@@ -31,6 +31,7 @@ let
     ./wilder.nix
     ./typst-preview.nix
     ./markdown.nix
+    ./hop.nix
   ]);
   merged =
     builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;

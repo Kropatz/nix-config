@@ -83,7 +83,6 @@
       gpu-screen-recorder-ui.enable = true;
       #openrgb.enable = true;
       sddm.enable = true;
-      nightlight.enable = true;
       #plasma.enable = true;
       #i3.enable = true;
       #sway.enable = true;
