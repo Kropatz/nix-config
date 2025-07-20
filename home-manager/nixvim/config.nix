@@ -11,6 +11,7 @@
 
     number = true;
     relativenumber = true;
+    showmode = false; #already shown in lightline
 
     autoindent = true;
     clipboard = "unnamedplus";
@@ -29,6 +30,8 @@
 
     termguicolors = lib.mkForce pkgs.stdenv.isLinux;
   };
+
+  plugins.mini-align.enable = true;
 
   keymaps = [
     # Global

@@ -14,7 +14,7 @@ let mapleader=" "
 set quickscope
 set which-key
 set notimeout
-set easymotion
+set easymotion " install easymotion and acejump plugin
 set surround
 
 
@@ -25,6 +25,8 @@ nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
 nnoremap <leader>q :action QuickJavaDoc<CR>
 nnoremap <leader>f :action Find<CR>
 nnoremap <leader>r :action Replace<CR>
+map f <Plug>(easymotion-bd-f)
+map <leader>f <Plug>(easymotion-bd-w)
 
 nnoremap J mzJ`z
 nnoremap S ht lr<cr>k$
