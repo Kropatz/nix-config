@@ -27,6 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nixpkgs-working-xrdp.url = "github:NixOS/nixpkgs/b26c89e6aa1d7731d5e267656207f2e1c2f37f1d";
+    nixpkgs-working-jetbrains.url = "github:symphorien/nixpkgs/jdk_structured_attrs";
     # cosmic testing
     #nixos-cosmic = {
     #  url = "github:lilyinstarlight/nixos-cosmic";

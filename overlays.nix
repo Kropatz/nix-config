@@ -16,19 +16,25 @@ in
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
-    vencord = prev.vencord.overrideAttrs {
-      version = "1.12.2";
-      src = prev.fetchFromGitHub {
-        owner = "Vendicated";
-        repo = "Vencord";
-        rev = "v1.12.2";
-        hash = "sha256-a4lbeuXEHDMDko8wte7jUdJ0yUcjfq3UPQAuSiz1UQU=";
-      };
-    };
     xrdp = (import inputs.nixpkgs-working-xrdp {
       system = "x86_64-linux";
       config.allowUnfree = true;
     }).xrdp;
+
+    jetbrains = prev.jetbrains // {
+      jdk = (import inputs.nixpkgs-working-jetbrains {
+        system = prev.stdenv.hostPlatform.system;
+        config.allowUnfree = true;
+      }).jetbrains.jdk;
+      jdk-no-jcef = (import inputs.nixpkgs-working-jetbrains {
+        system = prev.stdenv.hostPlatform.system;
+        config.allowUnfree = true;
+      }).jetbrains.jdk-no-jcef;
+      jdk-no-jcef-17 = (import inputs.nixpkgs-working-jetbrains {
+        system = prev.stdenv.hostPlatform.system;
+        config.allowUnfree = true;
+      }).jetbrains.jdk-no-jcef-17;
+    };
 
     #hyprland =
     #  inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
