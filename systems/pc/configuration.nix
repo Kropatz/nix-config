@@ -107,7 +107,6 @@
   
   services.postgresql = {
     enable = true;
-    ensureDatabases = [ "mydatabase" ];
     extensions = with pkgs.postgresql14Packages; [ pg_libversion ];
     authentication = pkgs.lib.mkOverride 10 ''
       #TYPE  DATABASE   USER    ADDRESS        METHOD
