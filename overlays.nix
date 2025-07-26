@@ -36,6 +36,16 @@ in
       }).jetbrains.jdk-no-jcef-17;
     };
 
+    hyprshade = prev.hyprshade.overrideAttrs {
+      version = "4.0.0";
+      src = prev.fetchFromGitHub {
+        owner = "loqusion";
+        repo = "hyprshade";
+        tag = "4.0.0";
+        hash = "sha256-NnKhIgDAOKOdEqgHzgLq1MSHG3FDT2AVXJZ53Ozzioc=";
+      };
+    };
+
     #hyprland =
     #  inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
     #xdg-desktop-portal-hyprland =
