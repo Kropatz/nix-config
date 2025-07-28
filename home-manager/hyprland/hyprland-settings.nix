@@ -348,28 +348,30 @@ in
           bind = $mainMod, A, submap, notes
 
           submap = notes
-          # below
-          bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
-          # above
-          bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
-          # context
-          bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
-          # trim
-          bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}
-          bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
-          bind = $mainMod, D, exec, ${dunstctl} close-all
-          # I win
-          bind = $mainMod, P, exec, ${wl-paste} | sgpt --model="gpt-4o" "Respond with the correct answer to the following question." | ${wl-copy}
-          # notes
+          bind = $mainMod, M, exec, hyprctl keyword monitor ",preferred,auto,1,mirror,${monitor1}" && ${dunstify} "Mirroring enabled"
+          bind = $mainMod, R, exec, hyprctl keyword monitor ",preferred,auto,auto" && ${dunstify} "Mirroring disabled"
+          ## below
+          #bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+          ## above
+          #bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+          ## context
+          #bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+          ## trim
+          #bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}
+          #bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
+          #bind = $mainMod, D, exec, ${dunstctl} close-all
+          ## I win
+          #bind = $mainMod, P, exec, ${wl-paste} | sgpt --model="gpt-4o" "Respond with the correct answer to the following question." | ${wl-copy}
+          ## notes
 
-          bind = $mainMod, 2, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          bind = $mainMod, 3, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          bind = $mainMod, 4, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          bind = $mainMod, 5, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          bind = $mainMod, 6, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          bind = $mainMod, 7, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          bind = $mainMod, 8, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          bind = $mainMod, 0, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+          #bind = $mainMod, 2, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+          #bind = $mainMod, 3, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+          #bind = $mainMod, 4, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+          #bind = $mainMod, 5, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+          #bind = $mainMod, 6, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+          #bind = $mainMod, 7, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+          #bind = $mainMod, 8, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+          #bind = $mainMod, 0, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
 
           bind = , escape, submap, reset
           submap = reset
