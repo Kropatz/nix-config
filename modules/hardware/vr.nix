@@ -50,6 +50,7 @@ in
   #  enable = true;
   #  openFirewall = true;
   #};
+  # systemctl --user start monado.service
   #services.monado = {
   #  enable = true;
   #  defaultRuntime = true; # Register as default OpenXR runtime
@@ -60,11 +61,13 @@ in
   #systemd.user.services.monado.environment = {
   #  STEAMVR_LH_ENABLE = "1";
   #  XRT_COMPOSITOR_COMPUTE = "1";
+  #  WMR_HANDTRACKING = "0";
   #};
-  #  programs.git = {
-  #    enable = true;
-  #    lfs.enable = true;
-  #  };
+  #programs.git = {
+  #  enable = true;
+  #  lfs.enable = true;
+  #};
+
   hardware.steam-hardware.enable = true;
   boot.extraModulePackages = [
     (amdgpu-kernel-module.overrideAttrs (_: {
