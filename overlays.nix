@@ -4,6 +4,29 @@ let
   addPatches = pkg: patches:
     pkg.overrideAttrs
       (oldAttrs: { patches = (oldAttrs.patches or [ ]) ++ patches; });
+  neotestPatch = '' diff --git a/tests/unit/client/strategies/integrated_spec.lua b/tests/unit/client/strategies/integrated_spec.lua
+index 196c2e78..42a3df76 100644
+--- a/tests/unit/client/strategies/integrated_spec.lua
++++ b/tests/unit/client/strategies/integrated_spec.lua
+@@ -34,7 +34,7 @@ describe("integrated strategy", function()
+
+   a.it("stops the job", function()
+     local process = strategy({
+-      command = { "bash", "-c", "sleep 1" },
++      command = { "bash", "-c", "sleep 10" },
+       strategy = {
+         height = 10,
+         width = 10,
+@@ -47,7 +47,7 @@ describe("integrated strategy", function()
+
+   a.it("streams output", function()
+     local process = strategy({
+-      command = { "bash", "-c", "printf hello; sleep 0; printf world" },
++      command = { "bash", "-c", "printf hello; sleep 0.1; printf world" },
+       strategy = {
+         height = 10,
+         width = 10,
+  '';
 in
 {
   # This one brings our custom packages from the 'pkgs' directory
@@ -43,6 +66,12 @@ in
         repo = "hyprshade";
         tag = "4.0.0";
         hash = "sha256-NnKhIgDAOKOdEqgHzgLq1MSHG3FDT2AVXJZ53Ozzioc=";
+      };
+    };
+
+    luajitPackages = prev.luajitPackages // {
+      neotest = prev.luajitPackages.neotest.overrideAttrs {
+        patches = [ (prev.writeText "neotest-patch" neotestPatch) ];
       };
     };
 
