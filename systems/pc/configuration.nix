@@ -179,13 +179,14 @@
 
   # Enable CUPS to print documents.
   # disable until CVE-2024-47176, CVE-2024-47076, CVE-2024-47175, and CVE-2024-47177 is fixed
+  # http://localhost:631
   services.printing.enable = false;
   services.printing.drivers = [ pkgs.brlaser ];
-  #services.avahi = {
-  #  enable = false;
-  #  nssmdns4 = true;
-  #  openFirewall = true;
-  #};
+  services.avahi = {
+    enable = false;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   # Enable automatic login for the user.
   #services.xserver.displayManager.autoLogin.enable = true;

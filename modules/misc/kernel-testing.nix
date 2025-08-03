@@ -73,14 +73,19 @@ let
     };
   };
 
-  linux_6_15 = pkgs.buildLinux {
-    version = "6.15.0";
-    extraMeta.branch = "6.15";
+  linux_6_16 = pkgs.buildLinux {
+    version = "6.16.0";
+    extraMeta.branch = "6.16";
     src = pkgs.fetchzip {
-      url = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.15.tar.gz";
-      hash = "sha256-PQjXBWJV+i2O0Xxbg76HqbHyzu7C0RWkvHJ8UywJSCw=";
+      url = "mirror://kernel/linux/kernel/v6.x/linux-6.16.tar.xz";
+      hash = "sha256:10ydzfzc3g0nhns6md08gpfshhjcyd58lylqr15alijjdgzf4jqs";
     };
+    #src = pkgs.fetchzip {
+    #  url = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-6.15.tar.gz";
+    #  hash = "sha256:10ydzfzc3g0nhns6md08gpfshhjcyd58lylqr15alijjdgzf4jqs";
+    #};
   };
+
 in
 {
   #boot.extraModulePackages = [ amdgpu_module ];
@@ -97,11 +102,13 @@ in
   #  };
   #});
 
-  boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor (linux_6_15.override {
-    structuredExtraConfig = with lib.kernel; {
-      SCHED_DEBUG = lib.mkForce unset;
-    };
-  }));
+  #boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor (linux_6_15.override {
+  #  structuredExtraConfig = with lib.kernel; {
+  #    SCHED_DEBUG = lib.mkForce unset;
+  #  };
+  #}));
+
+  boot.kernelPackages = pkgs.linuxPackagesFor linux_6_16;
 
   #boot.kernelPackages = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor (linux_amd_drm_next.override {
   #  structuredExtraConfig = with lib.kernel; {
