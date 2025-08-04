@@ -52,9 +52,9 @@ in {
         user = "kavita";
         package =
           let
-            backend = pkgs.kavita.backend.overrideAttrs
+            backend = pkgs.kavita-old.backend.overrideAttrs
               (old: { patches = old.patches ++ [ ./kavita-patches-chapter-parsing.diff ./kavita-page-size.diff ]; });
-            kavitaPatched = pkgs.kavita.overrideAttrs (old: { backend = backend; });
+            kavitaPatched = pkgs.kavita-old.overrideAttrs (old: { backend = backend; });
           in
           kavitaPatched;
         settings = {
