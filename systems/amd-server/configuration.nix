@@ -48,6 +48,7 @@
       shared.enable = true;
       #games.enable = true;
       #basics.enable = true;
+      stylix.enable = true;
     };
   };
   mainUser.layout = "de";
