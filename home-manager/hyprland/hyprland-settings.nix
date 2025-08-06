@@ -209,6 +209,7 @@ in
             "$mainMod, E, exec, ${thunar}"
             "$mainMod, F, fullscreen"
             "$mainMod, V, togglefloating"
+            "$mainMod, T, togglegroup"
             "$mainMod, I, exec, ${rofi} -show drun -show-icons"
             "$mainMod, period, exec, ${rofimoji}"
             ''$mainMod, S, exec, echo "skip" | nc kopatz.ddns.net 8888''
