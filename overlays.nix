@@ -44,20 +44,20 @@ in
       config.allowUnfree = true;
     }).xrdp;
 
-    jetbrains = prev.jetbrains // {
-      jdk = (import inputs.nixpkgs-working-jetbrains {
-        system = prev.stdenv.hostPlatform.system;
-        config.allowUnfree = true;
-      }).jetbrains.jdk;
-      jdk-no-jcef = (import inputs.nixpkgs-working-jetbrains {
-        system = prev.stdenv.hostPlatform.system;
-        config.allowUnfree = true;
-      }).jetbrains.jdk-no-jcef;
-      jdk-no-jcef-17 = (import inputs.nixpkgs-working-jetbrains {
-        system = prev.stdenv.hostPlatform.system;
-        config.allowUnfree = true;
-      }).jetbrains.jdk-no-jcef-17;
-    };
+    #jetbrains = prev.jetbrains // {
+    #  jdk = (import inputs.nixpkgs-working-jetbrains {
+    #    system = prev.stdenv.hostPlatform.system;
+    #    config.allowUnfree = true;
+    #  }).jetbrains.jdk;
+    #  jdk-no-jcef = (import inputs.nixpkgs-working-jetbrains {
+    #    system = prev.stdenv.hostPlatform.system;
+    #    config.allowUnfree = true;
+    #  }).jetbrains.jdk-no-jcef;
+    #  jdk-no-jcef-17 = (import inputs.nixpkgs-working-jetbrains {
+    #    system = prev.stdenv.hostPlatform.system;
+    #    config.allowUnfree = true;
+    #  }).jetbrains.jdk-no-jcef-17;
+    #};
 
     hyprshade = prev.hyprshade.overrideAttrs {
       version = "4.0.0";

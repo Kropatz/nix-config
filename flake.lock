@@ -400,22 +400,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-working-jetbrains": {
-      "locked": {
-        "lastModified": 1753384556,
-        "narHash": "sha256-oRNcEk/Dsns534HkPSCDTFLpSXJfGts9RDLfDkBt5U8=",
-        "owner": "Janrupf",
-        "repo": "nixpkgs",
-        "rev": "50fbd3334953a47b0bae0c9f88b98432c735fcfe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Janrupf",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-working-xrdp": {
       "locked": {
         "lastModified": 1750030408,
@@ -534,7 +518,6 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixpkgs-working-jetbrains": "nixpkgs-working-jetbrains",
         "nixpkgs-working-xrdp": "nixpkgs-working-xrdp",
         "nixvim": "nixvim",
         "nur": "nur",

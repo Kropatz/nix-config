@@ -265,7 +265,7 @@ in
             "$mainMod, mouse_down, workspace, e+1"
             "$mainMod, mouse_up, workspace, e-1"
 
-            # "ALT, Tab, cyclenext,"
+             "ALT, Tab, cyclenext,"
             # "ALT, Tab, bringactivetotop,"
           ];
 
