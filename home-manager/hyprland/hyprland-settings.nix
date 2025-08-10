@@ -110,7 +110,7 @@ in
           allow_tearing = true;
         };
 
-        misc = { vfr = true; middle_click_paste = false; };
+        misc = { vfr = true; middle_click_paste = false; enable_anr_dialog = false; };
         xwayland = lib.mkIf isPc { force_zero_scaling = true; };
 
         decoration = {
@@ -265,7 +265,7 @@ in
             "$mainMod, mouse_down, workspace, e+1"
             "$mainMod, mouse_up, workspace, e-1"
 
-             "ALT, Tab, cyclenext,"
+            "ALT, Tab, cyclenext,"
             # "ALT, Tab, bringactivetotop,"
           ];
 
