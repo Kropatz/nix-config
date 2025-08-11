@@ -15,6 +15,7 @@
         clangd.enable = true;
         cssls.enable = true;
         gopls.enable = true;
+        clojure_lsp.enable = true;
         qmlls =
           {
             enable = true;

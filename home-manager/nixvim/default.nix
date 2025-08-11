@@ -32,6 +32,7 @@ let
     ./typst-preview.nix
     ./markdown.nix
     ./hop.nix
+    ./colorizer.nix
   ]);
   merged =
     builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;
