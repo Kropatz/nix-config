@@ -18,7 +18,6 @@
     ../../modules/misc/faster-boot-time.nix
     #../../modules/hardware/ryzenmonitor.nix
     ../../modules/networkmanager.nix
-    ../../modules/hardware/vr.nix
   ];
 
   custom = {
@@ -50,6 +49,7 @@
         rocm.enable = true;
         overdrive = true;
       };
+      vr.enable = true;
       nvidia = {
         enable = false;
         clock = {

@@ -11,5 +11,6 @@
     ./tpm.nix
     ./tablet.nix
     ./fingerprint.nix
+    ./vr.nix
   ];
 }

@@ -1,5 +1,6 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 let
+  cfg = config.custom.hardware.vr;
   # https://wiki.nixos.org/wiki/VR#Patching_AMDGPU_to_allow_high_priority_queues
   amdgpu =
     { pkgs
@@ -46,38 +47,51 @@ let
   };
 in
 {
+
+  options.custom.hardware.vr = {
+    enable = lib.mkEnableOption "Enables amd gpus";
+    overdrive = lib.mkEnableOption "Enables overdrive";
+    rocm.enable = lib.mkEnableOption "Enables rocm";
+  };
   #programs.envision = {
   #  enable = true;
   #  openFirewall = true;
   #};
-  # systemctl --user start monado.service
-  #services.monado = {
-  #  enable = true;
-  #  defaultRuntime = true; # Register as default OpenXR runtime
-  #};
-  #environment.systemPackages = with pkgs; [
-  #  monado
-  #];
-  #systemd.user.services.monado.environment = {
-  #  STEAMVR_LH_ENABLE = "1";
-  #  XRT_COMPOSITOR_COMPUTE = "1";
-  #  WMR_HANDTRACKING = "0";
-  #};
-  #programs.git = {
-  #  enable = true;
-  #  lfs.enable = true;
-  #};
 
-  hardware.steam-hardware.enable = true;
-  boot.extraModulePackages = [
-    (amdgpu-kernel-module.overrideAttrs (_: {
-      patches = [
-        (pkgs.fetchpatch {
-          name = "cap_sys_nice_begone.patch";
-          url = "https://github.com/Frogging-Family/community-patches/raw/master/linux61-tkg/cap_sys_nice_begone.mypatch";
-          hash = "sha256-Y3a0+x2xvHsfLax/uwycdJf3xLxvVfkfDVqjkxNaYEo=";
-        })
-      ];
-    }))
-  ];
+  # systemctl --user start monado.service
+  # make sure ~/.config/openxr/1/active_runtime.json doesn't block it
+  # and ~/.config/openvr/openvrpaths.vrpath
+  config = lib.mkIf cfg.enable {
+    services.monado = {
+      enable = true;
+      defaultRuntime = true; # Register as default OpenXR runtime
+    };
+    environment.systemPackages = with pkgs; [
+      monado
+      wlx-overlay-s
+      wayvr-dashboard
+    ];
+    systemd.user.services.monado.environment = {
+      STEAMVR_LH_ENABLE = "1";
+      XRT_COMPOSITOR_COMPUTE = "1";
+      WMR_HANDTRACKING = "0";
+    };
+    programs.git = {
+      enable = true;
+      lfs.enable = true;
+    };
+
+    hardware.steam-hardware.enable = true;
+    boot.extraModulePackages = [
+      (amdgpu-kernel-module.overrideAttrs (_: {
+        patches = [
+          (pkgs.fetchpatch {
+            name = "cap_sys_nice_begone.patch";
+            url = "https://github.com/Frogging-Family/community-patches/raw/master/linux61-tkg/cap_sys_nice_begone.mypatch";
+            hash = "sha256-Y3a0+x2xvHsfLax/uwycdJf3xLxvVfkfDVqjkxNaYEo=";
+          })
+        ];
+      }))
+    ];
+  };
 }
