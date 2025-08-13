@@ -66,6 +66,12 @@ in {
             upstream_dns = [
               "https://dns10.quad9.net/dns-query"
               "https://dns.adguard-dns.com/dns-query"
+              "https://noads.joindns4.eu/dns-query"
+              "tls://getdnsapi.net"
+            ];
+            fallback_dns = [
+              "1.1.1.1"
+              "1.0.0.1"
             ];
             use_http3_upstreams = true;
           };
