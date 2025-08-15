@@ -33,6 +33,7 @@ let
     ./markdown.nix
     ./hop.nix
     ./colorizer.nix
+    ./surround.nix
   ]);
   merged =
     builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;
