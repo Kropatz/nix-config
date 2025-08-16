@@ -110,6 +110,9 @@ in
           allow_tearing = true;
         };
 
+        render = {
+          new_render_scheduling = true;
+        };
         misc = { vfr = true; middle_click_paste = false; enable_anr_dialog = false; };
         xwayland = lib.mkIf isPc { force_zero_scaling = true; };
 
