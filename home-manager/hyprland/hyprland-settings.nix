@@ -285,6 +285,8 @@ in
             " , XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
             # Example volume button that will activate even while an input inhibitor is active
             " , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+            " , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+            " , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
             "$mainMod SHIFT, left, resizeactive, -30 0"
             "$mainMod SHIFT, right, resizeactive, 30 0"
             "$mainMod SHIFT, up, resizeactive, 0 -30"
