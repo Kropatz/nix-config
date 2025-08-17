@@ -175,7 +175,7 @@
   services.xserver.enable = true;
 
   # Configure console keymap
-  console.keyMap = "en";
+  console.keyMap = "us";
 
   # Enable CUPS to print documents.
   # disable until CVE-2024-47176, CVE-2024-47076, CVE-2024-47175, and CVE-2024-47177 is fixed
