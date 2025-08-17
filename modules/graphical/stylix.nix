@@ -68,6 +68,9 @@ in {
         popups = 0.85;
       };
       #targets.hyprland.enable = false; does not exist in the MR version yet
+      targets = {
+        grub.enable = false;
+      };
       fonts = {
         serif = config.stylix.fonts.sansSerif;
         sansSerif = {

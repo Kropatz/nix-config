@@ -104,7 +104,7 @@
   };
   services.jenkins.enable = false;
   virtualisation.waydroid.enable = false;
-  
+
   services.postgresql = {
     enable = true;
     extensions = with pkgs.postgresql14Packages; [ pg_libversion ];
@@ -115,20 +115,20 @@
     '';
   };
 
-  systemd.user.services.scheibnkleister-presence = {
-    description = "scheibnkleister-presence";
-    wantedBy = [ "graphical-session.target" ];
-    wants = [ "graphical-session.target" ];
-    after = [ "graphical-session.target" ];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart =
-        "${pkgs.scheibnkleister-presence}/bin/scheibnkleister-presence";
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
-    };
-  };
+  ##systemd.user.services.scheibnkleister-presence = {
+  ##  description = "scheibnkleister-presence";
+  ##  wantedBy = [ "graphical-session.target" ];
+  ##  wants = [ "graphical-session.target" ];
+  ##  after = [ "graphical-session.target" ];
+  ##  serviceConfig = {
+  ##    Type = "simple";
+  ##    ExecStart =
+  ##      "${pkgs.scheibnkleister-presence}/bin/scheibnkleister-presence";
+  ##    Restart = "on-failure";
+  ##    RestartSec = 1;
+  ##    TimeoutStopSec = 10;
+  ##  };
+  ##};
 
 
   # apple shit
@@ -155,8 +155,18 @@
   '';
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+    };
+    #systemd-boot.enable = true;
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+      theme = "${pkgs.hollow-grub}/grub/theme";
+    };
+  };
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   networking.hostName = "kop-pc"; # Define your hostname.

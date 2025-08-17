@@ -15,4 +15,5 @@
   gpu-screen-recorder-ui = pkgs.callPackage ./gpu-screen-recorder-ui/default.nix { };
   gpu-screen-recorder-notification = pkgs.callPackage ./gpu-screen-recorder-notification/default.nix { };
   kavita-old = pkgs.callPackage ./kavita-old/default.nix { };
+  hollow-grub = pkgs.callPackage ./hollow-grub/default.nix { };
 }
