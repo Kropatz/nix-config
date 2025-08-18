@@ -159,13 +159,13 @@
     efi = {
       canTouchEfiVariables = true;
     };
-    #systemd-boot.enable = true;
-    grub = {
-      enable = true;
-      efiSupport = true;
-      device = "nodev";
-      theme = "${pkgs.hollow-grub}/grub/theme";
-    };
+    systemd-boot.enable = true;
+    #grub = {
+    #  enable = true;
+    #  efiSupport = true;
+    #  device = "nodev";
+    #  theme = "${pkgs.hollow-grub}/grub/theme";
+    #};
   };
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
