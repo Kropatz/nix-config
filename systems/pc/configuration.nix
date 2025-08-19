@@ -115,20 +115,20 @@
     '';
   };
 
-  ##systemd.user.services.scheibnkleister-presence = {
-  ##  description = "scheibnkleister-presence";
-  ##  wantedBy = [ "graphical-session.target" ];
-  ##  wants = [ "graphical-session.target" ];
-  ##  after = [ "graphical-session.target" ];
-  ##  serviceConfig = {
-  ##    Type = "simple";
-  ##    ExecStart =
-  ##      "${pkgs.scheibnkleister-presence}/bin/scheibnkleister-presence";
-  ##    Restart = "on-failure";
-  ##    RestartSec = 1;
-  ##    TimeoutStopSec = 10;
-  ##  };
-  ##};
+  systemd.user.services.scheibnkleister-presence = {
+    description = "scheibnkleister-presence";
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart =
+        "${pkgs.scheibnkleister-presence}/bin/scheibnkleister-presence";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
 
 
   # apple shit
