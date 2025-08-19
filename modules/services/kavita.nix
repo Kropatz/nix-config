@@ -70,9 +70,9 @@ in {
           else
             config.age.secrets.kavita.path;
       };
-        environment.systemPackages = with pkgs; [
-          libgbm
-        ];
+      environment.systemPackages = with pkgs; [
+        libgbm
+      ];
 
       #todo: base url needs new kavita version
       systemd.services = {
@@ -80,8 +80,6 @@ in {
           after = [ "nginx.service" ] ++ lib.optional useStepCa "step-ca.service";
         };
         download-manga = mkIf cfg.autoDownload {
-          wantedBy = [ "multi-user.target" ];
-
           wants = [ "network-online.target" ];
           after = [ "network-online.target" ];
           startAt = "*-*-* 19:00:00";

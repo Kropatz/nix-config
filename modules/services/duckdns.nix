@@ -8,4 +8,8 @@
     tokenFile = config.age.secrets.duckdns.path;
     domains = [ "kavita-kopatz" ];
   };
+  systemd.services.duckdns = {
+    wantedBy = lib.mkForce [];
+    startAt =  lib.mkForce "daily";
+  };
 }
