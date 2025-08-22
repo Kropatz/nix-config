@@ -16,6 +16,7 @@
     ../../modules/fh/writing.nix
     ../../modules/work/vpn.nix
     ../../modules/misc/faster-boot-time.nix
+    ../../modules/misc/zram.nix
     #../../modules/hardware/ryzenmonitor.nix
     ../../modules/networkmanager.nix
   ];
