@@ -24,7 +24,8 @@
       settings.enable = true;
     };
     hardware = {
-      amd-gpu.enable = true;
+      #amd-gpu.enable = true;
+      nvidia.enable = true;
       firmware.enable = true;
       ssd.enable = true;
       wooting.enable = true;
@@ -59,7 +60,7 @@
     defaultGateway.address = "192.168.0.1";
     nameservers = [ "192.168.0.10" "1.1.1.1" ];
 
-    bridges.br0 = { interfaces = [ "enp0s31f6" ]; };
+    bridges.br0 = { interfaces = [ "enp42s0" ]; };
     interfaces.br0 = {
       ipv4.addresses = [{
         address = "192.168.0.20";
