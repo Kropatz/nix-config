@@ -70,6 +70,7 @@ in {
         wl-clipboard
         xarchiver # archive tool
         adwaita-icon-theme
+        zenity
       ];
     };
 }

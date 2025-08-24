@@ -17,6 +17,7 @@ in
   config = lib.mkIf cfg.enable {
     #programs.swaylock.enable = true;
     services.hyprpaper.enable = true;
+    home.file.".config/hypr/monitor-config.js".source = ../../.config/hypr/monitor-config.js;
     wayland.windowManager.hyprland = {
       enable = true;
       #enableNvidiaPatches = true;
@@ -299,6 +300,10 @@ in
           "$mainMod, mouse:273, resizewindow"
         ];
 
+        windowrule = [
+          "float, class:zenity"
+          "center, class:zenity"
+        ];
         windowrulev2 = [
 
           #"center, class:jetbrains-idea"
@@ -349,6 +354,8 @@ in
           dunstctl = "${pkgs.dunst}/bin/dunstctl";
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep --cache";
           path = "/synced/fh/os-hardening/**/slides";
+          node = "${pkgs.nodejs}/bin/node";
+          set-monitor = "~/.config/hypr/monitor-config.js";
         in
         ''
           bind = $mainMod, A, submap, notes
@@ -356,6 +363,7 @@ in
           submap = notes
           bind = $mainMod, M, exec, hyprctl keyword monitor ",preferred,auto,1,mirror,${monitor1}" && ${dunstify} "Mirroring enabled"
           bind = $mainMod, R, exec, hyprctl keyword monitor ",preferred,auto,auto" && ${dunstify} "Mirroring disabled"
+          bind = $mainMod, P, exec, ${node} ${set-monitor}
           ## below
           #bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
           ## above
