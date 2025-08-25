@@ -67,6 +67,11 @@
       action = "+git";
     }
     {
+      key = "<leader>gg";
+      action = "<CMD>LazyGit<CR>";
+      options.desc = "Open LazyGit";
+    }
+    {
       mode = "n";
       key = "<leader>gt";
       action = "+toggles";
