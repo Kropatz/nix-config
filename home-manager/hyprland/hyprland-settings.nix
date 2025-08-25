@@ -10,6 +10,11 @@ let
     sleep 4
     systemctl --user restart xdg-desktop-portal
   '';
+  hyprlandFixLockscreen = pkgs.writeShellScriptBin "hyprland-fix-lockscreen" ''
+    #!/usr/bin/env bash
+    hyprctl --instance 0 "keyword misc:allow_session_lock_restore 1"
+    hyprctl --instance 0 "dispatch exec hyprlock"
+  '';
   monitor1 = if isPc then "DP-1" else if isLaptop then "eDP-1" else "eDP-1";
   monitor2 = "HDMI-A-1";
 in
@@ -17,6 +22,7 @@ in
   config = lib.mkIf cfg.enable {
     #programs.swaylock.enable = true;
     services.hyprpaper.enable = true;
+    home.packages = [ hyprlandFixLockscreen ];
     home.file.".config/hypr/monitor-config.js".source = ../../.config/hypr/monitor-config.js;
     wayland.windowManager.hyprland = {
       enable = true;
