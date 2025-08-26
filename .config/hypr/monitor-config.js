@@ -28,23 +28,14 @@ async function execCommand(command) {
 }
 
 /** @type(String) */
-let result = await execCommand('hyprctl monitors all');
 let monitors = {};
-let currentMonitor = null;
-
-result.split('\n').forEach(line => {
-  if (line.includes('Monitor')) {
-    let parts = line.split(' ');
-    let name = parts[1];
-    monitors[name] = { name };
-    currentMonitor = name;
-  }
-  if (line.includes('availableModes:')) {
-    line = line.trim();
-    let start = line.indexOf(":") + 2;
-    let modes = line.substring(start).split(' ');
-    monitors[currentMonitor].availableModes = modes;
-  }
+let result = await execCommand('hyprctl -j monitors all');
+result = JSON.parse(result);
+result.forEach(monitor => {
+  monitors[monitor.name] = {
+    name: monitor.name,
+    availableModes: monitor.availableModes
+  };
 });
 console.log(monitors);
 let zenity_monitors = Object.keys(monitors).join(' \\\n');
