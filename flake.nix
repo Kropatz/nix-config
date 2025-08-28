@@ -81,6 +81,7 @@
       overlays = { outputs, ... }: {
         nixpkgs.overlays = with outputs.overlays; [
           #unstable-packages
+          stable-packages
           additions
           modifications
           nur.overlays.default
