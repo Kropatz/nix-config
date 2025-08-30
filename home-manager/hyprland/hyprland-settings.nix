@@ -217,6 +217,7 @@ in
             "$mainMod, L, exec, ${hyprlock}"
             "$mainMod, M, exec, ${zenity} --question --text='Quit Hyprland?' && hyprctl dispatch exit"
             "$mainMod, E, exec, ${thunar}"
+            "$mainMod, P, pin"
             "$mainMod, F, fullscreen"
             "$mainMod, V, togglefloating"
             "$mainMod, T, togglegroup"
@@ -235,7 +236,7 @@ in
             " , XF86AudioPlay, exec, ${playerctl} play-pause"
             " , XF86AudioNext, exec, ${playerctl} next"
             " , XF86AudioPrev, exec, ${playerctl} previous"
-            "$mainMod, P, pseudo" # dwindle
+            "$mainMod, U, pseudo" # dwindle
             "$mainMod, J, togglesplit" # dwindle
             # Move focus with mainMod + arrow keys
             "$mainMod, left, movefocus, l"
