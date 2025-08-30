@@ -6,7 +6,7 @@ rustPlatform.buildRustPackage {
   src = fetchGit {
     url = "git@github.com:kropatz/kop-fhcalendar.git";
     ref = "master";
-    rev = "328b43766fe4fe3b352a23f160de6bc96a3aee58";
+    rev = "f1c9cea0874cdd8465c38b10f73f73272e9d4233";
   };
 
   cargoHash = "sha256-N6BWKumzKWXmAbg3GxiCS70yRg8i+TrYu6T8u6nuHdY=";
