@@ -50,7 +50,7 @@ in {
       enable = true;
       autoEnable = lib.mkForce true;
       polarity = "dark";
-      image = cfg.image;
+      image = lib.mkForce cfg.image;
       base16Scheme = lib.mkIf (cfg.base16Scheme != null) cfg.base16Scheme;
       override = cfg.override;
       #base16Scheme = ../../home-manager/themes/yorha/scheme.yml;
