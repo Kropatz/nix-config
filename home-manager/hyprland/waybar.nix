@@ -42,7 +42,8 @@ in {
             "orientation" = "horizontal";
             "modules" = [ "network" "cpu" "memory" "temperature" ]
               ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "custom/nvidia" ]
-              ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "custom/amd-gpu" ];
+              ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "custom/amd-gpu" ]
+              ++ lib.optionals osConfig.services.power-profiles-daemon.enable [ "power-profiles-daemon" ];
           };
           "group/other" = {
             "orientation" = "horizontal";
@@ -148,6 +149,17 @@ in {
               "mpv" = "🎵";
             };
             "status-icons" = { "paused" = "⏸"; };
+          };
+          "power-profiles-daemon" = {
+            "format" = "{icon}";
+            "tooltip-format" = "Power profile: {profile}\nDriver: {driver}";
+            "tooltip" = true;
+            "format-icons" = {
+              "default" = "";
+              "performance" = "";
+              "balanced" = "";
+              "power-saver" = "";
+            };
           };
           "custom/nvidia" = {
             "format" = "{}";

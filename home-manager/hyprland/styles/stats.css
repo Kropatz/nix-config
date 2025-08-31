@@ -23,6 +23,7 @@
 #custom-amd-gpu,
 #custom-nvidia,
 #memory,
+#power-profiles-daemon,
 #network {
   color: @text;
   padding: 0 0.5em;
