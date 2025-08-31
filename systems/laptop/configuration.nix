@@ -32,7 +32,7 @@
       settings.enable = true;
     };
     misc = {
-      docker.enable = true;
+      docker.enable = false;
       firejail.enable = true;
     };
     hardware = {
@@ -54,7 +54,7 @@
       #emulators.enable = true;
       hyprland.enable = true;
       games.enable = true;
-      ime.enable = true;
+      ime.enable = false; # causes reatively high cpu usage on hyprland
       shared.enable = true;
       stylix = {
         enable = true;
@@ -72,7 +72,7 @@
     ryzenadj
   ];
 
-  services.joycond.enable = true;
+  #services.joycond.enable = true;
 
   #todo: extract this
   services.xserver = {

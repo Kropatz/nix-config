@@ -75,6 +75,9 @@ in
       };
     };
 
+      #hyprland = prev.hyprland.override {
+      #  debug = true;
+    #};
     #hyprland =
     #  inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
     #xdg-desktop-portal-hyprland =
