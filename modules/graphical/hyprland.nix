@@ -71,6 +71,11 @@ in {
       #waybar
       #xdg-utils
       #xwayland
+      (writeShellScriptBin "copyfiletoclip" ''
+          echo "file://$(realpath $1)" | wl-copy -t text/uri-list
+        ''
+      )
+
     ];
   };
 }
