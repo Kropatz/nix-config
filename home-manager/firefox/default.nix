@@ -1,5 +1,7 @@
 { pkgs, lib, osConfig, ... }:
 let
+
+  base16 = osConfig.stylix.base16Scheme;
   merge = lib.foldr (a: b: a // b) { };
   search = {
     default = "ddg";
@@ -122,8 +124,18 @@ in
           browser[type="content-primary"], 
           browser[type="content"],
           .browserContainer {
-            background-color: #1a2121 !important;
-            background: #1a2121 !important;
+            background-color: #${base16.base01} !important;
+            background: #${base16.base01} !important;
+          }
+        '';
+        userContent = ''
+          body {
+            --body-bg-color: #${base16.base01};
+            background-color: #${base16.base01};
+          }
+
+          #toolbarContainer {
+            --toolbar-bg-color: #${base16.base01};
           }
         '';
         # Changes the extension storage backend from IDB to json, wipes all data when switching 
