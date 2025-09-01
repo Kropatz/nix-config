@@ -58,8 +58,8 @@
       shared.enable = true;
       stylix = {
         enable = true;
-        base16Scheme = import ../../modules/themes/tsukasa.nix;
-        image = ../../tsukasa.jpg;
+        base16Scheme = import ../../modules/themes/ina.nix;
+        image = ../../wallpaper/ina.jpg;
       };
     };
   };
