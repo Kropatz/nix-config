@@ -119,6 +119,12 @@ in
           #navigator-toolbox:not(:hover):not(:focus-within):has(#toolbar-menubar[inactive]) {
               margin-top: -36px;
           }
+          browser[type="content-primary"], 
+          browser[type="content"],
+          .browserContainer {
+            background-color: #1a2121 !important;
+            background: #1a2121 !important;
+          }
         '';
         # Changes the extension storage backend from IDB to json, wipes all data when switching 
         extensions.force = true;
