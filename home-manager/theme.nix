@@ -5,7 +5,7 @@
       size = 24;
       gtk.enable = true;
       name = "breeze_cursors";
-      package = pkgs.kdePackages.breeze-gtk; # or -icons?
+      package = pkgs.kdePackages.breeze; # or -icons?
     };
   };
   gtk = {
