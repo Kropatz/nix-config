@@ -59,7 +59,7 @@ in {
       cursor = {
         size = 24;
         name = "breeze_cursors";
-        package = pkgs.libsForQt5.breeze-gtk;
+        package = pkgs.kdePackages.breeze-gtk;
       };
       opacity = {
         applications = 0.85;
