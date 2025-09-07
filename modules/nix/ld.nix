@@ -70,6 +70,8 @@ in
       xorg.libxcb
       xorg.libxkbfile
       xorg.libxshmfence
+      xorg.libICE
+      xorg.libSM
       xz
       zlib
       zstd

@@ -14,7 +14,7 @@
     ../../modules/services/syncthing.nix
     ../../modules/support/ntfs.nix
     ../../modules/fh/writing.nix
-    ../../modules/work/vpn.nix
+    #../../modules/work/vpn.nix
     ../../modules/misc/faster-boot-time.nix
     ../../modules/misc/zram.nix
     #../../modules/hardware/ryzenmonitor.nix
@@ -98,6 +98,19 @@
         image = ../../wallpaper/ina.jpg;
       };
     };
+  };
+  services.searx = {
+    enable = true;
+    settings = {
+      use_default_settings=true;
+      server.port = 8787;
+      server.bind_address = "0.0.0.0";
+      server.secret_key = "1";
+      search = {
+        favicon_resolver = "duckduckgo";
+      };
+    };
+
   };
   services.ollama = {
     enable = false;
