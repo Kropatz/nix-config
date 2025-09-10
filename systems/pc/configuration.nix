@@ -119,16 +119,6 @@
   services.jenkins.enable = false;
   virtualisation.waydroid.enable = false;
 
-  services.postgresql = {
-    enable = true;
-    extensions = with pkgs.postgresql14Packages; [ pg_libversion ];
-    authentication = pkgs.lib.mkOverride 10 ''
-      #TYPE  DATABASE   USER    ADDRESS        METHOD
-      local all         all                    trust
-      host  all         all     127.0.0.1/32   trust
-    '';
-  };
-
   systemd.user.services.scheibnkleister-presence = {
     description = "scheibnkleister-presence";
     wantedBy = [ "graphical-session.target" ];
@@ -153,9 +143,10 @@
     #libimobiledevice
     #ifuse # optional, to mount using 'ifuse'
   ];
+  documentation.man.generateCaches = true;
 
-  networking.firewall.allowedTCPPorts = [ 6567 ]; # mindustry
-  networking.firewall.allowedUDPPorts = [ 6567 ]; # mindustry
+  #networking.firewall.allowedTCPPorts = [ 6567 ]; # mindustry
+  #networking.firewall.allowedUDPPorts = [ 6567 ]; # mindustry
   mainUser.layout = "de";
   mainUser.variant = "us";
   age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];
@@ -186,14 +177,12 @@
   networking.hostName = "kop-pc"; # Define your hostname.
 
   # Enable networking
-  boot.initrd.systemd.network.wait-online.enable = false;
-  systemd.network.wait-online.enable = false;
+  #boot.initrd.systemd.network.wait-online.enable = false;
+  #systemd.network.wait-online.enable = false;
 
   #services.nscd.enableNsncd = false;
   #disable firewall when doing ipv6 vm stuff
   #networking.firewall.enable = lib.mkForce false;
-
-
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
