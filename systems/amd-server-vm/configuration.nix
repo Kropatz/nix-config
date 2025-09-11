@@ -141,6 +141,17 @@ in
       virtual_transport = "virtual";
       local_transport = "virtual";
       local_recipient_maps = "$virtual_mailbox_maps";
+      # TLS settings
+      # TODO: enable tsl
+      # smtpd_tls_security_level = "encrypt";
+      # SASL authentication with dovecot
+      smtpd_sasl_auth_enable = "yes";
+      smtpd_sasl_type = "dovecot";
+      smtpd_sasl_path = "private/auth";
+      smtpd_sasl_security_options = "noanonymous";
+      smtpd_sasl_local_domain = "$myhostname";
+      smtpd_client_restrictions = "permit_sasl_authenticated,reject";
+      smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject";
     };
     virtual = ''
       root@mail-kopatz.duckdns.org kopatz@mail-kopatz.duckdns.org
@@ -184,6 +195,15 @@ in
       ssl = no
       disable_plaintext_auth = no
       auth_mechanisms = plain
+
+      service auth {
+        unix_listener /var/lib/postfix/queue/private/auth {
+          group = postfix
+          mode = 0660
+          user = postfix
+        }
+        user = root
+      }
     '';
   };
   environment.etc."dovecot-users".text = tmp_dovecot_passwords;
