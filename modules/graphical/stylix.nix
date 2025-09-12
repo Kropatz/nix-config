@@ -70,6 +70,7 @@ in {
       #targets.hyprland.enable = false; does not exist in the MR version yet
       targets = {
         grub.enable = false;
+        plymouth.enable = false;
       };
       fonts = {
         serif = config.stylix.fonts.sansSerif;

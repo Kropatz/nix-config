@@ -78,7 +78,8 @@
   # Disable the clipboardevents.
   # Disable that websites can get notifications if you copy, paste, or cut something
   # from a web page, and it lets them know which part of the page had been selected.
-  "dom.event.clipboardevents.enabled" = false;
+  #"dom.event.clipboardevents.enabled" = false;
+  "dom.event.clipboardevents.enabled" = true;
   # Disable Search Suggestions
   # Firefox suggests search terms in the search field. This will send everything
   # typed or pasted in the search field to the chosen search engine, even when you

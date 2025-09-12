@@ -4,6 +4,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./modules/battery.nix
+    ../../modules/misc/faster-boot-time.nix
     ../../modules/ecryptfs.nix
     #../../modules/fh/scanning.nix
     ../../modules/support/ntfs.nix
@@ -90,6 +91,18 @@
   services.blueman.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = false; # powers up the default Bluetooth controller on boot
+  boot = {
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+    plymouth.enable = true;
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "udev.log_priority=3"
+      "rd.systemd.show_status=auto"
+    ];
+  };
 
   age.identityPaths =
     [ "/home/kopatz/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key" ];
