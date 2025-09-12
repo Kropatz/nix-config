@@ -201,7 +201,8 @@ in
             wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
             wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
             grimblast = "${pkgs.grimblast}/bin/grimblast";
-            saved-screenshot-cmd = ''${grimblast} --freeze save area $OUT && notify-send "Saved screenshot to $OUT" -h string:image-path:$OUT'';
+            saved-screenshot-cmd = ''${grimblast} --freeze save area $OUT && notify-send "Saved screenshot to $OUT" -h string:image-path:$OUT && echo "file://$(realpath $OUT)" | wl-copy -t text/uri-list
+'';
             pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
             brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
