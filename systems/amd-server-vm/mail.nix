@@ -163,6 +163,27 @@ in
         }
         user = root
       }
+      namespace inbox {
+        inbox = yes
+      
+        # Autocreate special folders
+        mailbox Drafts {
+          special_use = \Drafts
+          auto = subscribe
+        }
+        mailbox Sent {
+          special_use = \Sent
+          auto = subscribe
+        }
+        mailbox Junk {
+          special_use = \Junk
+          auto = subscribe
+        }
+        mailbox Trash {
+          special_use = \Trash
+          auto = subscribe
+        }
+      }
     '';
   };
   environment.etc."dovecot-users".text = tmp_dovecot_passwords;
