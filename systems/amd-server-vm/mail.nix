@@ -1,0 +1,169 @@
+{ config, lib, pkgs, ... }:
+let
+  tmp_dovecot_passwords = "kopatz:{CRYPT}$2y$05$jqBkvhJ0e439J0PLhef4leOGc3GACGH83kSDCrvmAcsdz68tELkA6:5000:5000::/home/kopatz";
+  email-domain = "mail.detschn.net";
+in
+{
+  # 25 = stmp -> postfix
+  # 143 = imap -> dovecot
+  networking.firewall.allowedTCPPorts = [ 25 143 587 ];
+  users = {
+    users = {
+      vmail = {
+        isSystemUser = true;
+        description = "Virtual mail user";
+        home = "/data/vmail";
+        uid = 5000;
+        group = "vmail";
+      };
+    };
+    groups = {
+      vmail = {
+        gid = 5000;
+      };
+    };
+  };
+  systemd.tmpfiles.rules = [ "d /data/vmail 0700 vmail vmail -" ];
+  services.nginx.virtualHosts."${email-domain}" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      extraConfig = ''return 404;'';
+    };
+  };
+  services.postfix = {
+    enable = true;
+    settings = {
+      master = {
+        submission = {
+          type = "inet";
+          private = false;
+          command = "smtpd";
+          args = [ "-o syslog_name=postfix/submission"
+                   "-o smtpd_tls_security_level=encrypt"
+                   "-o smtpd_sasl_auth_enable=yes"
+                   "-o smtpd_client_restrictions=permit_sasl_authenticated,reject"
+                   "-o smtpd_sender_restrictions=reject_unknown_sender_domain"
+                   "-o smtpd_recipient_restrictions=reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject"
+                   "-o smtpd_relay_restrictions=permit_sasl_authenticated,reject"
+                   "-o milter_macro_daemon_name=ORIGINATING"
+                 ];
+        };
+      };
+      main = {
+        myhostname = "${email-domain}";
+        mydomain = "${email-domain}";
+        #myorigin = "$mydomain";
+        mynetworks = [ "127.0.0.0/8" "192.168.0.0/24" "192.168.2.0/24" ];
+        mydestination = [ "localhost.$mydomain" "localhost" ];
+        recipient_delimiter = "+";
+        virtual_mailbox_domains = [ "${email-domain}" ];
+        virtual_mailbox_base = "/data/vmail";
+        virtual_mailbox_maps = "hash:/etc/postfix/virtual-map";
+        virtual_uid_maps = "static:${toString config.users.users.vmail.uid}";
+        virtual_gid_maps = "static:${toString config.users.groups.vmail.gid}";
+        virtual_transport = "virtual";
+        local_transport = "virtual";
+        local_recipient_maps = "$virtual_mailbox_maps";
+        # TLS settings
+        # server settings / SMTP TLS configuration for inbound connections
+        smtpd_tls_security_level = "may";
+        smtpd_tls_chain_files = [ "/var/lib/acme/${email-domain}/key.pem " "/var/lib/acme/${email-domain}/fullchain.pem " ];
+        smtpd_tls_received_header = "yes";
+        smtpd_tls_auth_only = "yes"; # disable AUTH over non-encrypted connections
+        smtpd_tls_ciphers = "high"; # ciphers used in opportunistic TLS
+        smtpd_tls_exclude_ciphers = "aNULL, MD5, DES"; # exclude weak ciphers
+        smtpd_tls_protocols = ">=TLSv1.2";
+        #client settings / SMTP TLS configuration for outbound connections
+        smtp_tls_chain_files = [ "/var/lib/acme/${email-domain}/key.pem " "/var/lib/acme/${email-domain}/fullchain.pem " ]; # private key followed by cert chain
+        smtp_tls_security_level = "may"; #opportunistic TLS
+        smtp_tls_ciphers = "high"; # ciphers used in opportunistic TLS
+        smtp_tls_exclude_ciphers = "aNULL, MD5, DES"; # exclude weak ciphers
+        smtp_tls_protocols = ">=TLSv1.2";
+        # displays TLS information in the E-Mail header
+        smtp_tls_received_header = "yes";
+        smtp_tls_note_starttls_offer = "yes"; # log the hostname of remote servers that offer STARTTLS
+        # TLS logging
+        smtpd_tls_loglevel = 1;
+        smtp_tls_loglevel = 1;
+        # SASL authentication with dovecot
+        smtpd_sasl_auth_enable = "yes";
+        smtpd_sasl_type = "dovecot";
+        smtpd_sasl_path = "private/auth";
+        smtpd_sasl_security_options = "noanonymous";
+        smtpd_sasl_local_domain = "$myhostname";
+        #smtpd_client_restrictions = "permit_sasl_authenticated,reject";
+        smtpd_sender_restrictions = "reject_unknown_sender_domain";
+        # https://www.postfix.org/SMTPD_ACCESS_README.html
+        smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject_unauth_destination";
+        smtpd_relay_restrictions = "permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination";
+        # For DKIM (milter = mail filter)
+        smtpd_milters = "unix:/run/opendkim/opendkim.sock";
+        non_smtpd_milters = "$smtpd_milters";
+        milter_default_action = "accept";
+      };
+    };
+    virtual = ''
+      root@${email-domain} kopatz@${email-domain}
+      mailer-daemon@${email-domain} kopatz@${email-domain}
+      postmaster@${email-domain} kopatz@${email-domain}
+      nobody@${email-domain} kopatz@${email-domain}
+      hostmaster@${email-domain} kopatz@${email-domain}
+      usenet@${email-domain} kopatz@${email-domain}
+      news@${email-domain} kopatz@${email-domain}
+      webmaster@${email-domain} kopatz@${email-domain}
+      www@${email-domain} kopatz@${email-domain}
+      ftp@${email-domain} kopatz@${email-domain}
+      abuse@${email-domain} kopatz@${email-domain}
+      dmarcreports@${email-domain} kopatz@${email-domain}
+    '';
+    mapFiles = {
+      "virtual-map" = pkgs.writeText "postfix-virtual" ''
+        kopatz@${email-domain} ${email-domain}/kopatz/
+        test@${email-domain} ${email-domain}/test/
+      '';
+    };
+  };
+  services.opendkim = {
+    enable = true;
+    user = "postfix";
+    group = "postfix";
+    domains = "csl:${email-domain}";
+    selector = "mail";
+    socket = "local:/run/opendkim/opendkim.sock";
+  };
+  services.dovecot2 = {
+    enable = true;
+    enableImap = true;
+    enablePAM = false;
+    configFile = pkgs.writeText "dovecot.conf" ''
+      default_internal_user = ${config.services.dovecot2.user}
+      default_internal_group = ${config.services.dovecot2.group}
+      passdb {
+        driver = passwd-file
+        args = scheme=CRYPT username_format=%u /etc/dovecot-users
+      }
+
+      userdb {
+        driver = passwd-file
+        args = username_format=%u /etc/dovecot-users
+        default_fields = uid=vmail gid=vmail home=/home/vmail/%u
+      }
+      mail_location = maildir:/data/vmail/${email-domain}/%n
+
+      ssl = no
+      disable_plaintext_auth = no
+      auth_mechanisms = plain
+
+      service auth {
+        unix_listener /var/lib/postfix/queue/private/auth {
+          group = postfix
+          mode = 0660
+          user = postfix
+        }
+        user = root
+      }
+    '';
+  };
+  environment.etc."dovecot-users".text = tmp_dovecot_passwords;
+}
