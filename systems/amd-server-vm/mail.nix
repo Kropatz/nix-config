@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
 let
+  # create hash -> dovecot -O pw
   tmp_dovecot_passwords = "kopatz:{CRYPT}$2y$05$jqBkvhJ0e439J0PLhef4leOGc3GACGH83kSDCrvmAcsdz68tELkA6:5000:5000::/home/kopatz";
   email-domain = "mail.detschn.net";
 in

@@ -32,6 +32,12 @@ in {
       #This is useful to execute shebangs on NixOS that assume hard coded locations in locations like /bin or /usr/bin etc.
       services.envfs.enable = true;
 
+      # enables fzf and integration with bash/zsh/fish
+      programs.fzf = {
+        fuzzyCompletion = true;
+        keybindings = true;
+      };
+
       environment.systemPackages = with pkgs; [
         getTotalPowerUsed
         watchCurrentPowerUsed
@@ -39,7 +45,6 @@ in {
           wget
         else
           powerjoular) # monitor power usage
-        fzf # fuzzy finder
         bat # fancy cat
         fd # nicer find
         duf # nicer du
