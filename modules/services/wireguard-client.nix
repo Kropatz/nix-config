@@ -20,7 +20,7 @@
         {
           #allowedIPs = [ "192.168.2.0/24" "192.168.0.0/24" ];
           allowedIPs = [ "0.0.0.0/0" ];
-          endpoint = "kopatz.ddns.net:51820";
+          endpoint = "kopatz.dev:51820";
           publicKey = "vyHNUy97R1cvqEvElznPpFQtoqm7WUHnT96UP6Dquwc=";
           persistentKeepalive = 30;
         }
