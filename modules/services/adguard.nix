@@ -107,6 +107,10 @@ in {
                 "answer" = ip;
               }
               {
+                "domain" = "kopatz.dev";
+                "answer" = ip;
+              }
+              {
                 "domain" = "kop.oasch.net";
                 "answer" = ip;
               }

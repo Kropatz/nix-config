@@ -1,12 +1,15 @@
 { config, lib, pkgs, ... }:
 let
   # create hash -> dovecot -O pw
-  tmp_dovecot_passwords = "kopatz:{CRYPT}$2y$05$jqBkvhJ0e439J0PLhef4leOGc3GACGH83kSDCrvmAcsdz68tELkA6:5000:5000::/home/kopatz";
-  email-domain = "mail.detschn.net";
+  tmp_dovecot_passwords = ''
+  lukas:{CRYPT}$2y$05$jqBkvhJ0e439J0PLhef4leOGc3GACGH83kSDCrvmAcsdz68tELkA6:5000:5000::/home/lukas";
+  '';
+  email-domain = "kopatz.dev";
 in
 {
   # 25 = stmp -> postfix
   # 143 = imap -> dovecot
+  # 587 = submission -> postfix
   networking.firewall.allowedTCPPorts = [ 25 143 587 ];
   users = {
     users = {
@@ -28,9 +31,6 @@ in
   services.nginx.virtualHosts."${email-domain}" = {
     forceSSL = true;
     enableACME = true;
-    locations."/" = {
-      extraConfig = ''return 404;'';
-    };
   };
   services.postfix = {
     enable = true;
@@ -105,22 +105,22 @@ in
       };
     };
     virtual = ''
-      root@${email-domain} kopatz@${email-domain}
-      mailer-daemon@${email-domain} kopatz@${email-domain}
-      postmaster@${email-domain} kopatz@${email-domain}
-      nobody@${email-domain} kopatz@${email-domain}
-      hostmaster@${email-domain} kopatz@${email-domain}
-      usenet@${email-domain} kopatz@${email-domain}
-      news@${email-domain} kopatz@${email-domain}
-      webmaster@${email-domain} kopatz@${email-domain}
-      www@${email-domain} kopatz@${email-domain}
-      ftp@${email-domain} kopatz@${email-domain}
-      abuse@${email-domain} kopatz@${email-domain}
-      dmarcreports@${email-domain} kopatz@${email-domain}
+      root@${email-domain} lukas@${email-domain}
+      mailer-daemon@${email-domain} lukas@${email-domain}
+      postmaster@${email-domain} lukas@${email-domain}
+      nobody@${email-domain} lukas@${email-domain}
+      hostmaster@${email-domain} lukas@${email-domain}
+      usenet@${email-domain} lukas@${email-domain}
+      news@${email-domain} lukas@${email-domain}
+      webmaster@${email-domain} lukas@${email-domain}
+      www@${email-domain} lukas@${email-domain}
+      ftp@${email-domain} lukas@${email-domain}
+      abuse@${email-domain} lukas@${email-domain}
+      dmarcreports@${email-domain} lukas@${email-domain}
     '';
     mapFiles = {
       "virtual-map" = pkgs.writeText "postfix-virtual" ''
-        kopatz@${email-domain} ${email-domain}/kopatz/
+        lukas@${email-domain} ${email-domain}/lukas/
         test@${email-domain} ${email-domain}/test/
       '';
     };

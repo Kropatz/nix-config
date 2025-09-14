@@ -10,6 +10,7 @@
     ../../modules/misc/motd.nix
     ../../modules/misc/kernel.nix
     ../../modules/services/duckdns.nix
+    ../../modules/services/ddclient-cloudflare.nix
     ./disk-config.nix
     ./mail.nix
     (modulesPath + "/installer/scan/not-detected.nix")
