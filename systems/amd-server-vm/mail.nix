@@ -44,6 +44,7 @@ in
                    "-o smtpd_tls_security_level=encrypt"
                    "-o smtpd_sasl_auth_enable=yes"
                    "-o smtpd_client_restrictions=permit_sasl_authenticated,reject"
+                   # TODO: look into check_sender_access hash:/etc/postfix/sender_access
                    "-o smtpd_sender_restrictions=reject_unknown_sender_domain"
                    "-o smtpd_recipient_restrictions=reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject"
                    "-o smtpd_relay_restrictions=permit_sasl_authenticated,reject"
@@ -81,8 +82,6 @@ in
         smtp_tls_ciphers = "high"; # ciphers used in opportunistic TLS
         smtp_tls_exclude_ciphers = "aNULL, MD5, DES"; # exclude weak ciphers
         smtp_tls_protocols = ">=TLSv1.2";
-        # displays TLS information in the E-Mail header
-        smtp_tls_received_header = "yes";
         smtp_tls_note_starttls_offer = "yes"; # log the hostname of remote servers that offer STARTTLS
         # TLS logging
         smtpd_tls_loglevel = 1;

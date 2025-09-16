@@ -59,7 +59,7 @@ in {
         git
         gh # github
         killall
-        xclip
+        #xclip
         usbutils
         inputs.agenix.packages."x86_64-linux".default
         fastfetch
@@ -85,7 +85,7 @@ in {
         nvd # nix diff, example: nvd diff /nix/var/nix/profiles/system-389-link /nix/var/nix/profiles/system-390-link
         compsize
         trashy # move files to trash
-        shell-gpt
+        #shell-gpt #openai bitches stole my credits :(
         libheif # convert heic to jpg with `heif-convert something.heic something.jpg`
         imagemagick # convert images
         tree
@@ -93,6 +93,8 @@ in {
         nix-tree # show nix derivations
         binwalk # show what's inside a binary
         iotop
+        inetutils 
+        nettools
       ];
     };
 }
