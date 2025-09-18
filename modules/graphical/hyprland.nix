@@ -56,7 +56,7 @@ in {
       # hyprland stuff
       dunst
       hyprpaper
-      rofi-wayland
+      rofi
       libnotify
       networkmanagerapplet
       wayland

@@ -41,7 +41,7 @@ in {
 
     environment.systemPackages = with pkgs; [
       wmctrl
-      rofi-wayland
+      rofi
       mutter
       adwaita-icon-theme
       gnome-settings-daemon

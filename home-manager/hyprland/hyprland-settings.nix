@@ -172,7 +172,8 @@ in
 
         gestures = {
           # See https://wiki.hyprland.org/Configuring/Variables/ for more
-          workspace_swipe = true;
+          # doesnt exist anymore TODO: change
+          #workspace_swipe = true;
         };
 
         # Example per-device config
@@ -193,7 +194,7 @@ in
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
         bind =
           let
-            rofi = "${pkgs.rofi-wayland}/bin/rofi";
+            rofi = "${pkgs.rofi}/bin/rofi";
             rofimoji = "${pkgs.rofimoji}/bin/rofimoji";
             kitty = "${pkgs.kitty}/bin/kitty";
             #dolphin = "${pkgs.dolphin}/bin/dolphin";
