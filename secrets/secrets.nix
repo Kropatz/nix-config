@@ -30,7 +30,7 @@ in
   "step-ca-key.age".publicKeys = [ mini-pc mini-pc-proxmox server kop ];
   "grafana-contact-points.age".publicKeys = [ mini-pc mini-pc-proxmox server kop ];
   "fileshelter-conf.age".publicKeys = [ mini-pc mini-pc-proxmox server kop ];
-  "webhook.age".publicKeys = [ mini-pc mini-pc-proxmox server kop amd-server ];
+  "webhook.age".publicKeys = [ mini-pc mini-pc-proxmox server kop amd-server adam-site ];
   "stash-auth.age".publicKeys = [ mini-pc mini-pc-proxmox server kop ];
   "plausible-admin.age".publicKeys = [ adam-site kop ];
   "plausible-keybase.age".publicKeys = [ adam-site kop ];

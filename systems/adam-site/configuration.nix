@@ -68,5 +68,44 @@
     efiSupport = true;
     efiInstallAsRemovable = true;
   };
+  age.secrets.webhook = {
+    file = ../../secrets/webhook.age;
+  };
+  # service that runs all the time, pkgs.kop-monitor
+  systemd.services.kop-monitor = {
+    description = "Kop Monitor";
+    wants = [ "network-online.target" ];
+    after = [ "network.target" "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    path = [ "${pkgs.iputils}" ];
+    serviceConfig = with lib; {
+      Type = "simple";
+      ExecStart = "${(pkgs.kop-monitor.overrideAttrs {
+          src = fetchGit {
+            url = "git@github.com:kropatz/monitor.git";
+            ref = "monitor-homeserver";
+            rev = "14e84874302146690491a8ced7e3c89dce183a74";
+          };
+      })}/bin/monitor";
+      DynamicUser = true;
+      Restart = "on-failure";
+      RestartSec = "5s";
+      EnvironmentFile = config.age.secrets.webhook.path;
+      PrivateMounts = mkDefault true;
+      PrivateTmp = mkDefault true;
+      PrivateUsers = mkDefault true;
+      ProtectClock = mkDefault true;
+      ProtectControlGroups = mkDefault true;
+      ProtectHome = mkDefault true;
+      ProtectHostname = mkDefault true;
+      ProtectKernelLogs = mkDefault true;
+      ProtectKernelModules = mkDefault true;
+      ProtectKernelTunables = mkDefault true;
+      ProtectSystem = mkDefault "strict";
+      # Needs network access
+      PrivateNetwork = mkDefault false;
+    };
+
+  };
   system.stateVersion = "23.11";
 }
