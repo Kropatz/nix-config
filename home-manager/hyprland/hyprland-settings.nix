@@ -120,7 +120,12 @@ in
         render = {
           new_render_scheduling = true;
         };
-        misc = { vfr = true; middle_click_paste = false; enable_anr_dialog = false; };
+        misc = { 
+          vfr = true; 
+          middle_click_paste = false; 
+          enable_anr_dialog = false;
+          disable_hyprland_logo = true;
+        };
         xwayland = lib.mkIf isPc { force_zero_scaling = true; };
 
         decoration = {
