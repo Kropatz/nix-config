@@ -55,6 +55,7 @@
   mainUser.layout = "de";
   mainUser.variant = "us";
 
+  nix.gc.automatic = lib.mkForce false;
   networking = {
     useDHCP = false;
     defaultGateway.address = "192.168.0.1";

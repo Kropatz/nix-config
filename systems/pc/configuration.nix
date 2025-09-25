@@ -99,8 +99,10 @@
       };
     };
   };
+
+  nix.gc.automatic = lib.mkForce false;
   services.searx = {
-    enable = true;
+    enable = false;
     settings = {
       use_default_settings=true;
       server.port = 8787;
