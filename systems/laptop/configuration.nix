@@ -30,6 +30,7 @@
     nixvimPlugins = true;
     nix = {
       ld.enable = true;
+      index.enable = true;
       settings.enable = true;
     };
     misc = {
