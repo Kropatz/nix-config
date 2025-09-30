@@ -92,11 +92,11 @@
     defaultWindowManager = "xfce4-session";
     enable = true;
     openFirewall = false;
-    extraConfDirCommands = ''
-      substituteInPlace $out/sesman.ini \
-        --replace LogLevel=INFO LogLevel=DEBUG \
-        --replace LogFile=/dev/null LogFile=/var/log/xrdp.log
-    '';
+    #extraConfDirCommands = ''
+    #  substituteInPlace $out/sesman.ini \
+    #    --replace LogLevel=INFO LogLevel=DEBUG \
+    #    --replace LogFile=/dev/null LogFile=/var/log/xrdp.log
+    #'';
   };
   security.polkit.enable = true;
   security.polkit.extraConfig = ''

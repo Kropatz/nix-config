@@ -38,6 +38,13 @@ in {
         keybindings = true;
       };
 
+      environment.etc."tmux.conf".text = ''
+        set -g mouse on
+        set -g allow-passthrough on
+        set -g set-clipboard on
+        set -g prefix C-space
+      '';
+
       environment.systemPackages = with pkgs; [
         getTotalPowerUsed
         watchCurrentPowerUsed
@@ -93,7 +100,7 @@ in {
         nix-tree # show nix derivations
         binwalk # show what's inside a binary
         iotop
-        inetutils 
+        inetutils
         nettools
       ];
     };
