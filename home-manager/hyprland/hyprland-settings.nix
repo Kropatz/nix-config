@@ -238,7 +238,7 @@ in
               $mainMod, Print, exec, export OUT=/tmp/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
             ''
               Shift_L, Print, exec, export OUT=~/Pictures/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
-            "$mainMod, G, exec, ${peek}" # record gif
+            #"$mainMod, G, exec, ${peek}" # record gif
             "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
             " , XF86AudioPlay, exec, ${playerctl} play-pause"
             " , XF86AudioNext, exec, ${playerctl} next"

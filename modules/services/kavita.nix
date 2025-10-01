@@ -23,7 +23,7 @@ in {
   };
   config =
     let
-      fqdn = "kavita-kopatz.duckdns.org";
+      fqdn = "kavita.kopatz.dev";
       useStepCa = false; # config.services.step-ca.enable;
       useHttps = cfg.https;
       baseDir = cfg.dir;
