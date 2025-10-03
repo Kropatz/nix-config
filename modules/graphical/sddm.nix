@@ -11,10 +11,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura";}) ];
     services = {
       displayManager.sddm = {
         enable = true;
-        theme = "${pkgs.sddm-astronaut}";
+        theme = "sddm-astronaut-theme";
+        extraPackages = [ (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura";}) ];
         #wayland.enable = true;
         #sddm.theme = "breeze";
       };

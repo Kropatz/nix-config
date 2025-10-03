@@ -9,7 +9,7 @@
   kop-website =
     pkgs.callPackage ./website/default.nix { inherit kop-hub ente-frontend; };
   scheibnkleister-presence = pkgs.callPackage ./scheibnkleister-presence/default.nix { };
-  sddm-astronaut = pkgs.callPackage ./sddm-astronaut/default.nix { };
+  custom-sddm-astronaut = pkgs.callPackage ./sddm-astronaut/default.nix { };
   mangal-patched = pkgs.callPackage ./mangal/default.nix { };
   csharp-ls-8 = pkgs.callPackage ./csharp-lsp/default.nix { };
   gpu-screen-recorder-ui = pkgs.callPackage ./gpu-screen-recorder-ui/default.nix { };
