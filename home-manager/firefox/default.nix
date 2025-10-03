@@ -129,7 +129,7 @@ in
           }
         '';
         userContent = ''
-          body {
+          body:-moz-only-whitespace {
             --body-bg-color: #${base16.base01};
             background-color: #${base16.base01};
           }

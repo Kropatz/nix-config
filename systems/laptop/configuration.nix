@@ -107,6 +107,7 @@ in
   environment.systemPackages = with pkgs; [
     nvtopPackages.amd
     ryzenadj
+    prismlauncher
   ];
 
   #services.joycond.enable = true;
