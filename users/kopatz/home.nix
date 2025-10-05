@@ -52,4 +52,14 @@
     };
   };
 
+  xdg.desktopEntries = {
+    notes = {
+      name = "Notes";
+      exec = "kitty nvim /synced/default/notes.md";
+      icon = "nvim";
+      type = "Application";
+      categories = [ "Utility" "TextEditor"  ];
+      mimeType = [ "text/markdown" "text/plain" ];
+    };
+  };
 }

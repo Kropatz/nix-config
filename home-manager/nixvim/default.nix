@@ -22,7 +22,8 @@ let
     ./lsp.nix
     ./images.nix
     ./none-ls.nix
-    ./nvim-tree.nix
+      #./nvim-tree.nix
+    ./neo-tree.nix
     ./telescope.nix
     ./toggleterm.nix
     ./treesitter.nix

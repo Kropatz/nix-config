@@ -36,10 +36,15 @@
   keymaps = [
     # Global
     # Default mode is "" which means normal-visual-op
+    #{
+    #  key = "<leader>x";
+    #  action = "<CMD>NvimTreeToggle<CR>";
+    #  options.desc = "Toggle NvimTree";
+    #}
     {
       key = "<leader>x";
-      action = "<CMD>NvimTreeToggle<CR>";
-      options.desc = "Toggle NvimTree";
+      action = "<CMD>Neotree toggle<CR>";
+      options.desc = "Toggle Neotree";
     }
     {
       key = "<leader>p";
@@ -86,21 +91,23 @@
       action = "<CMD>Gitsigns toggle_deleted";
       options.desc = "Gitsigns deleted";
     }
-    {
-      key = "<leader>gc";
-      action = "<CMD>NvimTreeClose<CR><CMD>Neogit<CR>";
-      options.desc = "Commit changes";
-    }
-    {
-      key = "<leader>gd";
-      action = "<CMD>NvimTreeClose<CR><CMD>DiffviewOpen<CR>";
-      options.desc = "View git changes";
-    }
-    {
-      key = "<leader>gq";
-      action = "<CMD>DiffviewClose<CR><CMD>NvimTreeOpen<CR>";
-      options.desc = "Close git changes";
-    }
+    # === Neogit ===
+    #{
+    #  key = "<leader>gc";
+    #  action = "<CMD>NvimTreeClose<CR><CMD>Neogit<CR>";
+    #  options.desc = "Commit changes";
+    #}
+    #{
+    #  key = "<leader>gd";
+    #  action = "<CMD>NvimTreeClose<CR><CMD>DiffviewOpen<CR>";
+    #  options.desc = "View git changes";
+    #}
+    #{
+    #  key = "<leader>gq";
+    #  action = "<CMD>DiffviewClose<CR><CMD>NvimTreeOpen<CR>";
+    #  options.desc = "Close git changes";
+    #}
+    # === End Neogit ===
     {
       mode = "n";
       key = "<leader>gr";
