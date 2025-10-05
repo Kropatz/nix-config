@@ -23,9 +23,6 @@
     description = config.mainUser.name;
     shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-      brave
-    ];
     openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];
   };
 }
