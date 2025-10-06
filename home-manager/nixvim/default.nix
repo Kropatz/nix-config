@@ -22,8 +22,8 @@ let
     ./lsp.nix
     ./images.nix
     ./none-ls.nix
-      #./nvim-tree.nix
-    ./neo-tree.nix
+    ./nvim-tree.nix
+      #./neo-tree.nix
     ./telescope.nix
     ./toggleterm.nix
     ./treesitter.nix
@@ -35,6 +35,7 @@ let
     ./hop.nix
     ./colorizer.nix
     ./surround.nix
+    ./vimwiki.nix
   ]);
   merged =
     builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;

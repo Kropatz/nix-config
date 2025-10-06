@@ -55,7 +55,7 @@
   xdg.desktopEntries = {
     notes = {
       name = "Notes";
-      exec = "kitty nvim /synced/default/notes.md";
+      exec = "kitty -d /synced/default/vimwiki nvim /synced/default/vimwiki/index.md";
       icon = "nvim";
       type = "Application";
       categories = [ "Utility" "TextEditor"  ];

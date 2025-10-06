@@ -5,6 +5,7 @@
       enable = true;
       window.width = 30;
       filesystem.followCurrentFile.enabled = true;
+      filesystem.bindToCwd = true;
       sourceSelector = {
         #statusline = true;
         winbar = true;

@@ -3,6 +3,9 @@
     treesitter = {
       enable = true;
       nixGrammars = true;
+      languageRegister = {
+        markdown = "vimwiki";
+      };
       settings = {
         indent.enable = true;
         highlight = {

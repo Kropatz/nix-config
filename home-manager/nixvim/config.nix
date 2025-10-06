@@ -36,16 +36,16 @@
   keymaps = [
     # Global
     # Default mode is "" which means normal-visual-op
-    #{
-    #  key = "<leader>x";
-    #  action = "<CMD>NvimTreeToggle<CR>";
-    #  options.desc = "Toggle NvimTree";
-    #}
     {
       key = "<leader>x";
-      action = "<CMD>Neotree toggle<CR>";
-      options.desc = "Toggle Neotree";
+      action = "<CMD>NvimTreeToggle<CR>";
+      options.desc = "Toggle NvimTree";
     }
+    #{
+    #  key = "<leader>x";
+    #  action = "<CMD>Neotree toggle<CR>";
+    #  options.desc = "Toggle Neotree";
+    #}
     {
       key = "<leader>p";
       action = "<CMD>PasteImg<CR>";
