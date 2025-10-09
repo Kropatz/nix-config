@@ -82,6 +82,7 @@
       noise-supression.enable = true;
       obs.enable = true;
       gpu-screen-recorder-ui.enable = true;
+      niri.enable = true;
       #openrgb.enable = true;
       sddm.enable = true;
       #plasma.enable = true;

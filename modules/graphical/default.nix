@@ -28,5 +28,6 @@
     ./basics.nix
     ./sway.nix
     ./gpu-screen-recorder-ui.nix
+    ./niri.nix
   ];
 }

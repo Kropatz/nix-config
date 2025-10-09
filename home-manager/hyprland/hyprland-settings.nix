@@ -95,6 +95,7 @@ in
 
           accel_profile = "flat";
           sensitivity = 0;
+          repeat_delay = 250;
         };
 
         #cursor = { no_hardware_cursors = true; };
