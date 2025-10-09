@@ -158,6 +158,8 @@ in
       auth_mechanisms = plain
 
       #https://doc.dovecot.org/2.3/configuration_manual/dovecot_ssl_configuration/#dovecot-ssl-configuration
+      #openssl s_client -servername mail.sample.com -connect mail.sample.com:imap -starttls imap
+
       disable_plaintext_auth = yes
       ssl = required
       ssl_key = </var/lib/acme/${email-domain}/key.pem 
