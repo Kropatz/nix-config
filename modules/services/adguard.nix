@@ -64,8 +64,9 @@ in {
             protection_enabled = true;
             filtering_enabled = true;
             upstream_dns = [
-              "https://dns10.quad9.net/dns-query"
-              "https://dns.adguard-dns.com/dns-query"
+                #"https://dns10.quad9.net/dns-query" slow
+              "quic://dns.adguard-dns.com"
+                #"tls://noads.libredns.gr" slow
               "https://noads.joindns4.eu/dns-query"
               "tls://getdnsapi.net"
             ];
