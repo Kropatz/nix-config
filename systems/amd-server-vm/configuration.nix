@@ -51,13 +51,13 @@
         let
           kavita = "/data/kavita";
           gitolite = "/var/lib/gitolite";
-          mail = "/data/vmail";
+          mail = [ "/data/vmail" "/var/lib/opendkim" ];
           syncthing = [ "/data/synced/default/" "/data/synced/work_drive/" ];
           syncthingFull = syncthing
             ++ [ "/data/synced/fh/" "/data/synced/books/" ];
-          backupPathsSmall = [ "/home" gitolite mail ] ++ syncthing;
-          backupPathsMedium = [ "/home" gitolite mail ] ++ syncthing;
-          backupPathsFull = [ "/home" kavita gitolite mail ] ++ syncthingFull;
+          backupPathsSmall = [ "/home" gitolite ] ++ syncthing ++ mail;
+          backupPathsMedium = [ "/home" gitolite ] ++ syncthing ++ mail;
+          backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull ++ mail;
         in
         {
           enable = true;
