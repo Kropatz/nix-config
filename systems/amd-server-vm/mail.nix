@@ -153,9 +153,17 @@ in
       }
       mail_location = maildir:/data/vmail/${email-domain}/%n
 
-      ssl = no
-      disable_plaintext_auth = no
+      #ssl = no
+      #disable_plaintext_auth = no
       auth_mechanisms = plain
+
+      #https://doc.dovecot.org/2.3/configuration_manual/dovecot_ssl_configuration/#dovecot-ssl-configuration
+      disable_plaintext_auth = yes
+      ssl = required
+      ssl_key = </var/lib/acme/${email-domain}/key.pem 
+      ssl_cert = </var/lib/acme/${email-domain}/cert.pem
+      ssl_prefer_server_ciphers = yes
+      ssl_cipher_list = HIGH
 
       service auth {
         unix_listener /var/lib/postfix/queue/private/auth {
