@@ -119,7 +119,7 @@
   # Disable Javascript in PDF viewer
   # Disables executing of JavaScript in the PDF form viewer. It is possible that
   # some PDFs are not rendered correctly due to missing functions.
-  "pdfjs.enableScripting" = true;
+  "pdfjs.enableScripting" = false;
 
   # copied these from a blog 
   "browser.newtabpage.activity-stream.feeds.telemetry" = false;
