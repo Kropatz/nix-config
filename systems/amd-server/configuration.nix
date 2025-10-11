@@ -1,7 +1,5 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
+# 0000:2b:00.0 VGA compatible controller [0300]: NVIDIA Corporation GM204 [GeForce GTX 970] [10de:13c2] (rev a1)
+# 0000:2b:00.1 Audio device [0403]: NVIDIA Corporation GM204 High Definition Audio Controller [10de:0fbb] (rev a1)
 { config, lib, pkgs, ... }:
 
 {
@@ -25,9 +23,13 @@
     };
     hardware = {
       #amd-gpu.enable = true;
-      nvidia.enable = true;
+      nvidia.enable = false;
       firmware.enable = true;
       ssd.enable = true;
+      vfio = {
+        enable = true;
+        stub_pci = [ "10de:13c2" "10de:0fbb" ]; #nvidia
+      };
       wooting.enable = true;
     };
     services = {
@@ -40,7 +42,7 @@
     };
     graphical = {
       audio.enable = true;
-      sddm.enable = true;
+      #sddm.enable = true;
       #nightlight.enable = true;
       #i3.enable = true;
       xfce.enable = true;
@@ -54,6 +56,7 @@
   };
   mainUser.layout = "de";
   mainUser.variant = "us";
+  services.xserver.displayManager.lightdm.enable = false; #no login manager!
 
   nix.gc.automatic = lib.mkForce false;
   networking = {
