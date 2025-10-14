@@ -20,7 +20,7 @@ in
 
     nix = {
       optimise.automatic = cfg.optimise;
-      settings.experimental-features = [ "nix-command" "flakes" ];
+      settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
       # not used
       #settings.substituters =
       #  lib.mkIf (config.networking.hostName == "kop-pc")

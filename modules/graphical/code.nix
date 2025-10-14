@@ -14,7 +14,7 @@ in
     documentation.dev.enable = true;
     environment.systemPackages = with pkgs; [
       man-pages
-      stable.jetbrains.idea-ultimate
+      jetbrains.idea-ultimate
       typescript
       insomnia
       nodejs_22 # needed for tabby extension

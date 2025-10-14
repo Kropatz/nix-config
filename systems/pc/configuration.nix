@@ -42,7 +42,7 @@
       #gateway = "192.168.0.10";
     };
     misc = { docker.enable = true; };
-    services = { syncthing = { enable = true; }; };
+    services = { syncthing = { enable = true; }; adguard.ip = "192.168.0.10"; };
     hardware = {
       android.enable = true;
       amd-gpu = {
@@ -234,6 +234,18 @@
       -----END CERTIFICATE-----
     ''
   ];
+
+  networking.hosts = let 
+    addr_to_domain_list = config.custom.services.adguard.rewrites |> map (x: { "${x.answer}" = [ x.domain ];} );
+    flattened = builtins.foldl' (acc: elem:
+        let
+          ip = builtins.head (builtins.attrNames elem);
+          names = elem.${ip};
+        in acc // {
+          ${ip} = (acc.${ip} or []) ++ names;
+        }
+      ) {} addr_to_domain_list;
+    in flattened;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
