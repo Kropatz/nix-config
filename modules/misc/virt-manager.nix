@@ -22,8 +22,6 @@ in {
         qemu = {
           #package = pkgs.qemu_kvm;
           swtpm.enable = true;
-          ovmf.enable = true;
-          ovmf.packages = [ pkgs.OVMFFull.fd ];
         };
         hooks.qemu = {
           # doesnt work, screen just freezes. no error in libvirt logs though, so idk how to fix it

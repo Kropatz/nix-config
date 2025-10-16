@@ -47,7 +47,7 @@
       android.enable = true;
       amd-gpu = {
         enable = true;
-        rocm.enable = true;
+        rocm.enable = false;
         overdrive = true;
       };
       vr.enable = true;
