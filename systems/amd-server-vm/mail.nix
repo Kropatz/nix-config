@@ -46,7 +46,8 @@ in
                    "-o smtpd_sasl_auth_enable=yes"
                    "-o smtpd_client_restrictions=permit_sasl_authenticated,reject"
                    # TODO: look into check_sender_access hash:/etc/postfix/sender_access
-                   "-o smtpd_sender_restrictions=reject_unknown_sender_domain"
+                   # reject_unknown_sender_domain blocks internal git from evolit
+                    #"-o smtpd_sender_restrictions="
                    "-o smtpd_recipient_restrictions=reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject"
                    "-o smtpd_relay_restrictions=permit_sasl_authenticated,reject"
                    "-o milter_macro_daemon_name=ORIGINATING"
@@ -59,6 +60,7 @@ in
         #myorigin = "$mydomain";
         mynetworks = [ "127.0.0.0/8" "192.168.0.0/24" "192.168.2.0/24" ];
         mydestination = [ "localhost.$mydomain" "localhost" ];
+        message_size_limit = 25600000; # 25MB
         recipient_delimiter = "+";
         virtual_mailbox_domains = [ "${email-domain}" ];
         virtual_mailbox_base = "/data/vmail";
@@ -94,7 +96,8 @@ in
         smtpd_sasl_security_options = "noanonymous";
         smtpd_sasl_local_domain = "$myhostname";
         #smtpd_client_restrictions = "permit_sasl_authenticated,reject";
-        smtpd_sender_restrictions = "reject_unknown_sender_domain";
+        # reject_unknown_sender_domain blocks internal git from evolit
+        #smtpd_sender_restrictions = "reject_unknown_sender_domain";
         # https://www.postfix.org/SMTPD_ACCESS_README.html
         smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject_unauth_destination";
         smtpd_relay_restrictions = "permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination";
