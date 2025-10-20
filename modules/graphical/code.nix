@@ -14,9 +14,9 @@ in
     documentation.dev.enable = true;
     environment.systemPackages = with pkgs; [
       man-pages
-      jetbrains.idea-ultimate
+      stable.jetbrains.idea-ultimate
       typescript
-      insomnia
+      bruno 
       nodejs_22 # needed for tabby extension
       python3
       gcc

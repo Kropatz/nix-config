@@ -233,7 +233,7 @@ in
             "$mainMod, I, exec, ${rofi} -show drun -show-icons"
             "$mainMod, period, exec, ${rofimoji}"
             "$mainMod, Z, exec, hyprshade off && (${woomer} &) && hyprshade auto"
-            ''$mainMod, S, exec, echo "skip" | nc kopatz.ddns.net 8888''
+            ''$mainMod, S, exec, echo "skip" | nc kopatz.dev 8888''
             ''$mainMod, R, exec, hyprctl hyprpaper reload ,"$(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"''
             "$mainMod, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
             "        , Print, exec, hyprshade off && ${grimblast} --freeze copy area && hyprshade auto"
