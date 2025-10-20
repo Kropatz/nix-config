@@ -370,7 +370,7 @@ in
           dunstify = "${pkgs.dunst}/bin/dunstify";
           dunstctl = "${pkgs.dunst}/bin/dunstctl";
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep --cache";
-          path = "/synced/fh/os-hardening/**/slides";
+          path = "/synced/fh/master/ot_fundamentals_and_security/merged";
           node = "${pkgs.nodejs}/bin/node";
           set-monitor = "~/.config/hypr/monitor-config.js";
         in
@@ -382,17 +382,17 @@ in
           bind = $mainMod, R, exec, hyprctl keyword monitor ",preferred,auto,auto" && ${dunstify} "Mirroring disabled"
           bind = $mainMod, P, exec, ${node} ${set-monitor}
           ## below
-          #bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+          bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
           ## above
-          #bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+          bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
           ## context
-          #bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+          bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
           ## trim
-          #bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}
-          #bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
-          #bind = $mainMod, D, exec, ${dunstctl} close-all
+          bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}
+          bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
+          bind = $mainMod, D, exec, ${dunstctl} close-all
           ## I win
-          #bind = $mainMod, P, exec, ${wl-paste} | sgpt --model="gpt-4o" "Respond with the correct answer to the following question." | ${wl-copy}
+          #bind = $mainMod, W, exec, ${wl-paste} | sgpt --model="gpt-4o" "Respond with the correct answer to the following question." | ${wl-copy}
           ## notes
 
           #bind = $mainMod, 2, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
