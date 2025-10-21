@@ -108,6 +108,23 @@
 
   # 8888 = scheibenmeister skip button
   networking.firewall.allowedTCPPorts = [ 25565 25566 8888 ];
+  networking.nftables.tables.ip_drop = {
+    family = "inet";
+    content = ''
+      set blocked-ip4 {
+        typeof ip saddr
+        flags interval
+        auto-merge
+        elements = { 45.144.212.240 }
+      }
+      chain input {
+        # -100 priority to run before the default filter input chain (0)
+        type filter hook input priority -100; policy accept;
+
+        ip saddr @blocked-ip4 log prefix "nftables drop: " level info counter drop
+      }
+    '';
+  };
   networking.hostName = "server-vm"; # Define your hostname.
 
   #services.murmur = {
