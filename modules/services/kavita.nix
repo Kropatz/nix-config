@@ -31,7 +31,7 @@ in {
       githubRunnerEnabled = config.services.github-runners ? oberprofis.enable;
     in
     lib.mkIf cfg.enable {
-      networking.firewall.allowedTCPPorts = [ 5000 ];
+      # not needed with nginx networking.firewall.allowedTCPPorts = [ 5000 ];
       systemd.tmpfiles.rules = [
         (if githubRunnerEnabled then
           "d ${baseDir} 0750 kavita github-actions-runner -"
