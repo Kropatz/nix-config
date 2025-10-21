@@ -18,4 +18,5 @@
   hollow-grub = pkgs.callPackage ./hollow-grub/default.nix { };
   peframe = pkgs.callPackage ./peframe/default.nix { python3Packages = pkgs.python3Packages; inherit virustotal-api; };
   virustotal-api = pkgs.callPackage ./virustotal-api/default.nix { python3Packages = pkgs.python3Packages; };
+  answer = pkgs.callPackage ./answer/default.nix { };
 }

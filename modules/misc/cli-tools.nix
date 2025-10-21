@@ -93,6 +93,7 @@ in {
         compsize
         trashy # move files to trash
         #shell-gpt #openai bitches stole my credits :(
+        answer
         libheif # convert heic to jpg with `heif-convert something.heic something.jpg`
         imagemagick # convert images
         tree

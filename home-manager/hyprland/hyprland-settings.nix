@@ -373,6 +373,7 @@ in
           path = "/synced/fh/master/ot_fundamentals_and_security/merged";
           node = "${pkgs.nodejs}/bin/node";
           set-monitor = "~/.config/hypr/monitor-config.js";
+          answer = "${pkgs.answer}/bin/answer";
         in
         ''
           bind = $mainMod, A, submap, notes
@@ -392,7 +393,7 @@ in
           bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
           bind = $mainMod, D, exec, ${dunstctl} close-all
           ## I win
-          #bind = $mainMod, W, exec, ${wl-paste} | sgpt --model="gpt-4o" "Respond with the correct answer to the following question." | ${wl-copy}
+          bind = $mainMod, W, exec, ${wl-paste} | ${answer} "Respond with the correct answer to the following question." | ${wl-copy} && ${dunstify} -t 150 Done
           ## notes
 
           #bind = $mainMod, 2, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
