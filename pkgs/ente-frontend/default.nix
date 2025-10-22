@@ -7,7 +7,7 @@ buildNpmPackage rec {
   src = "${(fetchGit {
     url = "git@github.com:oberprofis/ente.git";
     ref = "master";
-    rev = "f82b14a08080865be3c31144787ffaf8509a018a";
+    rev = "cb63e1e20fd9fde401fa9d3f09b36c572b17ff34";
   })}/website/tracker-site";
   npmDepsHash = "sha256-fYTRhIU+8pdIm3wC5wJRcDUhgN3d+mmvfmVzuu0pjLQ=";
 
