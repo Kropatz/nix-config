@@ -10,6 +10,7 @@
     ../../modules/misc/motd.nix
     ../../modules/misc/kernel.nix
     ../../modules/services/duckdns.nix
+    ../../modules/services/samba.nix
     ../../modules/services/ddclient-cloudflare.nix
     ./disk-config.nix
     ./mail.nix
@@ -148,6 +149,12 @@
   };
   fileSystems."/1tbssd" = {
     device = "/dev/disk/by-uuid/801d9217-9c38-4ca8-914e-e31361603892";
+    fsType = "ext4";
+    options = [ "defaults" "nofail" "noatime" ];
+  };
+
+  fileSystems."/hdd" = {
+    device = "/dev/disk/by-uuid/99954059-3801-4abb-a536-0e7802a3e6b4";
     fsType = "ext4";
     options = [ "defaults" "nofail" "noatime" ];
   };
