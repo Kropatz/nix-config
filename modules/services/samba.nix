@@ -1,8 +1,8 @@
 {
-  services.samba-wsdd = {
-    enable = true;
-    openFirewall = true;
-  };
+  #services.samba-wsdd = {
+  #  enable = true;
+  #  openFirewall = true;
+  #};
 
   users.users.franz = {
     isNormalUser = true;
