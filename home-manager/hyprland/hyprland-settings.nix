@@ -28,6 +28,7 @@ in
       enable = true;
       #enableNvidiaPatches = true;
       xwayland.enable = true;
+      #plugins = [ pkgs.hyprlandPlugins.hyprscrolling ];
       settings = {
         #
         # Please note not all available settings / options are set here.
@@ -115,6 +116,7 @@ in
           "col.inactive_border" = "rgba(595959aa)";
 
           layout = "dwindle";
+          #layout = "scrolling";
           allow_tearing = true;
         };
 
