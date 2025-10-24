@@ -207,7 +207,7 @@
   services.printing.enable = false;
   services.printing.drivers = [ pkgs.brlaser ];
   services.avahi = {
-    enable = true;
+    enable = false;
     nssmdns4 = true;
     openFirewall = true;
   };

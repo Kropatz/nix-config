@@ -23,7 +23,7 @@
         };
       };
       html.enable = true;
-      dartls.enable = true;
+      dartls.enable = true; # handled by flutter-tools
       ts_ls.enable = true;
       pylsp.enable = true;
       lua_ls.enable = true;

@@ -10,6 +10,7 @@
     ../../modules/misc/motd.nix
     ../../modules/misc/kernel.nix
     ../../modules/services/duckdns.nix
+    ../../modules/services/samba.nix
     ../../modules/services/ddclient-cloudflare.nix
     ./disk-config.nix
     ./mail.nix
@@ -108,6 +109,23 @@
 
   # 8888 = scheibenmeister skip button
   networking.firewall.allowedTCPPorts = [ 25565 25566 8888 ];
+  networking.nftables.tables.ip_drop = {
+    family = "inet";
+    content = ''
+      set blocked-ip4 {
+        typeof ip saddr
+        flags interval
+        auto-merge
+        elements = { 45.144.212.240 }
+      }
+      chain input {
+        # -100 priority to run before the default filter input chain (0)
+        type filter hook input priority -100; policy accept;
+
+        ip saddr @blocked-ip4 log prefix "nftables drop: " level info counter drop
+      }
+    '';
+  };
   networking.hostName = "server-vm"; # Define your hostname.
 
   #services.murmur = {
@@ -131,6 +149,12 @@
   };
   fileSystems."/1tbssd" = {
     device = "/dev/disk/by-uuid/801d9217-9c38-4ca8-914e-e31361603892";
+    fsType = "ext4";
+    options = [ "defaults" "nofail" "noatime" ];
+  };
+
+  fileSystems."/hdd" = {
+    device = "/dev/disk/by-uuid/99954059-3801-4abb-a536-0e7802a3e6b4";
     fsType = "ext4";
     options = [ "defaults" "nofail" "noatime" ];
   };

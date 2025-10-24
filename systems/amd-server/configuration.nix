@@ -73,6 +73,7 @@
     };
 
     firewall.allowedTCPPorts = [ 25565 25566 ]; # localsend
+
   };
 
   security.pki.certificates = [
