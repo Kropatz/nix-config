@@ -29,6 +29,7 @@
     cli-tools.enable = true;
     nixvimPlugins = true;
     nix = {
+      useLatest = true;
       index.enable = true;
       ld.enable = true;
       settings.enable = true;
