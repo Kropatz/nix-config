@@ -25,12 +25,12 @@
 
 stdenv.mkDerivation rec {
   pname = "gpu-screen-recorder-ui";
-  version = "1.6.1";
+  version = "1.7.8";
 
   src = fetchgit {
     url = "https://repo.dec05eba.com/${pname}";
     tag = version;
-    hash = "sha256-HKUbxX6EXLR4N/ag7gLIqitxBRU+1aLtlqDiSS7LK5I=";
+    hash = "sha256-XVxZyFHod+t7lfwhTSYsWerReBBukMVodauL+MmTqaE=";
   };
 
   postPatch = ''
@@ -39,6 +39,8 @@ stdenv.mkDerivation rec {
       --replace-fail "libGLX.so.0" "${lib.getLib libglvnd}/lib/libGLX.so.0" \
       --replace-fail "libEGL.so.1" "${lib.getLib libglvnd}/lib/libEGL.so.1"
 
+    substituteInPlace extra/gpu-screen-recorder-ui.service \
+      --replace-fail "WantedBy=default.target" "WantedBy=graphical-session.target"
     substituteInPlace extra/gpu-screen-recorder-ui.service \
       --replace-fail "ExecStart=${meta.mainProgram}" "ExecStart=$out/bin/${meta.mainProgram}"
   '';
