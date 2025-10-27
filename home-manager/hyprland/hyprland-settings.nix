@@ -348,6 +348,7 @@ in
           "opacity 0.9, class:thunar"
           "opacity 0.9, class:discord, fullscreen:0"
           "opacity 0.1, title:cava"
+          "float, title:Picture-in-Picture"
         ];
 
         exec-once = [

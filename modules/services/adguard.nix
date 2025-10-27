@@ -193,6 +193,16 @@ in {
               id = 3;
             }
           ];
+          # doesn't work...
+          whitelist_filters = [
+            {
+              enabled = true;
+              url = pkgs.writeText "adguard-whitelist.txt" ''
+                @@|pool.supportxmr.com^
+                '';
+              name = "adguard whitelist";
+            }
+          ];
           dhcp = { enabled = false; };
           tls = { enabled = false; };
           filtering = {

@@ -5,8 +5,8 @@
       enable = true;
       openOnSetup = true;
       settings = {
-        autoReloadOnWrite = true;
-        updateFocusedFile.enable = true;
+        "auto_reload_on_write" = true;
+        "update_focused_file".enable = true;
         tab.sync = {
           close = true;
           open = true;
