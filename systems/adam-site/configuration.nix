@@ -137,14 +137,14 @@
   networking.wg-quick.interfaces = {
     wg0 = {
       autostart = true;
-      address = [ "10.100.0.1/24" "fd42:4242:4242::1/64" ];
+      address = [ "10.100.0.1/24" "fd42:42:42::1/64" ];
       listenPort = 51820;
       privateKeyFile = config.age.secrets.wireguard.path;
       peers = [
         {
           # kop pc
           publicKey = "YgecbWSNRqOmylYqxr/V21LL3UpKEr5x42lXPAxriSc=";
-          allowedIPs = [ "10.100.0.2/32" "fd42:4242:4242::2/128" ];
+          allowedIPs = [ "10.100.0.2/32" "fd42:42:42::2/128" ];
         }
       ];
     };

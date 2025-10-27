@@ -64,6 +64,24 @@
     };
   };
 
+  # https://github.com/juanfont/headscale/blob/main/config-example.yaml
+  #networking.firewall.allowedTCPPorts = [ 8080 ];
+  #services.headscale = {
+  #  enable = true;
+  #  address = "0.0.0.0";
+  #  settings = {
+  #    server_url = "http://0.0.0.0:8080";
+  #    logtail.enable = false;
+  #    dns = { 
+  #      base_domain = "kopatz.dev"; 
+  #      override_local_dns = false;
+  #    };
+  #  };
+  #};
+  #environment.systemPackages = with pkgs; [
+  #  headscale
+  #];
+
   #fileSystems."/" = {
   #  device = "/dev/disk/by-label/nixos";
   #  fsType = "ext4";

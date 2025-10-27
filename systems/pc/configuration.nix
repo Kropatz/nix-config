@@ -19,6 +19,7 @@
     ../../modules/misc/zram.nix
     #../../modules/hardware/ryzenmonitor.nix
     ../../modules/networkmanager.nix
+    #./tailscale-client.nix
   ];
 
   custom = {

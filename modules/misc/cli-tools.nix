@@ -103,6 +103,7 @@ in {
         iotop
         inetutils
         nettools
+        wireguard-tools
       ];
     };
 }
