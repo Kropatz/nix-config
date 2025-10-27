@@ -39,4 +39,5 @@ in
   "binary-cache.age".publicKeys = [ kop amd-server ];
   "wireguard-evo-vpn.age".publicKeys = [ kop amd-server-vpn-vm ];
   "cloudflare-api.age".publicKeys = [ kop mini-pc ];
+  "wireguard-ipv6-private.age".publicKeys = [ kop adam-site ];
 }

@@ -120,5 +120,34 @@
     };
 
   };
+
+  # Tunnel IPv6 traffic over Wireguard
+  #wireguard pubkey CfYj5V6iMyGohKvQIu+NdJJSL+85+tqy422bmweCZ2c=
+  networking.nat.enable = true;
+  networking.nat.externalInterface = "enp1s0";
+  networking.nat.internalInterfaces = [ "wg0" ];
+  networking.nat.enableIPv6 = true;
+  networking.firewall = {
+    allowedUDPPorts = [ 51820 ];
+  };
+
+  age.secrets.wireguard = {
+    file = ../../secrets/wireguard-ipv6-private.age;
+  };
+  networking.wg-quick.interfaces = {
+    wg0 = {
+      autostart = true;
+      address = [ "10.100.0.1/24" "fd42:4242:4242::1/64" ];
+      listenPort = 51820;
+      privateKeyFile = config.age.secrets.wireguard.path;
+      peers = [
+        {
+          # kop pc
+          publicKey = "YgecbWSNRqOmylYqxr/V21LL3UpKEr5x42lXPAxriSc=";
+          allowedIPs = [ "10.100.0.2/32" "fd42:4242:4242::2/128" ];
+        }
+      ];
+    };
+  };
   system.stateVersion = "23.11";
 }
