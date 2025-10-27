@@ -7,6 +7,19 @@
 
   services.openssh.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  networking = {
+    defaultGateway6 = {
+      address = "fe80::1";
+      interface = "enp1s0";
+    };
+
+    interfaces.enp1s0 = {
+      ipv6.addresses = [ {
+        address = "2a01:4f8:c013:232b::2";
+        prefixLength = 64;
+      } ];
+    };
+  };
   custom = {
     services = {
       acme.enable = true;
