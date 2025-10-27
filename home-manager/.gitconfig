@@ -26,6 +26,8 @@
 [rerere]
     enabled = true
     autoupdate = true
+[merge]
+  conflictstyle = diff3
 [mergetool]
     keeptemporaries = false
     keepbackups = false

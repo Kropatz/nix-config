@@ -134,7 +134,8 @@ in
         decoration = {
           # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-          rounding = 10;
+          #rounding = 10;
+          rounding = 0;
           #blur = yes
           #blur_size = 3
           #blur_passes = 1
@@ -349,6 +350,7 @@ in
           "opacity 0.9, class:discord, fullscreen:0"
           "opacity 0.1, title:cava"
           "float, title:Picture-in-Picture"
+          "suppressevent maximize, title:Picture-in-Picture"
         ];
 
         exec-once = [
