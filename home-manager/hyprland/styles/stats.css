@@ -6,8 +6,10 @@
 #stats,
 #stats-drawer {
   margin: 0 0.5em;
+  /* disabled when border is square
   padding-left: 5px;
   padding-right: 5px;
+  */
   /*color: @peach;*/
   color: @text;
   font-weight: bold;
@@ -24,6 +26,7 @@
 #custom-nvidia,
 #memory,
 #power-profiles-daemon,
+#clock,
 #network {
   color: @text;
   padding: 0 0.5em;
