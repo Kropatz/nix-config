@@ -19,8 +19,8 @@
     shellAliases = {
       # TODO: gifsicle -O3 --lossy=30 noita-20240328-191617-1612416266-00316616.gif -o noita-20240328-191617-1612416266.gif 
       backupNoita =
-        "cp -r ~/.local/share/Steam/steamapps/compatdata/881100/pfx/drive_c/users/steamuser/AppData/LocalLow/Nolla_Games_Noita/* /synced/default/dont_remotebackup/noita_save";
-      checkTime = "(cd /synced/work_drive/TS && nix run)";
+        "cp -r ~/.local/share/Steam/steamapps/compatdata/881100/pfx/drive_c/users/steamuser/AppData/LocalLow/Nolla_Games_Noita/* ~/synced/default/dont_remotebackup/noita_save";
+      checkTime = "(cd ~/synced/work_drive/TS && nix run)";
       checkWaylandWindowsKDE =
         "qdbus org.kde.KWin /KWin org.kde.KWin.showDebugConsole";
       collectGarbage = "nh clean all";

@@ -238,7 +238,7 @@ in
             "$mainMod, period, exec, ${rofimoji}"
             "$mainMod, Z, exec, hyprshade off && (${woomer} &) && hyprshade auto"
             ''$mainMod, S, exec, echo "skip" | nc kopatz.dev 8888''
-            ''$mainMod, R, exec, hyprctl hyprpaper reload ,"$(ls -d /synced/default/dinge/Bg/* | shuf -n 1)"''
+            ''$mainMod, R, exec, hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"''
             "$mainMod, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
             "        , Print, exec, hyprshade off && ${grimblast} --freeze copy area && hyprshade auto"
             ''
@@ -376,7 +376,7 @@ in
           dunstify = "${pkgs.dunst}/bin/dunstify";
           dunstctl = "${pkgs.dunst}/bin/dunstctl";
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep --cache";
-          path = "/synced/fh/master/ot_fundamentals_and_security/merged";
+          path = "~/synced/fh/master/ot_fundamentals_and_security/merged";
           node = "${pkgs.nodejs}/bin/node";
           set-monitor = "~/.config/hypr/monitor-config.js";
           answer = "${pkgs.answer}/bin/answer";
