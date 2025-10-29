@@ -76,7 +76,7 @@ in
       firmware.enable = true;
       ssd.enable = true;
       #tablet.enable = true;
-      #fingerprint.enable = true;
+      fingerprint.enable = true;
     };
     services = {
       syncthing.enable = true;
@@ -102,13 +102,15 @@ in
   };
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" "electron-28.3.3" ];
-  services.fprintd.enable = true;
   hardware.cpu.amd.ryzen-smu.enable = true;
   environment.systemPackages = with pkgs; [
     nvtopPackages.amd
     ryzenadj
     prismlauncher
+    #fscrypt-experimental
   ];
+  # don't think there is a way to unlock this with fingerprint
+  #security.pam.enableFscrypt = true;
 
   #services.joycond.enable = true;
 

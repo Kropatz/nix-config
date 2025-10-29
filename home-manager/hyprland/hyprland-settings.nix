@@ -15,6 +15,7 @@ let
     hyprctl --instance 0 "keyword misc:allow_session_lock_restore 1"
     hyprctl --instance 0 "dispatch exec hyprlock"
   '';
+  scale = if isLaptop then "1.33333" else "1";
   monitor1 = if isPc then "DP-1" else if isLaptop then "eDP-1" else "eDP-1";
   monitor2 = "HDMI-A-1";
 in
@@ -38,12 +39,12 @@ in
         # See https://wiki.hyprland.org/Configuring/Monitors/
         monitor =
           if isPc then [
-            "${monitor2},1920x1080@60,0x0,1"
-            "${monitor1},2560x1440@144,1920x0,1"
+            "${monitor2},1920x1080@60,0x0,${scale}"
+            "${monitor1},2560x1440@144,1920x0,${scale}"
             "Unknown-1,disable"
           ] else if isLaptop then [
             # laptop
-            "eDP-1,2256x1504@60,0x0,1.33333"
+            "eDP-1,2256x1504@60,0x0,${scale}"
             #"DP-3,1920x1080@60,1920x0,1"
             #",preferred,auto,1,mirror,eDP-1" 
             ",preferred,auto,auto"
@@ -74,7 +75,7 @@ in
 
         # Some default env vars.
         env =
-          [ "XCURSOR_SIZE,24" "NIXOS_OZONE_WL,1" ]
+          [ "XCURSOR_SIZE,24" "NIXOS_OZONE_WL,1" "GDK_SCALE,${scale}" ]
           ++ lib.optionals osConfig.custom.hardware.nvidia.enable [
             "LIBVA_DRIVER_NAME,nvidia"
             "GBM_BACKEND,nvidia-drm"
