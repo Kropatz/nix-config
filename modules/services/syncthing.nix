@@ -45,7 +45,7 @@ in {
           laptop = {
             id =
               "ACLM2MY-G6TK6QH-NEVVG3R-6QGXWYI-GHGA2FJ-SI6DFZJ-JWKWAOA-DPMEEQO";
-            addresses = [ "tcp://192.168.2.22" ];
+            addresses = [ "tcp://192.168.2.22" "tcp://192.168.0.166" ];
           };
           phone = {
             id =
