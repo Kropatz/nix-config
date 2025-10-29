@@ -4,6 +4,7 @@ let
   tmp_dovecot_passwords = ''
   lukas:{CRYPT}$2y$05$jqBkvhJ0e439J0PLhef4leOGc3GACGH83kSDCrvmAcsdz68tELkA6:5000:5000::/home/lukas";
   work:{CRYPT}$2y$05$bEpY1WJ4j/QovgUv0Pxak.vKcSC/o.0T9OHxaekUpI1GK5mAY6vQS:5000:5000::/home/work";
+  school:{CRYPT}$2y$05$RRIjDak/PWhHITKMvGJ9b.MSMrsduUXjLJOfuXQ0k.pQX24shAsq2:5000:5000::/home/school";
   '';
   email-domain = "kopatz.dev";
 in
@@ -125,6 +126,7 @@ in
       "virtual-map" = pkgs.writeText "postfix-virtual" ''
         lukas@${email-domain} ${email-domain}/lukas/
         work@${email-domain} ${email-domain}/work/
+        school@${email-domain} ${email-domain}/school/
         test@${email-domain} ${email-domain}/test/
       '';
     };
