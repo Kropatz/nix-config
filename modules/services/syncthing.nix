@@ -44,7 +44,7 @@ in {
           };
           laptop = {
             id =
-              "5T6Y3WO-FOQYYFQ-5MLNDSZ-7APIDUG-6KM2ZZM-RTRXMWX-MCZKLMH-BYNDJAQ";
+              "ACLM2MY-G6TK6QH-NEVVG3R-6QGXWYI-GHGA2FJ-SI6DFZJ-JWKWAOA-DPMEEQO";
             addresses = [ "tcp://192.168.2.22" ];
           };
           phone = {
