@@ -22,6 +22,7 @@ in
     #../../modules/static-ip.nix
     #../../modules/wake-on-lan.nix
     #./modules/wireguard.nix
+    ./disk-config.nix
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];
 
@@ -170,7 +171,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nix-laptop"; # Define your hostname.
+  networking.hostName = "framework"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking

@@ -142,9 +142,10 @@
         "kop-pc" = mkHost {
           modules = [ ./users/kopatz ./systems/pc/configuration.nix ];
         };
-        "nix-laptop" = mkHost {
+        "framework" = mkHost {
           modules = [
             ### User specific ###
+            disko.nixosModules.disko
             ./users/kopatz
             ./systems/laptop/configuration.nix
           ];

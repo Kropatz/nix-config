@@ -1,7 +1,7 @@
 let
   kop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeP6qtVqE/gu72ZUZE8cdRi3INiUW9NqDR7SjXIzTw2 lukas@Kopatz-PC2";
   server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAUA7uVKXAF2UcwaIDSJP2Te8Fi++2zkKzSPoRx1vQrI root@server";
-  laptop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqcphdDEJhnSBkAZzQXZJDCzsyb/Tqpcf0pUADFpbd1 root@nix-laptop";
+  laptop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqcphdDEJhnSBkAZzQXZJDCzsyb/Tqpcf0pUADFpbd1 root@framework";
   mini-pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGsTZvAahTrszYDHn+94sLtcF8865/mpd26ZDVQklSj root@server-vm"; # actual used server
   mini-pc-proxmox = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP0kX32LfIOv8FDVvdp7lWesVvMGh5tj84nv7TkIR1cs root@mini-pc";
   adam-site = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfaIaKoNStnbfjB9cSJ9+PW0BVO3Uhh1uIbZA2CszDE root@nixos";

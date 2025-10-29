@@ -111,7 +111,7 @@ in {
           "temperature".format = "{temperatureC}°C ";
           "temperature".interval = 5;
           "temperature".hwmon-path =
-            lib.mkIf (osConfig.networking.hostName == "nix-laptop")
+            lib.mkIf (osConfig.networking.hostName == "framework")
               "/sys/class/hwmon/hwmon6/temp1_input";
           "backlight".format = "{percent}% {icon}";
           "backlight".states = [ 0 50 ];

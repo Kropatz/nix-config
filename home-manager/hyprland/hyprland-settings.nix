@@ -2,7 +2,7 @@
 let
   cfg = osConfig.custom.graphical.hyprland;
   isPc = osConfig.networking.hostName == "kop-pc";
-  isLaptop = osConfig.networking.hostName == "nix-laptop";
+  isLaptop = osConfig.networking.hostName == "framework";
   restartPortals = pkgs.writeShellScript "restart-portals" ''
     #!/usr/bin/env bash
     systemctl --user restart xdg-desktop-portal-gtk
