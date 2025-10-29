@@ -5,7 +5,7 @@ in {
     enable = lib.mkEnableOption "Enables syncthing";
     basePath = lib.mkOption {
       type = with lib.types; string;
-      default = "/synced";
+      default = "/home/${config.mainUser.name}/synced";
       description = "Base path for syncthing data";
     };
   };
