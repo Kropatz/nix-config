@@ -52,9 +52,49 @@ in
           du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)} ${builtins.concatStringsSep " " cfg.large}
         '';
       };
+      cli = "${pkgs.internxt-cli}/bin/internxt";
+      startInternxtWebdav = pkgs.writeShellApplication {
+        name = "startInternxtWebdav";
+        excludeShellChecks = [ "SC1091" ];
+        text = ''
+          set +o pipefail
+          set +o errexit #don't exit on error to allow checking login status
+          LOGGED_IN=$(${cli} whoami | grep "You are logged in")
+          if [ -z "$LOGGED_IN" ]; then
+            if [ -z "$USERNAME" ] || [ -z "$PASSWORD" ]; then
+              set -a; source ${config.age.secrets.restic-internxt.path}; set +a
+            fi
+            ${cli} login --non-interactive -e "$USERNAME" -p "$PASSWORD"
+            LOGGED_IN=$(${cli} whoami | grep "You are logged in")
+            if [ -z "$LOGGED_IN" ]; then
+              echo "Internxt CLI login failed. Aborting backup."
+              exit 1
+            fi
+          fi
+          WEBDAV_ENABLED=$(${cli} webdav status | grep -c "status: online")
+          if [ "$WEBDAV_ENABLED" -eq 0 ]; then
+            ${cli} webdav enable
+            WEBDAV_ENABLED=$(${cli} webdav status | grep -c "status: online")
+            if [ "$WEBDAV_ENABLED" -eq 0 ]; then
+              echo "Internxt WebDAV enable failed. Aborting backup."
+              exit 1
+            fi
+          fi
+        '';
+      };
+      stopInternxtWebdav = pkgs.writeShellApplication {
+        name = "stopInternxtWebdav";
+        text = ''
+          set +o errexit
+          WEBDAV_ENABLED=$(${cli} webdav status | grep -c "status: online")
+          if [ "$WEBDAV_ENABLED" -eq 1 ]; then
+            ${cli} webdav disable
+          fi
+        '';
+      };
     in
     mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [ checkStorageSpace ];
+      environment.systemPackages = [ checkStorageSpace startInternxtWebdav stopInternxtWebdav ];
       age.secrets.restic-pw = {
         file = ../../secrets/restic-pw.age;
       };
@@ -134,31 +174,10 @@ in
             exclude = cfg.excludePathsRemote;
             paths = cfg.large;
             backupPrepareCommand = ''
-                LOGGED_IN=$(${cli} whoami | grep "You are logged in")
-                if [ -z "$LOGGED_IN" ]; then
-                  echo "Logging in as $USERNAME"
-                  ${cli} login --non-interactive -e $USERNAME -p $PASSWORD
-                  LOGGED_IN=$(${cli} whoami | grep "You are logged in")
-                  if [ -z "$LOGGED_IN" ]; then
-                    echo "Internxt CLI login failed. Aborting backup."
-                    exit 1
-                  fi
-                fi
-                WEBDAV_ENABLED=$(${cli} webdav status | grep "status: online" | wc -l)
-                if [ "$WEBDAV_ENABLED" -eq 0 ]; then
-                  ${cli} webdav enable
-                  WEBDAV_ENABLED=$(${cli} webdav status | grep "status: online" | wc -l)
-                  if [ "$WEBDAV_ENABLED" -eq 0 ]; then
-                    echo "Internxt WebDAV enable failed. Aborting backup."
-                    exit 1
-                  fi
-                fi
+              ${startInternxtWebdav}
             '';
             backupCleanupCommand = ''
-              WEBDAV_ENABLED=$(${cli} webdav status | grep "status: online" | wc -l)
-              if [ "$WEBDAV_ENABLED" -eq 1 ]; then
-                ${cli} webdav disable
-              fi
+              ${stopInternxtWebdav}
             '';
             pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
             timerConfig = {
