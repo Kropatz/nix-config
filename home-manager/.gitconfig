@@ -55,6 +55,8 @@
     sort = version:refname
 [branch]
     sort = -committerdate
+[blame]
+    ignoreRevsFile = .git-blame-ignore-revs
 
 [includeIf "gitdir/i:~/projects/github/**"]
     path = .gitconfig-github
