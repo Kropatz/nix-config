@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   fqdn = "${config.networking.domain}";
   baseUrl = "https://${fqdn}";
@@ -12,7 +17,10 @@ let
 in
 {
   networking.domain = "kopatz.ddns.net";
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 
   services.postgresql.enable = true;
   services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
@@ -84,10 +92,15 @@ in
         type = "http";
         tls = false;
         x_forwarded = true;
-        resources = [{
-          names = [ "client" "federation" ];
-          compress = true;
-        }];
+        resources = [
+          {
+            names = [
+              "client"
+              "federation"
+            ];
+            compress = true;
+          }
+        ];
       }
     ];
   };

@@ -1,18 +1,18 @@
-{ lib
-, stdenv
-, fetchgit
-, pkg-config
-, meson
-, ninja
-, libX11
-, libXrender
-, libXrandr
-, libXext
-, libglvnd
-, wayland
-, wayland-scanner
-, gitUpdater
-,
+{
+  lib,
+  stdenv,
+  fetchgit,
+  pkg-config,
+  meson,
+  ninja,
+  libX11,
+  libXrender,
+  libXrandr,
+  libXext,
+  libglvnd,
+  wayland,
+  wayland-scanner,
+  gitUpdater,
 }:
 
 stdenv.mkDerivation rec {

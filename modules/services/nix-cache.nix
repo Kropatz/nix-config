@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
 
   age.secrets.binary-cache = {
     file = ../../secrets/binary-cache.age;

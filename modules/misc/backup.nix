@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 with lib;
 let
   cfg = config.custom.misc.backup;
@@ -22,7 +28,15 @@ in
     };
     excludePaths = lib.mkOption {
       type = types.listOf types.str;
-      default = [ "**/Cache" "**/.cache" "**/__pycache__" "**/node_modules" "**/venv" "*.o" "*.out" ];
+      default = [
+        "**/Cache"
+        "**/.cache"
+        "**/__pycache__"
+        "**/node_modules"
+        "**/venv"
+        "*.o"
+        "*.out"
+      ];
       description = "paths to exclude from the backup";
     };
     excludePathsRemote = lib.mkOption {
@@ -39,17 +53,29 @@ in
         text = ''
           # Check how much space is used by the backup paths
           echo "Checking storage space (small) with excluded paths..."
-          du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)} ${builtins.concatStringsSep " " cfg.small} 
+          du -sch ${
+            builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)
+          } ${builtins.concatStringsSep " " cfg.small} 
           echo "Checking storage space (small) with excluded paths (remote)..."
-          du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)} ${builtins.concatStringsSep " " cfg.small}
+          du -sch ${
+            builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)
+          } ${builtins.concatStringsSep " " cfg.small}
           echo "Checking storage space (medium) with excluded paths..."
-          du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)} ${builtins.concatStringsSep " " cfg.medium} 
+          du -sch ${
+            builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)
+          } ${builtins.concatStringsSep " " cfg.medium} 
           echo "Checking storage space (medium) with excluded paths (remote)..."
-          du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)} ${builtins.concatStringsSep " " cfg.medium}
+          du -sch ${
+            builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)
+          } ${builtins.concatStringsSep " " cfg.medium}
           echo "Checking storage space (full) with excluded paths..."
-          du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)} ${builtins.concatStringsSep " " cfg.large}
+          du -sch ${
+            builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)
+          } ${builtins.concatStringsSep " " cfg.large}
           echo "Checking storage space (full) with excluded paths (remote)..."
-          du -sch ${builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)} ${builtins.concatStringsSep " " cfg.large}
+          du -sch ${
+            builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)
+          } ${builtins.concatStringsSep " " cfg.large}
         '';
       };
       cli = "${pkgs.internxt-cli}/bin/internxt";
@@ -94,7 +120,11 @@ in
       };
     in
     mkIf cfg.enable {
-      environment.systemPackages = [ checkStorageSpace startInternxtWebdav stopInternxtWebdav ];
+      environment.systemPackages = [
+        checkStorageSpace
+        startInternxtWebdav
+        stopInternxtWebdav
+      ];
       age.secrets.restic-pw = {
         file = ../../secrets/restic-pw.age;
       };
@@ -126,7 +156,12 @@ in
               OnCalendar = "04:00";
               Persistent = true;
             };
-            pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
+            pruneOpts = [
+              "--keep-daily 7"
+              "--keep-weekly 3"
+              "--keep-monthly 3"
+              "--keep-yearly 3"
+            ];
             repository = "/1tbssd/restic";
           };
           #localbackup-1tb = {
@@ -148,7 +183,12 @@ in
             paths = cfg.medium;
             rcloneConfigFile = config.age.secrets.restic-gdrive.path;
             repository = "rclone:it-experts:backup";
-            pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
+            pruneOpts = [
+              "--keep-daily 5"
+              "--keep-weekly 3"
+              "--keep-monthly 3"
+              "--keep-yearly 3"
+            ];
             timerConfig = {
               OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
               Persistent = true;
@@ -160,37 +200,53 @@ in
             environmentFile = config.age.secrets.restic-s3.path;
             exclude = cfg.excludePathsRemote;
             paths = cfg.small;
-            pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
+            pruneOpts = [
+              "--keep-daily 5"
+              "--keep-weekly 3"
+              "--keep-monthly 3"
+              "--keep-yearly 3"
+            ];
             timerConfig = {
               OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
               Persistent = true;
             };
             repository = "s3:s3.us-west-002.backblazeb2.com/kop-bucket";
           };
-          remotebackup-large = let cli = "${pkgs.internxt-cli}/bin/internxt"; in {
-            initialize = true;
-            passwordFile = config.age.secrets.restic-pw.path;
-            environmentFile = config.age.secrets.restic-internxt.path;
-            exclude = cfg.excludePathsRemote;
-            paths = cfg.large;
-            backupPrepareCommand = ''
-              ${startInternxtWebdav}
-            '';
-            backupCleanupCommand = ''
-              ${stopInternxtWebdav}
-            '';
-            pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
-            timerConfig = {
-              OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
-              Persistent = true;
-            };
-            rcloneConfig = { 
-                type = "webdav"; 
+          remotebackup-large =
+            let
+              cli = "${pkgs.internxt-cli}/bin/internxt";
+            in
+            {
+              initialize = true;
+              passwordFile = config.age.secrets.restic-pw.path;
+              environmentFile = config.age.secrets.restic-internxt.path;
+              exclude = cfg.excludePathsRemote;
+              paths = cfg.large;
+              backupPrepareCommand = ''
+                ${startInternxtWebdav}
+              '';
+              backupCleanupCommand = ''
+                ${stopInternxtWebdav}
+              '';
+              pruneOpts = [
+                "--keep-daily 5"
+                "--keep-weekly 3"
+                "--keep-monthly 3"
+                "--keep-yearly 3"
+              ];
+              timerConfig = {
+                OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
+                Persistent = true;
+              };
+              rcloneConfig = {
+                type = "webdav";
                 url = "https://127.0.0.1:3005";
+              };
+              rcloneOptions = {
+                "no-check-certificate" = true;
+              };
+              repository = "rclone:internxt:backup";
             };
-            rcloneOptions = { "no-check-certificate" = true; };
-            repository = "rclone:internxt:backup";
-          };
         };
       };
     };

@@ -1,6 +1,11 @@
 # 0000:2b:00.0 VGA compatible controller [0300]: NVIDIA Corporation GM204 [GeForce GTX 970] [10de:13c2] (rev a1)
 # 0000:2b:00.1 Audio device [0403]: NVIDIA Corporation GM204 High Definition Audio Controller [10de:0fbb] (rev a1)
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -28,7 +33,10 @@
       ssd.enable = true;
       vfio = {
         enable = true;
-        stub_pci = [ "10de:13c2" "10de:0fbb" ]; #nvidia
+        stub_pci = [
+          "10de:13c2"
+          "10de:0fbb"
+        ]; # nvidia
       };
       wooting.enable = true;
     };
@@ -56,23 +64,33 @@
   };
   mainUser.layout = "de";
   mainUser.variant = "us";
-  services.xserver.displayManager.lightdm.enable = false; #no login manager!
+  services.xserver.displayManager.lightdm.enable = false; # no login manager!
 
   nix.gc.automatic = lib.mkForce false;
   networking = {
     useDHCP = false;
     defaultGateway.address = "192.168.0.1";
-    nameservers = [ "192.168.0.10" "1.1.1.1" ];
+    nameservers = [
+      "192.168.0.10"
+      "1.1.1.1"
+    ];
 
-    bridges.br0 = { interfaces = [ "enp42s0" ]; };
+    bridges.br0 = {
+      interfaces = [ "enp42s0" ];
+    };
     interfaces.br0 = {
-      ipv4.addresses = [{
-        address = "192.168.0.20";
-        prefixLength = 24;
-      }];
+      ipv4.addresses = [
+        {
+          address = "192.168.0.20";
+          prefixLength = 24;
+        }
+      ];
     };
 
-    firewall.allowedTCPPorts = [ 25565 25566 ]; # localsend
+    firewall.allowedTCPPorts = [
+      25565
+      25566
+    ]; # localsend
 
   };
 
@@ -130,8 +148,10 @@
   boot.blacklistedKernelModules = [ "k10temp" ];
 
   networking.hostName = "amd-server"; # Define your hostname.
-  nixpkgs.config.permittedInsecurePackages =
-    [ "electron-28.3.3" "electron-27.3.11" ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-28.3.3"
+    "electron-27.3.11"
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

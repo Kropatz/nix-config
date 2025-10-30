@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 {
   age.secrets.duckdns = {
     file = ../../secrets/duckdns.age;
@@ -9,7 +15,7 @@
     domains = [ "kavita-kopatz" ];
   };
   systemd.services.duckdns = {
-    wantedBy = lib.mkForce [];
-    startAt =  lib.mkForce "daily";
+    wantedBy = lib.mkForce [ ];
+    startAt = lib.mkForce "daily";
   };
 }

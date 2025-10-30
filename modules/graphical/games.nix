@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.custom.graphical.games;
@@ -22,12 +27,13 @@ in
   config = mkIf cfg.enable {
     programs.steam = {
       enable = true;
-      remotePlay.openFirewall =
-        true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall =
-        true; # Open ports in the firewall for Source Dedicated Server
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       gamescopeSession.enable = true;
-      extraCompatPackages = with pkgs; [ proton-ge-bin steamtinkerlaunch ];
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+        steamtinkerlaunch
+      ];
     };
     programs.gamemode = {
       enable = true;
@@ -37,19 +43,28 @@ in
       };
     };
 
-    environment.systemPackages = with pkgs; [ mangohud lutris ]
-      ++ optionals cfg.enablePreinstalled (with pkgs; [
-      #taisei
-      #osu-lazer-bin
-      wineWowPackages.unstableFull
-      winetricks
-      heroic
-      prismlauncher
-      steamtinkerlaunch
-      tetrio-desktop
-      beyond-all-reason
-      #libs
-    ]) ++ optionals cfg.enableVr (with pkgs; [ bs-manager ]);
+    environment.systemPackages =
+      with pkgs;
+      [
+        mangohud
+        lutris
+      ]
+      ++ optionals cfg.enablePreinstalled (
+        with pkgs;
+        [
+          #taisei
+          #osu-lazer-bin
+          wineWowPackages.unstableFull
+          winetricks
+          heroic
+          prismlauncher
+          steamtinkerlaunch
+          tetrio-desktop
+          beyond-all-reason
+          #libs
+        ]
+      )
+      ++ optionals cfg.enableVr (with pkgs; [ bs-manager ]);
 
   };
 }

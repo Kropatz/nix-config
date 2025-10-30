@@ -8,38 +8,135 @@ let
   amd-server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/t25OaQF020DZdew53gMFqoeHX1+g3um02mopke2eX root@nixos";
   amd-server-vpn-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKkTbNz36z1gGbKp+7NyyTpMslXcFLX0tOrfJ/GQFn+g root@amd-server-vpn-vm";
   users = [ kop ];
-  systems = [ server-vm server laptop ];
+  systems = [
+    server-vm
+    server
+    laptop
+  ];
 in
 {
-  "github-runner-token.age".publicKeys = [ server-vm kop ];
-  "github-runner-pw.age".publicKeys = [ server-vm kop ];
-  "duckdns.age".publicKeys = [ server-vm kop ];
-  "nextcloud-admin.age".publicKeys = [ server-vm kop ];
-  "nextcloud-cert.age".publicKeys = [ server-vm kop ];
-  "nextcloud-key.age".publicKeys = [ server-vm kop ];
+  "github-runner-token.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "github-runner-pw.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "duckdns.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "nextcloud-admin.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "nextcloud-cert.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "nextcloud-key.age".publicKeys = [
+    server-vm
+    kop
+  ];
   #backups
-  "restic-pw.age".publicKeys = [ server-vm kop ];
-  "restic-s3.age".publicKeys = [ server-vm kop ];
-  "restic-gdrive.age".publicKeys = [ server-vm kop ];
-  "restic-internxt.age".publicKeys = [ server-vm kop ];
-  "wireguard-private.age".publicKeys = [ server-vm kop ];
-  "wireguard-client.age".publicKeys = [ kop laptop ];
-  "coturn-secret.age".publicKeys = [ server-vm kop ];
-  "matrix-registration.age".publicKeys = [ server-vm kop ];
-  "paperless.age".publicKeys = [ server-vm kop ];
-  "kavita.age".publicKeys = [ server-vm kop ];
-  "step-ca-pw.age".publicKeys = [ server-vm kop ];
-  "step-ca-key.age".publicKeys = [ server-vm kop ];
-  "grafana-contact-points.age".publicKeys = [ server-vm kop ];
-  "fileshelter-conf.age".publicKeys = [ server-vm kop ];
-  "webhook.age".publicKeys = [ server-vm server kop amd-server adam-site ];
-  "stash-auth.age".publicKeys = [ server-vm kop ];
-  "plausible-admin.age".publicKeys = [ adam-site kop ];
-  "plausible-keybase.age".publicKeys = [ adam-site kop ];
-  "adminarea.age".publicKeys = [ adam-site kop ];
-  "radicale.age".publicKeys = [ server-vm kop ];
-  "binary-cache.age".publicKeys = [ kop amd-server ];
-  "wireguard-evo-vpn.age".publicKeys = [ kop amd-server-vpn-vm ];
-  "cloudflare-api.age".publicKeys = [ kop server-vm ];
-  "wireguard-ipv6-private.age".publicKeys = [ kop adam-site ];
+  "restic-pw.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "restic-s3.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "restic-gdrive.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "restic-internxt.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "wireguard-private.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "wireguard-client.age".publicKeys = [
+    kop
+    laptop
+  ];
+  "coturn-secret.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "matrix-registration.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "paperless.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "kavita.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "step-ca-pw.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "step-ca-key.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "grafana-contact-points.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "fileshelter-conf.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "webhook.age".publicKeys = [
+    server-vm
+    server
+    kop
+    amd-server
+    adam-site
+  ];
+  "stash-auth.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "plausible-admin.age".publicKeys = [
+    adam-site
+    kop
+  ];
+  "plausible-keybase.age".publicKeys = [
+    adam-site
+    kop
+  ];
+  "adminarea.age".publicKeys = [
+    adam-site
+    kop
+  ];
+  "radicale.age".publicKeys = [
+    server-vm
+    kop
+  ];
+  "binary-cache.age".publicKeys = [
+    kop
+    amd-server
+  ];
+  "wireguard-evo-vpn.age".publicKeys = [
+    kop
+    amd-server-vpn-vm
+  ];
+  "cloudflare-api.age".publicKeys = [
+    kop
+    server-vm
+  ];
+  "wireguard-ipv6-private.age".publicKeys = [
+    kop
+    adam-site
+  ];
 }

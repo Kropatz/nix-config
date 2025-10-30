@@ -1,10 +1,13 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   programs.fastfetch = {
     enable = true;
 
     settings = {
       #logo = { source = ../test.sixel; type = "raw"; width = 40; height = 40; };
-      display = { separator = ""; };
+      display = {
+        separator = "";
+      };
 
       # https://www.nerdfonts.com/cheat-sheet
       modules = [

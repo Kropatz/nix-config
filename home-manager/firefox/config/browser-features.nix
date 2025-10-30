@@ -121,7 +121,7 @@
   # some PDFs are not rendered correctly due to missing functions.
   "pdfjs.enableScripting" = false;
 
-  # copied these from a blog 
+  # copied these from a blog
   "browser.newtabpage.activity-stream.feeds.telemetry" = false;
   "browser.newtabpage.activity-stream.feeds.asrouterfeed" = false;
   "browser.newtabpage.activity-stream.telemetry" = false;

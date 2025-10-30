@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   age.secrets.cloudflare-api = {
     file = ../../secrets/cloudflare-api.age;
   };

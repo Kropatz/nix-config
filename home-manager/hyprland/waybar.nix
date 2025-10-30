@@ -1,7 +1,16 @@
-{ config, osConfig, pkgs, inputs, lib, ... }:
+{
+  config,
+  osConfig,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 with lib;
-let cfg = osConfig.custom.graphical.hyprland;
-in {
+let
+  cfg = osConfig.custom.graphical.hyprland;
+in
+{
   config =
     let
       # styles from https://github.com/khaneliman/khanelinix/blob/8375f8cfbe5bfd87565b4dc34c9d30630c17336d/modules/home/desktop/addons/waybar/default.nix
@@ -37,25 +46,43 @@ in {
             #"hyprland/window"
           ];
           modules-center = [ ];
-          modules-right = [ "group/stats" "group/other" ];
+          modules-right = [
+            "group/stats"
+            "group/other"
+          ];
           "group/stats" = {
             "orientation" = "horizontal";
-            "modules" = [ "network" "cpu" "memory" "temperature" ]
-              ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "custom/nvidia" ]
-              ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "custom/amd-gpu" ]
-              ++ lib.optionals osConfig.services.power-profiles-daemon.enable [ "power-profiles-daemon" ];
+            "modules" = [
+              "network"
+              "cpu"
+              "memory"
+              "temperature"
+            ]
+            ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "custom/nvidia" ]
+            ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "custom/amd-gpu" ]
+            ++ lib.optionals osConfig.services.power-profiles-daemon.enable [ "power-profiles-daemon" ];
           };
           "group/other" = {
             "orientation" = "horizontal";
-            "modules" =
-              [ "tray" "backlight" "pulseaudio" "mpris" "battery" "clock" ];
+            "modules" = [
+              "tray"
+              "backlight"
+              "pulseaudio"
+              "mpris"
+              "battery"
+              "clock"
+            ];
           };
           "cpu" = {
             "format" = "  {usage}%";
             "tooltip" = true;
           };
-          "disk" = { "format" = "  {percentage_used}%"; };
-          "memory" = { "format" = "󰍛 {}%"; };
+          "disk" = {
+            "format" = "  {percentage_used}%";
+          };
+          "memory" = {
+            "format" = "󰍛 {}%";
+          };
 
           "idle_inhibitor" = {
             "format" = "{icon} ";
@@ -95,7 +122,10 @@ in {
               "phone" = "";
               "portable" = "";
               "car" = "";
-              "default" = [ "" "" ];
+              "default" = [
+                ""
+                ""
+              ];
             };
             "scroll-step" = 1;
             "on-click" = "${pkgs.pavucontrol}/bin/pavucontrol";
@@ -110,18 +140,30 @@ in {
           "temperature".critical-threshold = 80;
           "temperature".format = "{temperatureC}°C ";
           "temperature".interval = 5;
-          "temperature".hwmon-path =
-            lib.mkIf (osConfig.networking.hostName == "framework")
-              "/sys/class/hwmon/hwmon6/temp1_input";
+          "temperature".hwmon-path = lib.mkIf (
+            osConfig.networking.hostName == "framework"
+          ) "/sys/class/hwmon/hwmon6/temp1_input";
           "backlight".format = "{percent}% {icon}";
-          "backlight".states = [ 0 50 ];
-          "backlight".format-icons = [ "" "" ];
+          "backlight".states = [
+            0
+            50
+          ];
+          "backlight".format-icons = [
+            ""
+            ""
+          ];
           "battery".states.good = 95;
           "battery".interval = 5;
           "battery".states.warning = 30;
           "battery".states.critical = 15;
           "battery".format = "{capacity}% / {power:.2}W  {icon}";
-          "battery".format-icons = [ "" "" "" "" "" ];
+          "battery".format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
           "clock" = {
             format = "{:%F %H:%M}";
             tooltip-format = "<tt><small>{calendar}</small></tt>";
@@ -148,7 +190,9 @@ in {
               "default" = "▶";
               "mpv" = "🎵";
             };
-            "status-icons" = { "paused" = "⏸"; };
+            "status-icons" = {
+              "paused" = "⏸";
+            };
           };
           "power-profiles-daemon" = {
             "format" = "{icon}";
@@ -217,8 +261,7 @@ in {
               "class<firefox-beta>" = "";
               "class<firefox-developer-edition>" = "";
               "class<firefox> title<.*github.*>" = "";
-              "class<firefox> title<.*twitch|youtube|plex|tntdrama|bally sports.*>" =
-                "";
+              "class<firefox> title<.*twitch|youtube|plex|tntdrama|bally sports.*>" = "";
               "class<kitty>" = "";
               "class<org.wezfurlong.wezterm>" = "";
               "class<mediainfo-gui>" = "󱂷";
@@ -247,8 +290,7 @@ in {
             };
           };
         };
-        style =
-          "${theme}${style}${notificationsStyle}${powerStyle}${statsStyle}${workspacesStyle}";
+        style = "${theme}${style}${notificationsStyle}${powerStyle}${statsStyle}${workspacesStyle}";
       };
     };
 }

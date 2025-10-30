@@ -1,4 +1,10 @@
-{ lib, inputs, config, pkgsVersion, ... }:
+{
+  lib,
+  inputs,
+  config,
+  pkgsVersion,
+  ...
+}:
 with lib;
 let
   cfg = config.custom.nix.settings;
@@ -15,12 +21,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.services.nix-daemon.serviceConfig.OOMScoreAdjust =
-      lib.mkDefault 250;
+    systemd.services.nix-daemon.serviceConfig.OOMScoreAdjust = lib.mkDefault 250;
 
     nix = {
       optimise.automatic = cfg.optimise;
-      settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
+      settings.experimental-features = [
+        "nix-command"
+        "flakes"
+        "pipe-operators"
+      ];
       # not used
       #settings.substituters =
       #  lib.mkIf (config.networking.hostName == "kop-pc")

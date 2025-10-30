@@ -1,5 +1,6 @@
 # Example to create a bios compatible gpt partition
-{ lib, ... }: {
+{ lib, ... }:
+{
   disko.devices = {
     disk.main = {
       device = lib.mkDefault "/dev/vda";
@@ -28,7 +29,10 @@
               type = "btrfs";
               extraArgs = [ "-f" ]; # Override existing partition
               mountpoint = "/";
-              mountOptions = [ "compress=zstd" "noatime" ];
+              mountOptions = [
+                "compress=zstd"
+                "noatime"
+              ];
             };
           };
         };

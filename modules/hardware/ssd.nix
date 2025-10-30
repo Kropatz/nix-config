@@ -12,4 +12,3 @@ in
     services.fstrim.enable = true;
   };
 }
-

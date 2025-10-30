@@ -12,4 +12,3 @@ in
     services.fwupd.enable = true;
   };
 }
-

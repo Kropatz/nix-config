@@ -16,6 +16,8 @@
         options.desc = "List buffers";
       };
     };
-    extensions.fzf-native = { enable = true; };
+    extensions.fzf-native = {
+      enable = true;
+    };
   };
 }

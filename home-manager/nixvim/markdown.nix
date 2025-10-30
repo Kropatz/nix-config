@@ -2,7 +2,10 @@
   plugins.render-markdown = {
     enable = true;
     settings = {
-      file_types = [ "markdown" "vimwiki"];
+      file_types = [
+        "markdown"
+        "vimwiki"
+      ];
     };
   };
 }

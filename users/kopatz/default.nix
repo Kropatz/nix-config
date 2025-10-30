@@ -1,8 +1,9 @@
-{ inputs
-, pkgs
-, lib
-, config
-, ...
+{
+  inputs,
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 {
   imports = [ ../default.nix ];
@@ -22,7 +23,12 @@
     initialPassword = "1";
     description = config.mainUser.name;
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "docker" "input" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "input"
+    ];
     openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];
   };
 }

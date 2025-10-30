@@ -1,4 +1,10 @@
-{ config, pkgs, inputs, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 let
   cec = "${pkgs.v4l-utils}/bin/cec-ctl";
 in
@@ -102,7 +108,10 @@ in
     };
   };
 
-  nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" "electron-28.3.3" ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-27.3.11"
+    "electron-28.3.3"
+  ];
   hardware.cpu.amd.ryzen-smu.enable = true;
   environment.systemPackages = with pkgs; [
     nvtopPackages.amd
@@ -144,8 +153,10 @@ in
     ];
   };
 
-  age.identityPaths =
-    [ "/home/kopatz/.ssh/id_ed25519" "/etc/ssh/ssh_host_ed25519_key" ];
+  age.identityPaths = [
+    "/home/kopatz/.ssh/id_ed25519"
+    "/etc/ssh/ssh_host_ed25519_key"
+  ];
   mainUser.layout = "de_us_swapped";
   mainUser.variant = "";
   console.useXkbConfig = true;

@@ -1,6 +1,13 @@
-{ config, pkgs, lib, ... }:
-let cfg = config.custom.graphical.niri;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  cfg = config.custom.graphical.niri;
+in
+{
 
   options = {
     custom.graphical.niri.enable = lib.mkOption {
@@ -11,7 +18,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.niri = { enable = true; };
+    programs.niri = {
+      enable = true;
+    };
     environment.systemPackages = with pkgs; [ xwayland-satellite ];
   };
 }

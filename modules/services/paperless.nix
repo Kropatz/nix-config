@@ -1,4 +1,11 @@
-{ config, pkgs, lib, inputs, vars, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  vars,
+  ...
+}:
 let
   ip = vars.ipv4;
   wireguardIp = vars.wireguardIp;

@@ -1,6 +1,14 @@
-{ config, pkgs, lib, inputs, ... }:
-let cfg = config.custom.services.syncthing;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+let
+  cfg = config.custom.services.syncthing;
+in
+{
   options.custom.services.syncthing = {
     enable = lib.mkEnableOption "Enables syncthing";
     basePath = lib.mkOption {
@@ -10,8 +18,7 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
-    systemd.tmpfiles.rules =
-      [ "d ${cfg.basePath} 0700 ${config.mainUser.name} users -" ];
+    systemd.tmpfiles.rules = [ "d ${cfg.basePath} 0700 ${config.mainUser.name} users -" ];
 
     # check device id: syncthing cli --gui-address=/synced/gui-socket --gui-apikey=<key> show system
     environment.systemPackages = with pkgs; [ syncthing ];
@@ -33,61 +40,92 @@ in {
 
         devices = {
           kop-pc = {
-            id =
-              "DZKIUS7-WCGTYEV-4OKVSZU-MIVL2NC-N45AKZL-ABT3VN2-I7RXUMF-RF4CYAU";
+            id = "DZKIUS7-WCGTYEV-4OKVSZU-MIVL2NC-N45AKZL-ABT3VN2-I7RXUMF-RF4CYAU";
             addresses = [ "tcp://192.168.0.11" ];
           };
           server = {
-            id =
-              "FK3DW4B-6Y7C25O-IDBSOMV-GOUSWZW-KQR7ELS-QUKS4UR-AFZXLZE-67QJXAX";
-            addresses = [ "tcp://192.168.0.10" "tcp://192.168.2.1" ];
+            id = "FK3DW4B-6Y7C25O-IDBSOMV-GOUSWZW-KQR7ELS-QUKS4UR-AFZXLZE-67QJXAX";
+            addresses = [
+              "tcp://192.168.0.10"
+              "tcp://192.168.2.1"
+            ];
           };
           laptop = {
-            id =
-              "ACLM2MY-G6TK6QH-NEVVG3R-6QGXWYI-GHGA2FJ-SI6DFZJ-JWKWAOA-DPMEEQO";
-            addresses = [ "tcp://192.168.2.22" "tcp://192.168.0.166" ];
+            id = "ACLM2MY-G6TK6QH-NEVVG3R-6QGXWYI-GHGA2FJ-SI6DFZJ-JWKWAOA-DPMEEQO";
+            addresses = [
+              "tcp://192.168.2.22"
+              "tcp://192.168.0.166"
+            ];
           };
           phone = {
-            id =
-              "JKZGIMH-4YWAMUN-SQZBKFY-BVLEFP4-NBNZP2T-R2LSLSN-RVSL7BH-3AFIFAB";
-            addresses = [ "tcp://192.168.0.15" "tcp://192.168.2.20" ];
+            id = "JKZGIMH-4YWAMUN-SQZBKFY-BVLEFP4-NBNZP2T-R2LSLSN-RVSL7BH-3AFIFAB";
+            addresses = [
+              "tcp://192.168.0.15"
+              "tcp://192.168.2.20"
+            ];
           };
         };
         folders."default" = {
           id = "default";
           path = "${cfg.basePath}/default";
-          devices =
-            [ "kop-pc" "server" "laptop" "phone" ];
+          devices = [
+            "kop-pc"
+            "server"
+            "laptop"
+            "phone"
+          ];
           ignorePerms = false;
         };
 
         folders."books" = {
           id = "books";
           path = "${cfg.basePath}/books";
-          devices = [ "kop-pc" "server" "laptop" ];
+          devices = [
+            "kop-pc"
+            "server"
+            "laptop"
+          ];
         };
 
         folders."fh" = {
           id = "fh";
           path = "${cfg.basePath}/fh";
-          devices = [ "kop-pc" "server" "laptop" ];
+          devices = [
+            "kop-pc"
+            "server"
+            "laptop"
+          ];
         };
 
         folders."work_drive" = {
           id = "work_drive";
           path = "${cfg.basePath}/work_drive";
-          devices = [ "kop-pc" "server" "laptop" ];
+          devices = [
+            "kop-pc"
+            "server"
+            "laptop"
+          ];
         };
 
         folders."no_backup" = {
           id = "no_backup";
           path = "${cfg.basePath}/no_backup";
-          devices = [ "kop-pc" "server" "laptop" ];
+          devices = [
+            "kop-pc"
+            "server"
+            "laptop"
+          ];
         };
       };
     };
 
-    networking.firewall.allowedTCPPorts = [ 8384 22000 ];
-    networking.firewall.allowedUDPPorts = [ 22000 21027 ];
+    networking.firewall.allowedTCPPorts = [
+      8384
+      22000
+    ];
+    networking.firewall.allowedUDPPorts = [
+      22000
+      21027
+    ];
   };
 }

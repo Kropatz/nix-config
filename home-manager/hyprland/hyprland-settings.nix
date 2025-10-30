@@ -1,4 +1,11 @@
-{ config, osConfig, pkgs, inputs, lib, ... }:
+{
+  config,
+  osConfig,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 let
   cfg = osConfig.custom.graphical.hyprland;
   isPc = osConfig.networking.hostName == "kop-pc";
@@ -16,7 +23,13 @@ let
     hyprctl --instance 0 "dispatch exec hyprlock"
   '';
   scale = if isLaptop then "1.33333" else "1";
-  monitor1 = if isPc then "DP-1" else if isLaptop then "eDP-1" else "eDP-1";
+  monitor1 =
+    if isPc then
+      "DP-1"
+    else if isLaptop then
+      "eDP-1"
+    else
+      "eDP-1";
   monitor2 = "HDMI-A-1";
 in
 {
@@ -38,32 +51,35 @@ in
 
         # See https://wiki.hyprland.org/Configuring/Monitors/
         monitor =
-          if isPc then [
-            "${monitor2},1920x1080@60,0x0,${scale}"
-            "${monitor1},2560x1440@144,1920x0,${scale}"
-            "Unknown-1,disable"
-          ] else if isLaptop then [
-            # laptop
-            "eDP-1,2256x1504@60,0x0,${scale}"
-            #"DP-3,1920x1080@60,1920x0,1"
-            #",preferred,auto,1,mirror,eDP-1" 
-            ",preferred,auto,auto"
-          ] else
+          if isPc then
+            [
+              "${monitor2},1920x1080@60,0x0,${scale}"
+              "${monitor1},2560x1440@144,1920x0,${scale}"
+              "Unknown-1,disable"
+            ]
+          else if isLaptop then
+            [
+              # laptop
+              "eDP-1,2256x1504@60,0x0,${scale}"
+              #"DP-3,1920x1080@60,1920x0,1"
+              #",preferred,auto,1,mirror,eDP-1"
+              ",preferred,auto,auto"
+            ]
+          else
             [
               # Default
               ",preferred,auto,auto"
             ];
 
-        workspace =
-          lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
-            "1,monitor:${monitor1}"
-            "2,monitor:${monitor1}"
-            "3,monitor:${monitor1}"
-            "4,monitor:${monitor1}"
-            "5,monitor:${monitor1}"
-            "9,monitor:${monitor2}"
-            "10,monitor:${monitor2}"
-          ];
+        workspace = lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
+          "1,monitor:${monitor1}"
+          "2,monitor:${monitor1}"
+          "3,monitor:${monitor1}"
+          "4,monitor:${monitor1}"
+          "5,monitor:${monitor1}"
+          "9,monitor:${monitor2}"
+          "10,monitor:${monitor2}"
+        ];
 
         # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
@@ -74,13 +90,16 @@ in
         # source = ~/.config/hypr/myColors.conf
 
         # Some default env vars.
-        env =
-          [ "XCURSOR_SIZE,24" "NIXOS_OZONE_WL,1" "GDK_SCALE,${scale}" ]
-          ++ lib.optionals osConfig.custom.hardware.nvidia.enable [
-            "LIBVA_DRIVER_NAME,nvidia"
-            "GBM_BACKEND,nvidia-drm"
-            "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-          ];
+        env = [
+          "XCURSOR_SIZE,24"
+          "NIXOS_OZONE_WL,1"
+          "GDK_SCALE,${scale}"
+        ]
+        ++ lib.optionals osConfig.custom.hardware.nvidia.enable [
+          "LIBVA_DRIVER_NAME,nvidia"
+          "GBM_BACKEND,nvidia-drm"
+          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        ];
 
         # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
         input = {
@@ -93,7 +112,9 @@ in
           follow_mouse = 1;
           float_switch_override_focus = 2;
 
-          touchpad = { natural_scroll = true; };
+          touchpad = {
+            natural_scroll = true;
+          };
 
           accel_profile = "flat";
           sensitivity = 0;
@@ -124,9 +145,9 @@ in
         render = {
           new_render_scheduling = true;
         };
-        misc = { 
-          vfr = true; 
-          middle_click_paste = false; 
+        misc = {
+          vfr = true;
+          middle_click_paste = false;
           enable_anr_dialog = false;
           disable_hyprland_logo = true;
         };
@@ -169,8 +190,7 @@ in
 
         dwindle = {
           # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-          pseudotile =
-            true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+          pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
           preserve_split = true; # you probably want this
         };
 
@@ -212,8 +232,9 @@ in
             wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
             wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
             grimblast = "${pkgs.grimblast}/bin/grimblast";
-            saved-screenshot-cmd = ''${grimblast} --freeze save area $OUT && notify-send "Saved screenshot to $OUT" -h string:image-path:$OUT && echo "file://$(realpath $OUT)" | wl-copy -t text/uri-list
-'';
+            saved-screenshot-cmd = ''
+              ${grimblast} --freeze save area $OUT && notify-send "Saved screenshot to $OUT" -h string:image-path:$OUT && echo "file://$(realpath $OUT)" | wl-copy -t text/uri-list
+            '';
             pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
             brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
@@ -241,10 +262,8 @@ in
             ''$mainMod, R, exec, hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"''
             "$mainMod, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
             "        , Print, exec, hyprshade off && ${grimblast} --freeze copy area && hyprshade auto"
-            ''
-              $mainMod, Print, exec, export OUT=/tmp/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
-            ''
-              Shift_L, Print, exec, export OUT=~/Pictures/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
+            ''$mainMod, Print, exec, export OUT=/tmp/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
+            ''Shift_L, Print, exec, export OUT=~/Pictures/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
             #"$mainMod, G, exec, ${peek}" # record gif
             "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
             " , XF86AudioPlay, exec, ${playerctl} play-pause"
@@ -359,12 +378,14 @@ in
           "dex --autostart --environment Hyprland"
           "${pkgs.hypridle}/bin/hypridle &"
           #"${pkgs.dunst}/bin/dunst &"
-        ] ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
+        ]
+        ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
           "[workspace 9 silent] sleep 2 && discord"
           "[workspace 9 silent] sleep 2 && discordcanary"
           "[workspace 10 silent] firefox"
           "xrandr --monitor ${monitor1} --primary"
-        ] ++ [
+        ]
+        ++ [
           "sleep 3 && ${pkgs.waybar}/bin/waybar &"
           "${restartPortals}"
         ];

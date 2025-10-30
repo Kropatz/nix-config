@@ -1,4 +1,10 @@
-{ osConfig, pkgs, config, lib, ... }:
+{
+  osConfig,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = osConfig.custom.graphical.stylix;
   base16 = config.stylix.base16Scheme;
@@ -14,7 +20,7 @@ in
           enable = true;
           addCss = false;
         };
-        gtk.flatpakSupport.enable = true; #edits ~/.themes/adw-gtk3
+        gtk.flatpakSupport.enable = true; # edits ~/.themes/adw-gtk3
       };
     };
 

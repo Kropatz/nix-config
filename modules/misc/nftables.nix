@@ -12,4 +12,3 @@ in
     networking.nftables.enable = true;
   };
 }
-

@@ -1,5 +1,10 @@
 # valheim.nix
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   join = builtins.concatStringsSep " ";
 in
@@ -12,7 +17,7 @@ in
     ];
   };
 
-  networking.firewall.allowedUDPPorts = [ 8211 ]; #5349 ];
+  networking.firewall.allowedUDPPorts = [ 8211 ]; # 5349 ];
   users.users.palworld = {
     isSystemUser = true;
     # Valheim puts save data in the home directory.

@@ -2,7 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [ ../../modules/misc/kernel.nix ];
@@ -10,11 +15,23 @@
   specialisation = {
     nvidia = {
       inheritParentConfig = true;
-      configuration = { custom = { hardware = { nvidia.enable = true; }; }; };
+      configuration = {
+        custom = {
+          hardware = {
+            nvidia.enable = true;
+          };
+        };
+      };
     };
     amd-gpu = {
       inheritParentConfig = true;
-      configuration = { custom = { hardware = { amd-gpu.enable = true; }; }; };
+      configuration = {
+        custom = {
+          hardware = {
+            amd-gpu.enable = true;
+          };
+        };
+      };
     };
   };
 
@@ -47,27 +64,50 @@
   networking.useDHCP = lib.mkDefault true;
   networking.networkmanager.enable = true;
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "ehci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" "sd_mod" "rtsx_pci_sdmmc" "uas" "usbcore" "ehci_hcd" "uhci_hcd" "ohci_hcd" "scsi_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "ehci_pci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "sd_mod"
+    "rtsx_pci_sdmmc"
+    "uas"
+    "usbcore"
+    "ehci_hcd"
+    "uhci_hcd"
+    "ohci_hcd"
+    "scsi_mod"
+  ];
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos-ssd";
     fsType = "ext4";
-    options = [ "defaults" "noatime" ];
+    options = [
+      "defaults"
+      "noatime"
+    ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/7395-0541";
     fsType = "vfat";
-    options = [ "fmask=0077" "dmask=0077" ];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-
   networking.hostName = "portable-ssd"; # Define your hostname.
-  nixpkgs.config.permittedInsecurePackages =
-    [ "electron-28.3.3" "electron-27.3.11" ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-28.3.3"
+    "electron-27.3.11"
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

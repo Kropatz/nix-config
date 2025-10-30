@@ -1,4 +1,10 @@
-{ config, pkgs, modulesPath, lib, ... }:
+{
+  config,
+  pkgs,
+  modulesPath,
+  lib,
+  ...
+}:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -19,7 +25,10 @@
   ];
 
   boot = {
-    kernelParams = [ "console=tty0" "console=ttyS0" ];
+    kernelParams = [
+      "console=tty0"
+      "console=ttyS0"
+    ];
     loader.timeout = lib.mkForce 1;
 
     loader.grub = {
@@ -52,17 +61,44 @@
         let
           kavita = "/data/kavita";
           gitolite = "/var/lib/gitolite";
-          mail = [ "/data/vmail" "/var/lib/opendkim" ];
-          syncthing = [ "/data/synced/default/" "/data/synced/work_drive/" ];
-          syncthingFull = syncthing
-            ++ [ "/data/synced/fh/" "/data/synced/books/" ];
-          backupPathsSmall = [ "/home" gitolite ] ++ syncthing ++ mail;
-          backupPathsMedium = [ "/home" gitolite ] ++ syncthing ++ mail;
-          backupPathsFull = [ "/home" kavita gitolite ] ++ syncthingFull ++ mail;
+          mail = [
+            "/data/vmail"
+            "/var/lib/opendkim"
+          ];
+          syncthing = [
+            "/data/synced/default/"
+            "/data/synced/work_drive/"
+          ];
+          syncthingFull = syncthing ++ [
+            "/data/synced/fh/"
+            "/data/synced/books/"
+          ];
+          backupPathsSmall = [
+            "/home"
+            gitolite
+          ]
+          ++ syncthing
+          ++ mail;
+          backupPathsMedium = [
+            "/home"
+            gitolite
+          ]
+          ++ syncthing
+          ++ mail;
+          backupPathsFull = [
+            "/home"
+            kavita
+            gitolite
+          ]
+          ++ syncthingFull
+          ++ mail;
         in
         {
           enable = true;
-          excludePaths = lib.mkOptionDefault [ "${kavita}/manga" "/home/anon/projects" ];
+          excludePaths = lib.mkOptionDefault [
+            "${kavita}/manga"
+            "/home/anon/projects"
+          ];
           small = backupPathsSmall; # goes to backblaze
           medium = backupPathsMedium; # goes to gdrive
           large = backupPathsFull; # goes to local storage medium
@@ -108,7 +144,11 @@
   services.xserver.videoDrivers = [ "vmware" ];
 
   # 8888 = scheibenmeister skip button
-  networking.firewall.allowedTCPPorts = [ 25565 25566 8888 ];
+  networking.firewall.allowedTCPPorts = [
+    25565
+    25566
+    8888
+  ];
   networking.nftables.tables.ip_drop = {
     family = "inet";
     content = ''
@@ -145,20 +185,31 @@
   fileSystems."/data" = {
     device = "/dev/disk/by-uuid/d117419d-fce9-4d52-85c7-e3481feaa22a";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" ];
+    options = [
+      "compress=zstd"
+      "noatime"
+      "nofail"
+    ];
   };
   fileSystems."/1tbssd" = {
     device = "/dev/disk/by-uuid/801d9217-9c38-4ca8-914e-e31361603892";
     fsType = "ext4";
-    options = [ "defaults" "nofail" "noatime" ];
+    options = [
+      "defaults"
+      "nofail"
+      "noatime"
+    ];
   };
 
   fileSystems."/hdd" = {
     device = "/dev/disk/by-uuid/99954059-3801-4abb-a536-0e7802a3e6b4";
     fsType = "ext4";
-    options = [ "defaults" "nofail" "noatime" ];
+    options = [
+      "defaults"
+      "nofail"
+      "noatime"
+    ];
   };
-
 
   # Configure console keymap
   console.keyMap = "us";

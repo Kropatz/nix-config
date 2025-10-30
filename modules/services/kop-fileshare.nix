@@ -1,7 +1,14 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
-let cfg = config.custom.services.kop-fileshare;
-in {
+let
+  cfg = config.custom.services.kop-fileshare;
+in
+{
   options = {
     custom.services.kop-fileshare = {
       enable = mkEnableOption "Enable the file upload server";
@@ -34,7 +41,10 @@ in {
     systemd.services.kop-fileshare = {
       description = "File Upload Server";
       wants = [ "network-online.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {

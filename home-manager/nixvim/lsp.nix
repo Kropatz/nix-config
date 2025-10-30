@@ -4,16 +4,18 @@
     inlayHints.enable = true;
     servers = {
       bashls.enable = true;
-      #ccls.enable = true; 
+      #ccls.enable = true;
       clangd.enable = true;
       cssls.enable = true;
       gopls.enable = true;
       clojure_lsp.enable = true;
-      qmlls =
-        {
-          enable = true;
-          settings.cmd = [ "qmlls" "-E" ];
-        };
+      qmlls = {
+        enable = true;
+        settings.cmd = [
+          "qmlls"
+          "-E"
+        ];
+      };
       nixd = {
         enable = true;
         settings = {
@@ -33,7 +35,7 @@
       };
       tinymist.enable = true; # typst
     };
-    keymaps= [
+    keymaps = [
       {
         key = "gd";
         lspBufAction = "definition";

@@ -1,4 +1,10 @@
-{ buildGoModule, stdenv, pkgs, lib, ... }:
+{
+  buildGoModule,
+  stdenv,
+  pkgs,
+  lib,
+  ...
+}:
 buildGoModule rec {
   pname = "kop-fileshare";
   version = "0.0.1";

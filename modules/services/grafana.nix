@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   useHttps = config.services.step-ca.enable;
   fqdn = "grafana.home.arpa";
@@ -28,27 +33,28 @@ in
     provision.alerting.policies.path = ./grafana/notification-policies.yml;
     provision.alerting.templates.path = ./grafana/alerts.yml;
     provision.datasources.settings = {
-      datasources =
-        [
-          {
-            name = "DS_PROMETHEUS";
-            url = "http://127.0.0.1:${toString config.services.prometheus.port}";
-            type = "prometheus";
-            isDefault = true;
-            # This has to match the prometheus scrape interval, otherwise the $__rate_interval variable wont work.
-            jsonData.timeInterval = "60s";
-          }
-          {
-            name = "loki";
-            url = "http://localhost:3100";
-            type = "loki";
-          }
-        ];
+      datasources = [
+        {
+          name = "DS_PROMETHEUS";
+          url = "http://127.0.0.1:${toString config.services.prometheus.port}";
+          type = "prometheus";
+          isDefault = true;
+          # This has to match the prometheus scrape interval, otherwise the $__rate_interval variable wont work.
+          jsonData.timeInterval = "60s";
+        }
+        {
+          name = "loki";
+          url = "http://localhost:3100";
+          type = "loki";
+        }
+      ];
     };
-    provision.dashboards.settings.providers = [{
-      name = "provisioned-dashboards";
-      options.path = ./grafana/dashboards;
-    }];
+    provision.dashboards.settings.providers = [
+      {
+        name = "provisioned-dashboards";
+        options.path = ./grafana/dashboards;
+      }
+    ];
   };
 
   systemd.services.grafana = {
@@ -100,15 +106,16 @@ in
     scrapeConfigs = [
       {
         job_name = "scrapema";
-        static_configs = [{
-          targets = [
-            "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
-          ] ++
-          (lib.optional config.services.cadvisor.enable "${config.services.cadvisor.listenAddress}:${toString config.services.cadvisor.port}") ++
-          (lib.optional config.services.prometheus.exporters.nginx.enable "127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}") ++
-          (lib.optional config.services.prometheus.exporters.nginxlog.enable "127.0.0.1:${toString config.services.prometheus.exporters.nginxlog.port}")
-          ;
-        }];
+        static_configs = [
+          {
+            targets = [
+              "127.0.0.1:${toString config.services.prometheus.exporters.node.port}"
+            ]
+            ++ (lib.optional config.services.cadvisor.enable "${config.services.cadvisor.listenAddress}:${toString config.services.cadvisor.port}")
+            ++ (lib.optional config.services.prometheus.exporters.nginx.enable "127.0.0.1:${toString config.services.prometheus.exporters.nginx.port}")
+            ++ (lib.optional config.services.prometheus.exporters.nginxlog.enable "127.0.0.1:${toString config.services.prometheus.exporters.nginxlog.port}");
+          }
+        ];
       }
     ];
   };

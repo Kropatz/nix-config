@@ -1,6 +1,13 @@
-{ lib, osConfig, pkgs, ... }:
-let enable = osConfig.custom.graphical.i3.enable || osConfig.custom.graphical.hyprland.enable;
-in {
+{
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
+let
+  enable = osConfig.custom.graphical.i3.enable || osConfig.custom.graphical.hyprland.enable;
+in
+{
   config = lib.mkIf enable {
     services.dunst = {
       enable = true;

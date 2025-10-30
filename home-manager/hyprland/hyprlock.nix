@@ -1,6 +1,15 @@
-{ config, osConfig, pkgs, inputs, lib, ... }:
-let cfg = osConfig.custom.graphical.hyprland;
-in {
+{
+  config,
+  osConfig,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
+let
+  cfg = osConfig.custom.graphical.hyprland;
+in
+{
   config = lib.mkIf cfg.enable {
     programs.hyprlock.enable = true;
     programs.hyprlock.settings = {
@@ -34,7 +43,7 @@ in {
       ##    shadow_passes = 2;
       ##};
       ##
-      ### DATE 
+      ### DATE
       ##label = {
       ##    monitor = "";
       ##    text = "cmd[update:43200000] echo \"$(date +\"%A, %d %B %Y\")\"";

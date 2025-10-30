@@ -12,4 +12,3 @@ in
     services.btrfs.autoScrub.enable = true;
   };
 }
-

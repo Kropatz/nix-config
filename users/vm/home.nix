@@ -1,5 +1,13 @@
-{ config, pkgs, inputs, ... }: {
-  home = { stateVersion = "23.05"; };
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  home = {
+    stateVersion = "23.05";
+  };
 
   imports = [
     #../../home-manager/nvim.nix

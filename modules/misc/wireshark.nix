@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.custom.wireshark;
@@ -15,4 +20,3 @@ in
     users.users.${config.mainUser.name}.extraGroups = [ "wireshark" ];
   };
 }
-

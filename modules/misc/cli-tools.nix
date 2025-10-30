@@ -1,8 +1,18 @@
-{ lib, config, pkgs, inputs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 with lib;
-let cfg = config.custom.cli-tools;
-in {
-  options.custom.cli-tools = { enable = mkEnableOption "Enables cli-tools"; };
+let
+  cfg = config.custom.cli-tools;
+in
+{
+  options.custom.cli-tools = {
+    enable = mkEnableOption "Enables cli-tools";
+  };
 
   config =
     let
@@ -28,7 +38,7 @@ in {
     in
     mkIf cfg.enable {
 
-      #Fuse filesystem that returns symlinks to executables based on the PATH of the requesting process. 
+      #Fuse filesystem that returns symlinks to executables based on the PATH of the requesting process.
       #This is useful to execute shebangs on NixOS that assume hard coded locations in locations like /bin or /usr/bin etc.
       services.envfs.enable = true;
 
@@ -48,10 +58,7 @@ in {
       environment.systemPackages = with pkgs; [
         getTotalPowerUsed
         watchCurrentPowerUsed
-        (if lib.versionOlder lib.version "25.05" then
-          wget
-        else
-          powerjoular) # monitor power usage
+        (if lib.versionOlder lib.version "25.05" then wget else powerjoular) # monitor power usage
         bat # fancy cat
         fd # nicer find
         duf # nicer du

@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   #amdgpu_module_pkg =
   #    { pkgs, lib, fetchurl, kernel ? pkgs.linuxPackages_latest.kernel, ... }:
@@ -46,22 +51,26 @@ let
   #  amdgpu_module = pkgs.callPackage amdgpu_module_pkg {
   #    kernel = config.boot.kernelPackages.kernel;
   #  };
-  amd_drm_next_pkg = { fetchurl, buildLinux, ... }@args:
+  amd_drm_next_pkg =
+    { fetchurl, buildLinux, ... }@args:
 
-    buildLinux (args // rec {
-      version = "6.14.0-rc6";
-      modDirVersion = version;
+    buildLinux (
+      args
+      // rec {
+        version = "6.14.0-rc6";
+        modDirVersion = version;
 
-      src = fetchurl {
-        url =
-          "https://gitlab.freedesktop.org/agd5f/linux/-/archive/amd-drm-fixes-6.15-2025-04-09/linux-amd-drm-fixes-6.15-2025-04-09.tar.gz";
-        #"https://gitlab.freedesktop.org/agd5f/linux/-/archive/amd-drm-next-6.15-2025-03-21/linux-amd-drm-next-6.15-2025-03-21.tar.gz";
-        hash = "sha256-AhyDuV9KufqDJEJ+Fp+jnAta3OM/a9OcMNG9UV+OgR0=";
-      };
-      kernelPatches = [ ];
+        src = fetchurl {
+          url = "https://gitlab.freedesktop.org/agd5f/linux/-/archive/amd-drm-fixes-6.15-2025-04-09/linux-amd-drm-fixes-6.15-2025-04-09.tar.gz";
+          #"https://gitlab.freedesktop.org/agd5f/linux/-/archive/amd-drm-next-6.15-2025-03-21/linux-amd-drm-next-6.15-2025-03-21.tar.gz";
+          hash = "sha256-AhyDuV9KufqDJEJ+Fp+jnAta3OM/a9OcMNG9UV+OgR0=";
+        };
+        kernelPatches = [ ];
 
-      extraMeta.branch = "6.14.0-rc6";
-    } // (args.argsOverride or { }));
+        extraMeta.branch = "6.14.0-rc6";
+      }
+      // (args.argsOverride or { })
+    );
   linux_amd_drm_next = pkgs.callPackage amd_drm_next_pkg { };
 
   linux_6_14 = pkgs.buildLinux {

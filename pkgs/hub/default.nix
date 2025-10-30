@@ -1,6 +1,7 @@
-{ stdenv
-, lib
-, ...
+{
+  stdenv,
+  lib,
+  ...
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "hub";

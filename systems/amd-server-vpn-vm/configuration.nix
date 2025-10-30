@@ -1,4 +1,10 @@
-{ config, pkgs, modulesPath, lib, ... }:
+{
+  config,
+  pkgs,
+  modulesPath,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -16,7 +22,10 @@
   ];
 
   boot = {
-    kernelParams = [ "console=tty0" "console=ttyS0" ];
+    kernelParams = [
+      "console=tty0"
+      "console=ttyS0"
+    ];
     loader.timeout = lib.mkForce 1;
 
     loader.grub.enable = true;
@@ -72,8 +81,8 @@
   #  settings = {
   #    server_url = "http://0.0.0.0:8080";
   #    logtail.enable = false;
-  #    dns = { 
-  #      base_domain = "kopatz.dev"; 
+  #    dns = {
+  #      base_domain = "kopatz.dev";
   #      override_local_dns = false;
   #    };
   #  };

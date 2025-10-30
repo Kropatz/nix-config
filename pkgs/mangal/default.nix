@@ -1,11 +1,11 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, libgbm
-, makeWrapper
-,
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  libgbm,
+  makeWrapper,
 }:
 buildGoModule rec {
   name = "mangal";
@@ -27,7 +27,10 @@ buildGoModule rec {
 
   buildInputs = [ libgbm ];
   runtimeDeps = [ libgbm ];
-  nativeBuildInputs = [ installShellFiles makeWrapper ];
+  nativeBuildInputs = [
+    installShellFiles
+    makeWrapper
+  ];
 
   preFixup = ''
     wrapProgram $out/bin/mangal --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libgbm ]}

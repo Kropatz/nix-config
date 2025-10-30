@@ -1,6 +1,13 @@
-{ config, pkgs, lib, ... }:
-let cfg = config.custom.graphical.sddm;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  cfg = config.custom.graphical.sddm;
+in
+{
 
   options = {
     custom.graphical.sddm.enable = lib.mkOption {
@@ -11,12 +18,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura";}) ];
+    environment.systemPackages = [ (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura"; }) ];
     services = {
       displayManager.sddm = {
         enable = true;
         theme = "sddm-astronaut-theme";
-        extraPackages = [ (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura";}) ];
+        extraPackages = [ (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura"; }) ];
         #wayland.enable = true;
         #sddm.theme = "breeze";
       };

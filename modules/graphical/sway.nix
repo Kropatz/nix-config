@@ -1,6 +1,13 @@
-{ config, pkgs, lib, ... }:
-let cfg = config.custom.graphical.sway;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  cfg = config.custom.graphical.sway;
+in
+{
 
   options = {
     custom.graphical.sway.enable = lib.mkOption {

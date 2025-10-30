@@ -1,4 +1,9 @@
-{ rustPlatform, lib, pkgs, ... }:
+{
+  rustPlatform,
+  lib,
+  pkgs,
+  ...
+}:
 rustPlatform.buildRustPackage {
   pname = "kop-newproject";
   version = "1.0.0";

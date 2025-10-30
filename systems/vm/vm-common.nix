@@ -1,10 +1,16 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   services.xserver = {
     enable = true;
-    resolutions = lib.mkOverride 9 ([ ] ++ [{
-      x = 1680;
-      y = 1050;
-    }]);
+    resolutions = lib.mkOverride 9 (
+      [ ]
+      ++ [
+        {
+          x = 1680;
+          y = 1050;
+        }
+      ]
+    );
   };
 
   virtualisation.vmVariant = {
@@ -15,7 +21,10 @@
     };
   };
   boot = {
-    kernelParams = [ "console=tty0" "console=ttyS0" ];
+    kernelParams = [
+      "console=tty0"
+      "console=ttyS0"
+    ];
     loader.timeout = lib.mkForce 1;
 
     loader.grub = {

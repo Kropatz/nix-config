@@ -1,6 +1,14 @@
-{ config, pkgs, lib, inputs, ... }:
-let cfg = config.custom.graphical.hyprland;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+let
+  cfg = config.custom.graphical.hyprland;
+in
+{
   options.custom.graphical.hyprland = {
     enable = lib.mkEnableOption "Enables hyprland";
   };
@@ -14,8 +22,7 @@ in {
       xkb.variant = config.mainUser.variant;
       enable = true;
     };
-    services.displayManager.sddm.enable =
-      !config.services.xserver.displayManager.gdm.enable;
+    services.displayManager.sddm.enable = !config.services.xserver.displayManager.gdm.enable;
 
     nix.settings = {
       substituters = [ "https://hyprland.cachix.org" ];
@@ -30,7 +37,9 @@ in {
       pkgs.xdg-desktop-portal-hyprland
     ];
 
-    programs.hyprland = { enable = true; };
+    programs.hyprland = {
+      enable = true;
+    };
 
     security.pam.services.hyprlock = { };
     systemd = {
@@ -41,8 +50,7 @@ in {
         after = [ "graphical-session.target" ];
         serviceConfig = {
           Type = "simple";
-          ExecStart =
-            "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           Restart = "on-failure";
           RestartSec = 1;
           TimeoutStopSec = 10;
@@ -72,9 +80,8 @@ in {
       #xdg-utils
       #xwayland
       (writeShellScriptBin "copyfiletoclip" ''
-          echo "file://$(realpath $1)" | wl-copy -t text/uri-list
-        ''
-      )
+        echo "file://$(realpath $1)" | wl-copy -t text/uri-list
+      '')
 
     ];
   };

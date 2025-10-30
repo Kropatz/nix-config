@@ -1,4 +1,11 @@
-{ config, pkgs, lib, inputs, vars, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  vars,
+  ...
+}:
 let
   wireguardIp = vars.wireguardIp;
   fqdn = "nextcloud.home.arpa";
@@ -46,7 +53,10 @@ in
     config.adminpassFile = config.age.secrets.nextcloud-admin.path;
     config.dbtype = "pgsql";
     database.createLocally = true;
-    settings.trusted_domains = [ wireguardIp "nextcloud.home.arpa" ];
+    settings.trusted_domains = [
+      wireguardIp
+      "nextcloud.home.arpa"
+    ];
     home = "/mnt/250ssd/nextcloud";
     extraApps = with config.services.nextcloud.package.packages.apps; {
       inherit onlyoffice calendar mail;

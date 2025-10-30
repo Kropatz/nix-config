@@ -1,4 +1,12 @@
-{ osConfig, config, pkgs, inputs, lib, ... }: {
+{
+  osConfig,
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
+{
   home = {
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
@@ -47,8 +55,14 @@
       zoom_out = 5;
     };
     keybindings = {
-      prev_img = [ "h" "Left" ];
-      next_img = [ "l" "Right" ];
+      prev_img = [
+        "h"
+        "Left"
+      ];
+      next_img = [
+        "l"
+        "Right"
+      ];
     };
   };
 
@@ -58,8 +72,14 @@
       exec = "kitty -d /home/kopatz/synced/default/vimwiki nvim /home/kopatz/synced/default/vimwiki/index.md";
       icon = "nvim";
       type = "Application";
-      categories = [ "Utility" "TextEditor"  ];
-      mimeType = [ "text/markdown" "text/plain" ];
+      categories = [
+        "Utility"
+        "TextEditor"
+      ];
+      mimeType = [
+        "text/markdown"
+        "text/plain"
+      ];
     };
   };
 }

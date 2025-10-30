@@ -1,4 +1,11 @@
-{ modulesPath, config, lib, pkgs, ... }: {
+{
+  modulesPath,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -6,7 +13,11 @@
   ];
 
   services.openssh.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  networking.firewall.allowedTCPPorts = [
+    22
+    80
+    443
+  ];
   networking = {
     defaultGateway6 = {
       address = "fe80::1";
@@ -14,10 +25,12 @@
     };
 
     interfaces.enp1s0 = {
-      ipv6.addresses = [ {
-        address = "2a01:4f8:c013:232b::2";
-        prefixLength = 64;
-      } ];
+      ipv6.addresses = [
+        {
+          address = "2a01:4f8:c013:232b::2";
+          prefixLength = 64;
+        }
+      ];
     };
   };
   custom = {
@@ -27,7 +40,9 @@
       plausible.enable = true;
     };
     nftables.enable = true;
-    nix = { settings.enable = true; };
+    nix = {
+      settings.enable = true;
+    };
   };
 
   age.secrets.stash-auth = {
@@ -76,7 +91,10 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKJTpEPKK38MQHcLHkJ6TCqrhSQ9B2ruVx6ONRVQYJC6"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPb326bQdoNNQ/z38C07TbyhNoj59eJTHRHaMqHSHBXy"
   ];
-  environment.systemPackages = map lib.lowPrio [ pkgs.curl pkgs.gitMinimal ];
+  environment.systemPackages = map lib.lowPrio [
+    pkgs.curl
+    pkgs.gitMinimal
+  ];
   boot.loader.grub = {
     efiSupport = true;
     efiInstallAsRemovable = true;
@@ -88,18 +106,23 @@
   systemd.services.kop-monitor = {
     description = "Kop Monitor";
     wants = [ "network-online.target" ];
-    after = [ "network.target" "network-online.target" ];
+    after = [
+      "network.target"
+      "network-online.target"
+    ];
     wantedBy = [ "multi-user.target" ];
     path = [ "${pkgs.iputils}" ];
     serviceConfig = with lib; {
       Type = "simple";
-      ExecStart = "${(pkgs.kop-monitor.overrideAttrs {
+      ExecStart = "${
+        (pkgs.kop-monitor.overrideAttrs {
           src = fetchGit {
             url = "git@github.com:kropatz/monitor.git";
             ref = "monitor-homeserver";
             rev = "14e84874302146690491a8ced7e3c89dce183a74";
           };
-      })}/bin/monitor";
+        })
+      }/bin/monitor";
       DynamicUser = true;
       Restart = "on-failure";
       RestartSec = "5s";
@@ -137,14 +160,20 @@
   networking.wg-quick.interfaces = {
     wg0 = {
       autostart = true;
-      address = [ "10.100.0.1/24" "fd42:42:42::1/64" ];
+      address = [
+        "10.100.0.1/24"
+        "fd42:42:42::1/64"
+      ];
       listenPort = 51820;
       privateKeyFile = config.age.secrets.wireguard.path;
       peers = [
         {
           # kop pc
           publicKey = "YgecbWSNRqOmylYqxr/V21LL3UpKEr5x42lXPAxriSc=";
-          allowedIPs = [ "10.100.0.2/32" "fd42:42:42::2/128" ];
+          allowedIPs = [
+            "10.100.0.2/32"
+            "fd42:42:42::2/128"
+          ];
         }
       ];
     };

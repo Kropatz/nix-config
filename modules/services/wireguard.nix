@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 with lib;
 let
   cfg = config.custom.services.wireguard;
@@ -37,14 +43,14 @@ in
       networking.nat.internalInterfaces = [ "wg0" ];
       networking.firewall.allowedUDPPorts = [ 51820 ];
 
-        #[Interface]
-        #PrivateKey = <your private key here>
-        #Address = 192.168.2.20/24
-        #[Peer]
-        #PublicKey = vyHNUy97R1cvqEvElznPpFQtoqm7WUHnT96UP6Dquwc=
-        #AllowedIPs = 192.168.2.0/24
-        #Endpoint = kopatz.dev:51820
-        #PersistentKeepalive = 25
+      #[Interface]
+      #PrivateKey = <your private key here>
+      #Address = 192.168.2.20/24
+      #[Peer]
+      #PublicKey = vyHNUy97R1cvqEvElznPpFQtoqm7WUHnT96UP6Dquwc=
+      #AllowedIPs = 192.168.2.0/24
+      #Endpoint = kopatz.dev:51820
+      #PersistentKeepalive = 25
       networking.wg-quick.interfaces = {
         wg0 = {
           autostart = true;

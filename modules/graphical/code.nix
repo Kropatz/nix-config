@@ -1,4 +1,10 @@
-{ config, pkgs, inputs, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.custom.graphical.code;
@@ -12,23 +18,26 @@ in
 
   config = mkIf cfg.enable {
     documentation.dev.enable = true;
-    environment.systemPackages = with pkgs; [
-      man-pages
-      stable.jetbrains.idea-ultimate
-      typescript
-      bruno 
-      nodejs_22 # needed for tabby extension
-      python3
-      gcc
-    ] ++ lib.optionals cfg.rider [
-      pkgs.jetbrains.rider
-    ] ++ lib.optionals cfg.clion [
-      pkgs.jetbrains.clion
-    ];
+    environment.systemPackages =
+      with pkgs;
+      [
+        man-pages
+        stable.jetbrains.idea-ultimate
+        typescript
+        bruno
+        nodejs_22 # needed for tabby extension
+        python3
+        gcc
+      ]
+      ++ lib.optionals cfg.rider [
+        pkgs.jetbrains.rider
+      ]
+      ++ lib.optionals cfg.clion [
+        pkgs.jetbrains.clion
+      ];
 
     #environment.sessionVariables = {
     #  DOTNET_ROOT = "${pkgs.dotnet-sdk_7}";
     #};
   };
 }
-

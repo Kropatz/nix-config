@@ -2,7 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, inputs, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -43,8 +50,15 @@
       dns = "192.168.0.10";
       #gateway = "192.168.0.10";
     };
-    misc = { docker.enable = true; };
-    services = { syncthing = { enable = true; }; adguard.ip = "192.168.0.10"; };
+    misc = {
+      docker.enable = true;
+    };
+    services = {
+      syncthing = {
+        enable = true;
+      };
+      adguard.ip = "192.168.0.10";
+    };
     hardware = {
       android.enable = true;
       amd-gpu = {
@@ -107,7 +121,7 @@
   services.searx = {
     enable = false;
     settings = {
-      use_default_settings=true;
+      use_default_settings = true;
       server.port = 8787;
       server.bind_address = "0.0.0.0";
       server.secret_key = "1";
@@ -131,14 +145,12 @@
     after = [ "graphical-session.target" ];
     serviceConfig = {
       Type = "simple";
-      ExecStart =
-        "${pkgs.scheibnkleister-presence}/bin/scheibnkleister-presence";
+      ExecStart = "${pkgs.scheibnkleister-presence}/bin/scheibnkleister-presence";
       Restart = "on-failure";
       RestartSec = 1;
       TimeoutStopSec = 10;
     };
   };
-
 
   # apple shit
   #services.usbmuxd.enable = true;
@@ -147,7 +159,8 @@
     #kdePackages.qtdeclarative
     #libimobiledevice
     #ifuse # optional, to mount using 'ifuse'
-    (wl-clicker.overrideAttrs (old: { # wayland autoclicker
+    (wl-clicker.overrideAttrs (old: {
+      # wayland autoclicker
       src = pkgs.fetchFromGitHub {
         owner = "phonetic112";
         repo = "wl-clicker";
@@ -237,17 +250,26 @@
     ''
   ];
 
-  networking.hosts = let 
-    addr_to_domain_list = config.custom.services.adguard.rewrites |> map (x: { "${x.answer}" = [ x.domain ];} );
-    flattened = builtins.foldl' (acc: elem:
+  networking.hosts =
+    let
+      addr_to_domain_list =
+        config.custom.services.adguard.rewrites
+        |> map (x: {
+          "${x.answer}" = [ x.domain ];
+        });
+      flattened = builtins.foldl' (
+        acc: elem:
         let
           ip = builtins.head (builtins.attrNames elem);
           names = elem.${ip};
-        in acc // {
-          ${ip} = (acc.${ip} or []) ++ names;
+        in
+        acc
+        // {
+          ${ip} = (acc.${ip} or [ ]) ++ names;
         }
-      ) {} addr_to_domain_list;
-    in flattened;
+      ) { } addr_to_domain_list;
+    in
+    flattened;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

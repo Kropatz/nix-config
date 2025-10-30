@@ -1,8 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
-let cfg = config.custom.hardware.tpm;
-in {
-  options.custom.hardware.tpm = { enable = mkEnableOption "Enables tpm"; };
+let
+  cfg = config.custom.hardware.tpm;
+in
+{
+  options.custom.hardware.tpm = {
+    enable = mkEnableOption "Enables tpm";
+  };
 
   config = mkIf cfg.enable {
 

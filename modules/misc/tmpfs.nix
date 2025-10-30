@@ -12,4 +12,3 @@ in
     boot.tmp.useTmpfs = true;
   };
 }
-

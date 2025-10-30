@@ -1,10 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   # create hash -> dovecot -O pw
   tmp_dovecot_passwords = ''
-  lukas:{CRYPT}$2y$05$jqBkvhJ0e439J0PLhef4leOGc3GACGH83kSDCrvmAcsdz68tELkA6:5000:5000::/home/lukas";
-  work:{CRYPT}$2y$05$bEpY1WJ4j/QovgUv0Pxak.vKcSC/o.0T9OHxaekUpI1GK5mAY6vQS:5000:5000::/home/work";
-  school:{CRYPT}$2y$05$RRIjDak/PWhHITKMvGJ9b.MSMrsduUXjLJOfuXQ0k.pQX24shAsq2:5000:5000::/home/school";
+    lukas:{CRYPT}$2y$05$jqBkvhJ0e439J0PLhef4leOGc3GACGH83kSDCrvmAcsdz68tELkA6:5000:5000::/home/lukas";
+    work:{CRYPT}$2y$05$bEpY1WJ4j/QovgUv0Pxak.vKcSC/o.0T9OHxaekUpI1GK5mAY6vQS:5000:5000::/home/work";
+    school:{CRYPT}$2y$05$RRIjDak/PWhHITKMvGJ9b.MSMrsduUXjLJOfuXQ0k.pQX24shAsq2:5000:5000::/home/school";
   '';
   email-domain = "kopatz.dev";
 in
@@ -12,7 +17,11 @@ in
   # 25 = stmp -> postfix
   # 143 = imap -> dovecot
   # 587 = submission -> postfix
-  networking.firewall.allowedTCPPorts = [ 25 143 587 ];
+  networking.firewall.allowedTCPPorts = [
+    25
+    143
+    587
+  ];
   users = {
     users = {
       vmail = {
@@ -42,25 +51,33 @@ in
           type = "inet";
           private = false;
           command = "smtpd";
-          args = [ "-o syslog_name=postfix/submission"
-                   "-o smtpd_tls_security_level=encrypt"
-                   "-o smtpd_sasl_auth_enable=yes"
-                   "-o smtpd_client_restrictions=permit_sasl_authenticated,reject"
-                   # TODO: look into check_sender_access hash:/etc/postfix/sender_access
-                   # reject_unknown_sender_domain blocks internal git from evolit
-                    #"-o smtpd_sender_restrictions="
-                   "-o smtpd_recipient_restrictions=reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject"
-                   "-o smtpd_relay_restrictions=permit_sasl_authenticated,reject"
-                   "-o milter_macro_daemon_name=ORIGINATING"
-                 ];
+          args = [
+            "-o syslog_name=postfix/submission"
+            "-o smtpd_tls_security_level=encrypt"
+            "-o smtpd_sasl_auth_enable=yes"
+            "-o smtpd_client_restrictions=permit_sasl_authenticated,reject"
+            # TODO: look into check_sender_access hash:/etc/postfix/sender_access
+            # reject_unknown_sender_domain blocks internal git from evolit
+            #"-o smtpd_sender_restrictions="
+            "-o smtpd_recipient_restrictions=reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject"
+            "-o smtpd_relay_restrictions=permit_sasl_authenticated,reject"
+            "-o milter_macro_daemon_name=ORIGINATING"
+          ];
         };
       };
       main = {
         myhostname = "${email-domain}";
         mydomain = "${email-domain}";
         #myorigin = "$mydomain";
-        mynetworks = [ "127.0.0.0/8" "192.168.0.0/24" "192.168.2.0/24" ];
-        mydestination = [ "localhost.$mydomain" "localhost" ];
+        mynetworks = [
+          "127.0.0.0/8"
+          "192.168.0.0/24"
+          "192.168.2.0/24"
+        ];
+        mydestination = [
+          "localhost.$mydomain"
+          "localhost"
+        ];
         message_size_limit = 25600000; # 25MB
         recipient_delimiter = "+";
         virtual_mailbox_domains = [ "${email-domain}" ];
@@ -74,15 +91,21 @@ in
         # TLS settings
         # server settings / SMTP TLS configuration for inbound connections
         smtpd_tls_security_level = "may";
-        smtpd_tls_chain_files = [ "/var/lib/acme/${email-domain}/key.pem " "/var/lib/acme/${email-domain}/fullchain.pem " ];
+        smtpd_tls_chain_files = [
+          "/var/lib/acme/${email-domain}/key.pem "
+          "/var/lib/acme/${email-domain}/fullchain.pem "
+        ];
         smtpd_tls_received_header = "yes";
         smtpd_tls_auth_only = "yes"; # disable AUTH over non-encrypted connections
         smtpd_tls_ciphers = "high"; # ciphers used in opportunistic TLS
         smtpd_tls_exclude_ciphers = "aNULL, MD5, DES"; # exclude weak ciphers
         smtpd_tls_protocols = ">=TLSv1.2";
         #client settings / SMTP TLS configuration for outbound connections
-        smtp_tls_chain_files = [ "/var/lib/acme/${email-domain}/key.pem " "/var/lib/acme/${email-domain}/fullchain.pem " ]; # private key followed by cert chain
-        smtp_tls_security_level = "may"; #opportunistic TLS
+        smtp_tls_chain_files = [
+          "/var/lib/acme/${email-domain}/key.pem "
+          "/var/lib/acme/${email-domain}/fullchain.pem "
+        ]; # private key followed by cert chain
+        smtp_tls_security_level = "may"; # opportunistic TLS
         smtp_tls_ciphers = "high"; # ciphers used in opportunistic TLS
         smtp_tls_exclude_ciphers = "aNULL, MD5, DES"; # exclude weak ciphers
         smtp_tls_protocols = ">=TLSv1.2";
@@ -182,7 +205,7 @@ in
       }
       namespace inbox {
         inbox = yes
-      
+
         # Autocreate special folders
         mailbox Drafts {
           special_use = \Drafts

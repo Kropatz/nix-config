@@ -1,8 +1,17 @@
-{ pkgs, lib, config, ... }:
-let cfg = config.custom.misc.podman;
-in {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  cfg = config.custom.misc.podman;
+in
+{
   options = {
-    custom.misc.podman = { enable = lib.mkEnableOption "Enable podman service"; };
+    custom.misc.podman = {
+      enable = lib.mkEnableOption "Enable podman service";
+    };
   };
   config = lib.mkIf cfg.enable {
     # Enable common container config files in /etc/containers

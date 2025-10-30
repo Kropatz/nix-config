@@ -11,7 +11,7 @@
 
     number = true;
     relativenumber = true;
-    showmode = false; #already shown in lightline
+    showmode = false; # already shown in lightline
 
     autoindent = true;
     clipboard = "unnamedplus";
@@ -65,7 +65,7 @@
       options.desc = "Format the current buffer";
     }
 
-    # Git    
+    # Git
     {
       mode = "n";
       key = "<leader>g";
@@ -159,7 +159,7 @@
       options.desc = "Escape terminal mode";
     }
 
-    # Trouble 
+    # Trouble
     {
       key = "<leader>dt";
       action = "<CMD>TroubleToggle<CR>";
@@ -205,18 +205,18 @@
       key = "<leader>rI";
       action = ":Refactor inline_func ";
       options.desc = "Inline function";
-    } 
+    }
     # hop
-        {
+    {
       key = "f";
       action.__raw = ''
-        function()
-          require'hop'.hint_char1({
-            --direction = require'hop.hint'.HintDirection.AFTER_CURSOR,
-            current_line_only = false,
-            case_insensitive = true,
-          })
-       end
+         function()
+           require'hop'.hint_char1({
+             --direction = require'hop.hint'.HintDirection.AFTER_CURSOR,
+             current_line_only = false,
+             case_insensitive = true,
+           })
+        end
       '';
       options.remap = true;
     }
@@ -229,7 +229,7 @@
             current_line_only = false
           })
         end
-     '';
+      '';
       options.remap = true;
     }
   ];

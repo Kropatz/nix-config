@@ -1,4 +1,11 @@
-{ stdenv, lib, buildNpmPackage, fetchFromGitHub, kop-hub, ente-frontend }:
+{
+  stdenv,
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  kop-hub,
+  ente-frontend,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kopatz-website";

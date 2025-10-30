@@ -1,6 +1,14 @@
-{ config, pkgs, lib, inputs, ... }:
-let cfg = config.custom.services.caldav;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+let
+  cfg = config.custom.services.caldav;
+in
+{
   options.custom.services.caldav = {
     enable = lib.mkEnableOption "Enables caldav server";
   };
@@ -12,14 +20,18 @@ in {
     services.radicale = {
       enable = true;
       settings = {
-        server = { hosts = [ "127.0.0.1:5232" ]; };
+        server = {
+          hosts = [ "127.0.0.1:5232" ];
+        };
         #server = { hosts = [ "192.168.0.11:5232" ]; };
         auth = {
           type = "htpasswd";
           htpasswd_filename = config.age.secrets.radicale-users.path;
           htpasswd_encryption = "bcrypt";
         };
-        storage = { filesystem_folder = "/var/lib/radicale/collections"; };
+        storage = {
+          filesystem_folder = "/var/lib/radicale/collections";
+        };
       };
     };
     custom.misc.backup = lib.mkIf config.custom.misc.backup.enable {
@@ -32,18 +44,19 @@ in {
       let
         radicale =
           if lib.versionOlder lib.version "25.05" then
-            (builtins.elemAt
-              config.services.radicale.settings.storage.filesystem_folder 0)
+            (builtins.elemAt config.services.radicale.settings.storage.filesystem_folder 0)
           else
             config.services.radicale.settings.storage.filesystem_folder;
         # not reproducible
-        working =
-          "${radicale}/collection-root/kopatz/b6d2c446-8109-714a-397f-1f35d3136639";
+        working = "${radicale}/collection-root/kopatz/b6d2c446-8109-714a-397f-1f35d3136639";
       in
       {
         description = "Download fh calendar";
         wants = [ "network-online.target" ];
-        after = [ "network.target" "network-online.target" ];
+        after = [
+          "network.target"
+          "network-online.target"
+        ];
         wantedBy = [ "multi-user.target" ];
         startAt = "*-*-* 06:00:00";
 

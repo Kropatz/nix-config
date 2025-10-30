@@ -1,4 +1,11 @@
-{ config, pkgs, inputs, system, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  system,
+  lib,
+  ...
+}:
 let
   notifyScript = pkgs.writeScript "smartd-notify.sh" ''
     #!${pkgs.runtimeShell}
@@ -25,7 +32,7 @@ in
   };
   config = lib.mkIf cfg.enable {
     age.secrets.webhook-smartd = {
-      file = ../../secrets/webhook.age; #File contains WEBHOOK_URL="https://discord.com/api/webhooks/..."
+      file = ../../secrets/webhook.age; # File contains WEBHOOK_URL="https://discord.com/api/webhooks/..."
       owner = "root";
       group = "root";
       mode = "400";
@@ -39,8 +46,7 @@ in
         wall.enable = false;
         mail.enable = false;
       };
-      defaults.autodetected =
-        "-a -o on -s (S/../.././02|L/../../7/04) -m <nomailer> -M exec ${notifyScript} -M test";
+      defaults.autodetected = "-a -o on -s (S/../.././02|L/../../7/04) -m <nomailer> -M exec ${notifyScript} -M test";
     };
   };
 }

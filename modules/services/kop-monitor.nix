@@ -1,7 +1,15 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 with lib;
-let cfg = config.custom.services.kop-monitor;
-in {
+let
+  cfg = config.custom.services.kop-monitor;
+in
+{
   options.custom.services.kop-monitor = {
     enable = mkEnableOption "Enables monitor";
   };
@@ -13,7 +21,10 @@ in {
     systemd.services.kop-monitor = {
       description = "Kop Monitor";
       wants = [ "network-online.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "simple";

@@ -1,7 +1,11 @@
 {
   plugins = {
-    diffview = { enable = true; };
-    lazygit = { enable = true; };
+    diffview = {
+      enable = true;
+    };
+    lazygit = {
+      enable = true;
+    };
     #neogit = {
     #  enable = true;
     #  settings.integrations = { diffview = true; };

@@ -1,16 +1,27 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.custom.hardware.vr;
   # https://wiki.nixos.org/wiki/VR#Patching_AMDGPU_to_allow_high_priority_queues
   amdgpu =
-    { pkgs
-    , lib
-    , kernel ? pkgs.linuxPackages_latest.kernel
+    {
+      pkgs,
+      lib,
+      kernel ? pkgs.linuxPackages_latest.kernel,
     }:
 
     pkgs.stdenv.mkDerivation {
       pname = "amdgpu-kernel-module";
-      inherit (kernel) src version postPatch nativeBuildInputs;
+      inherit (kernel)
+        src
+        version
+        postPatch
+        nativeBuildInputs
+        ;
 
       kernel_dev = kernel.dev;
       kernelVersion = kernel.modDirVersion;

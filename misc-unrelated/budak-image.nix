@@ -1,6 +1,13 @@
-{ pkgs, modulesPath, config, lib, ... }: {
+{
+  pkgs,
+  modulesPath,
+  config,
+  lib,
+  ...
+}:
+{
   imports = [
-    "${modulesPath}/installer/cd-dvd/installation-cd-graphical-gnome.nix" 
+    "${modulesPath}/installer/cd-dvd/installation-cd-graphical-gnome.nix"
   ];
 
   # use the latest Linux kernel
@@ -15,8 +22,7 @@
     enable = true;
     enable32Bit = true;
   };
-  boot.kernelParams =
-    [ "nvidia-drm.fbdev=1" ];
+  boot.kernelParams = [ "nvidia-drm.fbdev=1" ];
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {

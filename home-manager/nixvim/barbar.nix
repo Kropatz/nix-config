@@ -1,1 +1,5 @@
-{ plugins.barbar = { enable = true; }; } # tab bar up top
+{
+  plugins.barbar = {
+    enable = true;
+  };
+} # tab bar up top

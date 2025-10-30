@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 with lib;
 let
   cfg = config.custom.misc.docker;
@@ -9,7 +15,9 @@ in
   };
   config = lib.mkIf cfg.enable {
     virtualisation.docker.enable = true;
-    virtualisation.docker.daemon.settings = { ip = "127.0.0.1"; };
+    virtualisation.docker.daemon.settings = {
+      ip = "127.0.0.1";
+    };
     environment.systemPackages = with pkgs; [
       docker-compose
     ];

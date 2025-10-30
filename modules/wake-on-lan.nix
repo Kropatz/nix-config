@@ -1,4 +1,10 @@
-{ config, pkgs, lib, vars, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  vars,
+  ...
+}:
 let
   interface = vars.interface;
 in

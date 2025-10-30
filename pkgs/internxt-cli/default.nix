@@ -22,31 +22,33 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # Tip: use diff <filea> <fileb> -ur to create patches
-  patches = [ (pkgs.writeText "cli-patch" ''
-diff --git i/src/services/auth.service.ts w/src/services/auth.service.ts
-index dcc63bb..fae23b9 100644
---- i/src/services/auth.service.ts
-+++ w/src/services/auth.service.ts
-@@ -29,14 +29,14 @@ export class AuthService {
-       tfaCode: twoFactorCode,
-     };
- 
--    const data = await authClient.loginAccess(loginDetails, CryptoService.cryptoProvider);
-+    const data = await authClient.login(loginDetails, CryptoService.cryptoProvider);
-     const { user, newToken } = data;
- 
-     const clearMnemonic = CryptoService.instance.decryptTextWithKey(user.mnemonic, password);
--    const clearUser: LoginCredentials['user'] = {
--      ...user,
-+    const clearUser: LoginCredentials['user'] = Object.assign({}, user, {
-+      createdAt: user.createdAt as any as string,
-       mnemonic: clearMnemonic,
--    };
-+    });
-     return {
-       user: clearUser,
-       token: newToken,
-  '') ];
+  patches = [
+    (pkgs.writeText "cli-patch" ''
+      diff --git i/src/services/auth.service.ts w/src/services/auth.service.ts
+      index dcc63bb..fae23b9 100644
+      --- i/src/services/auth.service.ts
+      +++ w/src/services/auth.service.ts
+      @@ -29,14 +29,14 @@ export class AuthService {
+             tfaCode: twoFactorCode,
+           };
+       
+      -    const data = await authClient.loginAccess(loginDetails, CryptoService.cryptoProvider);
+      +    const data = await authClient.login(loginDetails, CryptoService.cryptoProvider);
+           const { user, newToken } = data;
+       
+           const clearMnemonic = CryptoService.instance.decryptTextWithKey(user.mnemonic, password);
+      -    const clearUser: LoginCredentials['user'] = {
+      -      ...user,
+      +    const clearUser: LoginCredentials['user'] = Object.assign({}, user, {
+      +      createdAt: user.createdAt as any as string,
+             mnemonic: clearMnemonic,
+      -    };
+      +    });
+           return {
+             user: clearUser,
+             token: newToken,
+    '')
+  ];
 
   prePatch = ''
     cp  .env.template .env

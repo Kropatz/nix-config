@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 {
   age.secrets.coturn-secret = {
     file = ../../secrets/coturn-secret.age;
@@ -6,10 +12,14 @@
     group = "turnserver";
   };
 
-  networking.firewall.allowedUDPPortRanges = [{ from = 49000; to = 50000; }];
-  networking.firewall.allowedUDPPorts = [ 3478 ]; #5349 ];
-  networking.firewall.allowedTCPPorts = [ 3478 ]; #5349 ];
-
+  networking.firewall.allowedUDPPortRanges = [
+    {
+      from = 49000;
+      to = 50000;
+    }
+  ];
+  networking.firewall.allowedUDPPorts = [ 3478 ]; # 5349 ];
+  networking.firewall.allowedTCPPorts = [ 3478 ]; # 5349 ];
 
   services.coturn = {
     enable = true;
@@ -68,6 +78,6 @@
   #	serviceConfig = {
   #	  User = lib.mkForce "root";
   #	  Group = lib.mkForce "root";
-  #	};	 
+  #	};
   #  };
 }

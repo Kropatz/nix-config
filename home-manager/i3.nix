@@ -1,6 +1,14 @@
-{ osConfig, pkgs, config, lib, ... }:
-let cfg = osConfig.custom.graphical.i3;
-in {
+{
+  osConfig,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+let
+  cfg = osConfig.custom.graphical.i3;
+in
+{
   config = lib.mkIf cfg.enable {
     home.file.".config/i3" = {
       recursive = true;
@@ -55,10 +63,12 @@ in {
           module-margin = 1;
           modules-left = "i3 xwindow";
           modules-center = "";
-          modules-right = [ "music network memory cpu cpu-wattage cpu-temp" ]
-            ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "nvidia-gpu" ]
-            ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "amd-gpu" ]
-            ++ [ "pulseaudio date tray" ];
+          modules-right = [
+            "music network memory cpu cpu-wattage cpu-temp"
+          ]
+          ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "nvidia-gpu" ]
+          ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "amd-gpu" ]
+          ++ [ "pulseaudio date tray" ];
           cursor-click = "pointer";
           cursor-scroll = "ns-resize";
           enable-ipc = true;
@@ -69,8 +79,10 @@ in {
           # override-redirect = true;
         };
         "module/i3" =
-          let padding = 2;
-          in {
+          let
+            padding = 2;
+          in
+          {
             type = "internal/i3";
             pin-workspaces = true;
             show-urgent = true;

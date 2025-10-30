@@ -1,16 +1,24 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
-let cfg = config.custom.graphical.gnome;
-in {
-  options.custom.graphical.gnome = { enable = mkEnableOption "Enables gnome"; };
+let
+  cfg = config.custom.graphical.gnome;
+in
+{
+  options.custom.graphical.gnome = {
+    enable = mkEnableOption "Enables gnome";
+  };
 
   config = mkIf cfg.enable {
     services.xserver = {
       xkb.layout = config.mainUser.layout;
       xkb.variant = config.mainUser.variant;
       enable = true;
-      displayManager.gdm.enable =
-        lib.mkIf (!config.custom.graphical.sddm.enable) true;
+      displayManager.gdm.enable = lib.mkIf (!config.custom.graphical.sddm.enable) true;
       desktopManager.gnome.enable = true;
     };
 
@@ -21,23 +29,26 @@ in {
 
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-    environment.gnome.excludePackages = (with pkgs; [
-      gnome-photos
-      gnome-tour
-      cheese
-      gedit # text editor
-      gnome-music
-      gnome-terminal
-      epiphany # web browser
-      #geary # email reader
-      evince # document viewer
-      gnome-characters
-      totem # video player
-      tali # poker game
-      iagno # go game
-      hitori # sudoku game
-      atomix # puzzle game
-    ]);
+    environment.gnome.excludePackages = (
+      with pkgs;
+      [
+        gnome-photos
+        gnome-tour
+        cheese
+        gedit # text editor
+        gnome-music
+        gnome-terminal
+        epiphany # web browser
+        #geary # email reader
+        evince # document viewer
+        gnome-characters
+        totem # video player
+        tali # poker game
+        iagno # go game
+        hitori # sudoku game
+        atomix # puzzle game
+      ]
+    );
 
     environment.systemPackages = with pkgs; [
       wmctrl

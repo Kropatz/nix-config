@@ -10,15 +10,25 @@
       };
     };
 
-    cmp-buffer = { enable = true; };
+    cmp-buffer = {
+      enable = true;
+    };
 
-    cmp-emoji = { enable = true; };
+    cmp-emoji = {
+      enable = true;
+    };
 
-    cmp-nvim-lsp = { enable = true; };
+    cmp-nvim-lsp = {
+      enable = true;
+    };
 
-    cmp-path = { enable = true; };
+    cmp-path = {
+      enable = true;
+    };
 
-    cmp_luasnip = { enable = true; };
+    cmp_luasnip = {
+      enable = true;
+    };
 
     cmp = {
       enable = true;
@@ -48,11 +58,29 @@
           completion = {
             scrollbar = true;
             sidePadding = 0;
-            border = [ "╭" "─" "╮" "│" "╯" "─" "╰" "│" ];
+            border = [
+              "╭"
+              "─"
+              "╮"
+              "│"
+              "╯"
+              "─"
+              "╰"
+              "│"
+            ];
           };
 
           settings.documentation = {
-            border = [ "╭" "─" "╮" "│" "╯" "─" "╰" "│" ];
+            border = [
+              "╭"
+              "─"
+              "╮"
+              "│"
+              "╯"
+              "─"
+              "╰"
+              "│"
+            ];
           };
         };
 
@@ -65,8 +93,7 @@
           "<C-f>" = "cmp.mapping.scroll_docs(4)";
           "<C-Space>" = "cmp.mapping.complete()";
           "<C-e>" = "cmp.mapping.close()";
-          "<CR>" =
-            "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false })";
+          "<CR>" = "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false })";
           "<Tab>" =
             # lua
             ''
@@ -96,7 +123,11 @@
         };
 
         formatting = {
-          fields = [ "abbr" "kind" "menu" ];
+          fields = [
+            "abbr"
+            "kind"
+            "menu"
+          ];
           format =
             # lua
             ''

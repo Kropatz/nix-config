@@ -1,6 +1,14 @@
-{ config, pkgs, lib, inputs, ... }:
-let cfg = config.custom.services.github-runner;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+let
+  cfg = config.custom.services.github-runner;
+in
+{
   options.custom.services.github-runner = {
     enable = lib.mkEnableOption "Enables github-runner service.";
   };
@@ -34,11 +42,16 @@ in {
       url = "https://github.com/oberprofis";
       user = "github-actions-runner";
       workDir = "/github-actions-runner";
-      extraPackages = with pkgs; [ rsync nodePackages.pnpm nodejs ];
+      extraPackages = with pkgs; [
+        rsync
+        nodePackages.pnpm
+        nodejs
+      ];
       serviceOverrides = {
-        BindPaths = [ "/github-actions-runner" ]
-          ++ lib.optional config.custom.services.kavita.enable
-          config.custom.services.kavita.dir;
+        BindPaths = [
+          "/github-actions-runner"
+        ]
+        ++ lib.optional config.custom.services.kavita.enable config.custom.services.kavita.dir;
         UMask = "022";
       };
     };

@@ -1,8 +1,15 @@
-{ config, pkgs, inputs, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 with config.stylix.fonts;
 let
   mkLiteral = name: "${name}";
-  mkRgba = opacity: color:
+  mkRgba =
+    opacity: color:
     let
       c = config.lib.stylix.colors;
       r = c."${color}-rgb-r";
@@ -11,8 +18,7 @@ let
     in
     "rgba ( ${r}, ${g}, ${b}, ${opacity} % )";
   mkRgb = mkRgba "100";
-  rofiOpacity =
-    builtins.toString (builtins.ceil (config.stylix.opacity.popups * 100));
+  rofiOpacity = builtins.toString (builtins.ceil (config.stylix.opacity.popups * 100));
   rofiTheme = {
     background = mkRgba rofiOpacity "base00";
     lightbg = mkRgba rofiOpacity "base01";
@@ -68,7 +74,9 @@ in
     enable = true;
     text = ''
       * {
-        ${builtins.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name}: ${value};") rofiTheme)}
+        ${builtins.concatStringsSep "\n" (
+          lib.mapAttrsToList (name: value: "${name}: ${value};") rofiTheme
+        )}
       }
     '';
   };

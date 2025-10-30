@@ -1,7 +1,15 @@
-{ config, pkgs, inputs, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 with lib;
-let cfg = config.custom.graphical.shared;
-in {
+let
+  cfg = config.custom.graphical.shared;
+in
+{
   options.custom.graphical.shared = {
     enable = mkEnableOption "Enables shared";
   };
@@ -39,16 +47,21 @@ in {
       networking.firewall = {
         enable = true;
         allowedTCPPorts = [ 53317 ]; # localsend
-        allowedUDPPorts = [ 1194 53317 ]; # openvpn, localsend
-        allowedTCPPortRanges = [{
-          from = 1714;
-          to = 1764;
-        } # KDE Connect
+        allowedUDPPorts = [
+          1194
+          53317
+        ]; # openvpn, localsend
+        allowedTCPPortRanges = [
+          {
+            from = 1714;
+            to = 1764;
+          } # KDE Connect
         ];
-        allowedUDPPortRanges = [{
-          from = 1714;
-          to = 1764;
-        } # KDE Connect
+        allowedUDPPortRanges = [
+          {
+            from = 1714;
+            to = 1764;
+          } # KDE Connect
         ];
       };
 

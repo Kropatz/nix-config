@@ -1,6 +1,13 @@
-{ config, pkgs, lib, ... }:
-let cfg = config.custom.graphical.i3;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  cfg = config.custom.graphical.i3;
+in
+{
 
   options = {
     custom.graphical.i3.enable = lib.mkOption {
@@ -24,14 +31,18 @@ in {
     };
 
     services = {
-      displayManager = { defaultSession = "none+i3"; };
+      displayManager = {
+        defaultSession = "none+i3";
+      };
 
       xserver = {
         enable = true;
 
         xkb.layout = config.mainUser.layout;
         xkb.variant = config.mainUser.variant;
-        desktopManager = { xterm.enable = false; };
+        desktopManager = {
+          xterm.enable = false;
+        };
 
         windowManager.i3 = {
           enable = true;
@@ -53,8 +64,7 @@ in {
         after = [ "graphical-session.target" ];
         serviceConfig = {
           Type = "simple";
-          ExecStart =
-            "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           Restart = "on-failure";
           RestartSec = 1;
           TimeoutStopSec = 10;

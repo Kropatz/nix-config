@@ -1,6 +1,13 @@
-{ config, pkgs, lib, ... }:
-let cfg = config.custom.graphical.lightdm;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  cfg = config.custom.graphical.lightdm;
+in
+{
 
   options = {
     custom.graphical.lightdm.enable = lib.mkOption {

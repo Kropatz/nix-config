@@ -1,7 +1,15 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 with lib;
-let cfg = config.custom.services.nginx;
-in {
+let
+  cfg = config.custom.services.nginx;
+in
+{
   options.custom.services.nginx = {
     enable = mkEnableOption "Enables nginx";
     https = mkOption {
@@ -11,8 +19,14 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
-    networking.firewall.allowedUDPPorts = [ 80 443 ];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
+    networking.firewall.allowedUDPPorts = [
+      80
+      443
+    ];
 
     age.secrets.stash-auth = {
       file = ../../secrets/stash-auth.age;
@@ -34,8 +48,7 @@ in {
       recommendedOptimisation = true;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
-      statusPage =
-        lib.mkIf config.services.prometheus.exporters.nginx.enable true;
+      statusPage = lib.mkIf config.services.prometheus.exporters.nginx.enable true;
 
       # Only allow PFS-enabled ciphers with AES256
       sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
@@ -101,7 +114,10 @@ in {
                 '';
                 proxyPass = "http://localhost:5232/";
               };
-              "/socket.io" = { proxyPass = "http://localhost:9955"; proxyWebsockets = true; };
+              "/socket.io" = {
+                proxyPass = "http://localhost:9955";
+                proxyWebsockets = true;
+              };
               "/comms/" = {
                 extraConfig = ''
                   more_set_headers "Permissions-Policy: geolocation=(), microphone=(self), camera=(self)";

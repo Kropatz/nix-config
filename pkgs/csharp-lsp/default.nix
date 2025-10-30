@@ -1,9 +1,9 @@
-{ lib
-, buildDotnetGlobalTool
-, dotnetCorePackages
-, versionCheckHook
-, nix-update-script
-,
+{
+  lib,
+  buildDotnetGlobalTool,
+  dotnetCorePackages,
+  versionCheckHook,
+  nix-update-script,
 }:
 let
   inherit (dotnetCorePackages) sdk_8_0;

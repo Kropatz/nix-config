@@ -1,4 +1,9 @@
-{pkgs, lib, config, ...}:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   # Run tailscale up --login-server http://<headscale_server>
   services.tailscale.enable = true;

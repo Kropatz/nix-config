@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   services.postgresql = {
     enable = true;
     extensions = with pkgs.postgresql14Packages; [ pg_libversion ];

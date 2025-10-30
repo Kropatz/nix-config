@@ -1,6 +1,13 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.graphical.stylix;
-in {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.custom.graphical.stylix;
+in
+{
   options.custom.graphical.stylix = with lib; {
     enable = mkEnableOption "Enables stylix";
     image = mkOption {
@@ -11,7 +18,13 @@ in {
       '';
     };
     base16Scheme = mkOption {
-      type = with lib.types; nullOr (oneOf [ path lines attrs ]);
+      type =
+        with lib.types;
+        nullOr (oneOf [
+          path
+          lines
+          attrs
+        ]);
       default = null;
       description = ''
         The base16 scheme to use.

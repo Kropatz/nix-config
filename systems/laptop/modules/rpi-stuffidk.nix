@@ -10,12 +10,17 @@ in
     openFirewall = true;
   };
   networking.interfaces."${pi_interface}" = {
-    ipv4.addresses = [{
-      address = "192.168.1.1";
-      prefixLength = 24;
-    }];
+    ipv4.addresses = [
+      {
+        address = "192.168.1.1";
+        prefixLength = 24;
+      }
+    ];
   };
-  networking.firewall.allowedUDPPorts = [ 67 68 ];
+  networking.firewall.allowedUDPPorts = [
+    67
+    68
+  ];
   services = {
     kea.dhcp4 = {
       enable = true;
@@ -61,6 +66,5 @@ in
       };
     };
   };
-
 
 }

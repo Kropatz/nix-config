@@ -1,31 +1,34 @@
 # This file defines overlays
 { inputs, ... }:
 let
-  addPatches = pkg: patches:
-    pkg.overrideAttrs
-      (oldAttrs: { patches = (oldAttrs.patches or [ ]) ++ patches; });
-  neotestPatch = '' diff --git a/tests/unit/client/strategies/integrated_spec.lua b/tests/unit/client/strategies/integrated_spec.lua
-index 196c2e78..42a3df76 100644
---- a/tests/unit/client/strategies/integrated_spec.lua
-+++ b/tests/unit/client/strategies/integrated_spec.lua
-@@ -34,7 +34,7 @@ describe("integrated strategy", function()
+  addPatches =
+    pkg: patches:
+    pkg.overrideAttrs (oldAttrs: {
+      patches = (oldAttrs.patches or [ ]) ++ patches;
+    });
+  neotestPatch = ''
+     diff --git a/tests/unit/client/strategies/integrated_spec.lua b/tests/unit/client/strategies/integrated_spec.lua
+    index 196c2e78..42a3df76 100644
+    --- a/tests/unit/client/strategies/integrated_spec.lua
+    +++ b/tests/unit/client/strategies/integrated_spec.lua
+    @@ -34,7 +34,7 @@ describe("integrated strategy", function()
 
-   a.it("stops the job", function()
-     local process = strategy({
--      command = { "bash", "-c", "sleep 1" },
-+      command = { "bash", "-c", "sleep 10" },
-       strategy = {
-         height = 10,
-         width = 10,
-@@ -47,7 +47,7 @@ describe("integrated strategy", function()
+       a.it("stops the job", function()
+         local process = strategy({
+    -      command = { "bash", "-c", "sleep 1" },
+    +      command = { "bash", "-c", "sleep 10" },
+           strategy = {
+             height = 10,
+             width = 10,
+    @@ -47,7 +47,7 @@ describe("integrated strategy", function()
 
-   a.it("streams output", function()
-     local process = strategy({
--      command = { "bash", "-c", "printf hello; sleep 0; printf world" },
-+      command = { "bash", "-c", "printf hello; sleep 0.1; printf world" },
-       strategy = {
-         height = 10,
-         width = 10,
+       a.it("streams output", function()
+         local process = strategy({
+    -      command = { "bash", "-c", "printf hello; sleep 0; printf world" },
+    +      command = { "bash", "-c", "printf hello; sleep 0.1; printf world" },
+           strategy = {
+             height = 10,
+             width = 10,
   '';
 in
 {
@@ -39,10 +42,10 @@ in
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
     tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
-      #xrdp = (import inputs.nixpkgs-working-xrdp {
-      #  system = "x86_64-linux";
-      #  config.allowUnfree = true;
-      #}).xrdp;
+    #xrdp = (import inputs.nixpkgs-working-xrdp {
+    #  system = "x86_64-linux";
+    #  config.allowUnfree = true;
+    #}).xrdp;
 
     #jetbrains = prev.jetbrains // {
     #  jdk = (import inputs.nixpkgs-working-jetbrains {
@@ -69,7 +72,10 @@ in
       };
     };
     monado = prev.monado.overrideAttrs (old: {
-      cmakeFlags = old.cmakeFlags ++ [ "-DBUILD_WITH_OPENCV=OFF" (prev.lib.cmakeBool "XRT_HAVE_OPENCV" false) ];
+      cmakeFlags = old.cmakeFlags ++ [
+        "-DBUILD_WITH_OPENCV=OFF"
+        (prev.lib.cmakeBool "XRT_HAVE_OPENCV" false)
+      ];
     });
 
     luajitPackages = prev.luajitPackages // {
@@ -85,7 +91,6 @@ in
     #  inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
     #xdg-desktop-portal-hyprland =
     #  inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-
 
     # to add input capture protocol support (needed for kde connect)
     #hyprland = prev.hyprland.overrideAttrs (oldAttrs: {

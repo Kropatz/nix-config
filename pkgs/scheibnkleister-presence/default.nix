@@ -1,7 +1,8 @@
-{ buildNpmPackage
-, fetchFromGitHub
-, lib
-, ...
+{
+  buildNpmPackage,
+  fetchFromGitHub,
+  lib,
+  ...
 }:
 buildNpmPackage rec {
   pname = "scheibnkleister-presence";

@@ -1,6 +1,14 @@
-{ config, pkgs, lib, inputs, ... }:
-let cfg = config.custom.services.plausible;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+let
+  cfg = config.custom.services.plausible;
+in
+{
   options.custom.services.plausible = {
     enable = lib.mkEnableOption "Enables plausible";
   };

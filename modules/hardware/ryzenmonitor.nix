@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
 
   boot = {
     extraModulePackages = with config.boot.kernelPackages; [ zenpower ];

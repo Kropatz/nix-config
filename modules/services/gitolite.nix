@@ -1,6 +1,14 @@
-{ config, pkgs, lib, inputs, ... }:
-let cfg = config.custom.services.gitolite;
-in {
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+let
+  cfg = config.custom.services.gitolite;
+in
+{
   options.custom.services.gitolite = {
     enable = lib.mkEnableOption "Enables ente";
   };

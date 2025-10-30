@@ -1,4 +1,11 @@
-{ config, osConfig, pkgs, inputs, lib, ... }:
+{
+  config,
+  osConfig,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = osConfig.custom.graphical.hyprland.videobridge;

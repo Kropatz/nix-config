@@ -5,5 +5,8 @@ let
   systems = [ laptop ];
 in
 {
-  "wireguard-private.age".publicKeys = [ laptop-user laptop ];
+  "wireguard-private.age".publicKeys = [
+    laptop-user
+    laptop
+  ];
 }

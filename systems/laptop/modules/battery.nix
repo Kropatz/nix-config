@@ -6,7 +6,10 @@
   services.system76-scheduler.settings.cfsProfiles.enable = true;
 
   services.upower.enable = true;
-  environment.systemPackages = with pkgs; [ gnome-power-manager powertop ];
+  environment.systemPackages = with pkgs; [
+    gnome-power-manager
+    powertop
+  ];
 
   # Enable TLP (better than gnomes internal power manager)
   services.tlp = {
@@ -19,11 +22,11 @@
       CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-      RADEON_POWER_PROFILE_ON_AC="performance";
-      RADEON_POWER_PROFILE_ON_BAT="battery";
+      RADEON_POWER_PROFILE_ON_AC = "performance";
+      RADEON_POWER_PROFILE_ON_BAT = "battery";
 
-      AMDGPU_ABM_LEVEL_ON_AC=0;
-      AMDGPU_ABM_LEVEL_ON_BAT=2;
+      AMDGPU_ABM_LEVEL_ON_AC = 0;
+      AMDGPU_ABM_LEVEL_ON_BAT = 2;
 
       #CPU_MIN_PERF_ON_AC = 0;
       #CPU_MAX_PERF_ON_AC = 100;

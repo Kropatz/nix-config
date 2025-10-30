@@ -1,4 +1,10 @@
-{ lib, config, osConfig, pkgs, ... }:
+{
+  lib,
+  config,
+  osConfig,
+  pkgs,
+  ...
+}:
 let
   merge = lib.foldr (a: b: a // b) { };
   search = {
@@ -11,49 +17,63 @@ let
       "eBay".metaData.hidden = true;
 
       "DuckDuckGo" = {
-        urls = [{
-          template = "https://duckduckgo.com";
-          params = [{
-            name = "q";
-            value = "{searchTerms}";
-          }];
-        }];
+        urls = [
+          {
+            template = "https://duckduckgo.com";
+            params = [
+              {
+                name = "q";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
         definedAliases = [ ",d" ];
       };
       "Nix Packages" = {
-        urls = [{
-          template = "https://search.nixos.org/packages";
-          params = [
-            {
-              name = "type";
-              value = "packages";
-            }
-            {
-              name = "query";
-              value = "{searchTerms}";
-            }
-          ];
-        }];
+        urls = [
+          {
+            template = "https://search.nixos.org/packages";
+            params = [
+              {
+                name = "type";
+                value = "packages";
+              }
+              {
+                name = "query";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
         definedAliases = [ ",n" ];
       };
       "Wikipedia" = {
-        urls = [{
-          template = "https://en.wikipedia.org/wiki/Special:Search";
-          params = [{
-            name = "search";
-            value = "{searchTerms}";
-          }];
-        }];
+        urls = [
+          {
+            template = "https://en.wikipedia.org/wiki/Special:Search";
+            params = [
+              {
+                name = "search";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
         definedAliases = [ ",w" ];
       };
       "GitHub" = {
-        urls = [{
-          template = "https://github.com/search";
-          params = [{
-            name = "q";
-            value = "{searchTerms}";
-          }];
-        }];
+        urls = [
+          {
+            template = "https://github.com/search";
+            params = [
+              {
+                name = "q";
+                value = "{searchTerms}";
+              }
+            ];
+          }
+        ];
         definedAliases = [ ",gh" ];
       };
     };
@@ -86,25 +106,28 @@ in
         "ebay@search.mozilla.org".installation_mode = "blocked";
         "wikipedia@search.mozilla.org".installation_mode = "blocked";
         "{5cd68d86-8324-4ab2-9e0d-3afcc60bee5f}" = {
-          install_url =
-            "https://addons.mozilla.org/firefox/downloads/latest/animated-pekora-dark-theme/latest.xpi";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/animated-pekora-dark-theme/latest.xpi";
           installation_mode = "force_installed";
         };
       };
     };
     profiles.default = {
       inherit search;
-      settings = merge ([
-        (import ../firefox/config/preferences.nix)
-        (import ../firefox/config/browser-features.nix)
-        (import ../firefox/config/privacy.nix)
-        (import ../firefox/config/tracking.nix)
-        (import ../firefox/config/tracking-webaudio.nix)
-        (import ../firefox/config/security.nix)
-        (import ../firefox/config/speed.nix)
-        (import ./floorp-config.nix)
-      ] ++ lib.optionals osConfig.custom.hardware.nvidia.enable
-        [ (import ../firefox/config/nvidia-fixes.nix) ]);
+      settings = merge (
+        [
+          (import ../firefox/config/preferences.nix)
+          (import ../firefox/config/browser-features.nix)
+          (import ../firefox/config/privacy.nix)
+          (import ../firefox/config/tracking.nix)
+          (import ../firefox/config/tracking-webaudio.nix)
+          (import ../firefox/config/security.nix)
+          (import ../firefox/config/speed.nix)
+          (import ./floorp-config.nix)
+        ]
+        ++ lib.optionals osConfig.custom.hardware.nvidia.enable [
+          (import ../firefox/config/nvidia-fixes.nix)
+        ]
+      );
       userChrome = ''
         /* Hide tab bar. Used with Sidebery */
         #TabsToolbar {

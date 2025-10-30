@@ -1,7 +1,15 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 with lib;
-let cfg = config.custom.services.adam-site;
-in {
+let
+  cfg = config.custom.services.adam-site;
+in
+{
   options.custom.services.adam-site = {
     enable = mkEnableOption "Enables adams website";
   };
@@ -9,7 +17,10 @@ in {
     systemd.services.adam-site = {
       description = "Adams Website";
       wants = [ "network-online.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
       wantedBy = [ "multi-user.target" ];
       preStart = ''
         if [ ! -d "$STATE_DIRECTORY/data" ]; then

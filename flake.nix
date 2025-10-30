@@ -59,80 +59,107 @@
     #};
   };
   outputs =
-    { self
-    , nur
-    , nixpkgs
-    , nixos-hardware
-    , nixpkgs-unstable
-    , agenix
-    , home-manager
-    , home-manager-unstable
+    {
+      self,
+      nur,
+      nixpkgs,
+      nixos-hardware,
+      nixpkgs-unstable,
+      agenix,
+      home-manager,
+      home-manager-unstable,
       #, nixos-cosmic
-    , nixvim
-    , stylix
-    , disko
-    , flake-utils
-    , ...
+      nixvim,
+      stylix,
+      disko,
+      flake-utils,
+      ...
     }@inputs:
     let
       inherit (self) outputs;
-      overlays = { outputs, ... }: {
-        nixpkgs.overlays = with outputs.overlays; [
-          #unstable-packages
-          stable-packages
-          additions
-          modifications
-          nur.overlays.default
-        ];
-      };
-      defaultModules = [ ./modules agenix.nixosModules.default overlays ];
+      overlays =
+        { outputs, ... }:
+        {
+          nixpkgs.overlays = with outputs.overlays; [
+            #unstable-packages
+            stable-packages
+            additions
+            modifications
+            nur.overlays.default
+          ];
+        };
+      defaultModules = [
+        ./modules
+        agenix.nixosModules.default
+        overlays
+      ];
       # helper function to create a machine
       mkHost =
-        { modules
-        , specialArgs ? {
+        {
+          modules,
+          specialArgs ? {
             pkgsVersion = nixpkgs-unstable;
             home-manager-version = home-manager-unstable;
-          }
-        , system ? "x86_64-linux"
-        , minimal ? false
-        , graphical ? true
+          },
+          system ? "x86_64-linux",
+          minimal ? false,
+          graphical ? true,
         }:
-        let lib = specialArgs.pkgsVersion.lib;
-        in specialArgs.pkgsVersion.lib.nixosSystem {
+        let
+          lib = specialArgs.pkgsVersion.lib;
+        in
+        specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
-          modules = modules ++ defaultModules ++ lib.lists.optionals (!minimal)
-            [ specialArgs.home-manager-version.nixosModules.home-manager ]
+          modules =
+            modules
+            ++ defaultModules
+            ++ lib.lists.optionals (!minimal) [ specialArgs.home-manager-version.nixosModules.home-manager ]
             ++ lib.lists.optionals (!minimal && graphical) [
-            stylix.nixosModules.stylix
-            inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
-            ./modules/graphical/stylix.nix
-            #nixos-cosmic.nixosModules.default
-            #./modules/graphical/cosmic.nix
-            ({ outputs, ... }: { stylix.image = ./tsukasa.jpg; })
-          ];
-          specialArgs = specialArgs // { inherit inputs outputs; };
+              stylix.nixosModules.stylix
+              inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
+              ./modules/graphical/stylix.nix
+              #nixos-cosmic.nixosModules.default
+              #./modules/graphical/cosmic.nix
+              (
+                { outputs, ... }:
+                {
+                  stylix.image = ./tsukasa.jpg;
+                }
+              )
+            ];
+          specialArgs = specialArgs // {
+            inherit inputs outputs;
+          };
         };
       mkStableServer =
-        { modules
-        , specialArgs ? {
+        {
+          modules,
+          specialArgs ? {
             pkgsVersion = nixpkgs;
             home-manager-version = home-manager;
-          }
-        , system ? "x86_64-linux"
-        , minimal ? false
+          },
+          system ? "x86_64-linux",
+          minimal ? false,
         }:
-        let lib = specialArgs.pkgsVersion.lib;
-        in specialArgs.pkgsVersion.lib.nixosSystem {
+        let
+          lib = specialArgs.pkgsVersion.lib;
+        in
+        specialArgs.pkgsVersion.lib.nixosSystem {
           inherit system;
-          modules = modules
-            ++ [ ./modules agenix.nixosModules.default overlays ]
-            ++ lib.lists.optionals (!minimal)
-            [ specialArgs.home-manager-version.nixosModules.home-manager ];
-          specialArgs = specialArgs // { inherit inputs outputs; };
+          modules =
+            modules
+            ++ [
+              ./modules
+              agenix.nixosModules.default
+              overlays
+            ]
+            ++ lib.lists.optionals (!minimal) [ specialArgs.home-manager-version.nixosModules.home-manager ];
+          specialArgs = specialArgs // {
+            inherit inputs outputs;
+          };
         };
       customPackages = flake-utils.lib.eachDefaultSystem (system: {
-        packages =
-          import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
+        packages = import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
       });
     in
     {
@@ -140,7 +167,10 @@
 
       nixosConfigurations = {
         "kop-pc" = mkHost {
-          modules = [ ./users/kopatz ./systems/pc/configuration.nix ];
+          modules = [
+            ./users/kopatz
+            ./systems/pc/configuration.nix
+          ];
         };
         "framework" = mkHost {
           modules = [
@@ -159,11 +189,16 @@
             pkgsVersion = nixpkgs;
             home-manager-version = home-manager;
           };
-          modules =
-            [ disko.nixosModules.disko ./systems/adam-site/configuration.nix ];
+          modules = [
+            disko.nixosModules.disko
+            ./systems/adam-site/configuration.nix
+          ];
         };
         "amd-server" = mkHost {
-          modules = [ ./users/kopatz ./systems/amd-server/configuration.nix ];
+          modules = [
+            ./users/kopatz
+            ./systems/amd-server/configuration.nix
+          ];
         };
         "amd-server-vpn-vm" = mkHost {
           modules = [
@@ -173,9 +208,13 @@
           ];
         };
         # build vm -> nixos-rebuild build-vm  --flake .#vm
-        "vm" =
-          mkHost { modules = [ ./users/vm ./systems/vm/configuration.nix ]; };
-        # nixos-rebuild switch --flake .#server-vm --target-host root@192.168.0.21 
+        "vm" = mkHost {
+          modules = [
+            ./users/vm
+            ./systems/vm/configuration.nix
+          ];
+        };
+        # nixos-rebuild switch --flake .#server-vm --target-host root@192.168.0.21
         "server-vm" = mkHost {
           modules = [
             ./users/anon

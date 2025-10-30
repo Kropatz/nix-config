@@ -17,8 +17,7 @@
   # Firefox 83 introduced sponsored top sites
   # (https://support.mozilla.org/en-US/kb/sponsor-privacy), which are sponsored ads
   # displayed as suggestions in the URL bar.
-  "services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsoredTopSite" =
-    false;
+  "services.sync.prefs.sync.browser.newtabpage.activity-stream.showSponsoredTopSite" = false;
   # Disable about:config warning.
   # No details
   "browser.aboutConfig.showWarning" = false;
@@ -40,7 +39,7 @@
   # time about their experience with Firefox.
   "browser.selfsupport.url" = "";
   # Content of the new tab page
-  # 
+  #
   "browser.newtabpage.enhanced" = false;
   # Disable the new tab page (blank page)
   "browser.newtabpage.enabled" = false;
