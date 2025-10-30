@@ -64,6 +64,9 @@ in
       age.secrets.restic-gdrive = {
         file = ../../secrets/restic-gdrive.age;
       };
+      age.secrets.restic-internxt = {
+        file = ../../secrets/restic-internxt.age;
+      };
       services.restic = {
         backups = {
           #localbackup = {
@@ -123,6 +126,51 @@ in
               Persistent = true;
             };
             repository = "s3:s3.us-west-002.backblazeb2.com/kop-bucket";
+          };
+          remotebackup-large = let cli = "${pkgs.internxt-cli}/bin/internxt"; in {
+            initialize = true;
+            passwordFile = config.age.secrets.restic-pw.path;
+            environmentFile = config.age.secrets.restic-internxt.path;
+            exclude = cfg.excludePathsRemote;
+            paths = cfg.large;
+            backupPrepareCommand = ''
+                LOGGED_IN=$(${cli} whoami | grep "You are logged in")
+                if [ -z "$LOGGED_IN" ]; then
+                  echo "Logging in as $USERNAME"
+                  ${cli} login --non-interactive -e $USERNAME -p $PASSWORD
+                  LOGGED_IN=$(${cli} whoami | grep "You are logged in")
+                  if [ -z "$LOGGED_IN" ]; then
+                    echo "Internxt CLI login failed. Aborting backup."
+                    exit 1
+                  fi
+                fi
+                WEBDAV_ENABLED=$(${cli} webdav status | grep "status: online" | wc -l)
+                if [ "$WEBDAV_ENABLED" -eq 0 ]; then
+                  ${cli} webdav enable
+                  WEBDAV_ENABLED=$(${cli} webdav status | grep "status: online" | wc -l)
+                  if [ "$WEBDAV_ENABLED" -eq 0 ]; then
+                    echo "Internxt WebDAV enable failed. Aborting backup."
+                    exit 1
+                  fi
+                fi
+            '';
+            backupCleanupCommand = ''
+              WEBDAV_ENABLED=$(${cli} webdav status | grep "status: online" | wc -l)
+              if [ "$WEBDAV_ENABLED" -eq 1 ]; then
+                ${cli} webdav disable
+              fi
+            '';
+            pruneOpts = [ "--keep-daily 5" "--keep-weekly 3" "--keep-monthly 3" "--keep-yearly 3" ];
+            timerConfig = {
+              OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
+              Persistent = true;
+            };
+            rcloneConfig = { 
+                type = "webdav"; 
+                url = "https://127.0.0.1:3005";
+            };
+            rcloneOptions = { "no-check-certificate" = true; };
+            repository = "rclone:internxt:backup";
           };
         };
       };
