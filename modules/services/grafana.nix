@@ -166,6 +166,19 @@ in
           }
         ];
       }
+      {
+        job_name = "scheibnmeister";
+        static_configs = [
+          {
+            targets = [
+              "127.0.0.1:2333"
+            ];
+            labels = {
+              instance = "scheibnmeister";
+            };
+          }
+        ];
+      }
     ];
   };
 
