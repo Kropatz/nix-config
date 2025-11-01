@@ -83,6 +83,9 @@ in
       # TriOS
       harfbuzz
       libepoxy
+      # android
+      libpng
+      libbsd
     ];
   };
 }

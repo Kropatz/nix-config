@@ -14,7 +14,7 @@ common:
     kvstore:
       store: inmemory
   replication_factor: 1
-  path_prefix: /mnt/250ssd/loki/common
+  path_prefix: /mnt/tmpfs/loki/common
 
 schema_config:
   configs:

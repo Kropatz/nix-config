@@ -86,7 +86,7 @@
       audio.enable = true;
       code = {
         enable = true;
-        android.enable = false;
+        android.enable = true;
       };
       #emulators.enable = true;
       games = {

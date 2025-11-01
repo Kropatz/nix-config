@@ -7,7 +7,7 @@
 let
   useHttps = config.services.step-ca.enable;
   fqdn = "grafana.home.arpa";
-  base = "/mnt/250ssd";
+  base = "/mnt/tmpfs";
 in
 {
   age.secrets.grafana-contact-points = {
@@ -16,17 +16,48 @@ in
     file = ../../secrets/grafana-contact-points.age;
   };
 
+  age.secrets.grafana-pw = {
+    owner = "grafana";
+    file = ../../secrets/grafana-pw.age;
+  };
+
+  fileSystems = {
+    "${base}" = {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      options = [
+        "size=1G"
+        "mode=1777"
+      ];
+    };
+  };
+  systemd.tmpfiles.rules = [
+    "d ${base} 0755 grafana grafana -"
+    "d ${base}/grafana 0750 grafana grafana -"
+    "d ${base}/loki 0750 loki grafana -"
+    "d ${base}/prometheus 0750 prometheus grafana -"
+    #"d ${base}/prometheus/data 0750 prometheus grafana -"
+    "L+ /var/lib/prometheus2 - - - - ${base}/prometheus"
+    #"L+ /var/lib/${config.services.prometheus.stateDir}/data - - - - /${base}/prometheus/data"
+  ];
+
   services.grafana = {
     enable = true;
     dataDir = "${base}/grafana";
-    settings.server = {
-      domain = fqdn;
-      http_port = 2342;
-      http_addr = "127.0.0.1";
-    };
-    settings.log = {
-      mode = "console";
-      level = "warn";
+    settings = {
+      server = {
+        domain = fqdn;
+        http_port = 2342;
+        http_addr = "127.0.0.1";
+      };
+      log = {
+        mode = "console";
+        level = "warn";
+      };
+      database = {
+        high_availability = false;
+      };
+      security.admin_password = "$__file{${config.age.secrets.grafana-pw.path}}";
     };
 
     provision.alerting.contactPoints.path = config.age.secrets.grafana-contact-points.path;
@@ -57,8 +88,26 @@ in
     ];
   };
 
-  systemd.services.grafana = {
-    after = [ "step-ca.service" ];
+  systemd.services = {
+    loki = {
+      after = [
+        "mnt-tmpfs.mount"
+      ];
+    };
+    prometheus = {
+      after = [
+        "mnt-tmpfs.mount"
+      ];
+      serviceConfig = {
+        StateDirectory = lib.mkForce "${base}/prometheus";
+        WorkingDirectory = lib.mkForce "${base}/prometheus";
+      };
+    };
+    grafana = {
+      after = [
+        "step-ca.service"
+      ];
+    };
   };
 
   security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/kop-acme/directory";

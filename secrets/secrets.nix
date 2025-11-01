@@ -92,6 +92,10 @@ in
     server-vm
     kop
   ];
+  "grafana-pw.age".publicKeys = [
+    server-vm
+    kop
+  ];
   "fileshelter-conf.age".publicKeys = [
     server-vm
     kop

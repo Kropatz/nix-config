@@ -18,6 +18,7 @@
     ../../modules/services/duckdns.nix
     ../../modules/services/samba.nix
     ../../modules/services/ddclient-cloudflare.nix
+    ../../modules/services/grafana.nix
     ./disk-config.nix
     ./mail.nix
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -41,6 +42,7 @@
   mainUser.layout = "de";
   mainUser.variant = "us";
   custom = {
+    tmpfs.enable = true;
     static-ip = {
       enable = true;
       ip = "192.168.0.10";
