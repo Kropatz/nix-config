@@ -27,7 +27,8 @@ in
       fonts.packages = with pkgs; [
         #uw-ttyp0
         #corefonts
-        nerd-fonts.noto
+          #nerd-fonts.noto
+        noto-fonts
         nerd-fonts.hack
         #noto-fonts
         #noto-fonts-emoji
