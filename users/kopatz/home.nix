@@ -41,9 +41,12 @@
     ../../home-manager/mpv.nix
     ../../home-manager/discord-theme.nix
     ../../home-manager/vr.nix
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
+    inputs.stylix.homeModules.stylix
   ];
 
+  stylix.enable = false;
+  stylix.image = if (config.stylix.enable == false) then ../../wallpaper/ina.jpg else null;
   programs.feh = {
     enable = true;
     buttons = {

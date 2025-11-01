@@ -1,4 +1,5 @@
 {
+  services.hardware.bolt.enable = true;
   services.udev.extraRules = ''
     # Always authorize thunderbolt connections when they are plugged in.
     # This is to make sure the USB hub of Thunderbolt is working.

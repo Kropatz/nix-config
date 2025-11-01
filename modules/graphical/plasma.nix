@@ -24,6 +24,7 @@ in
     };
     #services.xserver.desktopManager.plasma5.enable = true;
     #services.displayManager.sddm.wayland.enable = true;
+    services.orca.enable = false;
     services.desktopManager.plasma6 = {
       enable = true;
     };
