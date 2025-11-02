@@ -60,6 +60,7 @@
       "rd.systemd.show_status=auto"
     ];
   };
+  networking.firewall.allowedTCPPorts = [ 3389 ]; # Allow RDP 
 
   mainUser.layout = "de";
   mainUser.variant = "";

@@ -24,6 +24,7 @@ in
   ];
   # after suspend, do `cec-ctl -A | grep cec0 | wc -l`, if >0, do `cec-ctl --standby --to TV`
   # similar on wakeup, if present send `cec-ctl --user-control-pressed ui-cmd=power-on-function --to TV`
+  # doesn't work on dell for some reason (KDE)
   environment.etc."systemd/system-sleep/sleep-turn-tv-off-on.sh".source =
     pkgs.writeShellScript "post-sleep-turn-tv-off.sh" ''
       case $1/$2 in

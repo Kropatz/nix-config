@@ -13,7 +13,7 @@
 
   # Enable TLP (better than gnomes internal power manager)
   services.tlp = {
-    enable = true;
+    enable = false;
     settings = {
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -42,7 +42,7 @@
 
   # Disable GNOMEs power management
   # 5.5 idle with ff open
-  services.power-profiles-daemon.enable = false;
+  services.power-profiles-daemon.enable = true;
 
   # Enable powertop
   #powerManagement.powertop.enable = true;
