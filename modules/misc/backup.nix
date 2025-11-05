@@ -223,10 +223,10 @@ in
               exclude = cfg.excludePathsRemote;
               paths = cfg.large;
               backupPrepareCommand = ''
-                ${startInternxtWebdav}
+                ${startInternxtWebdav}/bin/startInternxtWebdav
               '';
               backupCleanupCommand = ''
-                ${stopInternxtWebdav}
+                ${stopInternxtWebdav}/bin/stopInternxtWebdav
               '';
               pruneOpts = [
                 "--keep-daily 5"

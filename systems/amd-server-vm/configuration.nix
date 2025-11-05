@@ -121,6 +121,7 @@
       ente.enable = true;
       kavita = {
         enable = true;
+        autoDownload = false;
         dir = "/data/kavita";
       };
       wireguard = {

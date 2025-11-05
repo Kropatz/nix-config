@@ -42,11 +42,11 @@
     ../../home-manager/discord-theme.nix
     ../../home-manager/vr.nix
     inputs.nixvim.homeModules.nixvim
-    inputs.stylix.homeModules.stylix
+    #  inputs.stylix.homeModules.stylix
   ];
 
-  stylix.enable = false;
-  stylix.image = if (config.stylix.enable == false) then ../../wallpaper/ina.jpg else null;
+  # stylix.enable = osConfig.custom.graphical.stylix.enable;
+  #stylix.image = if (config.stylix.enable == false) then ../../wallpaper/ina.jpg else null;
   programs.feh = {
     enable = true;
     buttons = {

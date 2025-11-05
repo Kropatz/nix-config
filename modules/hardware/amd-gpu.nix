@@ -66,7 +66,8 @@ in
           };
         in
         lib.mkIf cfg.rocm.enable [
-          "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+            #"L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+            "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
         ];
     };
   };
