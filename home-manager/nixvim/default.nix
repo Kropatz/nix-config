@@ -56,4 +56,20 @@ in
   };
   home.packages = with pkgs; [ nixfmt-rfc-style ]; # nixd config option to set nixpkgs-fmt should work, but it doesn't
   programs.nixvim = merged;
+  xdg.desktopEntries = {
+    neovim = {
+      name = "Neovim";
+      exec = "kitty nvim";
+      icon = "nvim";
+      type = "Application";
+      categories = [
+        "Utility"
+        "TextEditor"
+      ];
+      mimeType = [
+        "text/markdown"
+        "text/plain"
+      ];
+    };
+  };
 }

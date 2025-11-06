@@ -27,7 +27,7 @@ in
       fonts.packages = with pkgs; [
         #uw-ttyp0
         #corefonts
-          #nerd-fonts.noto
+        #nerd-fonts.noto
         noto-fonts
         nerd-fonts.hack
         #noto-fonts
@@ -86,5 +86,50 @@ in
         adwaita-icon-theme
         zenity
       ];
+      xdg.terminal-exec = {
+        enable = true;
+        settings = {
+          default = [
+            "kitty.desktop"
+          ];
+        };
+      };
+      xdg.mime =
+        let
+          mkAssociation =
+            desktop: mimeTypes:
+            (map (name: {
+              inherit name;
+              value = desktop;
+            }) mimeTypes)
+            |> builtins.listToAttrs;
+          associations =
+            mkAssociation "firefox.desktop" [
+              "application/x-extension-shtml"
+              "application/x-extension-xhtml"
+              "application/x-extension-html"
+              "application/x-extension-xht"
+              "application/x-extension-htm"
+              "x-scheme-handler/unknown"
+              "x-scheme-handler/mailto"
+              "x-scheme-handler/chrome"
+              "x-scheme-handler/about"
+              "x-scheme-handler/https"
+              "x-scheme-handler/http"
+              "application/xhtml+xml"
+              "application/pdf"
+              "text/html"
+            ]
+            // mkAssociation "neovim.desktop" [
+              "application/json"
+              "text/markdown"
+              "text/plain"
+            ];
+        in
+        {
+          enable = true;
+          addedAssociations = associations;
+          defaultApplications = associations;
+        };
     };
 }
