@@ -257,11 +257,11 @@ in
             "$mainMod, T, togglegroup"
             "$mainMod, I, exec, ${rofi} -show drun -show-icons"
             "$mainMod, period, exec, ${rofimoji}"
-            "$mainMod, Z, exec, hyprshade off && (${woomer} &) && hyprshade auto"
+            "$mainMod, Z, exec, ${woomer}"
             ''$mainMod, S, exec, echo "skip" | nc kopatz.dev 8888''
             ''$mainMod, R, exec, hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"''
             "$mainMod, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
-            "        , Print, exec, hyprshade off && ${grimblast} --freeze copy area && hyprshade auto"
+            "        , Print, exec, ${grimblast} --freeze copy area"
             ''$mainMod, Print, exec, export OUT=/tmp/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
             ''Shift_L, Print, exec, export OUT=~/Pictures/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
             #"$mainMod, G, exec, ${peek}" # record gif

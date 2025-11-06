@@ -6,5 +6,6 @@
     ./waybar.nix
     ./hyprlock.nix
     ./hyprshade.nix
+    ./hyprsunset.nix
   ];
 }

@@ -9,7 +9,8 @@ let
   cfg = osConfig.custom.graphical.hyprland;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf false {
+    # cfg.enable {
     home.file.".config/hypr/hyprshade.toml".source = ../../.config/hypr/hyprshade.toml;
     wayland.windowManager.hyprland.settings.exec-once = [ "${pkgs.hyprshade}/bin/hyprshade auto" ];
     systemd.user = {
