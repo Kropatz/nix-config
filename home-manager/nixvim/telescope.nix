@@ -1,6 +1,4 @@
-{
-  plugins.telescope = {
-    enable = true;
+let 
     keymaps = {
       "<leader>sg" = "live_grep";
       "<leader>sf" = {
@@ -16,6 +14,12 @@
         options.desc = "List buffers";
       };
     };
+  in
+{
+  plugins.telescope = {
+    enable = true;
+    inherit keymaps;
+    lazyLoad.settings.keys = builtins.attrNames keymaps;
     extensions.fzf-native = {
       enable = true;
     };

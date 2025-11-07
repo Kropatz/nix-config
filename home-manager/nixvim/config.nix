@@ -32,6 +32,7 @@
   };
 
   plugins.mini-align.enable = true;
+  plugins.lzn-auto-require.enable = true;
   plugins.lz-n.enable = true;
 
   keymaps = [
