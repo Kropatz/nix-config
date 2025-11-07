@@ -99,6 +99,9 @@ in
           "LIBVA_DRIVER_NAME,nvidia"
           "GBM_BACKEND,nvidia-drm"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        ]
+        ++ lib.optionals osConfig.programs.ssh.startAgent [
+          "SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent"
         ];
 
         # For all categories, see https://wiki.hyprland.org/Configuring/Variables/

@@ -63,6 +63,7 @@ in
           ;;
       esac
     '';
+  programs.ssh.startAgent = true;
 
   custom = {
     cli-tools.enable = true;
