@@ -167,6 +167,19 @@ in
         ];
       }
       {
+        job_name = "host";
+        static_configs = [
+          {
+            targets = [
+              "192.168.0.20:9100"
+            ];
+            labels = {
+              instance = "host";
+            };
+          }
+        ];
+      }
+      {
         job_name = "scheibnmeister";
         static_configs = [
           {

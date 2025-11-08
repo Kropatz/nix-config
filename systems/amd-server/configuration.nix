@@ -13,6 +13,7 @@
     ./hardware-configuration.nix
     ../../modules/misc/kernel.nix
     ../../modules/services/ssh.nix
+    ../../modules/services/node-exporter.nix
   ];
 
   custom = {
