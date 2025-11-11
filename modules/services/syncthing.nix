@@ -94,6 +94,7 @@ in
             "kop-pc"
             "server"
             "laptop"
+            "phone"
           ];
         };
 
