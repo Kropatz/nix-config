@@ -35,6 +35,11 @@
       shared.enable = true;
       plasma.enable = true;
       sddm.enable = true;
+      stylix = {
+        enable = true;
+        base16Scheme = import ../../modules/themes/ina.nix;
+        image = ../../wallpaper/ina.jpg;
+      };
     };
   };
 

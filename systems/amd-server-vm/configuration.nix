@@ -133,6 +133,18 @@
         enable = true;
         basePath = "/data/synced";
       };
+      clamav = {
+        enable = true;
+        scanDirectories = [
+          "/data/vmail"
+          "/1tbssd/kop-fileshare"
+          "/home"
+          "/var/lib"
+          "/tmp"
+          "/etc"
+          "/var/tmp"
+        ];
+      };
     };
     nftables.enable = true;
     cli-tools.enable = true;

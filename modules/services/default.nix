@@ -5,6 +5,7 @@
     ./adam-site.nix
     ./adguard.nix
     ./caldav.nix
+    ./clamav.nix
     ./dnsmasq.nix
     ./ente.nix
     ./fileshelter.nix

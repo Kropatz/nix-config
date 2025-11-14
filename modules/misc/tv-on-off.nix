@@ -11,9 +11,11 @@ let
   '';
   tvOff = pkgs.writeShellScriptBin "tvOff" ''
     if [ $(${cec} -A | ${pkgs.gnugrep}/bin/grep cec0 | ${pkgs.coreutils}/bin/wc -l) -gt 0 ]; then
+      ${cec} -C --skip-info
       ${cec} --tv --skip-info
-      ${cec} --skip-info --user-control-pressed ui-cmd=power-on-function --to TV
-      echo "Turning TV on!"
+      ${cec} --standby --skip-info --to TV
+      echo "Turning TV off!"
+      ${pkgs.coreutils}/bin/sleep 2
     fi
   '';
 in
@@ -24,15 +26,14 @@ in
   ];
   # after suspend, do `cec-ctl -A | grep cec0 | wc -l`, if >0, do `cec-ctl --standby --to TV`
   # similar on wakeup, if present send `cec-ctl --user-control-pressed ui-cmd=power-on-function --to TV`
-  # doesn't work on dell for some reason (KDE)
   environment.etc."systemd/system-sleep/sleep-turn-tv-off-on.sh".source =
     pkgs.writeShellScript "post-sleep-turn-tv-off.sh" ''
       case $1/$2 in
         pre/*)
-          ${tvOff}
+          ${tvOff}/bin/tvOff
           ;;
         post/*)
-          ${tvOn}
+          ${tvOn}/bin/tvOn
           ;;
       esac
     '';
