@@ -163,6 +163,11 @@
     25565
     25566
     8888
+    30033 # teamspeak6 file transfer port
+  ];
+
+  networking.firewall.allowedUDPPorts = [
+    9987 # teamspeak6 voice port
   ];
   networking.nftables.tables.ip_drop = {
     family = "inet";

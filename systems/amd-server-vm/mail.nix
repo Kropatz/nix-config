@@ -10,6 +10,7 @@ let
     lukas:{CRYPT}$2y$05$jqBkvhJ0e439J0PLhef4leOGc3GACGH83kSDCrvmAcsdz68tELkA6:5000:5000::/home/lukas";
     work:{CRYPT}$2y$05$bEpY1WJ4j/QovgUv0Pxak.vKcSC/o.0T9OHxaekUpI1GK5mAY6vQS:5000:5000::/home/work";
     school:{CRYPT}$2y$05$RRIjDak/PWhHITKMvGJ9b.MSMrsduUXjLJOfuXQ0k.pQX24shAsq2:5000:5000::/home/school";
+    spam:{CRYPT}$2y$05$jkoR3nro0ux19Q7eupvvWetRXLazjuQuLUK0V0E7nRY8wwEwMBmoK:5000:5000::/home/spam";
   '';
   email-domain = "kopatz.dev";
 in
@@ -151,6 +152,7 @@ in
         work@${email-domain} ${email-domain}/work/
         school@${email-domain} ${email-domain}/school/
         test@${email-domain} ${email-domain}/test/
+        spam@${email-domain} ${email-domain}/spam/
       '';
     };
   };

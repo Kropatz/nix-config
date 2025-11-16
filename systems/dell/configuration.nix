@@ -49,6 +49,8 @@
     xkb.variant = config.mainUser.variant;
     enable = true;
   };
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "kopatz";
 
   services.blueman.enable = true;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
@@ -63,6 +65,7 @@
       "boot.shell_on_fail"
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
+      "mem_sleep_default=s2idle"
     ];
   };
   networking.firewall.allowedTCPPorts = [ 3389 ]; # Allow RDP 
