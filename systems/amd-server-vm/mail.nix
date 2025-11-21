@@ -145,6 +145,7 @@ in
       ftp@${email-domain} lukas@${email-domain}
       abuse@${email-domain} lukas@${email-domain}
       dmarcreports@${email-domain} lukas@${email-domain}
+      rat@${email-domain} spam@${email-domain}
     '';
     mapFiles = {
       "virtual-map" = pkgs.writeText "postfix-virtual" ''
