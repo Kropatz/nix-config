@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchGit {
     url = "git@github.com:oberprofis/hub.git";
     ref = "master";
-    rev = "e180ad2fbdfef9c9845765aab313f84b161d9447";
+    rev = "ba5cc7b417cc5982bd547ff1304111daf4c7d99b";
   };
   installPhase = ''
     mkdir -p $out
