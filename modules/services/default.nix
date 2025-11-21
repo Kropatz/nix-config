@@ -15,6 +15,7 @@
     ./kavita.nix
     ./kop-fileshare.nix
     ./kop-monitor.nix
+    ./kop-pvlog.nix
     ./kubernetes.nix
     ./nginx.nix
     ./opensnitch.nix

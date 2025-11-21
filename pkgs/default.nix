@@ -4,6 +4,7 @@ rec {
   ente-frontend = pkgs.callPackage ./ente-frontend/default.nix { };
   kop-fhcalendar = pkgs.callPackage ./kop-fhcalendar/default.nix { };
   kop-fileshare = pkgs.callPackage ./kop-fileshare/default.nix { };
+  kop-pvlog = pkgs.callPackage ./kop-pvlog/default.nix { };
   kop-hub = pkgs.callPackage ./hub/default.nix { };
   kop-monitor = pkgs.callPackage ./kop-monitor/default.nix { };
   kop-newproject = pkgs.callPackage ./kop-newproject/default.nix { };

@@ -117,6 +117,11 @@
         dataDir = "/1tbssd/kop-fileshare";
         enable = true;
       };
+      kop-pvlog = {
+        enable = true;
+        basePath = "/";
+        dataDir = "/data/pvlog";
+      };
       nginx.enable = true;
       ente.enable = true;
       kavita = {
