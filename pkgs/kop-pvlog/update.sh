@@ -5,6 +5,7 @@ set -e
 
 PACKAGE_FILE="default.nix" # Replace with your package file path
 REPO_URL="gitolite@kopatz.dev:kop-pvlog.git" # Replace with the repository URL
+SCRIPT_DIR=$(dirname $(realpath $0))
 
 echo "Fetching latest revision from $REPO_URL..."
 
@@ -14,7 +15,7 @@ latest_rev=$(nix-prefetch-git $REPO_URL | jq -r '.rev')
 echo "Latest revision: $latest_rev"
 
 # Update the package file with the new revision and sha256
-sed -i "s|rev = \".*\";|rev = \"$latest_rev\";|" $PACKAGE_FILE
+sed -i "s|rev = \".*\";|rev = \"$latest_rev\";|" "$SCRIPT_DIR"/$PACKAGE_FILE
 
-echo "Package file $PACKAGE_FILE updated successfully."
+echo "Package file $SCRIPT_DIR $PACKAGE_FILE updated successfully."
 
