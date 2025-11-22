@@ -27,6 +27,16 @@ in
         default = "/";
         description = "Location under which the data logger is reachable";
       };
+      fqdn = mkOption {
+        type = types.str;
+        default = "pvlog.home.arpa";
+        description = "FQDN under which the data logger is reachable";
+      };
+      useStepCa = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Use step-ca for ACME certificates";
+      };
     };
   };
 
@@ -38,6 +48,22 @@ in
       group = "kop-pvlog";
     };
     users.groups.kop-pvlog = { };
+    security.acme.certs."${cfg.fqdn}" = lib.mkIf cfg.useStepCa {
+      server = "https://127.0.0.1:8443/acme/kop-acme/directory";
+    };
+    services.nginx.virtualHosts."${cfg.fqdn}" = {
+      forceSSL = true;
+      enableACME = true;
+      quic = true;
+      http3 = true;
+      locations."/".proxyPass = "http://127.0.0.1:${builtins.toString cfg.port}";
+      locations."/".extraConfig = ''
+        more_clear_headers 'x-frame-options';
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+        add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
+      '';
+    };
     systemd.services.kop-pvlog = {
       description = "Fronius data logger";
       wants = [ "network-online.target" ];

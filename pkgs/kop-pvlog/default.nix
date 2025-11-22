@@ -12,7 +12,7 @@ buildGoModule rec {
   src = fetchGit {
     url = "gitolite@kopatz.dev:kop-pvlog.git";
     ref = "master";
-    rev = "23828dfa1275aac2b31e16b5e3cfb452d56aeae6";
+    rev = "2bb67c4b27bba9b99cf2182f989a53bb7f346659";
   };
   vendorHash = "sha256-8wYERVt3PIsKkarkwPu8Zy/Sdx43P6g2lz2xRfvTZ2E=";
 

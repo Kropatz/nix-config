@@ -89,6 +89,10 @@ in
           "answer" = ip;
         }
         {
+          "domain" = "pvlog.home.arpa";
+          "answer" = ip;
+        }
+        {
           "domain" = "nextcloud.home.arpa";
           "answer" = wireguardIp;
         }
