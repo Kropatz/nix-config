@@ -145,7 +145,6 @@ in
           };
         in
         {
-          "kopatz.ddns.net" = kopConfig;
           "kop.oasch.net" = kopConfig;
           "kop.bobin.at" = kopConfig;
           "kopatz.dev" = kopConfig;
