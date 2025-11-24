@@ -12,7 +12,7 @@ in
   options.custom.services.syncthing = {
     enable = lib.mkEnableOption "Enables syncthing";
     basePath = lib.mkOption {
-      type = with lib.types; string;
+      type = with lib.types; str;
       default = "/home/${config.mainUser.name}/synced";
       description = "Base path for syncthing data";
     };

@@ -78,7 +78,7 @@ in
         inputs.agenix.packages."x86_64-linux".default
         fastfetch
         pdfgrep
-        glxinfo
+        mesa-demos 
         vulkan-tools
         ffmpeg
         nethogs

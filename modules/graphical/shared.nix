@@ -68,7 +68,6 @@ in
 
       #services.xserver.wacom.enable = true;
       services.tumbler.enable = true; # for thumbnails
-      programs.file-roller.enable = true;
       programs.thunar.enable = true;
       programs.thunar.plugins = with pkgs.xfce; [
         thunar-archive-plugin
@@ -79,6 +78,7 @@ in
       # List packages installed in system profile. To search, run:
       # $ nix search wget
       environment.systemPackages = with pkgs; [
+        file-roller
         keepassxc
         screenshot
         wl-clipboard
