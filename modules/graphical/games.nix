@@ -53,7 +53,7 @@ in
         with pkgs;
         [
           #taisei
-          #osu-lazer-bin
+          osu-lazer-bin
           wineWowPackages.unstableFull
           winetricks
           heroic
