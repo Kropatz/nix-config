@@ -308,6 +308,10 @@ in
             "$mainMod SHIFT, 9, movetoworkspace, 9"
             "$mainMod SHIFT, 0, movetoworkspace, 10"
 
+            # special workspace
+            "$mainMod, X, togglespecialworkspace"
+            "$mainMod SHIFT, X, movetoworkspace, special"
+
             # Scroll through existing workspaces with mainMod + scroll
             "$mainMod, mouse_down, workspace, e+1"
             "$mainMod, mouse_up, workspace, e-1"
@@ -346,9 +350,9 @@ in
         windowrule = [
           "float, class:zenity"
           "center, class:zenity"
+          "workspace 1, class:steam_app_.*"
         ];
         windowrulev2 = [
-
           #"center, class:jetbrains-idea"
           #"noinitialfocus,class:^jetbrains-(?!toolbox),floating:1"
 
