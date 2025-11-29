@@ -22,9 +22,7 @@
     initialPassword = "cooltemporarypw";
     extraGroups = [
       "networkmanager"
-      "wheel"
       "docker"
-      "wireshark"
     ];
     openssh.authorizedKeys.keys = [
       config.mainUser.sshKey

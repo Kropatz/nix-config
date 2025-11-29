@@ -193,6 +193,17 @@
   };
   networking.hostName = "server-vm"; # Define your hostname.
 
+  #containers.privnetwork = {
+  #  autoStart = true;
+  #  privateNetwork = true;
+  #  privateUsers = "pick";
+  #  hostAddress = "192.168.100.1";
+  #  localAddress = "192.168.100.2";
+  #  config = { config, pkgs, ... }: {
+  #      services.postgresql.enable = true;
+  #  };
+  #};
+
   #services.murmur = {
   #  enable = true;
   #  openFirewall = true;
