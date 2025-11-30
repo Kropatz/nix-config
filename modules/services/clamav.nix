@@ -42,7 +42,8 @@ in
             "^/var/lib/docker/overlay2"
             "^/var/lib/docker/volumes/backingFsBlockDev"
             "^/tmp/tmux-.*"
-            "^/tmp/dotnet-diagnostic-.*"
+            "^/tmp/.*dotnet-diagnostic-.*"
+            "^/tmp/.*clr-debug-pipe-.*"
           ];
         };
       };
