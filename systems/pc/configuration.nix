@@ -172,7 +172,7 @@
   documentation.man.generateCaches = true;
 
   #networking.firewall.allowedTCPPorts = [ 6567 ]; # mindustry
-  #networking.firewall.allowedUDPPorts = [ 6567 ]; # mindustry
+  networking.firewall.allowedUDPPorts = [ 1234 ]; #6567 ]; # mindustry
   mainUser.layout = "de";
   mainUser.variant = "us";
   age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];

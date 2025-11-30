@@ -1,6 +1,6 @@
 [user]
     name = Lukas
-    email = lukas.kopatz11@gmail.com
+    email = git@kopatz.dev
     signingkey = ~/.ssh/id_rsa.pub
 [gpg]
     format = ssh

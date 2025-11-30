@@ -134,6 +134,7 @@ in
     };
     virtual = ''
       root@${email-domain} lukas@${email-domain}
+      git@${email-domain} lukas@${email-domain}
       mailer-daemon@${email-domain} lukas@${email-domain}
       postmaster@${email-domain} lukas@${email-domain}
       nobody@${email-domain} lukas@${email-domain}
