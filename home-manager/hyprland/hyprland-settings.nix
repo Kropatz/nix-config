@@ -404,7 +404,7 @@ in
           dunstify = "${pkgs.dunst}/bin/dunstify";
           dunstctl = "${pkgs.dunst}/bin/dunstctl";
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep --cache";
-          path = "~/synced/fh/master/ot_fundamentals_and_security/merged";
+          path = "~/synced/fh/master/incident_handling/merged";
           node = "${pkgs.nodejs}/bin/node";
           set-monitor = "~/.config/hypr/monitor-config.js";
           answer = "${pkgs.answer}/bin/answer";
