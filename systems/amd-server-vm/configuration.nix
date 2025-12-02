@@ -162,17 +162,21 @@
 
   virtualisation.vmware.guest.enable = true;
   services.xserver.videoDrivers = [ "vmware" ];
+  environment.systemPackages = with pkgs; [
+    kop-audio
+  ];
 
   # 8888 = scheibenmeister skip button
   networking.firewall.allowedTCPPorts = [
     25565
     25566
     8888
-    30033 # teamspeak6 file transfer port
+    #30033 # teamspeak6 file transfer port
   ];
 
   networking.firewall.allowedUDPPorts = [
-    9987 # teamspeak6 voice port
+    1234 #kop-audio default port
+    #9987 # teamspeak6 voice port
   ];
   networking.nftables.tables.ip_drop = {
     family = "inet";

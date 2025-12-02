@@ -9,6 +9,7 @@ rec {
   kop-monitor = pkgs.callPackage ./kop-monitor/default.nix { };
   kop-newproject = pkgs.callPackage ./kop-newproject/default.nix { };
   kop-website = pkgs.callPackage ./website/default.nix { inherit kop-hub ente-frontend; };
+  kop-audio = pkgs.callPackage ./kop-audio/default.nix { };
   scheibnkleister-presence = pkgs.callPackage ./scheibnkleister-presence/default.nix { };
   custom-sddm-astronaut = pkgs.callPackage ./sddm-astronaut/default.nix { };
   mangal-patched = pkgs.callPackage ./mangal/default.nix { };
