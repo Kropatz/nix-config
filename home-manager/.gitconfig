@@ -56,7 +56,7 @@
 [branch]
     sort = -committerdate
 [blame]
-    ignoreRevsFile = .git-blame-ignore-revs
+    #ignoreRevsFile = .git-blame-ignore-revs annoying error in nvim when file is missing
 
 [includeIf "gitdir/i:~/projects/github/**"]
     path = .gitconfig-github

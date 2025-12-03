@@ -78,7 +78,7 @@ in
         inputs.agenix.packages."x86_64-linux".default
         fastfetch
         pdfgrep
-        mesa-demos 
+        mesa-demos
         vulkan-tools
         ffmpeg
         nethogs
@@ -111,6 +111,7 @@ in
         inetutils
         nettools
         wireguard-tools
+        yazi
       ];
     };
 }

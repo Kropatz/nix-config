@@ -85,6 +85,7 @@ in
         xarchiver # archive tool
         adwaita-icon-theme
         zenity
+        ripdrag
       ];
       xdg.terminal-exec = {
         enable = true;

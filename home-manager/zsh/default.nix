@@ -17,6 +17,13 @@
       compressImage () {
         magick $1 -strip -resize 1920x1080 -quality 85% compressed.jpg
       }
+      function y() {
+      	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+      	yazi "$@" --cwd-file="$tmp"
+      	IFS= read -r -d ''\'' cwd < "$tmp"
+      	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+      	rm -f -- "$tmp"
+      }
     '';
     history = {
       size = 100000;
@@ -47,6 +54,7 @@
       cpu_freq = ''watch -n 1 "cat /proc/cpuinfo | grep \"^[c]pu MHz\""'';
       gpu_monitor = "nvidia-smi dmon -s puct";
       nix-shell = "nix-shell --command zsh";
+      drag = "ripdrag";
     };
     #plugins = with pkgs; [
     #  {
