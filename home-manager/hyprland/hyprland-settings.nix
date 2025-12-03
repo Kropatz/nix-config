@@ -430,8 +430,8 @@ in
           bind = $mainMod, W, exec, ${wl-paste} | ${answer} "Respond with the correct answer to the following question." | ${wl-copy} && ${dunstify} -t 150 Done
           ## notes
 
-          #bind = $mainMod, 2, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          #bind = $mainMod, 3, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+          bind = $mainMod, 2, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/a.md | ${wl-copy}
+          bind = $mainMod, 3, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/pruefung.md | ${wl-copy}
           #bind = $mainMod, 4, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
           #bind = $mainMod, 5, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
           #bind = $mainMod, 6, exec, cat ~/Nextcloud/test.txt | ${wl-copy}

@@ -10,6 +10,7 @@
         exit 1
       fi
       sudo perf record -F 999 -p $PID -g
+      sudo chown $USER:$(id -gn $USER) perf.data
     '')
   ];
 }
