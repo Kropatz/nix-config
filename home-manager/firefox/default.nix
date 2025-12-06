@@ -389,6 +389,7 @@ in
           youtube-nonstop
           sidebery
           vimium
+          user-agent-string-switcher
         ];
         inherit search;
       };
@@ -420,6 +421,8 @@ in
           keepassxc-browser
           youtube-nonstop
           sidebery
+          vimium
+          user-agent-string-switcher
         ];
         inherit search;
       };
@@ -449,6 +452,7 @@ in
           ublock-origin
           youtube-nonstop
           sidebery
+          user-agent-string-switcher
         ];
         inherit search;
       };
