@@ -2,6 +2,7 @@
 {
   plugins = {
     image.enable = true;
+    diagram.enable = true;
     clipboard-image = {
       # todo change based on graphical settings
       clipboardPackage = pkgs.wl-clipboard;

@@ -54,7 +54,10 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-  home.packages = with pkgs; [ nixfmt-rfc-style ]; # nixd config option to set nixpkgs-fmt should work, but it doesn't
+  home.packages = with pkgs; [
+    nixfmt-rfc-style
+    plantuml
+  ]; # nixd config option to set nixpkgs-fmt should work, but it doesn't
   programs.nixvim = merged;
   xdg.desktopEntries = {
     neovim = {
