@@ -98,7 +98,7 @@
       noise-supression.enable = true;
       obs.enable = true;
       gpu-screen-recorder-ui.enable = true;
-      niri.enable = true;
+      niri.enable = false;
       #openrgb.enable = true;
       sddm.enable = true;
       #plasma.enable = true;
@@ -133,7 +133,7 @@
   };
   services.ollama = {
     enable = false;
-    acceleration = "rocm";
+    package = pkgs.ollama-vulkan;
   };
   services.jenkins.enable = false;
   virtualisation.waydroid.enable = false;

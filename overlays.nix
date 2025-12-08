@@ -41,7 +41,7 @@ in
   modifications = final: prev: {
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
-    tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
+    #tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     #xrdp = (import inputs.nixpkgs-working-xrdp {
     #  system = "x86_64-linux";
     #  config.allowUnfree = true;
