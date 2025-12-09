@@ -127,8 +127,8 @@ in
         smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject_unauth_destination";
         smtpd_relay_restrictions = "permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination";
         # For DKIM (milter = mail filter)
-        smtpd_milters = "unix:/run/opendkim/opendkim.sock";
-        non_smtpd_milters = "$smtpd_milters";
+        smtpd_milters = [ "unix:/run/opendkim/opendkim.sock" ];
+        non_smtpd_milters = [ "unix:/run/opendkim/opendkim.sock" ];
         milter_default_action = "accept";
       };
     };
@@ -165,6 +165,10 @@ in
     domains = "csl:${email-domain}";
     selector = "mail";
     socket = "local:/run/opendkim/opendkim.sock";
+  };
+  services.rspamd = {
+    enable = true;
+    postfix.enable = true;
   };
   services.dovecot2 = {
     enable = true;

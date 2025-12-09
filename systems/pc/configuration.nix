@@ -117,6 +117,10 @@
     };
   };
 
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
   nix.gc.automatic = lib.mkForce false;
   services.searx = {
     enable = false;

@@ -40,7 +40,6 @@ in
 
     services.nginx = {
       enable = true;
-      package = pkgs.nginxQuic;
       additionalModules = [ pkgs.nginxModules.moreheaders ];
 
       # Use recommended settings

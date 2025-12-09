@@ -41,6 +41,7 @@ in
             "^/var/lib/postfix/queue/"
             "^/var/lib/docker/overlay2"
             "^/var/lib/docker/volumes/backingFsBlockDev"
+            "^/var/lib/rspamd/rspamd.sock"
             "^/tmp/tmux-.*"
             "^/tmp/.*dotnet-diagnostic-.*"
             "^/tmp/.*clr-debug-pipe-.*"
