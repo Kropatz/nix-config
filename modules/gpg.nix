@@ -4,7 +4,7 @@
 
   programs.gnupg.agent = {
     enable = true;
-    enableSSHSupport = true;
+    enableSSHSupport = false;
     #pinentryFlavor = "qt";
   };
   #environment.systemPackages = with pkgs; [

@@ -75,6 +75,12 @@ in
       ];
       services.gvfs.enable = true; # for file manager, trash support, etc.
 
+      programs.ssh.startAgent = true;
+      programs.zoxide = {
+        enable = true;
+        enableZshIntegration = true;
+      };
+
       # List packages installed in system profile. To search, run:
       # $ nix search wget
       environment.systemPackages = with pkgs; [
