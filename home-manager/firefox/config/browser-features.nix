@@ -128,4 +128,6 @@
   "browser.ping-centre.telemetry" = false;
   "devtools.onboarding.telemetry.logged" = false;
   "accessibility.force_disabled" = 1;
+  # Don't have speech-dispatcher (speechd) enabled, so this wont work
+  "media.webspeech.synth.enabled" = false;
 }

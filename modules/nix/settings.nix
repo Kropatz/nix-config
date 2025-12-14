@@ -25,6 +25,7 @@ in
 
     nix = {
       optimise.automatic = cfg.optimise;
+      settings.allowed-users = [ "root" "@wheel" ];
       settings.experimental-features = [
         "nix-command"
         "flakes"
