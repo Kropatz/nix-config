@@ -68,6 +68,54 @@
       ];
     };
   };
+  services.easyeffects = {
+    enable = true;
+    preset = "better-mic";
+    extraPresets = {
+      better-mic = {
+        input = {
+          blocklist = [ ];
+          "plugins_order" = [
+            "rnnoise#0"
+            "speex#0"
+            "deepfilternet#0"
+          ];
+          "rnnoise#0" = {
+            bypass = false;
+            "enable-vad" = false;
+            "input-gain" = 0.0;
+            "model-path" = "";
+            "output-gain" = 0.0;
+            release = 20.0;
+            "vad-thres" = 80.0;
+            wet = 0.0;
+          };
+          "deepfilternet#0" = {
+            "attenuation-limit" = 100.0;
+            "max-df-processing-threshold" = 20.0;
+            "max-erb-processing-threshold" = 30.0;
+            "min-processing-buffer" = 0;
+            "min-processing-threshold" = -10.0;
+            "post-filter-beta" = 0.02;
+          };
+          "speex#0" = {
+            "bypass" = false;
+            "enable-agc" = true;
+            "enable-denoise" = true;
+            "enable-dereverb" = true;
+            "input-gain" = 0.0;
+            "noise-suppression" = -70;
+            "output-gain" = 0.0;
+            "vad" = {
+              "enable" = true;
+              "probability-continue" = 90;
+              "probability-start" = 95;
+            };
+          };
+        };
+      };
+    };
+  };
 
   xdg.desktopEntries = {
     notes = {
