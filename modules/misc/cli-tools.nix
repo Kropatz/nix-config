@@ -56,6 +56,7 @@ in
       '';
 
       environment.systemPackages = with pkgs; [
+        neovim
         getTotalPowerUsed
         watchCurrentPowerUsed
         (if lib.versionOlder lib.version "25.05" then wget else powerjoular) # monitor power usage

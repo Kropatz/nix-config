@@ -11,6 +11,11 @@ in
 {
   options.custom.services.clamav = {
     enable = lib.mkEnableOption "Enables clamav";
+    enableScanner = lib.mkOption {
+      type = with lib.types; bool;
+      default = true;
+      description = "Enable automatic scanning with clamscan.";
+    };
     scanDirectories = lib.mkOption {
       type = with lib.types; listOf str;
       default = [
@@ -25,7 +30,7 @@ in
   };
   config = lib.mkIf cfg.enable {
     services.clamav = {
-      scanner.enable = true;
+      scanner.enable = cfg.enableScanner;
       scanner.scanDirectories = cfg.scanDirectories;
       updater.enable = true;
       daemon = {

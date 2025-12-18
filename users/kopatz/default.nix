@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = [ ../default.nix ];
+  imports = [ ../default.nix ../home-manager.nix ];
   mainUser.name = "kopatz";
   mainUser.sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeP6qtVqE/gu72ZUZE8cdRi3INiUW9NqDR7SjXIzTw2 kopatz";
   environment.sessionVariables = {
