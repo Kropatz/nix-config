@@ -20,12 +20,12 @@ in
     #  extraModulePackages = with config.boot.kernelPackages; [v4l2loopback]; # loopback module to make OBS virtual camera work
     #};
 
-    environment.systemPackages = with pkgs; [
-      (wrapOBS {
-        plugins = with obs-studio-plugins; [
-          obs-pipewire-audio-capture
-        ];
-      })
-    ];
+    programs.obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        obs-pipewire-audio-capture
+      ];
+      enableVirtualCamera = true;
+    };
   };
 }
