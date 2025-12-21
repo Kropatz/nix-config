@@ -208,6 +208,12 @@
       action = ":Refactor inline_func ";
       options.desc = "Inline function";
     }
+    # lsp-lines
+    {
+      key = "<leader>l";
+      action = "<CMD>lua require('lsp_lines').toggle()<CR>";
+      options.desc = "Toggle lsp-lines";
+    }
     # hop
     {
       key = "f";
