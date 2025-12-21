@@ -113,6 +113,7 @@ in
         nettools
         wireguard-tools
         yazi
+        sshfs
       ];
     };
 }
