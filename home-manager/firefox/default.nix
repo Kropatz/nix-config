@@ -298,6 +298,37 @@ let
       };
     };
   };
+  userChrome = ''
+    /* Hide tab bar. Used with Sidebery */
+    #TabsToolbar {
+      visibility: collapse !important;
+    }
+
+    #navigator-toolbox:not(:hover):not(:focus-within):has(#toolbar-menubar[inactive]) {
+      margin-top: -36px;
+    }
+    /*
+    #nav-bar {
+      height: 20px;
+    }
+    #urlbar {
+      margin-top: -2px;
+      font-size: 10px;
+      padding-left: 5px;
+      min-height: 16px;
+      height: 16px;
+    }
+    #urlbar-searchmode-switcher {
+      display: none !important;
+    }
+    */
+    browser[type="content-primary"], 
+    browser[type="content"],
+    .browserContainer {
+      background-color: #${base16.base01} !important;
+      background: #${base16.base01} !important;
+    }
+  '';
 in
 {
   stylix = lib.mkIf osConfig.custom.graphical.stylix.enable {
@@ -353,21 +384,7 @@ in
           ]
           ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ (import ./config/nvidia-fixes.nix) ]
         );
-        userChrome = ''
-          /* Hide tab bar. Used with Sidebery */
-          #TabsToolbar {
-            visibility: collapse !important;
-          }
-          #navigator-toolbox:not(:hover):not(:focus-within):has(#toolbar-menubar[inactive]) {
-              margin-top: -36px;
-          }
-          browser[type="content-primary"], 
-          browser[type="content"],
-          .browserContainer {
-            background-color: #${base16.base01} !important;
-            background: #${base16.base01} !important;
-          }
-        '';
+        userChrome = userChrome;
         userContent = ''
           body:-moz-only-whitespace {
             --body-bg-color: #${base16.base01};
@@ -407,12 +424,7 @@ in
           ]
           ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ (import ./config/nvidia-fixes.nix) ]
         );
-        userChrome = ''
-          /* Hide tab bar. Used with Sidebery */
-          #TabsToolbar {
-            visibility: collapse !important;
-          }
-        '';
+        userChrome = userChrome;
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
           darkreader
@@ -432,12 +444,7 @@ in
       shit = {
         name = "trade-privacy-for-convenience";
         id = 1;
-        userChrome = ''
-          /* Hide tab bar. Used with Sidebery */
-          #TabsToolbar {
-            visibility: collapse !important;
-          }
-        '';
+        userChrome = userChrome;
         settings = merge (
           [
             (import ./config/preferences.nix)
