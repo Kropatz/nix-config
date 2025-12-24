@@ -184,6 +184,8 @@ in
               #"tls://noads.libredns.gr" slow
               "https://noads.joindns4.eu/dns-query"
               "tls://getdnsapi.net"
+              "https://base.dns.mullvad.net/dns-query"
+              "https://dns.quad9.net/dns-query"
             ];
             fallback_dns = [
               "1.1.1.1"
