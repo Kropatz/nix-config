@@ -94,6 +94,7 @@ in
           "XCURSOR_SIZE,24"
           "NIXOS_OZONE_WL,1"
           "GDK_SCALE,${scale}"
+          "SDL_VIDEO_DISPLAY_PRIORITY,${monitor1}"
         ]
         ++ lib.optionals osConfig.custom.hardware.nvidia.enable [
           "LIBVA_DRIVER_NAME,nvidia"
@@ -287,6 +288,8 @@ in
             "$mainMod CTRL, right, movewindow, r"
             "$mainMod CTRL, up, movewindow, u"
             "$mainMod CTRL, down, movewindow, d"
+            # would love to set this to only $mainMod, but the event doesn't come through
+            "$mainMod, B, global, waybar:toggle_bar"
 
             # Switch workspaces with mainMod + [0-9]
             "$mainMod, 1, workspace, 1"
