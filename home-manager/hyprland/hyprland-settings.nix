@@ -391,6 +391,7 @@ in
           "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
           "dex --autostart --environment Hyprland"
           "${pkgs.hypridle}/bin/hypridle &"
+          "${pkgs.ydotool}/bin/ydotoold &"
           #"${pkgs.dunst}/bin/dunst &"
         ]
         ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
@@ -416,6 +417,7 @@ in
           set-monitor = "~/.config/hypr/monitor-config.js";
           answer = "${pkgs.answer}/bin/answer";
           wlrctl = "${pkgs.wlrctl}/bin/wlrctl";
+          ydotool = "${pkgs.ydotool}/bin/ydotool";
           wl-kbptr = "${pkgs.wl-kbptr}/bin/wl-kbptr";
         in
         ''
@@ -458,29 +460,41 @@ in
           bind=,a,exec,hyprctl dispatch submap reset && ${wl-kbptr} && hyprctl dispatch submap cursor
           
           # Cursor movement
-          binde=,J,exec,${wlrctl} pointer move 0 10
-          binde=,K,exec,${wlrctl} pointer move 0 -10
-          binde=,L,exec,${wlrctl} pointer move 10 0
-          binde=,H,exec,${wlrctl} pointer move -10 0
-          binde=SHIFT,J,exec,${wlrctl} pointer move 0 50
-          binde=SHIFT,K,exec,${wlrctl} pointer move 0 -50
-          binde=SHIFT,L,exec,${wlrctl} pointer move 50 0
-          binde=SHIFT,H,exec,${wlrctl} pointer move -50 0
-          
+          binde=,J,exec,${ydotool} mousemove -- 0 10
+          binde=,K,exec,${ydotool} mousemove -- 0 -10
+          binde=,L,exec,${ydotool} mousemove -- 10 0
+          binde=,H,exec,${ydotool} mousemove -- -10 0
+          binde=,down,exec,${ydotool} mousemove -- 0 10
+          binde=,up,exec,${ydotool} mousemove -- 0 -10
+          binde=,right,exec,${ydotool} mousemove -- 10 0
+          binde=,left,exec,${ydotool} mousemove -- -10 0
+          binde=SHIFT,J,exec,${ydotool} mousemove -- 0 50
+          binde=SHIFT,K,exec,${ydotool} mousemove -- 0 -50
+          binde=SHIFT,L,exec,${ydotool} mousemove -- 50 0
+          binde=SHIFT,H,exec,${ydotool} mousemove -- -50 0
+          binde=SHIFT,down,exec,${ydotool} mousemove -- 0 50
+          binde=SHIFT,up,exec,${ydotool} mousemove -- 0 -50
+          binde=SHIFT,right,exec,${ydotool} mousemove -- 50 0
+          binde=SHIFT,left,exec,${ydotool} mousemove -- -50 0
+
           # Left button
-          bind=,S,exec,${wlrctl} pointer click left
+          bind=,S,exec,${ydotool} click 0xC0
           # Middle button
-          bind=,D,exec,${wlrctl} pointer click middle
+          bind=,D,exec,${ydotool} pointer click 0xC2
           # Right button
-          bind=,F,exec,${wlrctl} pointer click right
+          bind=,F,exec,${ydotool} pointer click 0xC1
           
           # Scroll up and down
-          binde=,E,exec,${wlrctl} pointer scroll 10 0
-          binde=,R,exec,${wlrctl} pointer scroll -10 0
-          
+          binde=,E,exec,${ydotool} mousemove -w -- 0 -1
+          binde=,R,exec,${ydotool} mousemove -w -- 0 1
+          binde=,Q,exec,${ydotool} mousemove -w -- 0 -5
+          binde=,W,exec,${ydotool} mousemove -w -- 0 5
+
           # Scroll left and right
-          binde=,T,exec,${wlrctl} pointer scroll 0 -10
-          binde=,G,exec,${wlrctl} pointer scroll 0 10
+          binde=,T,exec,${ydotool} mousemove -w -- 1 0
+          binde=,G,exec,${ydotool} mousemove -w -- -1 0
+          binde=SHIFT,T,exec,${ydotool} mousemove -w -- 5 0
+          binde=SHIFT,G,exec,${ydotool} mousemove -w -- -5 0
           
           # Exit cursor submap
           # If you do not use cursor timeout or cursor:hide_on_key_press, you can delete its respective calls.
