@@ -480,9 +480,9 @@ in
           # Left button
           bind=,S,exec,${ydotool} click 0xC0
           # Middle button
-          bind=,D,exec,${ydotool} pointer click 0xC2
+          bind=,D,exec,${ydotool} click 0xC2
           # Right button
-          bind=,F,exec,${ydotool} pointer click 0xC1
+          bind=,F,exec,${ydotool} click 0xC1
           
           # Scroll up and down
           binde=,E,exec,${ydotool} mousemove -w -- 0 -1
