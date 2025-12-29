@@ -266,8 +266,8 @@ in
             "$mainMod, period, exec, ${rofimoji}"
             "$mainMod, Z, exec, ${woomer}"
             ''$mainMod, S, exec, echo "skip" | nc kopatz.dev 8888''
-            ''$mainMod, R, exec, hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"''
-            "$mainMod, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
+            ''$mainMod SHIFT, R, exec, hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"''
+            "$mainMod SHIFT, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
             "        , Print, exec, ${grimblast} --freeze copy area"
             ''$mainMod, Print, exec, export OUT=/tmp/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
             ''Shift_L, Print, exec, export OUT=~/Pictures/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
@@ -504,7 +504,7 @@ in
 
           # Entrypoint
           # If you do not use cursor timeout or cursor:hide_on_key_press, you can delete its respective calls.
-          bind=$mainMod,g,exec,hyprctl dispatch submap cursor
+          bind=$mainMod,W,exec,hyprctl dispatch submap cursor
           
 
 
