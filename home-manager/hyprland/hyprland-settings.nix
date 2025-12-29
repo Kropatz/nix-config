@@ -415,6 +415,8 @@ in
           node = "${pkgs.nodejs}/bin/node";
           set-monitor = "~/.config/hypr/monitor-config.js";
           answer = "${pkgs.answer}/bin/answer";
+          wlrctl = "${pkgs.wlrctl}/bin/wlrctl";
+          wl-kbptr = "${pkgs.wl-kbptr}/bin/wl-kbptr";
         in
         ''
           bind = $mainMod, A, submap, notes
@@ -448,7 +450,49 @@ in
           #bind = $mainMod, 0, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
 
           bind = , escape, submap, reset
+
+          # Cursor submap (similar to the Mouse mode in Sway)
+          submap=cursor
+          
+          # Jump cursor to a position
+          bind=,a,exec,hyprctl dispatch submap reset && ${wl-kbptr} && hyprctl dispatch submap cursor
+          
+          # Cursor movement
+          binde=,J,exec,${wlrctl} pointer move 0 10
+          binde=,K,exec,${wlrctl} pointer move 0 -10
+          binde=,L,exec,${wlrctl} pointer move 10 0
+          binde=,H,exec,${wlrctl} pointer move -10 0
+          binde=SHIFT,J,exec,${wlrctl} pointer move 0 50
+          binde=SHIFT,K,exec,${wlrctl} pointer move 0 -50
+          binde=SHIFT,L,exec,${wlrctl} pointer move 50 0
+          binde=SHIFT,H,exec,${wlrctl} pointer move -50 0
+          
+          # Left button
+          bind=,S,exec,${wlrctl} pointer click left
+          # Middle button
+          bind=,D,exec,${wlrctl} pointer click middle
+          # Right button
+          bind=,F,exec,${wlrctl} pointer click right
+          
+          # Scroll up and down
+          binde=,E,exec,${wlrctl} pointer scroll 10 0
+          binde=,R,exec,${wlrctl} pointer scroll -10 0
+          
+          # Scroll left and right
+          binde=,T,exec,${wlrctl} pointer scroll 0 -10
+          binde=,G,exec,${wlrctl} pointer scroll 0 10
+          
+          # Exit cursor submap
+          # If you do not use cursor timeout or cursor:hide_on_key_press, you can delete its respective calls.
+          bind=,escape,exec, hyprctl dispatch submap reset 
+
           submap = reset
+
+          # Entrypoint
+          # If you do not use cursor timeout or cursor:hide_on_key_press, you can delete its respective calls.
+          bind=$mainMod,g,exec,hyprctl dispatch submap cursor
+          
+
 
         '';
       #experimental:explicit_sync = true
