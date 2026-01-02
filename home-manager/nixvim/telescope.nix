@@ -20,8 +20,12 @@ let
     enable = true;
     inherit keymaps;
     lazyLoad.settings.keys = builtins.attrNames keymaps;
-    extensions.fzf-native = {
-      enable = true;
+    extensions = {
+      # doesnt show up ? idk
+      #ui-select = {
+      #  enable = true;
+      #};
+      fzf-native.enable = true;
     };
   };
 }

@@ -20,8 +20,11 @@
     smartindent = true;
     tabstop = 2;
 
+    cursorline = true; # show where the cursor is
+
     ignorecase = true;
     incsearch = true;
+    inccommand = "split";
     smartcase = true;
     wildmode = "list:longest";
 
