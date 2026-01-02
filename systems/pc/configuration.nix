@@ -51,7 +51,7 @@
       #gateway = "192.168.0.10";
     };
     misc = {
-      docker.enable = true;
+      podman.enable = true;
     };
     services = {
       syncthing = {

@@ -21,7 +21,8 @@ in
         enable = true;
 
         # Create a `docker` alias for podman, to use it as a drop-in replacement
-        dockerCompat = true;
+        # Broken atm -> https://github.com/NixOS/nixpkgs/issues/470432
+        #dockerCompat = true;
 
         # Required for containers under podman-compose to be able to talk to each other.
         defaultNetwork.settings.dns_enabled = true;
