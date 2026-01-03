@@ -48,8 +48,9 @@ in
         min-free = ${toString (100 * 1024 * 1024)}
         max-free = ${toString (1024 * 1024 * 1024)}
       '';
+      #nixPath = [ "nixpkgs=flake:nixpkgs" ];
+      #nixPath = [ "nixpkgs=${pkgsVersion.outPath}" ];
     };
-    #nix.nixPath = [ "nixpkgs=flake:nixpkgs" ];
     nixpkgs.config.allowUnfree = true;
     ##home-manager.users.${config.mainUser.name}.home.sessionVariables = {
     ##  NIX_PATH = "nixpkgs=flake:nixpkgs$\{NIX_PATH:+:$NIX_PATH}";

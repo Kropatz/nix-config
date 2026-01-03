@@ -169,6 +169,7 @@
         "kop-pc" = mkHost {
           modules = [
             ./users/kopatz
+            #./users/testuser
             ./systems/pc/configuration.nix
           ];
         };
