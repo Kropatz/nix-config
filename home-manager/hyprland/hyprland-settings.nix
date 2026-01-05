@@ -38,6 +38,13 @@ in
     services.hyprpaper.enable = true;
     home.packages = [ hyprlandFixLockscreen ];
     home.file.".config/hypr/monitor-config.js".source = ../../.config/hypr/monitor-config.js;
+    home.file.".config/hypr/hyprpaper.conf".source = pkgs.writeText "hyprpaper.conf" ''
+     wallpaper {
+        monitor = 
+        path = ${config.stylix.image}
+        fit_mode = cover
+     }
+    '';
     wayland.windowManager.hyprland = {
       enable = true;
       #enableNvidiaPatches = true;
@@ -355,9 +362,26 @@ in
         ];
 
         windowrule = [
-          "float, class:zenity"
-          "center, class:zenity"
-          "workspace 1, class:steam_app_.*"
+          "float on, match:class zenity"
+          "center on, match:class zenity"
+          "workspace 1, match:class steam_app_.*"
+          # Fix splash screen showing in weird places and prevent annoying focus takeovers
+          #"tag +jetbrains-splash, class:^(jetbrains-.*)$, title:^(splash)$, floating:1"
+          #"center, tag:jetbrains-splash"
+          #"nofocus, tag:jetbrains-splash"
+          #"noborder, tag:jetbrains-splash"
+          ## Center popups/find windows
+          #"tag +jetbrains, class:^(jetbrains-.*), title:^()$, floating:1"
+          #"center, tag:jetbrains"
+          ## Enabling this makes it possible to provide input in popup dialogs (search window, new file, etc.)
+          #"stayfocused, tag:jetbrains"
+          #"noborder, tag:jetbrains"
+          ## For some reason tag:jetbrains does not work for size rule
+          #"size >50% >50%, class:^(jetbrains-.*), title:^()$, floating:1"
+          ## Disable window flicker when autocomplete or tooltips appear
+          #"noinitialfocus, class:^(jetbrains-.*)$, title:^(win.*)$, floating:1"
+          ## Disable mouse focus
+          #"nofollowmouse, class:^(jetbrains-.*)$"
         ];
         windowrulev2 = [
           #"center, class:jetbrains-idea"

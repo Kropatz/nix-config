@@ -16,6 +16,7 @@ in
       targets = {
         hyprlock.enable = true;
         hyprland.enable = false;
+        hyprpaper.enable = false;
         waybar = {
           enable = true;
           addCss = false;
