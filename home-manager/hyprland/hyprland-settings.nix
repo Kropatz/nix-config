@@ -253,6 +253,7 @@ in
             brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
             hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
+            hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
             playerctl = "${pkgs.playerctl}/bin/playerctl";
             peek = "${pkgs.peek}/bin/peek";
             zenity = "${pkgs.zenity}/bin/zenity";
@@ -266,6 +267,7 @@ in
             "$mainMod, M, exec, ${zenity} --question --text='Quit Hyprland?' && hyprctl dispatch exit"
             "$mainMod, E, exec, ${thunar}"
             "$mainMod, P, pin"
+            "$mainMod SHIFT, P, exec, ${hyprpicker} --autocopy"
             "$mainMod, F, fullscreen"
             "$mainMod, V, togglefloating"
             "$mainMod, T, togglegroup"

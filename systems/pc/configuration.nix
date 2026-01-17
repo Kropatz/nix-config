@@ -114,6 +114,7 @@
         base16Scheme = import ../../modules/themes/ina.nix;
         image = ../../wallpaper/ina.jpg;
       };
+      wayvnc.enable = true;
     };
   };
 

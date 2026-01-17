@@ -34,5 +34,6 @@
     ./sway.nix
     ./gpu-screen-recorder-ui.nix
     ./niri.nix
+    ./wayvnc.nix
   ];
 }
