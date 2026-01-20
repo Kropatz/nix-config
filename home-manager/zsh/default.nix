@@ -38,7 +38,7 @@
       edit = "cd ~/projects/github/nix-config && nvim .";
       ll = "ls -l";
       ls = "${pkgs.eza}/bin/eza --icons auto";
-      la = "${pkgs.eza}/bin/eza -la --auto --group-directories-first";
+      la = "${pkgs.eza}/bin/eza -la --icons auto --group-directories-first";
       ssh = "TERM=xterm-256color ssh";
       update = "sudo nixos-rebuild switch";
       updateFancy = "nh os switch";
