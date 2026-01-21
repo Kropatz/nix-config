@@ -79,8 +79,7 @@ in
     };
     environment.systemPackages = with pkgs; [
       monado
-      wlx-overlay-s
-      wayvr-dashboard
+      wayvr
     ];
     systemd.user.services.monado.environment = {
       STEAMVR_LH_ENABLE = "1";
