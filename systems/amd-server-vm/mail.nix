@@ -147,6 +147,11 @@ in
       abuse@${email-domain} lukas@${email-domain}
       dmarcreports@${email-domain} lukas@${email-domain}
       rat@${email-domain} spam@${email-domain}
+      acc1@${email-domain} spam@${email-domain}
+      acc2@${email-domain} spam@${email-domain}
+      acc3@${email-domain} spam@${email-domain}
+      acc4@${email-domain} spam@${email-domain}
+      acc5@${email-domain} spam@${email-domain}
     '';
     mapFiles = {
       "virtual-map" = pkgs.writeText "postfix-virtual" ''

@@ -49,11 +49,6 @@
       interface = "eth0";
       dns = "127.0.0.1";
     };
-    user = {
-      name = "anon";
-      layout = "de";
-      variant = "us";
-    };
     hardware = {
       ssd.enable = true;
     };

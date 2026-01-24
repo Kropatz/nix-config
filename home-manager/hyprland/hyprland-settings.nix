@@ -367,6 +367,8 @@ in
           "float on, match:class zenity"
           "center on, match:class zenity"
           "workspace 1, match:class steam_app_.*"
+          "allows_input on, match:title Trove"
+          #"stay_focused on, match:title Trove"
           # Fix splash screen showing in weird places and prevent annoying focus takeovers
           #"tag +jetbrains-splash, class:^(jetbrains-.*)$, title:^(splash)$, floating:1"
           #"center, tag:jetbrains-splash"
