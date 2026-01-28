@@ -12,7 +12,7 @@ in
     enable = mkEnableOption "Enables stylix";
     image = mkOption {
       type = types.path;
-      default = ../../tsukasa.jpg;
+      default = ../../wallpaper/tsukasa.jpg;
       description = ''
         The wallpaper to use.
       '';

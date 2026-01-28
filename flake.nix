@@ -123,7 +123,7 @@
               (
                 { outputs, ... }:
                 {
-                  stylix.image = ./tsukasa.jpg;
+                  stylix.image = ./wallpaper/tsukasa.jpg;
                 }
               )
             ];
