@@ -71,6 +71,7 @@ in
       wl-clipboard
       cava
       dex # starts applications according to .desktop files
+      ydotool # simulates keyboard and mouse input on wayland
       #hyprshade
       #waybar
       #qt5.qtwayland

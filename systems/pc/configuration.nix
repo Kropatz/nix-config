@@ -111,7 +111,7 @@
       basics.enable = true;
       stylix = {
         enable = true;
-        base16Scheme = import ../../modules/themes/ina.nix;
+        base16Scheme = import ../../modules/themes/ina-matugen.nix;
         image = ../../wallpaper/ina.jpg;
       };
       wayvnc.enable = true;

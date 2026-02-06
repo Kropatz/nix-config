@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "internex-cli";
-  version = "1.5.7";
+  version = "1.6.2";
 
   src = fetchFromGitHub {
     owner = "internxt";
     repo = "cli";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-fkn16ielYg4mMwWdqKLFYyIl0JDrktsq0PADOM8gi7g=";
+    hash = "sha256-52mriM6rHpGX5yTAUnRW5n8dTEz62s3zneZyJco66lA=";
   };
 
   # Tip: use diff <filea> <fileb> -ur to create patches
@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = finalAttrs.src + "/yarn.lock";
-    hash = "sha256-cgIvT/OSlj3MCCMO1MKGECH6R0y+Zp2qhoe3lzWXG2c=";
+    hash = "sha256-YeQ2vmPL8YfrZKDynIlpI5kb1Srpy13JFc+29Vc//EY=";
   };
 
   nativeBuildInputs = [
@@ -70,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Internxt CLI - Manage your Internxt account from the command line";
     homepage = "https://internxt.com/";
-    license = lib.licenses.unfree;
+    license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ];
     platforms = lib.platforms.all;
   };

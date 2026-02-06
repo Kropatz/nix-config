@@ -65,6 +65,10 @@ in
       polarity = "dark";
       image = lib.mkForce cfg.image;
       base16Scheme = lib.mkIf (cfg.base16Scheme != null) cfg.base16Scheme;
+      colorGeneration = {
+        polarity = "dark";
+        scheme = "fruit-salad";
+      };
       override = cfg.override;
       #base16Scheme = ../../home-manager/themes/yorha/scheme.yml;
       #base16Scheme =
