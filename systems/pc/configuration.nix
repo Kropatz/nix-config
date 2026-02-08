@@ -101,6 +101,7 @@
       niri.enable = false;
       #openrgb.enable = true;
       sddm.enable = true;
+      firefox-custom.enable = true;
       #plasma.enable = true;
       #i3.enable = true;
       #sway.enable = true;

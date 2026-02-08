@@ -22,7 +22,7 @@ in
       xkb.variant = config.mainUser.variant;
       enable = true;
     };
-    services.displayManager.sddm.enable = !config.services.xserver.displayManager.gdm.enable;
+    #services.displayManager.sddm.enable = !config.services.xserver.displayManager.gdm.enable;
 
     #nix.settings = {
     #  substituters = [ "https://hyprland.cachix.org" ];

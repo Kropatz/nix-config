@@ -42,7 +42,6 @@ in
       logseq # notes
       ani-cli
       brave
-      wayvnc
     ];
   };
 }

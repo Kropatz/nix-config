@@ -174,6 +174,12 @@
             ./systems/pc/configuration.nix
           ];
         };
+        "test-pc" = mkHost {
+          modules = [
+            ./users/kopatz
+            ./systems/test-pc/configuration.nix
+          ];
+        };
         "framework" = mkHost {
           modules = [
             ### User specific ###

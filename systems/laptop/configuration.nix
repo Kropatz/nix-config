@@ -95,6 +95,7 @@ in
         enable = true;
         #android.enable = true;
       };
+      firefox-custom.enable = true;
       #emulators.enable = true;
       hyprland.enable = true;
       games.enable = true;

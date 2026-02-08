@@ -54,6 +54,7 @@
       #sddm.enable = true;
       #nightlight.enable = true;
       #i3.enable = true;
+      firefox-custom.enable = true;
       xfce.enable = true;
       #plasma.enable = true;
       #lxqt.enable = true;
