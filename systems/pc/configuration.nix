@@ -25,6 +25,7 @@
     ../../modules/misc/faster-boot-time.nix
     ../../modules/misc/zram.nix
     #../../modules/hardware/ryzenmonitor.nix
+    ../../modules/package-collections/perf.nix
     ../../modules/networkmanager.nix
     #./tailscale-client.nix
   ];

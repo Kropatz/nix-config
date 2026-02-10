@@ -13,6 +13,7 @@
     ../../modules/misc/faster-boot-time.nix
     ../../modules/misc/zram.nix
     ../../modules/networkmanager.nix
+    ../../modules/services/ssh.nix
   ];
 
   custom = {
@@ -56,6 +57,7 @@
 
   programs.firefox.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.windowManager.openbox.enable = true;
 
   #services.logind.settings.Login = {
   #  HandlePowerKey = "suspend";
