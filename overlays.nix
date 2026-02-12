@@ -80,6 +80,26 @@ in
         hash = "sha256-NnKhIgDAOKOdEqgHzgLq1MSHG3FDT2AVXJZ53Ozzioc=";
       };
     };
+    yt-dlp = prev.yt-dlp.overrideAttrs {
+      version = "2026.02.04";
+      src = prev.fetchFromGitHub {
+        owner = "yt-dlp";
+        repo = "yt-dlp";
+        tag = "2026.02.04";
+        hash = "sha256-KXnz/ocHBftenDUkCiFoBRBxi6yWt0fNuRX+vKFWDQw=";
+      };
+      postPatch = ''
+        substituteInPlace yt_dlp/version.py \
+          --replace-fail "UPDATE_HINT = None" 'UPDATE_HINT = "Nixpkgs/NixOS likely already contain an updated version.\n       To get it run nix-channel --update or nix flake update in your config directory."'
+        ${prev.lib.optionalString true ''
+          # deno is required for full YouTube support (since 2025.11.12).
+          # This makes yt-dlp find deno even if it is used as a python dependency, i.e. in kodiPackages.sendtokodi.
+          # Crafted so people can replace deno with one of the other JS runtimes.
+          substituteInPlace yt_dlp/utils/_jsruntime.py \
+            --replace-fail "path = _determine_runtime_path(self._path, '${prev.deno.meta.mainProgram}')" "path = '${prev.lib.getExe prev.deno}'"
+        ''}
+      '';
+    };
     monado = prev.monado.overrideAttrs (old: {
       cmakeFlags = old.cmakeFlags ++ [
         "-DBUILD_WITH_OPENCV=OFF"
