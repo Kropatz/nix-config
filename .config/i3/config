@@ -3,7 +3,6 @@
 set $mod Mod4
 set $LeftMonitor HDMI-A-0
 set $RightMonitor DisplayPort-0
-
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
@@ -70,6 +69,7 @@ bindsym $mod+period exec --no-startup-id rofimoji
 #		-config ~/.config/rofi/rofidmenu.rasi
 
 
+set $warpmouse exec eval $(xdotool getwindowfocus getwindowgeometry --shell) && xdotool mousemove --window $(xdotool getwindowfocus) $((WIDTH/2)) $((HEIGHT/2))
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -77,10 +77,10 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Left focus left; $warpmouse
+bindsym $mod+Down focus down; $warpmouse
+bindsym $mod+Up focus up; $warpmouse
+bindsym $mod+Right focus right; $warpmouse
 
 # switch between windows with alt tab
 bindsym Mod1+Tab focus next

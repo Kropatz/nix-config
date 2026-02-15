@@ -46,6 +46,7 @@
       #sddm.enable = true;
       hyprland.enable = true;
       shared.enable = true;
+      i3.enable = true;
       stylix = {
         enable = true;
         base16Scheme = import ../../modules/themes/ina-matugen.nix;
@@ -58,6 +59,22 @@
   programs.firefox.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.windowManager.openbox.enable = true;
+  # == start section sunshine ==
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+    package = (pkgs.sunshine.override { cudaSupport = true; });
+  };
+  services.avahi.publish.enable = true;
+  services.avahi.publish.userServices = true;
+
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "kopatz";
+  };
+  # == end section sunshine ==
 
   #services.logind.settings.Login = {
   #  HandlePowerKey = "suspend";
