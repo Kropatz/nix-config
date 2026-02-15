@@ -244,16 +244,17 @@ in
             wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
             grimblast = "${pkgs.grimblast}/bin/grimblast";
             saved-screenshot-cmd = ''
-              ${grimblast} --freeze save area $OUT && notify-send "Saved screenshot to $OUT" -h string:image-path:$OUT && echo "file://$(realpath $OUT)" | wl-copy -t text/uri-list
+              ${hyprshot} -z -s -m region -o $OUT -f $FILE && notify-send "Saved screenshot to $OUT/$FILE" -h string:image-path:$OUT/$FILE && echo "file://$(realpath $OUT/$FILE)" | wl-copy -t text/uri-list
             '';
             saved-screenshot-cmd-output = ''
-              ${grimblast} --freeze save output $OUT && notify-send "Saved screenshot to $OUT" -h string:image-path:$OUT && echo "file://$(realpath $OUT)" | wl-copy -t text/uri-list
+              ${hyprshot} -z -s -m output -o $OUT -f $FILE && notify-send "Saved screenshot to $OUT/$FILE" -h string:image-path:$OUT/$FILE && echo "file://$(realpath $OUT/$FILE)" | wl-copy -t text/uri-list
             '';
             pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
             brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
             hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
             hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
+            hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
             playerctl = "${pkgs.playerctl}/bin/playerctl";
             peek = "${pkgs.peek}/bin/peek";
             zenity = "${pkgs.zenity}/bin/zenity";
@@ -277,10 +278,10 @@ in
             ''$mainMod, S, exec, echo "skip" | nc kopatz.dev 8888''
             ''$mainMod SHIFT, R, exec, hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"''
             "$mainMod SHIFT, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
-            "        , Print, exec, ${grimblast} --freeze copy area"
-            ''$mainMod, Print, exec, export OUT=/tmp/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
-            ''Shift_L, Print, exec, export OUT=~/Pictures/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
-            ''$mainMod Shift_L, Print, exec, export OUT=~/Pictures/$(date +'%s_grim.png') && ${saved-screenshot-cmd-output}''
+            "        , Print, exec, ${hyprshot} -s -z -m region --clipboard-only"
+            ''$mainMod, Print, exec, export OUT=/tmp && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}''
+            ''Shift_L, Print, exec, export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}''
+            ''$mainMod Shift_L, Print, exec, export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd-output}''
             #"$mainMod, G, exec, ${peek}" # record gif
             "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
             " , XF86AudioPlay, exec, ${playerctl} play-pause"
