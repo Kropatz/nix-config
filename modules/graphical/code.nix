@@ -22,7 +22,7 @@ in
       with pkgs;
       [
         man-pages
-        stable.jetbrains.idea-ultimate
+        jetbrains.idea
         typescript
         bruno
         nodejs_22 # needed for tabby extension
