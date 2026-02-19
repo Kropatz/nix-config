@@ -39,15 +39,15 @@ in
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    vencord = prev.vencord.overrideAttrs {
-      version = "1.14.1";
-      src = prev.fetchFromGitHub {
-        owner = "Vendicated";
-        repo = "Vencord";
-        tag = "v1.14.1";
-        hash = "sha256-g+zyq4KvLhn1aeziTwh3xSYvzzB8FwoxxR13mbivyh4=";
-      };
-    };
+      #vencord = prev.vencord.overrideAttrs {
+      #  version = "1.14.1";
+      #  src = prev.fetchFromGitHub {
+      #    owner = "Vendicated";
+      #    repo = "Vencord";
+      #    tag = "v1.14.1";
+      #    hash = "sha256-g+zyq4KvLhn1aeziTwh3xSYvzzB8FwoxxR13mbivyh4=";
+      #  };
+      #};
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
     #tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
