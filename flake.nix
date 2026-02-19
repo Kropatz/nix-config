@@ -180,6 +180,15 @@
             ./systems/test-pc/configuration.nix
           ];
         };
+
+        "zel-mini-pc" = mkHost {
+          modules = [
+            disko.nixosModules.disko
+            ./users/kopatz
+            ./systems/zel-mini-pc/configuration.nix
+            nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
+          ];
+        };
         "framework" = mkHost {
           modules = [
             ### User specific ###
