@@ -14,7 +14,7 @@ in
     ./hardware-configuration.nix
     ./modules/battery.nix
     ../../modules/misc/faster-boot-time.nix
-    ../../modules/ecryptfs.nix
+    #../../modules/ecryptfs.nix
     #../../modules/fh/scanning.nix
     ../../modules/support/ntfs.nix
     ../../modules/thunderbolt.nix
@@ -76,7 +76,7 @@ in
       settings.enable = true;
     };
     misc = {
-      docker.enable = false;
+      docker.enable = true;
       firejail.enable = true;
     };
     hardware = {
