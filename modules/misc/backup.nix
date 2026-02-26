@@ -164,6 +164,23 @@ in
             ];
             repository = "/1tbssd/restic";
           };
+          localbackup-2tb-hdd = {
+            initialize = true;
+            passwordFile = config.age.secrets.restic-pw.path;
+            exclude = cfg.excludePaths;
+            paths = cfg.large;
+            timerConfig = {
+              OnCalendar = "04:00";
+              Persistent = true;
+            };
+            pruneOpts = [
+              "--keep-daily 7"
+              "--keep-weekly 3"
+              "--keep-monthly 3"
+              "--keep-yearly 3"
+            ];
+            repository = "/hdd/restic";
+          };
           #localbackup-1tb = {
           #    initialize = true;
           #    passwordFile = config.age.secrets.restic-pw.path;

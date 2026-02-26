@@ -140,6 +140,26 @@ in
               "/misc-files/" = {
                 alias = "/var/www/misc-files/";
               };
+
+              "/comms2/api" = {
+                extraConfig = ''
+                  rewrite /comms2/api/(.*) /$1 break;
+                '';
+                proxyPass = "http://localhost:3200/";
+                proxyWebsockets = true;
+              };
+              "/comms2" = {
+                extraConfig = ''
+                  return 301 /comms2/;
+                '';
+              };
+              "/comms2/" = {
+                extraConfig = ''
+                  more_set_headers "Permissions-Policy: geolocation=(), microphone=(self), camera=(self)";
+                '';
+                alias = "/var/www/discord-clone/";
+                tryFiles = "$uri $uri/ /var/www/discord-clone/index.html";
+              };
             };
           };
         in

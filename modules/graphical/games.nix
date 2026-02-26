@@ -48,14 +48,21 @@ in
       with pkgs;
       [
         mangohud
-        lutris
+        (lutris.override
+        {
+          extraLibraries =
+            pkgs: with pkgs; [
+              libadwaita
+              gtk4
+            ];
+        })
       ]
       ++ optionals cfg.enablePreinstalled (
         with pkgs;
         [
           #taisei
           osu-lazer-bin
-          wineWowPackages.unstableFull
+          wineWow64Packages.unstableFull
           winetricks
           heroic
           prismlauncher
