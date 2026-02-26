@@ -36,4 +36,8 @@
     ./niri.nix
     ./wayvnc.nix
   ];
+
+  options.custom.graphical.firefox-custom = {
+    enable = lib.mkEnableOption "Enables custom firefox";
+  };
 }

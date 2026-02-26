@@ -90,7 +90,7 @@ in
             if [ -z "$USERNAME" ] || [ -z "$PASSWORD" ]; then
               set -a; source ${config.age.secrets.restic-internxt.path}; set +a
             fi
-            ${cli} login --non-interactive -e "$USERNAME" -p "$PASSWORD"
+            ${cli} login-legacy --non-interactive -e "$USERNAME" -p "$PASSWORD"
             LOGGED_IN=$(${cli} whoami | grep "You are logged in")
             if [ -z "$LOGGED_IN" ]; then
               echo "Internxt CLI login failed. Aborting backup."

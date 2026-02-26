@@ -25,6 +25,7 @@
     ../../modules/misc/faster-boot-time.nix
     ../../modules/misc/zram.nix
     #../../modules/hardware/ryzenmonitor.nix
+    ../../modules/package-collections/perf.nix
     ../../modules/networkmanager.nix
     #./tailscale-client.nix
   ];
@@ -101,6 +102,7 @@
       niri.enable = false;
       #openrgb.enable = true;
       sddm.enable = true;
+      firefox-custom.enable = true;
       #plasma.enable = true;
       #i3.enable = true;
       #sway.enable = true;
@@ -111,11 +113,17 @@
       basics.enable = true;
       stylix = {
         enable = true;
-        base16Scheme = import ../../modules/themes/ina.nix;
+        base16Scheme = import ../../modules/themes/ina-matugen.nix;
         image = ../../wallpaper/ina.jpg;
       };
       wayvnc.enable = true;
     };
+  };
+
+  services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 2;
+    freeSwapThreshold = 2;
   };
 
   services.logind.settings.Login = {

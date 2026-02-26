@@ -12,7 +12,7 @@ in
     enable = mkEnableOption "Enables stylix";
     image = mkOption {
       type = types.path;
-      default = ../../tsukasa.jpg;
+      default = ../../wallpaper/tsukasa.jpg;
       description = ''
         The wallpaper to use.
       '';
@@ -65,6 +65,10 @@ in
       polarity = "dark";
       image = lib.mkForce cfg.image;
       base16Scheme = lib.mkIf (cfg.base16Scheme != null) cfg.base16Scheme;
+      colorGeneration = {
+        polarity = "dark";
+        scheme = "fruit-salad";
+      };
       override = cfg.override;
       #base16Scheme = ../../home-manager/themes/yorha/scheme.yml;
       #base16Scheme =

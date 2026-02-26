@@ -12,7 +12,7 @@
     services.NetworkManager-wait-online.wantedBy = lib.mkForce [ ]; # Normally ["network-online.target"]
   };
   # mash spacebar to still be able to select a different boot option
-  boot.loader.timeout = 1;
+  boot.loader.timeout = lib.mkDefault 1;
 
   virtualisation.docker.enableOnBoot = false;
 }

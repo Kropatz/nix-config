@@ -40,7 +40,8 @@
     };
     # styling
     stylix = {
-      url = "github:danth/stylix";
+      #url = "github:danth/stylix";
+      url = "github:make-42/stylix/matugen";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.home-manager.follows = "home-manager-unstable";
     };
@@ -123,7 +124,7 @@
               (
                 { outputs, ... }:
                 {
-                  stylix.image = ./tsukasa.jpg;
+                  stylix.image = ./wallpaper/tsukasa.jpg;
                 }
               )
             ];
@@ -171,6 +172,12 @@
             ./users/kopatz
             #./users/testuser
             ./systems/pc/configuration.nix
+          ];
+        };
+        "test-pc" = mkHost {
+          modules = [
+            ./users/kopatz
+            ./systems/test-pc/configuration.nix
           ];
         };
         "framework" = mkHost {

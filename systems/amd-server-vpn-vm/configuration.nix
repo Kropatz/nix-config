@@ -45,11 +45,6 @@
   mainUser.layout = "de";
   mainUser.variant = "us";
   custom = {
-    user = {
-      name = "anon";
-      layout = "de";
-      variant = "us";
-    };
     hardware = {
       firmware.enable = true;
       ssd.enable = true;

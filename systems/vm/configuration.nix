@@ -11,17 +11,13 @@
     ./vm-common.nix
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
+    (modulesPath + "/virtualisation/qemu-vm.nix")
     #(modulesPath + "/profiles/minimal.nix")
   ];
   age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];
   mainUser.layout = "de";
   mainUser.variant = "us";
   custom = {
-    user = {
-      name = "vm";
-      layout = "de";
-      variant = "us";
-    };
     nix = {
       settings.enable = true;
       settings.optimise = false;
@@ -31,7 +27,7 @@
       #hyprland.enable = true;
       #lightdm.enable = true;
       #sddm.enable = true;
-      plasma.enable = true;
+      #plasma.enable = true;
       #cosmic.enable = true;
     };
   };
@@ -43,6 +39,15 @@
   #  };
   #  displayManager.defaultSession = "xfce";
   #};
+
+  services.xserver.enable = true;
+
+  services.xserver.displayManager.gdm.enable = true;
+  programs.sway.enable = true;
+
+  virtualisation.qemu.options = [
+    "-device virtio-vga"
+  ];
 
   programs.firefox.enable = true;
 

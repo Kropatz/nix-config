@@ -91,6 +91,7 @@ in
       feh # sets the wallpaper
       networkmanagerapplet
       caffeine-ng # prevent the system from going to sleep
+      xdotool
     ];
   };
 }

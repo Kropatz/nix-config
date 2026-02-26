@@ -337,7 +337,7 @@ in
       colorTheme.enable = true;
     };
   };
-  programs.firefox = {
+  programs.firefox = lib.mkIf osConfig.custom.graphical.firefox-custom.enable {
     enable = true;
     policies = {
       DisableTelemetry = true;

@@ -226,7 +226,7 @@ in
         # Example windowrule v1
         # windowrule = float, ^(kitty)$
         # Example windowrule v2
-        # float,class:^(kitty)$,title:^(kitty)$
+        # float,match:class ^(kitty)$,title:^(kitty)$
         # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
 
         # See https://wiki.hyprland.org/Configuring/Keywords/ for more
@@ -244,16 +244,17 @@ in
             wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
             grimblast = "${pkgs.grimblast}/bin/grimblast";
             saved-screenshot-cmd = ''
-              ${grimblast} --freeze save area $OUT && notify-send "Saved screenshot to $OUT" -h string:image-path:$OUT && echo "file://$(realpath $OUT)" | wl-copy -t text/uri-list
+              ${hyprshot} -z -s -m region -o $OUT -f $FILE && notify-send "Saved screenshot to $OUT/$FILE" -h string:image-path:$OUT/$FILE && echo "file://$(realpath $OUT/$FILE)" | wl-copy -t text/uri-list
             '';
             saved-screenshot-cmd-output = ''
-              ${grimblast} --freeze save output $OUT && notify-send "Saved screenshot to $OUT" -h string:image-path:$OUT && echo "file://$(realpath $OUT)" | wl-copy -t text/uri-list
+              ${hyprshot} -z -s -m output -o $OUT -f $FILE && notify-send "Saved screenshot to $OUT/$FILE" -h string:image-path:$OUT/$FILE && echo "file://$(realpath $OUT/$FILE)" | wl-copy -t text/uri-list
             '';
             pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
             brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
             hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
             hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
+            hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
             playerctl = "${pkgs.playerctl}/bin/playerctl";
             peek = "${pkgs.peek}/bin/peek";
             zenity = "${pkgs.zenity}/bin/zenity";
@@ -277,10 +278,10 @@ in
             ''$mainMod, S, exec, echo "skip" | nc kopatz.dev 8888''
             ''$mainMod SHIFT, R, exec, hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"''
             "$mainMod SHIFT, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
-            "        , Print, exec, ${grimblast} --freeze copy area"
-            ''$mainMod, Print, exec, export OUT=/tmp/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
-            ''Shift_L, Print, exec, export OUT=~/Pictures/$(date +'%s_grim.png') && ${saved-screenshot-cmd}''
-            ''$mainMod Shift_L, Print, exec, export OUT=~/Pictures/$(date +'%s_grim.png') && ${saved-screenshot-cmd-output}''
+            "        , Print, exec, ${hyprshot} -s -z -m region --clipboard-only"
+            ''$mainMod, Print, exec, export OUT=/tmp && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}''
+            ''Shift_L, Print, exec, export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}''
+            ''$mainMod Shift_L, Print, exec, export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd-output}''
             #"$mainMod, G, exec, ${peek}" # record gif
             "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
             " , XF86AudioPlay, exec, ${playerctl} play-pause"
@@ -367,50 +368,51 @@ in
           "float on, match:class zenity"
           "center on, match:class zenity"
           "workspace 1, match:class steam_app_.*"
+          "allows_input on, match:title Trove"
+          #"stay_focused on, match:title Trove"
           # Fix splash screen showing in weird places and prevent annoying focus takeovers
-          #"tag +jetbrains-splash, class:^(jetbrains-.*)$, title:^(splash)$, floating:1"
+          #"tag +jetbrains-splash, match:class ^(jetbrains-.*)$, title:^(splash)$, floating:1"
           #"center, tag:jetbrains-splash"
           #"nofocus, tag:jetbrains-splash"
           #"noborder, tag:jetbrains-splash"
           ## Center popups/find windows
-          #"tag +jetbrains, class:^(jetbrains-.*), title:^()$, floating:1"
+          #"tag +jetbrains, match:class ^(jetbrains-.*), title:^()$, floating:1"
           #"center, tag:jetbrains"
           ## Enabling this makes it possible to provide input in popup dialogs (search window, new file, etc.)
           #"stayfocused, tag:jetbrains"
           #"noborder, tag:jetbrains"
           ## For some reason tag:jetbrains does not work for size rule
-          #"size >50% >50%, class:^(jetbrains-.*), title:^()$, floating:1"
+          #"size >50% >50%, match:class ^(jetbrains-.*), title:^()$, floating:1"
           ## Disable window flicker when autocomplete or tooltips appear
-          #"noinitialfocus, class:^(jetbrains-.*)$, title:^(win.*)$, floating:1"
+          #"noinitialfocus, match:class ^(jetbrains-.*)$, title:^(win.*)$, floating:1"
           ## Disable mouse focus
-          #"nofollowmouse, class:^(jetbrains-.*)$"
-        ];
-        windowrulev2 = [
-          #"center, class:jetbrains-idea"
-          #"noinitialfocus,class:^jetbrains-(?!toolbox),floating:1"
+          #"nofollowmouse, match:class ^(jetbrains-.*)$"
+
+          #"center, match:class jetbrains-idea"
+          #"noinitialfocus,match:class ^jetbrains-(?!toolbox),floating:1"
 
           ## -- Fix odd behaviors in IntelliJ IDEs --
           ##! Fix focus issues when dialogs are opened or closed
-          #"windowdance,class:^(jetbrains-.*)$,floating:1"
+          #"windowdance,match:class ^(jetbrains-.*)$,floating:1"
           ##! Fix splash screen showing in weird places and prevent annoying focus takeovers
-          #"center,class:^(jetbrains-.*)$,title:^(splash)$,floating:1"
-          #"nofocus,class:^(jetbrains-.*)$,title:^(splash)$,floating:1"
-          #"noborder,class:^(jetbrains-.*)$,title:^(splash)$,floating:1"
+          #"center,match:class ^(jetbrains-.*)$,title:^(splash)$,floating:1"
+          #"nofocus,match:class ^(jetbrains-.*)$,title:^(splash)$,floating:1"
+          #"noborder,match:class ^(jetbrains-.*)$,title:^(splash)$,floating:1"
 
           ##! Center popups/find windows
-          #"center,class:^(jetbrains-.*)$,title:^( )$,floating:1"
-          #"stayfocused,class:^(jetbrains-.*)$,title:^( )$,floating:1"
-          #"noborder,class:^(jetbrains-.*)$,title:^( )$,floating:1"
+          #"center,match:class ^(jetbrains-.*)$,title:^( )$,floating:1"
+          #"stayfocused,match:class ^(jetbrains-.*)$,title:^( )$,floating:1"
+          #"noborder,match:class ^(jetbrains-.*)$,title:^( )$,floating:1"
           ##! Disable window flicker when autocomplete or tooltips appear
-          #"nofocus,class:^(jetbrains-.*)$,title:^(win.*)$,floating:1"
-          ##"immediate, class:^(Risk.*)$"
-          "stayfocused,class:(steam_app_107410)"
-          "immediate, class:^tetrio-desktop$"
-          "opacity 0.9, class:thunar"
-          "opacity 0.9, class:discord, fullscreen:0"
-          "opacity 0.1, title:cava"
-          "float, title:Picture-in-Picture"
-          "suppressevent maximize, title:Picture-in-Picture"
+          #"nofocus,match:class ^(jetbrains-.*)$,title:^(win.*)$,floating:1"
+          ##"immediate, match:class ^(Risk.*)$"
+          "stay_focused on, match:class (steam_app_107410)"
+          "immediate on, match:class ^tetrio-desktop$"
+          "opacity 0.9, match:class thunar"
+          "opacity 0.9, match:class discord, match:fullscreen 0"
+          "opacity 0.1, match:title cava"
+          "float on, match:title Picture-in-Picture"
+          "suppress_event maximize, match:title Picture-in-Picture"
         ];
 
         exec-once = [
