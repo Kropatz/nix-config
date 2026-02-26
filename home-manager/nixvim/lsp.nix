@@ -3,6 +3,7 @@
   lsp = {
     inlayHints.enable = true;
     servers = {
+      #angularls.enable = true; Todo: fix
       bashls.enable = true;
       #ccls.enable = true;
       clangd.enable = true;
