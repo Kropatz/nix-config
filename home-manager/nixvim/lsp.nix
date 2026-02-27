@@ -1,13 +1,21 @@
 { pkgs, ... }:
 {
+  # extraConfigLua = ''
+  #   --Enable (broadcasting) snippet capability for completion
+  #   local capabilities = vim.lsp.protocol.make_client_capabilities()
+  #   capabilities.textDocument.completion.completionItem.snippetSupport = true
+  #   vim.lsp.config('html', {
+  #      capabilities = capabilities,
+  #    })
+  # '';
+  plugins.ts-autotag.enable = true; # auto close and rename html tags
   lsp = {
     inlayHints.enable = true;
     servers = {
-      #angularls.enable = true; Todo: fix
+      #angularls.enable = true; # Todo: fix
       bashls.enable = true;
       #ccls.enable = true;
       clangd.enable = true;
-      cssls.enable = true;
       gopls.enable = true;
       #clojure_lsp.enable = true;
       qmlls = {
@@ -20,14 +28,26 @@
       nixd = {
         enable = true;
         settings = {
-          nixpkgs.expr = ''import <nixpkgs> { }'';
+          nixpkgs.expr = "import <nixpkgs> { }";
           formatting.command = [ "nixpkgs-fmt" ];
           options.nixos.expr = ''(builtins.getFlake ("/home/kopatz/projects/github/nix-config")).nixosConfigurations.kop-pc.options'';
         };
       };
-      html.enable = true;
-      dartls.enable = true; # handled by flutter-tools
+      #angularls.enable = true;
+      html = {
+        enable = true;
+        config = {
+          filetypes = [
+            "html"
+            "htmldjango"
+            "razor"
+            "htmlangular"
+          ];
+        };
+      };
+      cssls.enable = true;
       ts_ls.enable = true;
+      dartls.enable = true; # handled by flutter-tools
       pylsp.enable = true;
       lua_ls.enable = true;
       csharp_ls = {
