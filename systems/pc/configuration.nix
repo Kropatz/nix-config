@@ -120,11 +120,7 @@
     };
   };
 
-  services.earlyoom = {
-    enable = true;
-    freeMemThreshold = 2;
-    freeSwapThreshold = 2;
-  };
+  services.nohang.enable = true;
 
   services.logind.settings.Login = {
     HandlePowerKey = "suspend";
