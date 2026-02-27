@@ -39,6 +39,23 @@
           "editor.mouseWheelZoom" = true;
           "files.autoSave" = "afterDelay";
           "clangd.path" = "/run/current-system/sw/bin/clangd";
+          "vim.easymotion" = true;
+          "vim.incsearch" = true;
+          "vim.useSystemClipboard" = true;
+          "vim.useCtrlKeys" = true;
+          "vim.hlsearch" = true;
+          "vim.insertModeKeyBindings" = [
+          ];
+          "vim.normalModeKeyBindingsNonRecursive" = [
+          ];
+          "vim.leader" = "<space>";
+          "vim.handleKeys" = {
+            "<C-a>" = false;
+            "<C-f>" = false;
+          };
+          "extensions.experimental.affinity" = {
+            "vscodevim.vim" = 1;
+          };
         };
         extensions = with pkgs.vscode-extensions; [
           jnoortheen.nix-ide
@@ -48,6 +65,7 @@
           james-yu.latex-workshop
           twxs.cmake
           llvm-vs-code-extensions.vscode-clangd
+          vscodevim.vim
         ];
       };
     };
