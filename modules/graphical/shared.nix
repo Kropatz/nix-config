@@ -15,11 +15,6 @@ in
   };
 
   config =
-    let
-      screenshot = pkgs.writeShellScriptBin "screenshot" ''
-        ${pkgs.scrot}/bin/scrot -fs - | ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i
-      '';
-    in
     mkIf cfg.enable {
       programs.dconf.enable = true;
 
@@ -37,7 +32,6 @@ in
       ];
       services.libinput = {
         enable = true;
-
         # disabling mouse acceleration
         mouse = {
           accelProfile = "flat";
@@ -69,7 +63,7 @@ in
       #services.xserver.wacom.enable = true;
       services.tumbler.enable = true; # for thumbnails
       programs.thunar.enable = true;
-      programs.thunar.plugins = with pkgs.xfce; [
+      programs.thunar.plugins = with pkgs; [
         thunar-archive-plugin
         thunar-volman
       ];
@@ -86,7 +80,6 @@ in
       environment.systemPackages = with pkgs; [
         file-roller
         keepassxc
-        screenshot
         wl-clipboard
         xarchiver # archive tool
         adwaita-icon-theme

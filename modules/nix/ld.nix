@@ -59,24 +59,24 @@ in
       stdenv.cc.cc
       systemd
       util-linux
-      xorg.libX11
-      xorg.libXScrnSaver
-      xorg.libXau
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXdmcp
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXi
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libxcb
-      xorg.libxkbfile
-      xorg.libxshmfence
-      xorg.libICE
-      xorg.libSM
+      libX11
+      libXScrnSaver
+      libXau
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXdmcp
+      libXext
+      libXfixes
+      libXi
+      libXrandr
+      libXrender
+      libXtst
+      libxcb
+      libxkbfile
+      libxshmfence
+      libICE
+      libSM
       xz
       zlib
       zstd

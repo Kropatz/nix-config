@@ -61,14 +61,14 @@ in
         with pkgs;
         [
           #taisei
-          osu-lazer-bin
+          #osu-lazer-bin
           wineWow64Packages.unstableFull
           winetricks
           heroic
           prismlauncher
           steamtinkerlaunch
           tetrio-desktop
-          beyond-all-reason
+          #beyond-all-reason
           #libs
         ]
       )

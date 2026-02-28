@@ -97,7 +97,7 @@
       };
       ime.enable = true;
       noise-supression.enable = true;
-      obs.enable = true;
+      #obs.enable = true;
       gpu-screen-recorder-ui.enable = true;
       niri.enable = false;
       #openrgb.enable = true;

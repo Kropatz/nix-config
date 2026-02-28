@@ -16,7 +16,10 @@ in
 
   config = mkIf cfg.enable {
     documentation.dev.enable = true;
-    environment.systemPackages = with pkgs; [ android-studio android-tools ];
+    environment.systemPackages = with pkgs; [
+      #android-studio
+      android-tools
+    ];
     users.users.${config.mainUser.name}.extraGroups = [
       "adbusers"
       "kvm"

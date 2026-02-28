@@ -41,7 +41,7 @@ in
       services.udev.packages = [ wooting-udev ];
 
       environment.systemPackages = with pkgs; [
-        wootility
+          #wootility
       ];
     };
 }

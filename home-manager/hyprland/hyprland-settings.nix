@@ -239,24 +239,21 @@ in
             rofimoji = "${pkgs.rofimoji}/bin/rofimoji";
             kitty = "${pkgs.kitty}/bin/kitty";
             #dolphin = "${pkgs.dolphin}/bin/dolphin";
-            thunar = "${pkgs.xfce.thunar}/bin/thunar";
-            wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
-            wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-            grimblast = "${pkgs.grimblast}/bin/grimblast";
+            thunar = "${pkgs.thunar}/bin/thunar";
             saved-screenshot-cmd = ''
               ${hyprshot} -z -s -m region -o $OUT -f $FILE && notify-send "Saved screenshot to $OUT/$FILE" -h string:image-path:$OUT/$FILE && echo "file://$(realpath $OUT/$FILE)" | wl-copy -t text/uri-list
             '';
             saved-screenshot-cmd-output = ''
               ${hyprshot} -z -s -m output -o $OUT -f $FILE && notify-send "Saved screenshot to $OUT/$FILE" -h string:image-path:$OUT/$FILE && echo "file://$(realpath $OUT/$FILE)" | wl-copy -t text/uri-list
             '';
-            pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
-            brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+            #pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
+            #brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
             hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
             hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
             hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
             playerctl = "${pkgs.playerctl}/bin/playerctl";
-            peek = "${pkgs.peek}/bin/peek";
+            #peek = "${pkgs.peek}/bin/peek";
             zenity = "${pkgs.zenity}/bin/zenity";
             woomer = "${pkgs.woomer}/bin/woomer";
           in
@@ -444,7 +441,7 @@ in
           node = "${pkgs.nodejs}/bin/node";
           set-monitor = "~/.config/hypr/monitor-config.js";
           answer = "${pkgs.answer}/bin/answer";
-          wlrctl = "${pkgs.wlrctl}/bin/wlrctl";
+          #wlrctl = "${pkgs.wlrctl}/bin/wlrctl";
           ydotool = "${pkgs.ydotool}/bin/ydotool";
           wl-kbptr = "${pkgs.wl-kbptr}/bin/wl-kbptr";
         in

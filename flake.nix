@@ -50,10 +50,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    #hyprland = {
-    #  url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    #  inputs.nixpkgs.follows = "nixpkgs-unstable";
-    #};
+    hyprland = {
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     #quickshell = {
     #  url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
     #  inputs.nixpkgs.follows = "nixpkgs-unstable";
