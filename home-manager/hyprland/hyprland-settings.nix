@@ -285,7 +285,7 @@ in
             " , XF86AudioNext, exec, ${playerctl} next"
             " , XF86AudioPrev, exec, ${playerctl} previous"
             "$mainMod, U, pseudo" # dwindle
-            "$mainMod, J, togglesplit" # dwindle
+            "$mainMod, J, layoutmsg, togglesplit" # dwindle
             # Move focus with mainMod + arrow keys
             "$mainMod, left, movefocus, l"
             "$mainMod, right, movefocus, r"
