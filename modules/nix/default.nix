@@ -5,5 +5,6 @@
     ./ld.nix
     ./settings.nix
     ./latest.nix
+    ./sshServe.nix
   ];
 }

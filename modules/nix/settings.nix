@@ -25,7 +25,7 @@ in
 
     nix = {
       optimise.automatic = cfg.optimise;
-      settings.allowed-users = [ "root" "@wheel" "anon" "minecraftserver" ];
+      settings.allowed-users = [ "root" "@wheel" "anon" "minecraftserver" "nix-ssh" ];
       settings.experimental-features = [
         "nix-command"
         "flakes"

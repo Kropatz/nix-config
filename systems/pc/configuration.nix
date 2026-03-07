@@ -167,15 +167,7 @@
     #kdePackages.qtdeclarative
     #libimobiledevice
     #ifuse # optional, to mount using 'ifuse'
-    (wl-clicker.overrideAttrs (old: {
-      # wayland autoclicker
-      src = pkgs.fetchFromGitHub {
-        owner = "phonetic112";
-        repo = "wl-clicker";
-        rev = "f0241c374241d6cf74ba3abffb74a3fdcefa6f88";
-        hash = "sha256-QwFT9e2FuczC+ew/lDrDnYYccrrfVJi3Rlrurhwk8ZU=";
-      };
-    }))
+    wl-clicker
   ];
   documentation.man.generateCaches = true;
 

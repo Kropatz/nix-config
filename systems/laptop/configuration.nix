@@ -75,6 +75,7 @@ in
       ld.enable = true;
       index.enable = true;
       settings.enable = true;
+      #sshServe.enable = true;
     };
     misc = {
       docker.enable = true;
