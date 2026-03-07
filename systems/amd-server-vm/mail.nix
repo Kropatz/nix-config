@@ -171,6 +171,9 @@ in
     selector = "mail";
     socket = "local:/run/opendkim/opendkim.sock";
   };
+  nixpkgs.config.permittedInsecurePackages = [
+    "opendkim-2.11.0-Beta2"
+  ];
   services.rspamd = {
     enable = true;
     postfix.enable = true;

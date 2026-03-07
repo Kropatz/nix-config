@@ -19,6 +19,7 @@
     ../../modules/services/samba.nix
     ../../modules/services/ddclient-cloudflare.nix
     ../../modules/services/grafana.nix
+    ../../modules/services/coturn.nix
     ./disk-config.nix
     ./mail.nix
     (modulesPath + "/installer/scan/not-detected.nix")

@@ -25,6 +25,7 @@
     enable = true;
     no-cli = true;
     #tls-listening-port = 5349;
+    #no-tcp-relay = true;
     listening-port = 3478;
     min-port = 49000;
     max-port = 50000;
@@ -32,13 +33,15 @@
     static-auth-secret-file = config.age.secrets.coturn-secret.path;
     relay-ips = [
       "192.168.2.1"
+      "192.168.0.10"
     ];
     listening-ips = [
       "192.168.2.1"
+      "192.168.0.10"
     ];
-    realm = "kopatz.ddns.net";
-    #cert = "${config.security.acme.certs."kopatz.ddns.net".directory}/full.pem";
-    #pkey = "${config.security.acme.certs."kopatz.ddns.net".directory}/key.pem";
+    realm = "kopatz.dev";
+    cert = "${config.security.acme.certs."kopatz.dev".directory}/full.pem";
+    pkey = "${config.security.acme.certs."kopatz.dev".directory}/key.pem";
     extraConfig = ''
       no-sslv3
       no-tlsv1

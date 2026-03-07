@@ -58,6 +58,7 @@ in
         high_availability = false;
       };
       security.admin_password = "$__file{${config.age.secrets.grafana-pw.path}}";
+      security.secret_key = "dontcareaboutthis";
     };
 
     provision.alerting.contactPoints.path = config.age.secrets.grafana-contact-points.path;
