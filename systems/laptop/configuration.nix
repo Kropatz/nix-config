@@ -28,6 +28,7 @@ in
     #../../modules/static-ip.nix
     #../../modules/wake-on-lan.nix
     #./modules/wireguard.nix
+    ../../modules/misc/tv-on-off.nix
     ./disk-config.nix
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];
@@ -42,27 +43,27 @@ in
 
   # after suspend, do `cec-ctl -A | grep cec0 | wc -l`, if >0, do `cec-ctl --standby --to TV`
   # similar on wakeup, if present send `cec-ctl --user-control-pressed ui-cmd=power-on-function --to TV`
-  environment.etc."systemd/system-sleep/sleep-turn-tv-off-on.sh".source =
-    pkgs.writeShellScript "post-sleep-turn-tv-off.sh" ''
-      case $1/$2 in
-        pre/*)
-          if [ $(${cec} -A | ${pkgs.gnugrep}/bin/grep cec0 | ${pkgs.coreutils}/bin/wc -l) -gt 0 ]; then
-            ${cec} -C --skip-info
-            ${cec} --tv --skip-info
-            ${cec} --standby --skip-info --to TV
-            echo "Turning TV off!"
-            ${pkgs.coreutils}/bin/sleep 2
-          fi
-          ;;
-        post/*)
-          if [ $(${cec} -A | ${pkgs.gnugrep}/bin/grep cec0 | ${pkgs.coreutils}/bin/wc -l) -gt 0 ]; then
-            ${cec} --tv --skip-info
-            ${cec} --skip-info --user-control-pressed ui-cmd=power-on-function --to TV
-            echo "Turning TV on!"
-          fi
-          ;;
-      esac
-    '';
+    #environment.etc."systemd/system-sleep/sleep-turn-tv-off-on.sh".source =
+    #  pkgs.writeShellScript "post-sleep-turn-tv-off.sh" ''
+    #    case $1/$2 in
+    #      pre/*)
+    #        if [ $(${cec} -A | ${pkgs.gnugrep}/bin/grep cec0 | ${pkgs.coreutils}/bin/wc -l) -gt 0 ]; then
+    #          ${cec} -C --skip-info
+    #          ${cec} --tv --skip-info
+    #          ${cec} --standby --skip-info --to TV
+    #          echo "Turning TV off!"
+    #          ${pkgs.coreutils}/bin/sleep 2
+    #        fi
+    #        ;;
+    #      post/*)
+    #        if [ $(${cec} -A | ${pkgs.gnugrep}/bin/grep cec0 | ${pkgs.coreutils}/bin/wc -l) -gt 0 ]; then
+    #          ${cec} --tv --skip-info
+    #          ${cec} --skip-info --user-control-pressed ui-cmd=power-on-function --to TV
+    #          echo "Turning TV on!"
+    #        fi
+    #        ;;
+    #    esac
+    #  '';
 
   custom = {
     cli-tools.enable = true;
@@ -120,6 +121,24 @@ in
     ryzenadj
     prismlauncher
     #fscrypt-experimental
+    (spacetimedb.overrideAttrs (old: {
+      version = "2.0.3";
+      src = pkgs.fetchFromGitHub {
+        owner = "clockworklabs";
+        repo = "spacetimedb";
+        tag = "v2.0.3";
+        hash = "sha256-QmzuXuFru/yt/32PXVydmLWpH9JnYD+sInorz9AqIMI=";
+      };
+      cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+        src = pkgs.fetchFromGitHub {
+          owner = "clockworklabs";
+          repo = "spacetimedb";
+          tag = "v2.0.3";
+          hash = "sha256-QmzuXuFru/yt/32PXVydmLWpH9JnYD+sInorz9AqIMI=";
+        };
+        hash = "sha256-mUmFkMpJq25lao2B7Ggigx6vd3hg534XTpPJw48Jw5s=";
+      };
+    }))
   ];
   # don't think there is a way to unlock this with fingerprint
   #security.pam.enableFscrypt = true;
