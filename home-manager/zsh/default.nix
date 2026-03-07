@@ -24,6 +24,36 @@
       	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
       	rm -f -- "$tmp"
       }
+
+      nixdev() {                                                             
+        if [ -z "$1" ]; then
+          echo "Usage: nixdev <package-name>"
+          return 1    
+        fi
+
+        local package="$1"
+        local target_dir="''${package}-src"
+
+        if [ -d "$target_dir" ]; then
+          echo "Source directory ''${target_dir} already exists, skipping copy..."
+        else
+          echo "Fetching source for nixpkgs#''${package}..."
+          local src_path=$(nix build "nixpkgs#''${package}.src" --no-link --print-out-paths 2>/dev/null)
+
+          if [ $? -ne 0 ]; then
+            echo "Error: Failed to fetch source for ''${package}"
+            return 1
+          fi
+
+          echo "Copying source to ''${target_dir}..."
+          cp -r "$src_path" "$target_dir"
+          chmod -R u+w "$target_dir"
+        fi
+
+        echo "Entering dev environment..."
+        cd "$target_dir"
+        nix develop "nixpkgs#''${package}"
+      }
     '';
     history = {
       size = 100000;
@@ -43,10 +73,11 @@
       update = "sudo nixos-rebuild switch";
       updateFancy = "nh os switch";
       updateOffline = "sudo nixos-rebuild switch --option substitute false";
-      goto = ''cd $((
-  find -L ~/projects -maxdepth 2 -type d
-  find -L ~/projects/github/third-party/ -maxdepth 1 -type d
-) | ${pkgs.fzf}/bin/fzf)'';
+      goto = ''
+        cd $((
+          find -L ~/projects -maxdepth 2 -type d
+          find -L ~/projects/github/third-party/ -maxdepth 1 -type d
+        ) | ${pkgs.fzf}/bin/fzf)'';
       dev = "nix-shell --run zsh";
       rmt = "trash put";
       bat = "bat -P --style plain";
