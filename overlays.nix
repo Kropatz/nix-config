@@ -116,10 +116,10 @@ in
     #hyprland = prev.hyprland.override {
     #  debug = true;
     #};
-    hyprland =
-      inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
-    xdg-desktop-portal-hyprland =
-      inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    # hyprland =
+    #   inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
+    # xdg-desktop-portal-hyprland =
+    #   inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     # to add input capture protocol support (needed for kde connect)
     #hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
