@@ -13,6 +13,7 @@ in
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./modules/battery.nix
+    ../../modules/misc/zram.nix
     ../../modules/misc/faster-boot-time.nix
     #../../modules/ecryptfs.nix
     #../../modules/fh/scanning.nix
@@ -33,6 +34,7 @@ in
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];
 
+  services.nohang.enable = true;
   # issue with internal mic not workin
   # ... didn't work
   services.pipewire.wireplumber.extraConfig.no-ucm = {
