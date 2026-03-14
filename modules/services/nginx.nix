@@ -40,7 +40,10 @@ in
 
     services.nginx = {
       enable = true;
-      additionalModules = [ pkgs.nginxModules.moreheaders ];
+      additionalModules = [
+        pkgs.nginxModules.moreheaders
+        pkgs.nginxModules.fancyindex
+      ];
 
       # Use recommended settings
       recommendedGzipSettings = true;
@@ -140,9 +143,18 @@ in
               "/misc-files/" = {
                 alias = "/var/www/misc-files/";
               };
+              "/javaland/" = {
+                alias = "/var/www/javaland/";
+                extraConfig = ''
+                  fancyindex on;
+                  fancyindex_hide_parent_dir on;
+                  fancyindex_exact_size off;
+                '';
+              };
 
               "/comms2/api" = {
                 extraConfig = ''
+                  client_max_body_size    20000M;
                   rewrite /comms2/api/(.*) /$1 break;
                 '';
                 proxyPass = "http://localhost:3200/";
