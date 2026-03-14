@@ -157,6 +157,17 @@
     };
   };
 
+  services.openssh.extraConfig = ''
+    # Internal network: allow everyone
+    Match Address 192.168.2.0/24,192.168.0.0/24
+        AllowUsers *
+
+    # Everything else (internet): only git user
+    Match Address *,!192.168.2.0/24,!192.168.0.0/24
+        PermitRootLogin no
+        AllowUsers gitea
+  '';
+
   virtualisation.vmware.guest.enable = true;
   services.xserver.videoDrivers = [ "vmware" ];
   environment.systemPackages = with pkgs; [

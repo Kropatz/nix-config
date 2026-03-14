@@ -27,7 +27,7 @@ in
         service.DISABLE_REGISTRATION = true;
         server.DOMAIN = cfg.fqdn;
         server.ROOT_URL = "https://${cfg.fqdn}";
-        server.DISABLE_SSH = true;
+        #server.DISABLE_SSH = true;
       };
     };
     services.nginx.virtualHosts."${cfg.fqdn}" = {
