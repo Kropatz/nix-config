@@ -154,6 +154,19 @@
       action = "<CMD>BufferPrevious<CR>";
       options.desc = "Go to the previous tab";
     }
+    # Next/Previous diagnostic
+    {
+      mode = "n";
+      key = "<F2>";
+      action = "<CMD>lua vim.diagnostic.goto_next()<CR>";
+      options.desc = "Go to the next diagnostic";
+    }
+    {
+      mode = "n";
+      key = "<F3>";
+      action = "<CMD>lua vim.diagnostic.goto_prev()<CR>";
+      options.desc = "Go to the previous diagnostic";
+    }
 
     # Terminal
     {
