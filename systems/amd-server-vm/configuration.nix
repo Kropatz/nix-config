@@ -59,6 +59,7 @@
         let
           kavita = "/data/kavita";
           gitolite = "/var/lib/gitolite";
+          gitea = "/1tbssd/gitea";
           mail = [
             "/data/vmail"
             "/var/lib/opendkim"
@@ -87,6 +88,7 @@
             "/home"
             kavita
             gitolite
+            gitea
           ]
           ++ syncthingFull
           ++ mail;
