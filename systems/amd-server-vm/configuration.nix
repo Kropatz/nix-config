@@ -58,7 +58,6 @@
       backup =
         let
           kavita = "/data/kavita";
-          gitolite = "/var/lib/gitolite";
           gitea = "/1tbssd/gitea";
           mail = [
             "/data/vmail"
@@ -74,20 +73,17 @@
           ];
           backupPathsSmall = [
             "/home"
-            gitolite
           ]
           ++ syncthing
           ++ mail;
           backupPathsMedium = [
             "/home"
-            gitolite
           ]
           ++ syncthing
           ++ mail;
           backupPathsFull = [
             "/home"
             kavita
-            gitolite
             gitea
           ]
           ++ syncthingFull
@@ -106,7 +102,6 @@
     };
     services = {
       acme.enable = true;
-      gitolite.enable = true;
       gitea.enable = true;
       github-runner.enable = true;
       caldav.enable = true;
