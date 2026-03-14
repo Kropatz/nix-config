@@ -17,6 +17,7 @@ in
       description = "FQDN under which gitea is available";
     };
   };
+  # https://docs.gitea.com/next/administration/config-cheat-sheet
   config = lib.mkIf cfg.enable {
     # Initial setup requires
     services.gitea = {

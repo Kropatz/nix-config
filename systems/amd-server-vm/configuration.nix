@@ -20,6 +20,7 @@
     ../../modules/services/ddclient-cloudflare.nix
     ../../modules/services/grafana.nix
     ../../modules/services/coturn.nix
+    ../../modules/services/blocklist.nix
     ./disk-config.nix
     ./mail.nix
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -183,24 +184,8 @@
     1234 #kop-audio default port
     #9987 # teamspeak6 voice port
   ];
-  networking.nftables.tables.ip_drop = {
-    family = "inet";
-    content = ''
-      set blocked-ip4 {
-        typeof ip saddr
-        flags interval
-        auto-merge
-        elements = { 45.144.212.240 }
-      }
-      chain input {
-        # -100 priority to run before the default filter input chain (0)
-        type filter hook input priority -100; policy accept;
-
-        ip saddr @blocked-ip4 log prefix "nftables drop: " level info counter drop
-      }
-    '';
-  };
   networking.hostName = "server-vm"; # Define your hostname.
+
 
   #containers.privnetwork = {
   #  autoStart = true;

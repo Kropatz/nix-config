@@ -128,6 +128,7 @@ in
     enable = true;
     port = 9000;
     globalConfig.scrape_interval = "1m";
+    retentionTime = "15d";
     #stateDir = "../../${base}/prometheus";
     exporters = {
       node = {
