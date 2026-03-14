@@ -19,6 +19,8 @@
     443
   ];
   networking = {
+    hostname = "adam-site";
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
     defaultGateway6 = {
       address = "fe80::1";
       interface = "enp1s0";

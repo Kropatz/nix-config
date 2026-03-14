@@ -21,6 +21,38 @@ in
       file = ../../secrets/plausible-keybase.age;
     };
 
+    services.clickhouse = {
+      enable = true;
+      extraUsersConfig = ''
+        <clickhouse>
+          <profiles>
+              <default>
+                  <log_queries>0</log_queries>
+                  <log_query_threads>0</log_query_threads>
+              </default>
+          </profiles>
+        </clickhouse>
+      '';
+      extraServerConfig = ''
+        <clickhouse>
+            <logger>
+                <level>warning</level>
+                <console>true</console>
+            </logger>
+            <query_thread_log remove="remove"/>
+            <query_log remove="remove"/>
+            <text_log remove="remove"/>
+            <trace_log remove="remove"/>
+            <metric_log remove="remove"/>
+            <asynchronous_metric_log remove="remove"/>
+
+            <!-- Update: Required for newer versions of Clickhouse -->
+            <session_log remove="remove"/>
+            <part_log remove="remove"/>
+        </clickhouse>
+      '';
+    };
+
     services.plausible = {
       enable = true;
       # removed, create on initial setup now
