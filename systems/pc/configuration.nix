@@ -120,6 +120,7 @@
     };
   };
 
+  services.trilium-server.enable = false; # maybe consider in the future
   services.nohang.enable = true;
 
   services.logind.settings.Login = {

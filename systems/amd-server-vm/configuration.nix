@@ -105,6 +105,7 @@
     services = {
       acme.enable = true;
       gitolite.enable = true;
+      gitea.enable = true;
       github-runner.enable = true;
       caldav.enable = true;
       kop-monitor.enable = true;
