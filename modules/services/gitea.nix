@@ -17,17 +17,32 @@ in
       description = "FQDN under which gitea is available";
     };
   };
-  # https://docs.gitea.com/next/administration/config-cheat-sheet
   config = lib.mkIf cfg.enable {
-    # Initial setup requires
+    age.secrets.git-mail-pw = {
+      file = ../../secrets/git-mail-pw.age;
+      owner = "gitea";
+    };
+    # Initial setup requires creating an admin user with DISABLE_REGISTRATION set to false
+    # https://docs.gitea.com/next/administration/config-cheat-sheet
     services.gitea = {
       enable = true;
+      user = "gitea";
+      group = "gitea";
+      mailerPasswordFile = config.age.secrets.git-mail-pw.path;
       stateDir = "/1tbssd/gitea";
       settings = {
         server.HTTP_PORT = 3001;
         service.DISABLE_REGISTRATION = true;
         server.DOMAIN = cfg.fqdn;
         server.ROOT_URL = "https://${cfg.fqdn}";
+        service.REQUIRE_SIGNIN_VIEW = true;
+        mailer = {
+          ENABLED = true;
+          PROTOCOL = "smtp+starttls";
+          SMTP_ADDR = "kopatz.dev";
+          SMTP_PORT = 587;
+          USER = "gitea@kopatz.dev";
+        };
         #server.DISABLE_SSH = true;
       };
     };

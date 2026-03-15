@@ -143,4 +143,8 @@ in
     kop
     adam-site
   ];
+  "git-mail-pw.age".publicKeys = [
+    kop
+    server-vm
+  ];
 }
