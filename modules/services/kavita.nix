@@ -169,6 +169,12 @@ in
           add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
           add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
         '';
+        locations."/robots.txt" = {
+          extraConfig = ''
+            add_header Content-Type text/plain;
+            return 200 "User-agent: *\nDisallow: /\n";
+          '';
+        };
       };
     };
 }

@@ -45,6 +45,10 @@ in
           "answer" = ip;
         }
         {
+          "domain" = "git.kopatz.dev";
+          "answer" = ip;
+        }
+        {
           "domain" = "kavita.kopatz.dev";
           "answer" = ip;
         }

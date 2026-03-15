@@ -172,6 +172,12 @@ in
                 alias = "/var/www/discord-clone/";
                 tryFiles = "$uri $uri/ /var/www/discord-clone/index.html";
               };
+              "/robots.txt" = {
+                extraConfig = ''
+                  add_header Content-Type text/plain;
+                  return 200 "User-agent: *\nDisallow: /\n";
+                '';
+              };
             };
           };
         in

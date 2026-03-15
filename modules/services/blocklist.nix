@@ -27,7 +27,7 @@ let
   nftSet = "blocked-ip4";
 
   # How often to refresh (systemd calendar format)
-  refreshInterval = "*:0/4"; # every 4 hours
+  refreshInterval = "hourly"; # every 4 hours
 
   # --- The updater script ---
   # Written as a pkgs.writeShellApplication so nix handles the PATH / dependencies.
@@ -89,6 +89,7 @@ let
         fetch_and_normalise "${url}" >> "$TMPFILE" || \
           echo "[blocklist] WARNING: failed to fetch ${url}, skipping" >&2
       '') blocklistSources}
+      echo "74.7.227.136/32" >> "$TMPFILE"
 
       # Deduplicate lines (nft auto-merge handles overlapping CIDRs at load time)
       sort -u "$TMPFILE" -o "$TMPFILE"
