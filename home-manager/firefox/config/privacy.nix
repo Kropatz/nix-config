@@ -6,7 +6,7 @@
 
   # Block Cookies
   # Block 3rd-Party cookies or even all cookies.
-  "network.cookie.cookieBehavior" = 1;
+  "network.cookie.cookieBehavior" = 5;
   # Block Referer
   # Firefox tells a website, from which site you're coming (the so called RefControl
   # (http://kb.mozillazine.org/Network.http.sendRefererHeader">referer</a>). You can
@@ -15,7 +15,7 @@
   # article</a> or install the <a
   # href="https://addons.mozilla.org/firefox/addon/refcontrol/) extension for per
   # domain settings.
-  "network.http.referer.spoofSource" = true;
+  "network.http.referer.spoofSource" = false;
   # Disable DOM storage
   # Disables DOM storage, which enables so called "supercookies". Some modern sites
   # will not work (i.e. missing "save" functions).
