@@ -15,6 +15,7 @@
   # article</a> or install the <a
   # href="https://addons.mozilla.org/firefox/addon/refcontrol/) extension for per
   # domain settings.
+  # Disabled because it breaks youtube embeds
   "network.http.referer.spoofSource" = false;
   # Disable DOM storage
   # Disables DOM storage, which enables so called "supercookies". Some modern sites
