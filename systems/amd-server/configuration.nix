@@ -7,6 +7,7 @@
   ...
 }:
 
+# TODO: don't rebuild this, VMs stop working (libvirtd)
 {
   imports = [
     # Include the results of the hardware scan.
@@ -39,7 +40,7 @@
           "10de:0fbb"
         ]; # nvidia
       };
-      wooting.enable = true;
+      wooting.enable = false;
     };
     services = {
       acme.enable = true;
@@ -67,6 +68,21 @@
   mainUser.layout = "de";
   mainUser.variant = "us";
   services.xserver.displayManager.lightdm.enable = false; # no login manager!
+  #turn on powersaving for hdd
+  services.udev.extraRules =
+    let
+      mkRule = as: lib.concatStringsSep ", " as;
+      mkRules = rs: lib.concatStringsSep "\n" rs;
+    in
+    mkRules ([
+      (mkRule [
+        ''ACTION=="add|change"''
+        ''SUBSYSTEM=="block"''
+        ''KERNEL=="sd[a-z]"''
+        ''ATTR{queue/rotational}=="1"''
+        ''RUN+="${pkgs.hdparm}/bin/hdparm -B 90 -S 41 /dev/%k"''
+      ])
+    ]);
 
   nix.gc.automatic = lib.mkForce false;
   networking = {
@@ -161,6 +177,7 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
+    dmidecode
   ];
 
   system.stateVersion = "24.05"; # Did you read the comment?

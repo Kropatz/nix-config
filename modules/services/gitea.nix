@@ -35,7 +35,7 @@ in
         service.DISABLE_REGISTRATION = true;
         server.DOMAIN = cfg.fqdn;
         server.ROOT_URL = "https://${cfg.fqdn}";
-        service.REQUIRE_SIGNIN_VIEW = true;
+        #service.REQUIRE_SIGNIN_VIEW = true;
         mailer = {
           ENABLED = true;
           PROTOCOL = "smtp+starttls";
@@ -46,12 +46,21 @@ in
         #server.DISABLE_SSH = true;
       };
     };
+  services.anubis.instances."gitea" = {
+    settings = {
+      TARGET = "http://127.0.0.1:3001";
+      BIND = ":3002";
+      BIND_NETWORK = "tcp";
+      METRICS_BIND = ":9005";
+      METRICS_BIND_NETWORK = "tcp";
+    };
+  };
     services.nginx.virtualHosts."${cfg.fqdn}" = {
       forceSSL = true;
       enableACME = true;
       quic = true;
       http3 = true;
-      locations."/".proxyPass = "http://localhost:3001";
+      locations."/".proxyPass = "http://localhost:3002";
       locations."/robots.txt" = {
         extraConfig = ''
           add_header Content-Type text/plain;

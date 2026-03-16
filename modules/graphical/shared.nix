@@ -69,7 +69,7 @@ in
       ];
       services.gvfs.enable = true; # for file manager, trash support, etc.
 
-      programs.ssh.startAgent = true;
+      programs.ssh.startAgent = if config.services.gnome.gnome-keyring.enable then false else true;
       programs.zoxide = {
         enable = true;
         enableZshIntegration = true;
@@ -121,9 +121,39 @@ in
               "text/html"
             ]
             // mkAssociation "neovim.desktop" [
+              "application/javascript"
               "application/json"
+              "application/x-lua"
+              "application/x-perl"
+              "application/x-python"
+              "application/x-ruby"
+              "application/x-shellscript"
+              "application/xml"
+              "application/x-yaml"
+              "text/css"
+              "text/csv"
+              "text/javascript"
               "text/markdown"
               "text/plain"
+              "text/x-c"
+              "text/x-chdr"
+              "text/x-csrc"
+              "text/x-c++src"
+              "text/x-diff"
+              "text/x-ini"
+              "text/x-java"
+              "text/x-lua"
+              "text/x-makefile"
+              "text/x-patch"
+              "text/x-perl"
+              "text/x-python"
+              "text/x-ruby"
+              "text/x-rust"
+              "text/x-sh"
+              "text/x-shellscript"
+              "text/x-toml"
+              "text/xml"
+              "text/x-yaml"
             ];
         in
         {

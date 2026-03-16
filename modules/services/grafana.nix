@@ -194,6 +194,19 @@ in
           }
         ];
       }
+      {
+        job_name = "anubis-gitea";
+        static_configs = [
+          {
+            targets = [
+              "127.0.0.1:9005"
+            ];
+            labels = {
+              instance = "scheibnmeister";
+            };
+          }
+        ];
+      }
     ];
   };
 
