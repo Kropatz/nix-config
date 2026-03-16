@@ -33,7 +33,7 @@
           options.nixos.expr = ''(builtins.getFlake ("/home/kopatz/projects/github/nix-config")).nixosConfigurations.kop-pc.options'';
         };
       };
-      #angularls.enable = true;
+      angularls.enable = true;
       html = {
         enable = true;
         config = {
