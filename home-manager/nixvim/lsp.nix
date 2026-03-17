@@ -9,6 +9,7 @@
   #    })
   # '';
   plugins.ts-autotag.enable = true; # auto close and rename html tags
+  #plugins.java.enable = true;
   lsp = {
     inlayHints.enable = true;
     servers = {
@@ -55,6 +56,7 @@
         package = pkgs.csharp-ls;
       };
       tinymist.enable = true; # typst
+      jdtls.enable = true;
     };
     keymaps = [
       {
