@@ -124,6 +124,7 @@ in
         checkStorageSpace
         startInternxtWebdav
         stopInternxtWebdav
+        pkgs.internxt-cli
       ];
       age.secrets.restic-pw = {
         file = ../../secrets/restic-pw.age;
