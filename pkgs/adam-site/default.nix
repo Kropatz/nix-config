@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchGit {
     url = "gitea@git.kopatz.dev:oberprofis/adams.git";
     ref = "main";
-    rev = "f0a58b53226e7b5a19331416f58e16ff71d0316e";
+    rev = "d2c7d7d9d145d28817fae87eb9d452dd0e88ea7d";
   };
 
   nativeBuildInputs = [
