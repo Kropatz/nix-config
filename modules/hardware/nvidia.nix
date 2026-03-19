@@ -109,7 +109,8 @@ in
           libva
           libva-utils
           pkgs.nvidia_oc
-          (gwe.override { nvidia_x11 = config.hardware.nvidia.package; })
+            #function 'anonymous lambda' called with unexpected argument 'nvidia_x11'
+            #(gwe.override { nvidia_x11 = config.hardware.nvidia.package; })
         ];
 
         environment.sessionVariables = {
