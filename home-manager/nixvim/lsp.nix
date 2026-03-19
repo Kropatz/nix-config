@@ -13,7 +13,8 @@
   lsp = {
     inlayHints.enable = true;
     servers = {
-      #angularls.enable = true; # Todo: fix
+      # terraform_lsp.enable = true;
+      terraformls.enable = true;
       bashls.enable = true;
       #ccls.enable = true;
       clangd.enable = true;

@@ -30,6 +30,7 @@ in
     #../../modules/wake-on-lan.nix
     #./modules/wireguard.nix
     ../../modules/misc/tv-on-off.nix
+    ../../modules/services/k3s-single-node.nix
     ./disk-config.nix
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];

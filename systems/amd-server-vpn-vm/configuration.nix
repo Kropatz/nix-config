@@ -52,7 +52,7 @@
     services = {
       wireguard = {
         enable = true;
-        ip = "192.168.2.1";
+        ip = "192.168.3.1";
         secretFile = ../../secrets/wireguard-evo-vpn.age;
         externalInterface = "tun0";
       };

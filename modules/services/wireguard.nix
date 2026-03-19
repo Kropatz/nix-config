@@ -31,6 +31,9 @@ in
   config =
     let
       wireguardIp = cfg.ip;
+      baseIp = lib.strings.concatStringsSep "." (
+        lib.lists.take 3 (lib.strings.splitString "." wireguardIp)
+      );
     in
     lib.mkIf cfg.enable {
 
@@ -108,7 +111,7 @@ in
             # laptop
             {
               allowedIPs = [
-                "192.168.2.22/32"
+                "${baseIp}.22/32"
               ];
               publicKey = "/dIW7K49vB9HOghFeXvcY7wu2utQltuv6RfgCbxZwlk=";
             }
