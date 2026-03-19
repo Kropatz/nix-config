@@ -25,12 +25,21 @@ in
 
     nix = {
       optimise.automatic = cfg.optimise;
-      settings.allowed-users = [ "root" "@wheel" "anon" "minecraftserver" "nix-ssh" ];
-      settings.experimental-features = [
-        "nix-command"
-        "flakes"
-        "pipe-operators"
-      ];
+      settings = {
+        allowed-users = [
+          "root"
+          "@wheel"
+          "anon"
+          "minecraftserver"
+          "nix-ssh"
+        ];
+        experimental-features = [
+          "nix-command"
+          "flakes"
+          "pipe-operators"
+        ];
+        flake-registry = "";
+      };
       # not used
       #settings.substituters =
       #  lib.mkIf (config.networking.hostName == "kop-pc")
