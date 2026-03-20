@@ -72,7 +72,7 @@ in
     cli-tools.enable = true;
     tmpfs.enable = true;
     wireshark.enable = true;
-    virt-manager.enable = true;
+    # virt-manager.enable = true;
     nixvimPlugins = true;
     nix = {
       ld.enable = true;
@@ -123,7 +123,6 @@ in
   environment.systemPackages = with pkgs; [
     nvtopPackages.amd
     ryzenadj
-    prismlauncher
     #fscrypt-experimental
     # (spacetimedb.overrideAttrs (old: {
     #   version = "2.0.3";
