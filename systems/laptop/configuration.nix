@@ -125,24 +125,24 @@ in
     ryzenadj
     prismlauncher
     #fscrypt-experimental
-    (spacetimedb.overrideAttrs (old: {
-      version = "2.0.3";
-      src = pkgs.fetchFromGitHub {
-        owner = "clockworklabs";
-        repo = "spacetimedb";
-        tag = "v2.0.3";
-        hash = "sha256-QmzuXuFru/yt/32PXVydmLWpH9JnYD+sInorz9AqIMI=";
-      };
-      cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-        src = pkgs.fetchFromGitHub {
-          owner = "clockworklabs";
-          repo = "spacetimedb";
-          tag = "v2.0.3";
-          hash = "sha256-QmzuXuFru/yt/32PXVydmLWpH9JnYD+sInorz9AqIMI=";
-        };
-        hash = "sha256-mUmFkMpJq25lao2B7Ggigx6vd3hg534XTpPJw48Jw5s=";
-      };
-    }))
+    # (spacetimedb.overrideAttrs (old: {
+    #   version = "2.0.3";
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "clockworklabs";
+    #     repo = "spacetimedb";
+    #     tag = "v2.0.3";
+    #     hash = "sha256-QmzuXuFru/yt/32PXVydmLWpH9JnYD+sInorz9AqIMI=";
+    #   };
+    #   cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+    #     src = pkgs.fetchFromGitHub {
+    #       owner = "clockworklabs";
+    #       repo = "spacetimedb";
+    #       tag = "v2.0.3";
+    #       hash = "sha256-QmzuXuFru/yt/32PXVydmLWpH9JnYD+sInorz9AqIMI=";
+    #     };
+    #     hash = "sha256-mUmFkMpJq25lao2B7Ggigx6vd3hg534XTpPJw48Jw5s=";
+    #   };
+    # }))
   ];
   # don't think there is a way to unlock this with fingerprint
   #security.pam.enableFscrypt = true;
