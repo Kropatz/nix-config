@@ -39,15 +39,15 @@ in
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-      #vencord = prev.vencord.overrideAttrs {
-      #  version = "1.14.1";
-      #  src = prev.fetchFromGitHub {
-      #    owner = "Vendicated";
-      #    repo = "Vencord";
-      #    tag = "v1.14.1";
-      #    hash = "sha256-g+zyq4KvLhn1aeziTwh3xSYvzzB8FwoxxR13mbivyh4=";
-      #  };
-      #};
+    #vencord = prev.vencord.overrideAttrs {
+    #  version = "1.14.1";
+    #  src = prev.fetchFromGitHub {
+    #    owner = "Vendicated";
+    #    repo = "Vencord";
+    #    tag = "v1.14.1";
+    #    hash = "sha256-g+zyq4KvLhn1aeziTwh3xSYvzzB8FwoxxR13mbivyh4=";
+    #  };
+    #};
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
     #tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
@@ -71,15 +71,15 @@ in
     #  }).jetbrains.jdk-no-jcef-17;
     #};
 
-      #hyprshade = prev.hyprshade.overrideAttrs {
-      #  version = "4.0.0";
-      #  src = prev.fetchFromGitHub {
-      #    owner = "loqusion";
-      #    repo = "hyprshade";
-      #    tag = "4.0.0";
-      #    hash = "sha256-NnKhIgDAOKOdEqgHzgLq1MSHG3FDT2AVXJZ53Ozzioc=";
-      #  };
-      #};
+    #hyprshade = prev.hyprshade.overrideAttrs {
+    #  version = "4.0.0";
+    #  src = prev.fetchFromGitHub {
+    #    owner = "loqusion";
+    #    repo = "hyprshade";
+    #    tag = "4.0.0";
+    #    hash = "sha256-NnKhIgDAOKOdEqgHzgLq1MSHG3FDT2AVXJZ53Ozzioc=";
+    #  };
+    #};
     yt-dlp = prev.yt-dlp.overrideAttrs {
       version = "2026.02.04";
       src = prev.fetchFromGitHub {
@@ -112,7 +112,34 @@ in
         patches = [ (prev.writeText "neotest-patch" neotestPatch) ];
       };
     };
-
+    nginxModules = prev.nginxModules // {
+      dav = (
+        prev.nginxModules.dav
+        // {
+          src =
+            let
+              davPatch = prev.writeText "dav-propfind.patch" ''
+                diff --git a/ngx_http_dav_ext_module.c b/ngx_http_dav_ext_module.c
+                index cdb213d..5f14246 100644
+                --- a/ngx_http_dav_ext_module.c
+                +++ b/ngx_http_dav_ext_module.c
+                @@ -862,7 +862,7 @@ ngx_http_dav_ext_propfind(ngx_http_request_t *r, ngx_uint_t props)
+                         name.len = ngx_de_namelen(&dir);
+                         name.data = ngx_de_name(&dir);
+                 
+                -        if (name.data[0] == '.') {
+                +        if ((name.len == 1 && name.data[0] == '.') || (name.len == 2 && name.data[0] == '.' && name.data[1] == '.')) {
+                             continue;
+                         }
+              '';
+            in
+            prev.applyPatches {
+              src = prev.nginxModules.dav.src;
+              patches = prev.nginxModules.dav.src.patches or [ ] ++ [ davPatch ];
+            };
+        }
+      );
+    };
     #hyprland = prev.hyprland.override {
     #  debug = true;
     #};

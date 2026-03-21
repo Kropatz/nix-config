@@ -17,6 +17,7 @@ in
       default = true;
       description = "Should it use https?";
     };
+    dav = mkEnableOption "Enables WebDAV support on /hdd/nginx";
   };
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [
@@ -36,14 +37,30 @@ in
     systemd.tmpfiles.rules = [
       "d /var/www 0740 nginx nginx -"
       "d /var/www/misc-files 0740 nginx nginx -"
+    ]
+    ++ lib.optionals cfg.dav [
+      "d /hdd/nginx 0740 nginx nginx -"
+      "d /hdd/nginx/dav 0740 nginx nginx -"
+      "d /hdd/nginx/dav-tmp 0740 nginx nginx -"
     ];
+
+    systemd.services.nginx = lib.mkIf cfg.dav {
+      serviceConfig = {
+        BindPaths = [ "/hdd/nginx" ];
+      };
+    };
 
     services.nginx = {
       enable = true;
-      additionalModules = [
-        pkgs.nginxModules.moreheaders
-        pkgs.nginxModules.fancyindex
-      ];
+      additionalModules =
+        with pkgs.nginxModules;
+        [
+          moreheaders
+          fancyindex
+        ]
+        ++ lib.optionals cfg.dav [
+          dav
+        ];
 
       # Use recommended settings
       recommendedGzipSettings = true;
@@ -171,6 +188,23 @@ in
                 '';
                 alias = "/var/www/discord-clone/";
                 tryFiles = "$uri $uri/ /var/www/discord-clone/index.html";
+              };
+              "/dav" = lib.mkIf cfg.dav {
+                extraConfig = ''
+                  root '/hdd/nginx';
+                  dav_methods PUT DELETE MKCOL COPY MOVE;
+                  dav_ext_methods PROPFIND OPTIONS;
+                  # Adjust as desired:
+                  dav_access user:rw group:rw;
+                  client_max_body_size 0;
+                  create_full_put_path on;
+                  client_body_temp_path /hdd/nginx/dav-tmp;
+                  autoindex on;
+
+                  allow 192.168.0.0/24;
+                  allow 192.168.2.0/24;
+                  deny all;
+                '';
               };
               "/robots.txt" = {
                 extraConfig = ''

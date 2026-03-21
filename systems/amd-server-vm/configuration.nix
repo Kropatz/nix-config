@@ -117,7 +117,10 @@
         basePath = "/";
         dataDir = "/data/pvlog";
       };
-      nginx.enable = true;
+      nginx = {
+        enable = true;
+        dav = true;
+      };
       ente.enable = true;
       kavita = {
         enable = true;
