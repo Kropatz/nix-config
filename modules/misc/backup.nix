@@ -85,8 +85,7 @@ in
         text = ''
           set +o pipefail
           set +o errexit #don't exit on error to allow checking login status
-          LOGGED_IN=$(${cli} whoami | grep "You are logged in")
-          if [ -z "$LOGGED_IN" ]; then
+          login() {
             if [ -z "$USERNAME" ] || [ -z "$PASSWORD" ]; then
               set -a; source ${config.age.secrets.restic-internxt.path}; set +a
             fi
@@ -96,14 +95,23 @@ in
               echo "Internxt CLI login failed. Aborting backup."
               exit 1
             fi
+          }
+          LOGGED_IN=$(${cli} whoami | grep "You are logged in")
+          if [ -z "$LOGGED_IN" ]; then
+            login
           fi
           WEBDAV_ENABLED=$(${cli} webdav status | grep -c "status: online")
           if [ "$WEBDAV_ENABLED" -eq 0 ]; then
             ${cli} webdav enable
             WEBDAV_ENABLED=$(${cli} webdav status | grep -c "status: online")
             if [ "$WEBDAV_ENABLED" -eq 0 ]; then
-              echo "Internxt WebDAV enable failed. Aborting backup."
-              exit 1
+              # retry with login once since the cli is a bit weird
+              login
+              WEBDAV_ENABLED=$(${cli} webdav status | grep -c "status: online")
+              if [ "$WEBDAV_ENABLED" -eq 0 ]; then
+                echo "Internxt WebDAV enable failed. Aborting backup."
+                exit 1
+              fi
             fi
           fi
         '';
