@@ -60,19 +60,19 @@ in
       services.kavita = {
         enable = true;
         user = "kavita";
-        package =
-          let
-            backend = pkgs.kavita-old.backend.overrideAttrs (old: {
-              patches = old.patches ++ [
-                ./kavita-patches-chapter-parsing.diff
-                ./kavita-page-size.diff
-              ];
-            });
-            kavitaPatched = pkgs.kavita-old.overrideAttrs (old: {
-              backend = backend;
-            });
-          in
-          kavitaPatched;
+        # package =
+        #   let
+        #     backend = pkgs.kavita-old.backend.overrideAttrs (old: {
+        #       patches = old.patches ++ [
+        #         ./kavita-patches-chapter-parsing.diff
+        #         ./kavita-page-size.diff
+        #       ];
+        #     });
+        #     kavitaPatched = pkgs.kavita-old.overrideAttrs (old: {
+        #       backend = backend;
+        #     });
+        #   in
+        #   kavitaPatched;
         settings = {
           Port = 5000;
           IpAddresses = "127.0.0.1";
