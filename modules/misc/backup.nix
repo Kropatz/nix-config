@@ -107,6 +107,7 @@ in
             if [ "$WEBDAV_ENABLED" -eq 0 ]; then
               # retry with login once since the cli is a bit weird
               login
+              ${cli} webdav enable
               WEBDAV_ENABLED=$(${cli} webdav status | grep -c "status: online")
               if [ "$WEBDAV_ENABLED" -eq 0 ]; then
                 echo "Internxt WebDAV enable failed. Aborting backup."
