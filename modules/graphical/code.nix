@@ -28,7 +28,7 @@ in
         nodejs_22 # needed for tabby extension
         python3
         gcc
-        claude-code
+        opencode
       ]
       ++ lib.optionals cfg.rider [
         pkgs.jetbrains.rider
