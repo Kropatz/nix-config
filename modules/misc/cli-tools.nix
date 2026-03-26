@@ -114,6 +114,7 @@ in
         wireguard-tools
         yazi
         sshfs
+        zip
       ];
     };
 }
