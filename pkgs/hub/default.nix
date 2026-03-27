@@ -8,9 +8,9 @@ stdenv.mkDerivation (finalAttrs: {
   version = "1.0.0";
 
   src = fetchGit {
-    url = "git@github.com:oberprofis/hub.git";
+    url = "gitea@git.kopatz.dev:oberprofis/hub";
     ref = "master";
-    rev = "ba5cc7b417cc5982bd547ff1304111daf4c7d99b";
+    rev = "eb71c6bc0af81097346397960a68eaa5a661d034";
   };
   installPhase = ''
     mkdir -p $out

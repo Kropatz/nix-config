@@ -4,7 +4,7 @@
 set -e
 
 PACKAGE_FILE="default.nix" # Replace with your package file path
-REPO_URL="git@github.com:oberprofis/hub.git" # Replace with the repository URL
+REPO_URL="gitea@git.kopatz.dev:oberprofis/hub.git" # Replace with the repository URL
 
 echo "Fetching latest revision from $REPO_URL..."
 
