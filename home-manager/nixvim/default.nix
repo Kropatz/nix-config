@@ -46,6 +46,7 @@ let
       ./colorizer.nix
       ./surround.nix
       ./vimwiki.nix
+      ./experimental.nix
     ]
   );
   merged = builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;

@@ -30,7 +30,7 @@ in
     #../../modules/wake-on-lan.nix
     #./modules/wireguard.nix
     ../../modules/misc/tv-on-off.nix
-    ../../modules/services/k3s-single-node.nix
+    # ../../modules/services/k3s-single-node.nix
     ./disk-config.nix
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];
@@ -106,6 +106,7 @@ in
       games.enable = true;
       ime.enable = false; # causes reatively high cpu usage on hyprland
       shared.enable = true;
+      noise-supression.enable = true;
       stylix = {
         enable = true;
         base16Scheme = import ../../modules/themes/ina.nix;
