@@ -33,19 +33,35 @@ in
         Restart = "on-failure";
         RestartSec = "5s";
         EnvironmentFile = config.age.secrets.webhook.path;
-        PrivateMounts = mkDefault true;
-        PrivateTmp = mkDefault true;
-        PrivateUsers = mkDefault true;
-        ProtectClock = mkDefault true;
-        ProtectControlGroups = mkDefault true;
-        ProtectHome = mkDefault true;
-        ProtectHostname = mkDefault true;
-        ProtectKernelLogs = mkDefault true;
-        ProtectKernelModules = mkDefault true;
-        ProtectKernelTunables = mkDefault true;
-        ProtectSystem = mkDefault "strict";
+        # Security hardening
+        UMask = "077";
+        CapabilityBoundingSet = "";
+        NoNewPrivileges = true;
+        ProtectSystem = "strict";
+        PrivateMounts = true;
+        ProtectHome = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        PrivateDevices = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        RemoveIPC = true; # Remove IPC objects when unit is stopped
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictNamespaces = "yes";
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallFilter="@system-service";
+        SystemCallArchitectures = "native";
+        ## Proc filesystem
+        #ProcSubset = "pid"; needed by monitor
+        #ProtectProc = "invisible";
         # Needs network access
-        PrivateNetwork = mkDefault false;
+        PrivateNetwork = false;
+        # End Security hardening
       };
 
     };

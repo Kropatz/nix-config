@@ -94,6 +94,22 @@ in
       after = [
         "mnt-tmpfs.mount"
       ];
+      serviceConfig = {
+        InaccessiblePaths = config.custom.services.hardening.dataMounts;
+        NoNewPrivileges = true;
+        RestrictNamespaces = "yes";
+        RestrictSUIDSGID = true;
+        CapabilityBoundingSet = "";
+        # from shh
+        PrivateDevices = true;
+        PrivateMounts = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        LockPersonality = true;
+        RestrictRealtime = true;
+        ProtectClock = true;
+        MemoryDenyWriteExecute = true;
+      };
     };
     prometheus = {
       after = [
@@ -102,12 +118,16 @@ in
       serviceConfig = {
         StateDirectory = lib.mkForce "${base}/prometheus";
         WorkingDirectory = lib.mkForce "${base}/prometheus";
+        InaccessiblePaths = config.custom.services.hardening.dataMounts;
       };
     };
     grafana = {
       after = [
         "step-ca.service"
       ];
+      serviceConfig = {
+        InaccessiblePaths = config.custom.services.hardening.dataMounts;
+      };
     };
   };
 
@@ -211,7 +231,7 @@ in
   };
 
   services.cadvisor = {
-    enable = true;
+    enable = false;
     listenAddress = "127.0.0.1";
     port = 9002;
   };

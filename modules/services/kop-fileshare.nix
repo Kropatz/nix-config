@@ -51,22 +51,40 @@ in
         ExecStart = "${pkgs.kop-fileshare}/bin/kop-fileshare";
         WorkingDirectory = cfg.dataDir;
         BindPaths = [ "${cfg.dataDir}" ];
+        ReadWritePaths = [ "${cfg.dataDir}" ];
         User = "kop-fileshare";
+        Group = "kop-fileshare";
         Restart = "on-failure";
         RestartSec = "5s";
-        PrivateMounts = mkDefault true;
-        PrivateTmp = mkDefault true;
-        PrivateUsers = mkDefault true;
-        ProtectClock = mkDefault true;
-        ProtectControlGroups = mkDefault true;
-        ProtectHome = mkDefault true;
-        ProtectHostname = mkDefault true;
-        ProtectKernelLogs = mkDefault true;
-        ProtectKernelModules = mkDefault true;
-        ProtectKernelTunables = mkDefault true;
-        ProtectSystem = mkDefault "strict";
+        # Security hardening
+        UMask = "077";
+        CapabilityBoundingSet = "";
+        NoNewPrivileges = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        PrivateDevices = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        RemoveIPC = true; # Remove IPC objects when unit is stopped
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictNamespaces = "yes";
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallFilter="@system-service";
+        SystemCallArchitectures = "native";
+        ## Proc filesystem
+        ProcSubset = "pid";
+        ProtectProc = "invisible";
         # Needs network access
-        PrivateNetwork = mkDefault false;
+        PrivateNetwork = false;
+        # End Security hardening
       };
 
       environment = {

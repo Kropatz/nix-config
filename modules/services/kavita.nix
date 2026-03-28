@@ -93,6 +93,48 @@ in
       systemd.services = {
         kavita = {
           after = [ "nginx.service" ] ++ lib.optional useStepCa "step-ca.service";
+          serviceConfig = {
+            ReadWritePaths = [ "${baseDir}" ];
+            # Security hardening
+            UMask = "027";
+            CapabilityBoundingSet = "";
+            NoNewPrivileges = true;
+            ProtectSystem = "strict";
+            ProtectHome = true;
+            PrivateMounts = true;
+            PrivateTmp = true;
+            PrivateUsers = true;
+            PrivateDevices = true;
+            ProtectClock = true;
+            ProtectControlGroups = true;
+            ProtectHostname = true;
+            ProtectKernelLogs = true;
+            ProtectKernelModules = true;
+            ProtectKernelTunables = true;
+            LockPersonality = true;
+            RemoveIPC = true; # Remove IPC objects when unit is stopped
+            RestrictAddressFamilies = [
+              "AF_UNIX"
+              "AF_INET"
+              "AF_INET6"
+            ];
+            SocketBindDeny = [
+              "ipv4:udp"
+              "ipv6:tcp"
+              "ipv6:udp"
+            ];
+            RestrictNamespaces = "yes";
+            RestrictRealtime = true;
+            RestrictSUIDSGID = true;
+            SystemCallFilter = "@system-service";
+            SystemCallArchitectures = "native";
+            ## Proc filesystem
+            ProcSubset = "pid";
+            ProtectProc = "invisible";
+            # Needs network access
+            PrivateNetwork = false;
+            # End Security hardening
+          };
         };
         download-manga = mkIf cfg.autoDownload {
           wants = [ "network-online.target" ];

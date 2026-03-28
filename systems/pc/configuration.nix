@@ -27,6 +27,7 @@
     #../../modules/hardware/ryzenmonitor.nix
     ../../modules/package-collections/perf.nix
     ../../modules/networkmanager.nix
+    # ../../modules/services/k3s-single-node.nix
     #./tailscale-client.nix
   ];
 

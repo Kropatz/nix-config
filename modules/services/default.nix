@@ -13,6 +13,7 @@
     ./gitea.nix
     ./github-runner.nix
     ./gitolite.nix
+    ./hardening.nix
     ./kavita.nix
     ./kop-fileshare.nix
     ./kop-monitor.nix
