@@ -9,23 +9,18 @@
         panel.enabled = false;
       };
     };
-
     cmp-buffer = {
       enable = true;
     };
-
     cmp-emoji = {
       enable = true;
     };
-
     cmp-nvim-lsp = {
       enable = true;
     };
-
     cmp-path = {
       enable = true;
     };
-
     cmp_luasnip = {
       enable = true;
     };
@@ -52,6 +47,7 @@
           }
           { name = "nvim_lua"; }
           { name = "copilot"; }
+          { name = "cmdline"; }
         ];
 
         window = {

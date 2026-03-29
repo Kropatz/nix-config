@@ -2,12 +2,13 @@
   lib,
   pkgs,
   osConfig,
+  config,
   ...
 }:
 # https://nix-community.github.io/nixvim/NeovimOptions/index.html
 let
   cfg = osConfig.custom.nixvimPlugins;
-  args = { inherit lib pkgs; };
+  args = { inherit lib pkgs config; };
 
   importFile =
     file:
@@ -22,13 +23,10 @@ let
     ++ lib.optionals cfg [
       ./auto-pairs.nix
       ./autosave.nix
-      ./blankline.nix
-      ./barbar.nix
-      ./cmp.nix
-      ./fidget.nix
+      # ./cmp.nix
+      ./blink.nix
       ./refactoring.nix
       ./git.nix
-      ./lightline.nix
       ./lsp.nix
       ./images.nix
       ./none-ls.nix
@@ -39,13 +37,12 @@ let
       ./treesitter.nix
       ./trouble.nix
       ./which_key.nix
-      ./wilder.nix
       ./typst-preview.nix
       ./markdown.nix
       ./hop.nix
-      ./colorizer.nix
       ./surround.nix
       ./vimwiki.nix
+      ./ui.nix
       ./experimental.nix
     ]
   );
