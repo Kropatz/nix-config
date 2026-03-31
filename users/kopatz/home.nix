@@ -42,6 +42,7 @@
     ../../home-manager/discord-theme.nix
     ../../home-manager/vr.nix
     ../../home-manager/easyeffects
+    ../../home-manager/pnpm.nix
     inputs.nixvim.homeModules.nixvim
     #  inputs.stylix.homeModules.stylix
   ];
