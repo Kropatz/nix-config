@@ -113,6 +113,14 @@ in
           "answer" = wireguardIp;
         }
         {
+          "domain" = "tdata.home.arpa";
+          "answer" = ip;
+        }
+        {
+          "domain" = "tui.home.arpa";
+          "answer" = ip;
+        }
+        {
           "domain" = "powerline.home.arpa";
           "answer" = "192.168.0.2";
         }

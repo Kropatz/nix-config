@@ -6,8 +6,6 @@
   pkgs,
   ...
 }:
-
-# TODO: don't rebuild this, VMs stop working (libvirtd)
 {
   imports = [
     # Include the results of the hardware scan.

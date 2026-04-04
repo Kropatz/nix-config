@@ -21,6 +21,7 @@
     ../../modules/services/grafana.nix
     ../../modules/services/coturn.nix
     ../../modules/services/blocklist.nix
+    ../../modules/services/tdata.nix
     ./disk-config.nix
     ./mail.nix
     (modulesPath + "/installer/scan/not-detected.nix")
