@@ -23,6 +23,7 @@
     ./opensnitch.nix
     ./plausible.nix
     ./smartd.nix
+    ./smartd-exporter.nix
     ./syncthing.nix
     ./wireguard.nix
   ];

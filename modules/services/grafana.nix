@@ -222,7 +222,7 @@ in
               "127.0.0.1:9005"
             ];
             labels = {
-              instance = "scheibnmeister";
+              instance = "anubis-gitea";
             };
           }
         ];
