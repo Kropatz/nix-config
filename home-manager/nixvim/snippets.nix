@@ -16,6 +16,18 @@ let
         i(2, ""),
         t({ " ];", "    in", "    '''", "      export LD_LIBRARY_PATH=''${pkgs.lib.makeLibraryPath libraries}:$LD_LIBRARY_PATH", "", "    ''';", "}" }),
       }),
+      s("mkModule", {
+        t({ "{", "  config,", "  pkgs,", "  inputs,", "  system,", "  lib,", "  ...", "}:",
+          "let", "  name = \"",
+        }),
+        i(1, "service-name"),
+        t({ "\";", "  cfg = config.custom.services.''${name};", "in", "{", "",
+          "  options.custom.services.''${name} = {", "    enable = lib.mkEnableOption \"Enables " }),
+        i(2, "service-name"),
+        t({ "\";", "  };", "",
+          "  config = lib.mkIf cfg.enable {", "",
+          "  };", "}" }),
+      }),
     })
   '';
 in
