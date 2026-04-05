@@ -49,7 +49,7 @@
       interface = "enp42s0";
       ip = "192.168.0.11";
       #dns = "127.0.0.1";
-      dns = "192.168.0.10";
+      dns = "${config.custom.vars.serverIp}";
       #gateway = "192.168.0.10";
     };
     misc = {
@@ -60,7 +60,7 @@
       syncthing = {
         enable = true;
       };
-      adguard.ip = "192.168.0.10";
+      adguard.ip = "${config.custom.vars.serverIp}";
     };
     hardware = {
       android.enable = true;

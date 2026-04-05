@@ -48,7 +48,7 @@
     tmpfs.enable = true;
     static-ip = {
       enable = true;
-      ip = "192.168.0.10";
+      ip = "${config.custom.vars.serverIp}";
       interface = "eth0";
       dns = "127.0.0.1";
     };

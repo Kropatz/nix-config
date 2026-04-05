@@ -57,7 +57,7 @@ in
         "localhost"
         "127.0.0.1"
         "*.home.arpa"
-        "192.168.0.10"
+        "${config.custom.vars.serverIp}"
       ];
       root = pkgs.writeTextFile {
         name = "root.ca";

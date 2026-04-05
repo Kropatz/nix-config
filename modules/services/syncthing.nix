@@ -46,8 +46,8 @@ in
           server = {
             id = "FK3DW4B-6Y7C25O-IDBSOMV-GOUSWZW-KQR7ELS-QUKS4UR-AFZXLZE-67QJXAX";
             addresses = [
-              "tcp://192.168.0.10"
-              "tcp://192.168.2.1"
+              "tcp://${config.custom.vars.serverIp}"
+              "tcp://${config.custom.vars.serverVpnIp}"
             ];
           };
           laptop = {

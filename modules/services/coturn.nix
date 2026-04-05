@@ -32,12 +32,12 @@
     use-auth-secret = true;
     static-auth-secret-file = config.age.secrets.coturn-secret.path;
     relay-ips = [
-      "192.168.2.1"
-      "192.168.0.10"
+      "${config.custom.vars.serverVpnIp}"
+      "${config.custom.vars.serverIp}"
     ];
     listening-ips = [
-      "192.168.2.1"
-      "192.168.0.10"
+      "${config.custom.vars.serverVpnIp}"
+      "${config.custom.vars.serverIp}"
     ];
     realm = "kopatz.dev";
     cert = "${config.security.acme.certs."kopatz.dev".directory}/full.pem";

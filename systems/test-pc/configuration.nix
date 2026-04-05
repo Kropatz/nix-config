@@ -31,7 +31,7 @@
       enable = false;
       interface = "enp42s0";
       ip = "192.168.0.13";
-      dns = "192.168.0.10";
+      dns = "${config.custom.vars.serverIp}";
     };
     hardware = {
       nvidia = {

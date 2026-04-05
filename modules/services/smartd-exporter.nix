@@ -16,7 +16,7 @@ in
     enable = lib.mkEnableOption "Enables smartd monitoring";
   };
   config = lib.mkIf cfg.enable {
-    networking.firewall.extraInputRules = "ip saddr 192.168.0.10 tcp dport ${toString config.services.prometheus.port} counter accept comment smartctl_allow_from_main_server";
+    networking.firewall.extraInputRules = "ip saddr ${config.custom.vars.serverIp} tcp dport ${toString config.services.prometheus.port} counter accept comment smartctl_allow_from_main_server";
     services.prometheus = {
       enable = true;
       port = 9000;
