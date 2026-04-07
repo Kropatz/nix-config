@@ -20,7 +20,7 @@
       fd
       cmake
       pyright
-      nodePackages.eslint
+      eslint
       ccls
       nodejs_22
       go

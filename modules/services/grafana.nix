@@ -35,6 +35,7 @@ in
     "d ${base} 0755 grafana grafana -"
     "d ${base}/grafana 0750 grafana grafana -"
     "d ${base}/loki 0750 loki grafana -"
+    "d ${base}/fluent-bit 0750 fluent-bit grafana -"
     "d ${base}/prometheus 0750 prometheus grafana -"
     #"d ${base}/prometheus/data 0750 prometheus grafana -"
     "L+ /var/lib/prometheus2 - - - - ${base}/prometheus"
@@ -248,36 +249,108 @@ in
     configFile = ./grafana/loki.yml;
   };
 
-  services.promtail = {
+  users.users.fluent-bit = {
+    isSystemUser = true;
+    group = "fluent-bit";
+  };
+  users.groups.fluent-bit = { };
+  systemd.services.fluent-bit.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    User = lib.mkForce "fluent-bit";
+    Group = lib.mkForce "fluent-bit";
+    WorkingDirectory = lib.mkForce "${base}/fluent-bit";
+    ReadWritePaths = lib.mkForce [ "${base}/fluent-bit" ];
+    # Security hardening
+    UMask = "077";
+    CapabilityBoundingSet = "";
+    NoNewPrivileges = true;
+    ProtectSystem = "strict";
+    PrivateMounts = true;
+    ProtectHome = true;
+    PrivateTmp = true;
+    PrivateUsers = true;
+    PrivateDevices = true;
+    ProtectClock = true;
+    ProtectControlGroups = true;
+    ProtectHostname = true;
+    # ProtectKernelLogs = true;
+    ProtectKernelModules = true;
+    ProtectKernelTunables = true;
+    RemoveIPC = true; # Remove IPC objects when unit is stopped
+    RestrictNamespaces = "yes";
+    RestrictRealtime = true;
+    RestrictSUIDSGID = true;
+    SystemCallFilter = "@system-service";
+    SystemCallArchitectures = "native";
+    ## Proc filesystem
+    ProcSubset = "pid";
+    ProtectProc = "invisible";
+    # Needs network access
+    PrivateNetwork = false;
+    # End Security hardening
+  };
+
+  services.fluent-bit = {
     enable = true;
-    configuration = {
-      server = {
-        http_listen_port = 28183;
-        grpc_listen_port = 0;
-        log_level = "warn";
+    settings = {
+      pipeline = {
+        inputs = [
+          {
+            name = "systemd";
+            tag = "systemd.*";
+            db = "${base}/fluent-bit/fluent-bit-systemd.db";
+            read_from_tail = true;
+          }
+        ];
+        filters = [
+          {
+            name = "modify";
+            match = "systemd.*";
+            Rename = [ "_SYSTEMD_UNIT unit" ];
+          }
+        ];
+        outputs = [
+          {
+            name = "loki";
+          }
+        ];
       };
-      positions.filename = "/tmp/positions.yaml";
-      clients = [
-        { url = "http://127.0.0.1:3100/loki/api/v1/push"; }
-      ];
-      scrape_configs = [
-        {
-          job_name = "journal";
-          journal = {
-            max_age = "24h";
-            labels = {
-              job = "systemd-journal";
-              host = "127.0.0.1";
-            };
-          };
-          relabel_configs = [
-            {
-              source_labels = [ "__journal__systemd_unit" ];
-              target_label = "unit";
-            }
-          ];
-        }
-      ];
+      service = {
+        grace = 30;
+      };
     };
   };
+
+  # services.promtail = {
+  #   enable = true;
+  #   configuration = {
+  #     server = {
+  #       http_listen_port = 28183;
+  #       grpc_listen_port = 0;
+  #       log_level = "warn";
+  #     };
+  #     positions.filename = "/tmp/positions.yaml";
+  #     clients = [
+  #       { url = "http://127.0.0.1:3100/loki/api/v1/push"; }
+  #     ];
+  #     scrape_configs = [
+  #       {
+  #         job_name = "journal";
+  #         journal = {
+  #           max_age = "24h";
+  #           labels = {
+  #             job = "systemd-journal";
+  #             host = "127.0.0.1";
+  #           };
+  #         };
+  #         relabel_configs = [
+  #           {
+  #             source_labels = [ "__journal__systemd_unit" ];
+  #             target_label = "unit";
+  #           }
+  #         ];
+  #       }
+  #     ];
+  #   };
+  # };
 }

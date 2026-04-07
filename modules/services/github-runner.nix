@@ -44,7 +44,7 @@ in
       workDir = "/github-actions-runner";
       extraPackages = with pkgs; [
         rsync
-        nodePackages.pnpm
+        pnpm
         nodejs
       ];
       serviceOverrides = {
