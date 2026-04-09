@@ -167,10 +167,6 @@
   boot.blacklistedKernelModules = [ "k10temp" ];
 
   networking.hostName = "amd-server"; # Define your hostname.
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-28.3.3"
-    "electron-27.3.11"
-  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
