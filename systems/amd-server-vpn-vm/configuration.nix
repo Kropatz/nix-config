@@ -13,7 +13,6 @@
     ../../modules/services/ssh.nix
     ../../modules/misc/logging.nix
     ../../modules/misc/motd.nix
-    ../../modules/misc/kernel.nix
     ../../modules/work/vpn.nix
     #./disk-config.nix
     ./hardware.nix
@@ -48,6 +47,9 @@
     hardware = {
       firmware.enable = true;
       ssd.enable = true;
+    };
+    misc = {
+      newkernel.enable = true;
     };
     services = {
       wireguard = {

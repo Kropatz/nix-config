@@ -10,8 +10,6 @@
 }:
 
 {
-  imports = [ ../../modules/misc/kernel.nix ];
-
   specialisation = {
     nvidia = {
       inheritParentConfig = true;
@@ -42,6 +40,9 @@
       index.enable = true;
       ld.enable = true;
       settings.enable = true;
+    };
+    misc = {
+      newkernel.enable = true;
     };
     hardware = {
       firmware.enable = true;

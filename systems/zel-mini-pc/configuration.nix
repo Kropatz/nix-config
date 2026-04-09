@@ -10,9 +10,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./disk-config.nix
-    ../../modules/misc/kernel.nix
-    ../../modules/misc/faster-boot-time.nix
-    ../../modules/misc/zram.nix
     ../../modules/networkmanager.nix
     ../../modules/services/ssh.nix
   ];
@@ -35,6 +32,9 @@
     };
     hardware = {
       ssd.enable = true;
+      zram.enable = true;
+      newkernel.enable = true;
+      fasterboot.enable = true;
     };
     graphical = {
       audio.enable = true;

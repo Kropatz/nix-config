@@ -10,7 +10,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../modules/misc/kernel.nix
     ../../modules/services/ssh.nix
     ../../modules/services/node-exporter.nix
   ];
@@ -25,6 +24,9 @@
       index.enable = true;
       ld.enable = true;
       settings.enable = true;
+    };
+    misc = {
+      newkernel.enable = true;
     };
     hardware = {
       #amd-gpu.enable = true;

@@ -15,15 +15,10 @@
     ./hardware-configuration.nix
     ../../modules/flatpak.nix
     ../../modules/gpg.nix
-    #../../modules/xanmod-kernel.nix
-    #../../modules/kernel-testing.nix
-    ../../modules/misc/kernel.nix
     ../../modules/services/syncthing.nix
     ../../modules/support/ntfs.nix
     ../../modules/fh/writing.nix
     ../../modules/work/vpn.nix
-    ../../modules/misc/faster-boot-time.nix
-    ../../modules/misc/zram.nix
     #../../modules/hardware/ryzenmonitor.nix
     ../../modules/package-collections/perf.nix
     ../../modules/networkmanager.nix
@@ -55,6 +50,9 @@
     misc = {
       # podman.enable = true;
       docker.enable = true;
+      zram.enable = true;
+      newkernel.enable = true;
+      fasterboot.enable = true;
     };
     services = {
       syncthing = {
@@ -66,19 +64,10 @@
       android.enable = true;
       amd-gpu = {
         enable = true;
-        rocm.enable = true;
+        rocm.enable = false;
         overdrive = true;
       };
       vr.enable = true;
-      nvidia = {
-        enable = false;
-        clock = {
-          enable = true;
-          min = 210;
-          max = 1755;
-          offset = 230;
-        };
-      };
       firmware.enable = true;
       ssd.enable = true;
       wooting.enable = true;
@@ -140,7 +129,6 @@
         favicon_resolver = "duckduckgo";
       };
     };
-
   };
   services.ollama = {
     enable = false;
@@ -205,16 +193,9 @@
 
   networking.hostName = "kop-pc"; # Define your hostname.
 
-  # Enable networking
-  #boot.initrd.systemd.network.wait-online.enable = false;
-  #systemd.network.wait-online.enable = false;
-
   #services.nscd.enableNsncd = false;
   #disable firewall when doing ipv6 vm stuff
   #networking.firewall.enable = lib.mkForce false;
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
 
   # Configure console keymap
   console.keyMap = "us";
@@ -229,10 +210,6 @@
     nssmdns4 = true;
     openFirewall = true;
   };
-
-  # Enable automatic login for the user.
-  #services.xserver.displayManager.autoLogin.enable = true;
-  #services.xserver.displayManager.autoLogin.user = "kopatz";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

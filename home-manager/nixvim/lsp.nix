@@ -23,7 +23,7 @@
       # kubernetes doesnt work ._.
       yamlls = {
         enable = true;
-        settings.yaml = {
+        config.yaml = {
           schemas = {
             "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/refs/heads/master/v1.32.1-standalone-strict/all.json" =
               "/*.k8s.yaml";
@@ -32,14 +32,14 @@
       };
       qmlls = {
         enable = true;
-        settings.cmd = [
+        config.cmd = [
           "qmlls"
           "-E"
         ];
       };
       nixd = {
         enable = true;
-        settings = {
+        config = {
           nixpkgs.expr = "import <nixpkgs> { }";
           formatting.command = [ "nixpkgs-fmt" ];
           options.nixos.expr = ''(builtins.getFlake ("/home/kopatz/projects/github/nix-config")).nixosConfigurations.kop-pc.options'';

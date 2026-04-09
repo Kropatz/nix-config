@@ -10,8 +10,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./modules/battery.nix
-    ../../modules/misc/faster-boot-time.nix
-    ../../modules/misc/kernel.nix
     ../../modules/services/ssh.nix
     ../../modules/misc/tv-on-off.nix
     ../../modules/thunderbolt.nix
@@ -24,6 +22,10 @@
     tmpfs.enable = true;
     nix = {
       settings.enable = true;
+    };
+    misc = {
+      newkernel.enable = true;
+      fasterboot.enable = true;
     };
     hardware = {
       firmware.enable = true;

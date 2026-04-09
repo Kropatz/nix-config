@@ -13,7 +13,7 @@
     enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
-    initExtra = ''
+    initContent = ''
       compressImage () {
         magick $1 -strip -resize 1920x1080 -quality 85% compressed.jpg
       }

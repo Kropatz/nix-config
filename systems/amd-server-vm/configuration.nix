@@ -14,7 +14,6 @@
     ../../modules/services/fail2ban.nix
     ../../modules/misc/logging.nix
     ../../modules/misc/motd.nix
-    ../../modules/misc/kernel.nix
     ../../modules/services/duckdns.nix
     ../../modules/services/samba.nix
     ../../modules/services/ddclient-cloudflare.nix
@@ -57,6 +56,7 @@
     };
     misc = {
       docker.enable = true;
+      newkernel.enable = true;
       backup =
         let
           kavita = "/data/kavita";

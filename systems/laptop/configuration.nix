@@ -5,21 +5,15 @@
   lib,
   ...
 }:
-let
-  cec = "${pkgs.v4l-utils}/bin/cec-ctl";
-in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./modules/battery.nix
-    ../../modules/misc/zram.nix
-    ../../modules/misc/faster-boot-time.nix
     #../../modules/ecryptfs.nix
     #../../modules/fh/scanning.nix
     ../../modules/support/ntfs.nix
     ../../modules/thunderbolt.nix
-    ../../modules/misc/kernel.nix
     ../../modules/services/wireguard-client.nix
     ../../modules/services/ssh.nix
     ../../modules/work/vpn.nix
@@ -34,39 +28,6 @@ in
     ./disk-config.nix
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   ];
-
-  services.nohang.enable = true;
-  # issue with internal mic not workin
-  # ... didn't work
-  services.pipewire.wireplumber.extraConfig.no-ucm = {
-    "monitor.alsa.properties" = {
-      "alsa.use-ucm" = false;
-    };
-  };
-
-  # after suspend, do `cec-ctl -A | grep cec0 | wc -l`, if >0, do `cec-ctl --standby --to TV`
-  # similar on wakeup, if present send `cec-ctl --user-control-pressed ui-cmd=power-on-function --to TV`
-    #environment.etc."systemd/system-sleep/sleep-turn-tv-off-on.sh".source =
-    #  pkgs.writeShellScript "post-sleep-turn-tv-off.sh" ''
-    #    case $1/$2 in
-    #      pre/*)
-    #        if [ $(${cec} -A | ${pkgs.gnugrep}/bin/grep cec0 | ${pkgs.coreutils}/bin/wc -l) -gt 0 ]; then
-    #          ${cec} -C --skip-info
-    #          ${cec} --tv --skip-info
-    #          ${cec} --standby --skip-info --to TV
-    #          echo "Turning TV off!"
-    #          ${pkgs.coreutils}/bin/sleep 2
-    #        fi
-    #        ;;
-    #      post/*)
-    #        if [ $(${cec} -A | ${pkgs.gnugrep}/bin/grep cec0 | ${pkgs.coreutils}/bin/wc -l) -gt 0 ]; then
-    #          ${cec} --tv --skip-info
-    #          ${cec} --skip-info --user-control-pressed ui-cmd=power-on-function --to TV
-    #          echo "Turning TV on!"
-    #        fi
-    #        ;;
-    #    esac
-    #  '';
 
   custom = {
     cli-tools.enable = true;
@@ -83,6 +44,9 @@ in
     misc = {
       docker.enable = true;
       firejail.enable = true;
+      zram.enable = true;
+      newkernel.enable = true;
+      fasterboot.enable = true;
     };
     hardware = {
       firmware.enable = true;
@@ -113,6 +77,15 @@ in
         image = ../../wallpaper/ina.jpg;
       };
       wayvnc.enable = true;
+    };
+  };
+
+  services.nohang.enable = true;
+  # issue with internal mic not workin
+  # ... didn't work
+  services.pipewire.wireplumber.extraConfig.no-ucm = {
+    "monitor.alsa.properties" = {
+      "alsa.use-ucm" = false;
     };
   };
 
