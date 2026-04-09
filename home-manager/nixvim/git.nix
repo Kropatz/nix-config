@@ -2,9 +2,18 @@
   plugins = {
     diffview = {
       enable = true;
+      lazyLoad.settings = {
+        cmd = "DiffviewOpen";
+      };
     };
     lazygit = {
       enable = true;
+      lazyLoad.settings = {
+        cmd = "LazyGit";
+        keys = [
+          "<leader>gg"
+        ];
+      };
     };
     #neogit = {
     #  enable = true;

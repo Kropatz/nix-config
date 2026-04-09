@@ -45,6 +45,7 @@ let
       ./ui.nix
       ./experimental.nix
       ./snippets.nix
+      ./grug-far.nix
     ]
   );
   merged = builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;

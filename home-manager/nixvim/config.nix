@@ -256,5 +256,11 @@
       '';
       options.remap = true;
     }
+    # grug-far
+    {
+      key = "<leader>fr";
+      action = "<CMD>GrugFar<CR>";
+      options.desc = "Find and replace";
+    }
   ];
 }

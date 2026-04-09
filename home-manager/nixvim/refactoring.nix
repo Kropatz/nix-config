@@ -1,5 +1,10 @@
 {
   plugins = {
-    refactoring.enable = true;
+    refactoring = {
+      enable = true;
+      lazyLoad.settings = {
+        cmd = "Refactor";
+      };
+    };
   };
 }
