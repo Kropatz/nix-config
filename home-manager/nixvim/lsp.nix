@@ -10,6 +10,7 @@
   # '';
   plugins.ts-autotag.enable = true; # auto close and rename html tags
   #plugins.java.enable = true;
+  plugins.lspconfig.enable = true;
   lsp = {
     inlayHints.enable = true;
     servers = {
@@ -19,6 +20,7 @@
       #ccls.enable = true;
       clangd.enable = true;
       gopls.enable = true;
+      svelte.enable = true;
       #clojure_lsp.enable = true;
       # kubernetes doesnt work ._.
       yamlls = {

@@ -261,7 +261,7 @@ in
             "$mainMod, Q, exec, ${kitty}"
             "$mainMod, C, killactive"
             #"$mainMod, L, exec, ${swaylock} -f -c 000000"
-            "$mainMod, L, exec, ${hyprlock}"
+            "$mainMod SHIFT, L, exec, ${hyprlock}"
             "$mainMod, M, exec, ${zenity} --question --text='Quit Hyprland?' && hyprctl dispatch exit"
             "$mainMod, E, exec, ${thunar}"
             "$mainMod, P, pin"
@@ -269,7 +269,7 @@ in
             "$mainMod, F, fullscreen"
             "$mainMod, V, togglefloating"
             "$mainMod, T, togglegroup"
-            "$mainMod, I, exec, ${rofi} -show drun -show-icons"
+            # "$mainMod, I, exec, ${rofi} -show drun -show-icons"
             "$mainMod, period, exec, ${rofimoji}"
             "$mainMod, Z, exec, ${woomer}"
             ''$mainMod, S, exec, echo "skip" | nc kopatz.dev 8888''
@@ -285,7 +285,7 @@ in
             " , XF86AudioNext, exec, ${playerctl} next"
             " , XF86AudioPrev, exec, ${playerctl} previous"
             "$mainMod, U, pseudo" # dwindle
-            "$mainMod, J, layoutmsg, togglesplit" # dwindle
+            "$mainMod, I, layoutmsg, togglesplit" # dwindle
             # Move focus with mainMod + arrow keys
             "$mainMod, left, movefocus, l"
             "$mainMod, right, movefocus, r"
@@ -295,6 +295,15 @@ in
             "$mainMod CTRL, right, movewindow, r"
             "$mainMod CTRL, up, movewindow, u"
             "$mainMod CTRL, down, movewindow, d"
+            # Same bindings, but for hjkl
+            "$mainMod, h, movefocus, l"
+            "$mainMod, l, movefocus, r"
+            "$mainMod, k, movefocus, u"
+            "$mainMod, j, movefocus, d"
+            "$mainMod CTRL, h, movewindow, l"
+            "$mainMod CTRL, l, movewindow, r"
+            "$mainMod CTRL, k, movewindow, u"
+            "$mainMod CTRL, j, movewindow, d"
             # would love to set this to only $mainMod, but the event doesn't come through
             "$mainMod, B, global, waybar:toggle_bar"
 
@@ -353,6 +362,10 @@ in
             "$mainMod SHIFT, right, resizeactive, 30 0"
             "$mainMod SHIFT, up, resizeactive, 0 -30"
             "$mainMod SHIFT, down, resizeactive, 0 30"
+            "$mainMod SHIFT, h, resizeactive, -30 0"
+            "$mainMod SHIFT, l, resizeactive, 30 0"
+            "$mainMod SHIFT, k, resizeactive, 0 -30"
+            "$mainMod SHIFT, j, resizeactive, 0 30"
           ];
 
         bindm = [

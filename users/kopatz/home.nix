@@ -47,6 +47,28 @@
     #  inputs.stylix.homeModules.stylix
   ];
 
+  programs.helix = {
+    enable = true;
+    settings = {
+      editor = {
+        completion-trigger-len = 1;
+        completion-timeout = 5;
+        cursor-shape = {
+          normal = "block";
+          insert = "bar";
+          select = "underline";
+        };
+      };
+    };
+    languages.language = [
+      {
+        name = "nix";
+        auto-format = true;
+        formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+      }
+    ];
+  };
+
   # stylix.enable = osConfig.custom.graphical.stylix.enable;
   #stylix.image = if (config.stylix.enable == false) then ../../wallpaper/ina.jpg else null;
   programs.feh = {
@@ -70,7 +92,6 @@
       ];
     };
   };
-
 
   xdg.desktopEntries = {
     notes = {
