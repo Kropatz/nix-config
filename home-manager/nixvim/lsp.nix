@@ -72,31 +72,33 @@
       jdtls.enable = true;
     };
     keymaps = [
-      {
-        key = "gd";
-        lspBufAction = "definition";
-        #desc = "LSP: [G]o to [D]efinition";
-      }
+      # handled in telescope
+      # {
+      #   key = "gd";
+      #   lspBufAction = "definition";
+      #   #desc = "LSP: [G]o to [D]efinition";
+      # }
       {
         key = "gD";
         lspBufAction = "declaration";
         #desc = "LSP: [G]o to [D]eclaration";
       }
-      {
-        key = "gT";
-        lspBufAction = "type_definition";
-        #desc = "Goto type definition";
-      }
-      {
-        key = "gr";
-        lspBufAction = "references";
-        # desc = "LSP: [G]o to [R]eferences";
-      }
-      {
-        key = "gI";
-        lspBufAction = "implementation";
-        #desc = "LSP: [G]o to [I]mplementation";
-      }
+      # handled in telescope
+      # {
+      #   key = "gT";
+      #   lspBufAction = "type_definition";
+      #   #desc = "Goto type definition";
+      # }
+      # {
+      #   key = "gr";
+      #   lspBufAction = "references";
+      #   # desc = "LSP: [G]o to [R]eferences";
+      # }
+      # {
+      #   key = "gI";
+      #   lspBufAction = "implementation";
+      #   #desc = "LSP: [G]o to [I]mplementation";
+      # }
       {
         key = "K";
         lspBufAction = "hover";
@@ -117,16 +119,17 @@
         lspBufAction = "code_action";
         #desc = "LSP: [C]ode [A]ction";
       }
-      {
-        key = "<leader>ds";
-        lspBufAction = "document_symbol";
-        #desc = "LSP: [D]ocument [S]ymbols";
-      }
-      {
-        key = "<leader>ws";
-        lspBufAction = "workspace_symbol";
-        #desc = "LSP [W]orkspace [S]ymbols";
-      }
+      # handled in telescope
+      # {
+      #   key = "<leader>ds";
+      #   lspBufAction = "document_symbol";
+      #   #desc = "LSP: [D]ocument [S]ymbols";
+      # }
+      # {
+      #   key = "<leader>ws";
+      #   lspBufAction = "workspace_symbol";
+      #   #desc = "LSP [W]orkspace [S]ymbols";
+      # }
     ];
   };
   plugins = {
