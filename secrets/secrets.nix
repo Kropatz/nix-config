@@ -147,4 +147,8 @@ in
     kop
     server-vm
   ];
+  "gitea-runner-token.age".publicKeys = [
+    kop
+    server-vm
+  ];
 }

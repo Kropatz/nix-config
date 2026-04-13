@@ -105,7 +105,8 @@
     services = {
       acme.enable = true;
       gitea.enable = true;
-      github-runner.enable = true;
+      # github-runner.enable = true;
+      gitea-runner.enable = true;
       caldav.enable = true;
       kop-monitor.enable = true;
       kop-fileshare = {

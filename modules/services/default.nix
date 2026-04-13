@@ -10,6 +10,7 @@
     ./ente.nix
     ./fileshelter.nix
     ./games
+    ./gitea-runner.nix
     ./gitea.nix
     ./github-runner.nix
     ./gitolite.nix

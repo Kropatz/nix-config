@@ -36,20 +36,20 @@ in
       useHttps = cfg.https;
       baseDir = cfg.dir;
       mangal = "${pkgs.mangal-patched}/bin/mangal";
-      githubRunnerEnabled = config.services.github-runners ? oberprofis.enable;
+      giteaRunnerEnabled = config.services.gitea-actions-runner.instances ? oberprofis.enable;
     in
     lib.mkIf cfg.enable {
       # not needed with nginx networking.firewall.allowedTCPPorts = [ 5000 ];
       systemd.tmpfiles.rules = [
         (
-          if githubRunnerEnabled then
-            "d ${baseDir} 0750 kavita github-actions-runner -"
+          if giteaRunnerEnabled then
+            "d ${baseDir} 0750 kavita gitea-actions-runner -"
           else
             "d ${baseDir} 0770 kavita kavita -"
         )
         "d ${baseDir}/manga 0770 kavita kavita -"
       ]
-      ++ lib.optional githubRunnerEnabled "d ${baseDir}/github 0770 github-actions-runner kavita -";
+      ++ lib.optional giteaRunnerEnabled "d ${baseDir}/github 0770 gitea-actions-runner kavita -";
 
       age.secrets.kavita = mkIf (!cfg.isTest) {
         file = ../../secrets/kavita.age;
