@@ -13,7 +13,7 @@ fi
 GPU_UTIL=$(cat "$GPU_BASE_PATH/gpu_busy_percent" 2>/dev/null || echo "N/A")
 
 # Base path for hwmon (temperature and power readings)
-HWMON_PATH="$GPU_BASE_PATH/hwmon/hwmon0"
+HWMON_PATH="$GPU_BASE_PATH/hwmon/hwmon2"
 
 # Get GPU temperature
 TEMP_PATH="$HWMON_PATH/temp1_input"
