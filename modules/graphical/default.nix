@@ -32,6 +32,7 @@
     ./xfce.nix
     ./basics.nix
     ./sway.nix
+    ./tuigreet.nix
     ./gpu-screen-recorder-ui.nix
     ./niri.nix
     ./wayvnc.nix

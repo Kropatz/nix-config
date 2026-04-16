@@ -92,7 +92,8 @@
       gpu-screen-recorder-ui.enable = true;
       niri.enable = false;
       #openrgb.enable = true;
-      sddm.enable = true;
+      # sddm.enable = true;
+      tuigreet.enable = true;
       firefox-custom.enable = true;
       #plasma.enable = true;
       #i3.enable = true;
