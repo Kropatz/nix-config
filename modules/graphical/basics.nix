@@ -40,7 +40,25 @@ in
       #syncthingtray #doesnt work with socket yet
       v4l-utils
       logseq # notes
-      ani-cli
+      # ani-cli
+      (ani-cli.overrideAttrs {
+        version = "99";
+        src = pkgs.fetchFromGitHub {
+          owner = "justchokingaround";
+          repo = "ani-cli";
+          rev = "bd6d5c8ffd6691b7c4a5319bd0f6cfbe249eeae8";
+          hash = "sha256-u/udZXKq4UDWyN3gKfuRgVw9TkEPrlnHsD9LKu3kJqE=";
+        };
+        runtimeInputs = with pkgs; [
+          gnugrep
+          gnused
+          curl
+          fzf
+          ffmpeg
+          aria2
+          openssl
+        ];
+      })
       brave
     ];
   };
