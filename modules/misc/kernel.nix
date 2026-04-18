@@ -17,6 +17,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_6_19; # 7.0 seems to have some stutter issues
   };
 }
