@@ -269,6 +269,8 @@ in
             "$mainMod, F, fullscreen"
             "$mainMod, V, togglefloating"
             "$mainMod, T, togglegroup"
+            "$mainMod, TAB, changegroupactive"
+            "$mainMod Shift_L, TAB, changegroupactive, b"
             # "$mainMod, I, exec, ${rofi} -show drun -show-icons"
             "$mainMod, period, exec, ${rofimoji}"
             "$mainMod, Z, exec, ${woomer}"
