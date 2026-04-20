@@ -248,6 +248,14 @@
             disko.nixosModules.disko
           ];
         };
+        "amd-server-exposed-vm" = mkHost {
+          minimal = true;
+          modules = [
+            ./users/anon
+            ./systems/amd-server-exposed-vm/configuration.nix
+            disko.nixosModules.disko
+          ];
+        };
         "portable-ssd" = mkHost {
           modules = [
             ./users/kopatz

@@ -7,6 +7,7 @@ let
   adam-site = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfaIaKoNStnbfjB9cSJ9+PW0BVO3Uhh1uIbZA2CszDE root@nixos";
   amd-server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/t25OaQF020DZdew53gMFqoeHX1+g3um02mopke2eX root@nixos";
   amd-server-vpn-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKkTbNz36z1gGbKp+7NyyTpMslXcFLX0tOrfJ/GQFn+g root@amd-server-vpn-vm";
+  amd-server-exposed-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDLYGX4eMZzIAlI41vvNTgyVikHHW7ygd6+D3yp/pIjU root@amd-server-exposed-vm";
   users = [ kop ];
   systems = [
     server-vm
@@ -154,5 +155,9 @@ in
   "netbird-conf.age".publicKeys = [
     kop
     server-vm
+  ];
+  "samba-exposedvm.age".publicKeys = [
+    kop
+    amd-server-exposed-vm
   ];
 }

@@ -59,6 +59,7 @@
         enable = true;
       };
       adguard.ip = "${config.custom.vars.serverIp}";
+      netbird-client.enable = true;
     };
     hardware = {
       android.enable = true;

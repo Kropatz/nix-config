@@ -9,6 +9,10 @@
     home = "/home/franz";
     hashedPassword = "$y$j9T$opts2crrOHbRzHsFzOh/S1$LU3zmC4tKOw43THlOSw6qDXPse.l1ZvcxolN3EP7/ED";
   };
+  users.users.exposedvm = {
+    isNormalUser = true;
+    home = "/home/exposedvm";
+  };
 
   # add user to samba with smbpasswd -a
   services.samba = {
@@ -36,6 +40,13 @@
         "writable" = "yes";
         "printable" = "no";
       };
+      "kop-fileshare" = {
+        "path" = "/1tbssd/kop-fileshare";
+        "valid users" = "exposedvm";
+        "public" = "no";
+        "writable" = "yes";
+        "printable" = "no";
+      };
     };
   };
 
@@ -44,7 +55,7 @@
       # hardening
       InaccessiblePaths = [
         "-/data"
-        "-/1tbssd"
+        "-/1tbssd/data"
         "-/hdd/data"
       ];
       CapabilityBoundingSet = "~CAP_BLOCK_SUSPEND CAP_BPF CAP_CHOWN CAP_IPC_LOCK CAP_MKNOD CAP_NET_RAW CAP_PERFMON CAP_SYS_BOOT CAP_SYS_CHROOT CAP_SYS_MODULE CAP_SYS_NICE CAP_SYS_PACCT CAP_SYS_PTRACE CAP_SYS_TIME CAP_SYSLOG CAP_WAKE_ALARM";
@@ -79,7 +90,7 @@
       # hardening
       InaccessiblePaths = [
         "-/data"
-        "-/1tbssd"
+        "-/1tbssd/data"
         "-/hdd/data"
       ];
       CapabilityBoundingSet = "~CAP_BLOCK_SUSPEND CAP_BPF CAP_CHOWN CAP_IPC_LOCK CAP_MKNOD CAP_NET_RAW CAP_PERFMON CAP_SYS_BOOT CAP_SYS_CHROOT CAP_SYS_MODULE CAP_SYS_NICE CAP_SYS_PACCT CAP_SYS_PTRACE CAP_SYS_TIME CAP_SYSLOG CAP_WAKE_ALARM";
@@ -111,7 +122,7 @@
       # hardening
       InaccessiblePaths = [
         "-/data"
-        "-/1tbssd"
+        "-/1tbssd/data"
         "-/hdd/data"
       ];
       CapabilityBoundingSet = "~CAP_BLOCK_SUSPEND CAP_BPF CAP_CHOWN CAP_IPC_LOCK CAP_MKNOD CAP_NET_RAW CAP_PERFMON CAP_SYS_BOOT CAP_SYS_CHROOT CAP_SYS_MODULE CAP_SYS_NICE CAP_SYS_PACCT CAP_SYS_PTRACE CAP_SYS_TIME CAP_SYSLOG CAP_WAKE_ALARM";

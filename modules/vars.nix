@@ -15,6 +15,10 @@ in
       type = lib.types.str;
       default = "192.168.2.1";
     };
+    exposedServerIp = lib.mkOption {
+      type = lib.types.str;
+      default = "192.168.0.22";
+    };
     hostIp = lib.mkOption {
       type = lib.types.str;
       default = "192.168.0.20";
