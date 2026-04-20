@@ -182,11 +182,13 @@ in
   };
   services.dovecot2 = {
     enable = true;
-    enableImap = true;
     enablePAM = false;
+    settings = {
+      protocols.imap = true;
+    };
     configFile = pkgs.writeText "dovecot.conf" ''
-      default_internal_user = ${config.services.dovecot2.user}
-      default_internal_group = ${config.services.dovecot2.group}
+      default_internal_user = ${config.services.dovecot2.settings.default_internal_user}
+      default_internal_group = ${config.services.dovecot2.settings.default_internal_group}
       passdb {
         driver = passwd-file
         args = scheme=CRYPT username_format=%u /etc/dovecot-users
