@@ -58,6 +58,7 @@
       syncthing = {
         enable = true;
       };
+      netbird-client.enable = true;
       adguard.ip = "${config.custom.vars.serverIp}";
     };
     hardware = {

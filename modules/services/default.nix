@@ -27,5 +27,7 @@
     ./smartd-exporter.nix
     ./syncthing.nix
     ./wireguard.nix
+    ./netbird.nix
+    ./netbird-client.nix
   ];
 }

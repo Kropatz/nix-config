@@ -150,6 +150,8 @@
           "/var/tmp"
         ];
       };
+      netbird.enable = true;
+      netbird-client.enable = true;
     };
     nftables.enable = true;
     cli-tools.enable = true;

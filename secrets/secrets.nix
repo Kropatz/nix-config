@@ -151,4 +151,8 @@ in
     kop
     server-vm
   ];
+  "netbird-conf.age".publicKeys = [
+    kop
+    server-vm
+  ];
 }
