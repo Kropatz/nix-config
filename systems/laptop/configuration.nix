@@ -56,6 +56,7 @@
     };
     services = {
       syncthing.enable = true;
+      netbird-client.enable = true;
     };
     graphical = {
       audio.enable = true;

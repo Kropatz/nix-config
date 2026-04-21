@@ -29,6 +29,7 @@ in
         python3
         gcc
         opencode
+        claude-code
       ]
       ++ lib.optionals cfg.rider [
         pkgs.jetbrains.rider
