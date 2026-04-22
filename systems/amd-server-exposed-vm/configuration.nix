@@ -48,6 +48,13 @@
       newkernel.enable = true;
     };
     services = {
+      kop-fileshare = {
+        basePath = "/stash";
+        dataDir = "/mnt/kop-fileshare";
+        port = 7777;
+        listenAddr = "0.0.0.0";
+        enable = true;
+      };
     };
     nftables.enable = true;
     cli-tools.enable = true;
@@ -56,6 +63,8 @@
       settings.enable = true;
     };
   };
+  
+  networking.firewall.extraInputRules = "ip saddr ${config.custom.vars.serverIp} tcp dport ${toString config.custom.services.kop-fileshare.port} counter accept comment allow_from_main_server";
 
   services.openssh.extraConfig = ''
     # Internal network: allow everyone
@@ -101,8 +110,8 @@
     file = ../../secrets/samba-exposedvm.age;
   };
   environment.systemPackages = [ pkgs.cifs-utils ];
-  fileSystems."/mnt/kop-fileshare" = {
-    device = "//${config.custom.vars.serverIp}/kop-fileshare";
+  fileSystems."/mnt/medium" = {
+    device = "//${config.custom.vars.serverIp}/medium";
     fsType = "cifs";
     options =
       let
@@ -113,6 +122,16 @@
     # or if you have specified `uid` and `gid` explicitly through NixOS configuration,
     # you can refer to them rather than hard-coding the values:
     # in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=${toString config.users.users.<username>.uid},gid=${toString config.users.groups.<group>.gid}"];
+  };
+  fileSystems."/mnt/kop-fileshare" = {
+    device = "//${config.custom.vars.serverIp}/medium/kop-fileshare";
+    fsType = "cifs";
+    options =
+      let
+        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+
+      in
+      [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kop-fileshare.uid},gid=${toString config.users.groups.kop-fileshare.gid}" ];
   };
   #fileSystems."/" = {
   #  device = "/dev/disk/by-label/nixos";

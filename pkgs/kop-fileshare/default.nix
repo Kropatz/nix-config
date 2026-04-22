@@ -12,7 +12,7 @@ buildGoModule rec {
   src = fetchGit {
     url = "git@github.com:kropatz/kop-fileshare.git";
     ref = "master";
-    rev = "3b703425684efce51692a05c3f77f0ad9e4a7eb7";
+    rev = "da8a92c70514b5194564036bc6b9f8c4005c797f";
   };
   vendorHash = "sha256-OQ6rNgOQHrrhE7DT+ulwpWJCDJ4DeJiDzriAu3mfS7I=";
 

@@ -14,6 +14,11 @@
     home = "/home/exposedvm";
   };
 
+  systemd.tmpfiles.rules = [ 
+    "d /1tbssd/shares 0755 root root -"
+    "d /1tbssd/shares/exposedvm 0700 exposedvm users -"
+  ];
+
   # add user to samba with smbpasswd -a
   services.samba = {
     enable = true;
@@ -40,12 +45,16 @@
         "writable" = "yes";
         "printable" = "no";
       };
-      "kop-fileshare" = {
-        "path" = "/1tbssd/kop-fileshare";
+      "medium" = {
+        "path" = "/1tbssd/shares/exposedvm";
         "valid users" = "exposedvm";
         "public" = "no";
         "writable" = "yes";
         "printable" = "no";
+        "create mask" = "0600";
+        "force create mode" = "0600";
+        "directory mask" = "0700";
+        "force directory mode" = "0700";
       };
     };
   };

@@ -17,6 +17,11 @@ in
         default = 7777;
         description = "Port for the file upload server";
       };
+      listenAddr = mkOption {
+        type = types.str;
+        default = "127.0.0.1";
+        description = "Listen address for the file upload server";
+      };
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/file-upload";
@@ -35,9 +40,12 @@ in
       home = cfg.dataDir;
       createHome = true;
       isSystemUser = true;
+      uid = 2000;
       group = "kop-fileshare";
     };
-    users.groups.kop-fileshare = { };
+    users.groups.kop-fileshare = {
+      gid = 2000;
+    };
     systemd.services.kop-fileshare = {
       description = "File Upload Server";
       wants = [ "network-online.target" ];
@@ -62,7 +70,7 @@ in
         NoNewPrivileges = true;
         ProtectSystem = "strict";
         ProtectHome = true;
-        PrivateMounts = true;
+        # PrivateMounts = true;
         PrivateTmp = true;
         PrivateUsers = true;
         PrivateDevices = true;
@@ -89,6 +97,7 @@ in
 
       environment = {
         PORT = "${toString cfg.port}";
+        LISTEN_ADDR = "${cfg.listenAddr}";
         UPLOAD_PATH = "${toString cfg.dataDir}";
         BASE_PATH = "${cfg.basePath}";
       };

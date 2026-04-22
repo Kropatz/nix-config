@@ -77,7 +77,7 @@ in
         more_set_headers 'X-XSS-Protection 1; mode=block';
         #  add_header X-Frame-Options 'ALLOW-FROM kopatz.ddns.net';
         more_set_headers 'X-Content-Type-Options nosniff';
-        more_set_headers "Content-Security-Policy: frame-ancestors https://kopatz.ddns.net https://kop.oasch.net https://kopatz.dev";
+        more_set_headers "Content-Security-Policy: frame-ancestors https://kop.oasch.net https://kopatz.dev";
         more_set_headers "Referrer-Policy: same-origin";
         more_set_headers "Permissions-Policy: geolocation=(), microphone=()";
       '';
@@ -104,7 +104,7 @@ in
                   proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
                   proxy_set_header        X-Forwarded-Proto $scheme;
                   proxy_set_header        X-NginX-Proxy true;
-                  proxy_pass http://localhost:7777;
+                  proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
                 '';
               };
               "/stash/files" = {
@@ -115,7 +115,7 @@ in
                   proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
                   proxy_set_header        X-Forwarded-Proto $scheme;
                   proxy_set_header        X-NginX-Proxy true;
-                  proxy_pass http://localhost:7777;
+                  proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
                 '';
               };
               "/tracker-site" = {
