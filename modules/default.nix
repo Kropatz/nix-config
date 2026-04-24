@@ -16,6 +16,9 @@
 
   services.speechd.enable = false;
 
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";
