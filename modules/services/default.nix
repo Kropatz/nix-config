@@ -15,6 +15,7 @@
     ./github-runner.nix
     ./gitolite.nix
     ./hardening.nix
+    ./kavita-gitea-runner.nix
     ./kavita.nix
     ./kop-fileshare.nix
     ./kop-monitor.nix

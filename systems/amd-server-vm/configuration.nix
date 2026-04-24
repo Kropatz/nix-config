@@ -109,11 +109,6 @@
       gitea-runner.enable = true;
       caldav.enable = true;
       kop-monitor.enable = true;
-      kop-fileshare = {
-        basePath = "/stash";
-        dataDir = "/1tbssd/kop-fileshare";
-        enable = true;
-      };
       kop-pvlog = {
         enable = true;
         basePath = "/";
@@ -124,11 +119,7 @@
         dav = true;
       };
       ente.enable = true;
-      kavita = {
-        enable = true;
-        autoDownload = false;
-        dir = "/data/kavita";
-      };
+      kavita-gitea-runner.enable = true;
       wireguard = {
         enable = true;
         ip = "192.168.2.1";
@@ -188,11 +179,10 @@
   ];
 
   networking.firewall.allowedUDPPorts = [
-    1234 #kop-audio default port
+    1234 # kop-audio default port
     #9987 # teamspeak6 voice port
   ];
   networking.hostName = "server-vm"; # Define your hostname.
-
 
   #containers.privnetwork = {
   #  autoStart = true;

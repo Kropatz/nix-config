@@ -17,6 +17,8 @@
   systemd.tmpfiles.rules = [ 
     "d /1tbssd/shares 0755 root root -"
     "d /1tbssd/shares/exposedvm 0700 exposedvm users -"
+    "d /data/shares 0755 root root -"
+    "d /data/shares/exposedvm 0750 exposedvm users -"
   ];
 
   # add user to samba with smbpasswd -a
@@ -45,6 +47,17 @@
         "writable" = "yes";
         "printable" = "no";
       };
+      "small" = {
+        "path" = "/data/shares/exposedvm";
+        "valid users" = "exposedvm";
+        "public" = "no";
+        "writable" = "yes";
+        "printable" = "no";
+        "create mask" = "0600";
+        "force create mode" = "0600";
+        "directory mask" = "0700";
+        "force directory mode" = "0700";
+      };
       "medium" = {
         "path" = "/1tbssd/shares/exposedvm";
         "valid users" = "exposedvm";
@@ -63,7 +76,8 @@
     samba-nmbd.serviceConfig = {
       # hardening
       InaccessiblePaths = [
-        "-/data"
+        "-/data/synced"
+        "-/data/vmail"
         "-/1tbssd/data"
         "-/hdd/data"
       ];
@@ -98,7 +112,8 @@
     samba-smbd.serviceConfig = {
       # hardening
       InaccessiblePaths = [
-        "-/data"
+        "-/data/synced"
+        "-/data/vmail"
         "-/1tbssd/data"
         "-/hdd/data"
       ];
@@ -130,7 +145,8 @@
     samba-winbindd.serviceConfig = {
       # hardening
       InaccessiblePaths = [
-        "-/data"
+        "-/data/synced"
+        "-/data/vmail"
         "-/1tbssd/data"
         "-/hdd/data"
       ];

@@ -31,25 +31,26 @@ in
   };
   config =
     let
-      fqdn = "kavita.kopatz.dev";
-      useStepCa = false; # config.services.step-ca.enable;
-      useHttps = cfg.https;
       baseDir = cfg.dir;
       mangal = "${pkgs.mangal-patched}/bin/mangal";
-      giteaRunnerEnabled = config.services.gitea-actions-runner.instances ? oberprofis.enable;
     in
     lib.mkIf cfg.enable {
       # not needed with nginx networking.firewall.allowedTCPPorts = [ 5000 ];
       systemd.tmpfiles.rules = [
-        (
-          if giteaRunnerEnabled then
-            "d ${baseDir} 0750 kavita gitea-actions-runner -"
-          else
             "d ${baseDir} 0770 kavita kavita -"
-        )
         "d ${baseDir}/manga 0770 kavita kavita -"
-      ]
-      ++ lib.optional giteaRunnerEnabled "d ${baseDir}/github 0770 gitea-actions-runner kavita -";
+      ];
+
+      users.users.kavita = {
+        isSystemUser = true;
+        group = "kavita";
+        uid = 2001;
+        extraGroups = [ "nginx" ];
+      };
+
+      users.groups.kavita = {
+        gid = 2001;
+      };
 
       age.secrets.kavita = mkIf (!cfg.isTest) {
         file = ../../secrets/kavita.age;
@@ -75,7 +76,7 @@ in
         #   kavitaPatched;
         settings = {
           Port = 5000;
-          IpAddresses = "127.0.0.1";
+          IpAddresses = "0.0.0.0";
           BaseUrl = "/kavita";
         };
         dataDir = baseDir;
@@ -92,7 +93,6 @@ in
       #todo: base url needs new kavita version
       systemd.services = {
         kavita = {
-          after = [ "nginx.service" ] ++ lib.optional useStepCa "step-ca.service";
           serviceConfig = {
             ReadWritePaths = [ "${baseDir}" ];
             # Security hardening
@@ -196,27 +196,5 @@ in
       #     add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
       #   '';
       # };
-      security.acme.certs."${fqdn}" = lib.mkIf useStepCa {
-        server = "https://127.0.0.1:8443/acme/kop-acme/directory";
-      };
-      services.nginx.virtualHosts."${fqdn}" = {
-        forceSSL = useHttps;
-        enableACME = useHttps;
-        quic = useHttps;
-        http3 = useHttps;
-        locations."/".proxyPass = "http://127.0.0.1:5000";
-        locations."/".extraConfig = ''
-          more_clear_headers 'x-frame-options';
-          add_header Access-Control-Allow-Origin *;
-          add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
-          add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
-        '';
-        locations."/robots.txt" = {
-          extraConfig = ''
-            add_header Content-Type text/plain;
-            return 200 "User-agent: *\nDisallow: /\n";
-          '';
-        };
-      };
     };
 }

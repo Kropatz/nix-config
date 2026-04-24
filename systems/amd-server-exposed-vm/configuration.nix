@@ -55,6 +55,11 @@
         listenAddr = "0.0.0.0";
         enable = true;
       };
+      kavita = {
+        enable = true;
+        autoDownload = false;
+        dir = "/mnt/kavita";
+      };
     };
     nftables.enable = true;
     cli-tools.enable = true;
@@ -63,8 +68,11 @@
       settings.enable = true;
     };
   };
-  
-  networking.firewall.extraInputRules = "ip saddr ${config.custom.vars.serverIp} tcp dport ${toString config.custom.services.kop-fileshare.port} counter accept comment allow_from_main_server";
+
+  networking.firewall.extraInputRules = ''
+    ip saddr ${config.custom.vars.serverIp} tcp dport ${toString config.custom.services.kop-fileshare.port} counter accept comment allow_from_main_server
+    ip saddr ${config.custom.vars.serverIp} tcp dport ${toString config.services.kavita.settings.Port} counter accept comment allow_from_main_server
+  '';
 
   services.openssh.extraConfig = ''
     # Internal network: allow everyone
@@ -131,7 +139,21 @@
         automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
 
       in
-      [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kop-fileshare.uid},gid=${toString config.users.groups.kop-fileshare.gid}" ];
+      [
+        "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kop-fileshare.uid},gid=${toString config.users.groups.kop-fileshare.gid}"
+      ];
+  };
+
+  fileSystems."/mnt/kavita" = {
+    device = "//${config.custom.vars.serverIp}/small/kavita";
+    fsType = "cifs";
+    options =
+      let
+        automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+      in
+      [
+        "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kavita.uid},gid=${toString config.users.groups.kavita.gid}"
+      ];
   };
   #fileSystems."/" = {
   #  device = "/dev/disk/by-label/nixos";

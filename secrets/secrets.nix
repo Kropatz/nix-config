@@ -79,6 +79,7 @@ in
   ];
   "kavita.age".publicKeys = [
     server-vm
+    amd-server-exposed-vm
     kop
   ];
   "step-ca-pw.age".publicKeys = [

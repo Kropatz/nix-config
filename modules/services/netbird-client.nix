@@ -33,6 +33,8 @@ in
       # Port used to listen to wireguard connections
       port = 51821;
 
+      logLevel = "error";
+
       # Set this to true if you want the GUI client
       ui.enable = false;
 
