@@ -24,7 +24,8 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     home-manager-unstable = {
-      url = "github:nix-community/home-manager/master";
+      # url = "github:nix-community/home-manager/master";
+      url = "github:Bad3r/home-manager/fix/librewolf-tests";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nixpkgs-working-xrdp.url = "github:NixOS/nixpkgs/b26c89e6aa1d7731d5e267656207f2e1c2f37f1d";
