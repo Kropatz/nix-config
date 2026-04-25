@@ -7,10 +7,8 @@
 let
 in
 {
+  networking.firewall.extraInputRules = "ip saddr ${config.custom.vars.serverIp} tcp dport ${toString config.services.prometheus.exporters.node.port} counter accept comment node_exporter__allow_from_main_server";
   services.prometheus.exporters.node = {
     enable = true;
-    firewallRules = ''
-      ip saddr ${config.custom.vars.serverIp} tcp dport 9100 counter accept comment node_exporter_allow_from_main_server
-    '';
   };
 }

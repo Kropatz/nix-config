@@ -411,6 +411,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-unstable-small": {
+      "locked": {
+        "lastModified": 1777100098,
+        "narHash": "sha256-m9HxywMUYWroIRrQHKE+wxE17gBfum99i9H5bBdsxYI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "370045a56d68e7127ce54e0906ab33c3abd387a5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-working-xrdp": {
       "locked": {
         "lastModified": 1750030408,
@@ -590,6 +606,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-unstable-small": "nixpkgs-unstable-small",
         "nixpkgs-working-xrdp": "nixpkgs-working-xrdp",
         "nixpkgs-xr": "nixpkgs-xr",
         "nixvim": "nixvim",
