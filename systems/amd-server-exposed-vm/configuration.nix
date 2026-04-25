@@ -12,6 +12,7 @@
     ../../modules/services/ssh.nix
     ../../modules/misc/logging.nix
     ../../modules/misc/motd.nix
+    # ../../modules/microvm/routed-network.nix
     ./disk-config.nix
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -38,14 +39,16 @@
     static-ip = {
       enable = true;
       ip = "${config.custom.vars.exposedServerIp}";
-      interface = "eth0";
-      dns = "127.0.0.1";
+      interface = "enp1s0";
+      renameInterface = false;
+      dns = "192.168.0.10";
     };
     hardware = {
       ssd.enable = true;
     };
     misc = {
       newkernel.enable = true;
+      zram.enable = true;
     };
     services = {
       kop-fileshare = {
@@ -87,6 +90,46 @@
 
   virtualisation.vmware.guest.enable = true;
   services.xserver.videoDrivers = [ "vmware" ];
+
+  # ssh -J root@192.168.0.22 root@10.0.0.1
+  # microvm.vms = {
+  #   my-microvm = {
+  #     # (Optional) A set of special arguments to be passed to the MicroVM's NixOS modules.
+  #     specialArgs = {
+  #       index = 1;
+  #     };
+  #
+  #     # The configuration for the MicroVM.
+  #     # Multiple definitions will be merged as expected.
+  #     config = {
+  #       imports = [
+  #         ../../modules/services/ssh.nix
+  #         ../../users/default.nix
+  #         ../../modules/microvm/routed-network-guest.nix
+  #       ];
+  #       # It is highly recommended to share the host's nix-store
+  #       # with the VMs to prevent building huge images.
+  #
+  #       mainUser.sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeP6qtVqE/gu72ZUZE8cdRi3INiUW9NqDR7SjXIzTw2 kopatz";
+  #       environment.systemPackages = with pkgs; [ btop  gdu];
+  #       microvm = {
+  #         hotpluggedMem = 256;
+  #         hotplugMem = 1024;
+  #         shares = [
+  #           {
+  #             source = "/nix/store";
+  #             mountPoint = "/nix/.ro-store";
+  #             tag = "ro-store";
+  #             proto = "virtiofs";
+  #           }
+  #         ];
+  #       };
+  #
+  #       # Any other configuration for your MicroVM
+  #       # [...]
+  #     };
+  #   };
+  # };
 
   # 8888 = scheibenmeister skip button
   networking.firewall.allowedTCPPorts = [

@@ -59,6 +59,10 @@
     #  url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
     #  inputs.nixpkgs.follows = "nixpkgs-unstable";
     #};
+    # microvm = {
+    #   url = "github:microvm-nix/microvm.nix";
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # };
   };
   outputs =
     {
@@ -75,6 +79,7 @@
       stylix,
       disko,
       flake-utils,
+      # microvm,
       ...
     }@inputs:
     let
@@ -255,6 +260,7 @@
             ./users/anon
             ./systems/amd-server-exposed-vm/configuration.nix
             disko.nixosModules.disko
+            # microvm.nixosModules.host
           ];
         };
         "portable-ssd" = mkHost {
