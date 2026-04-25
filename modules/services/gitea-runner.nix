@@ -90,6 +90,34 @@ in
           "-/1tbssd/data"
           "-/hdd"
         ];
+        # Security hardening
+        CapabilityBoundingSet = "";
+        NoNewPrivileges = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        # PrivateUsers = true;
+        PrivateDevices = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        RemoveIPC = true; # Remove IPC objects when unit is stopped
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictNamespaces = "yes";
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallFilter="@system-service";
+        SystemCallArchitectures = "native";
+        ## Proc filesystem
+        ProcSubset = "pid";
+        ProtectProc = "invisible";
+        # Needs network access
+        PrivateNetwork = false;
+        # End Security hardening
       };
     };
   };

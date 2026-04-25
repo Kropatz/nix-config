@@ -28,6 +28,10 @@ in
         "d ${baseDir}/github 0770 exposedvm gitea-actions-runner -"
       ];
 
+      systemd.services.gitea-runner-oberprofis = {
+        serviceConfig.ReadWritePaths = [ "${cfg.dir}/github" ];
+      };
+
       users.users.kavita = {
         isSystemUser = true;
         group = "kavita";
