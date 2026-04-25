@@ -68,7 +68,7 @@
         rocm.enable = false;
         overdrive = true;
       };
-      vr.enable = true;
+      vr.enable = false; #borked
       firmware.enable = true;
       ssd.enable = true;
       wooting.enable = true;
@@ -114,7 +114,10 @@
   };
 
   services.trilium-server.enable = false; # maybe consider in the future
-  services.nohang.enable = true;
+  services.nohang = {
+    enable = true;
+    configPath = ../../.config/nohang.conf;
+  };
 
   services.logind.settings.Login = {
     HandlePowerKey = "suspend";
