@@ -18,7 +18,7 @@
     "d /1tbssd/shares 0755 root root -"
     "d /1tbssd/shares/exposedvm 0700 exposedvm users -"
     "d /data/shares 0755 root root -"
-    "d /data/shares/exposedvm 0750 exposedvm users -"
+    "d /data/shares/exposedvm 0755 exposedvm users -"
   ];
 
   # add user to samba with smbpasswd -a
