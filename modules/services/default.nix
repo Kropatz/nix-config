@@ -20,6 +20,7 @@
     ./kop-fileshare.nix
     ./kop-monitor.nix
     ./kop-pvlog.nix
+    ./kop-sanitizer-bot.nix
     ./kubernetes.nix
     ./nginx.nix
     ./opensnitch.nix

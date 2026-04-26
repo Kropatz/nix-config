@@ -29,4 +29,5 @@ rec {
   };
   answer = pkgs.callPackage ./answer/default.nix { };
   internxt-cli = pkgs.callPackage ./internxt-cli/default.nix { };
+  discord-sanitizer = pkgs.callPackage ./discord-sanitizer/default.nix { };
 }

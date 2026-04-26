@@ -161,4 +161,8 @@ in
     kop
     amd-server-exposed-vm
   ];
+  "discord-token-sanitizer.age".publicKeys = [
+    kop
+    amd-server-exposed-vm
+  ];
 }

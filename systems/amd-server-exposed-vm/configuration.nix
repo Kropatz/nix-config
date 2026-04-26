@@ -51,6 +51,7 @@
       zram.enable = true;
     };
     services = {
+      kop-sanitizer-bot.enable = true;
       kop-fileshare = {
         basePath = "/stash";
         dataDir = "/mnt/kop-fileshare";
