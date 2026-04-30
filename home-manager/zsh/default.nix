@@ -89,7 +89,7 @@
       gpu_monitor = "nvidia-smi dmon -s puct";
       nix-shell = "nix-shell --command zsh";
       drag = "ripdrag";
-      notes = "nvim ~/synced/default/vimwiki/index.md";
+      notes = "cd ~/synced/default/vimwiki && nvim index.md";
     };
     #plugins = with pkgs; [
     #  {
