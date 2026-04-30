@@ -19,19 +19,24 @@
   libdrm,
   wayland,
   wayland-scanner,
+  dbus,
   wrapperDir ? "/run/wrappers/bin",
   gitUpdater,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: rec {
   pname = "gpu-screen-recorder-ui";
-  version = "1.8.3";
+  version = "1.10.8";
 
   src = fetchgit {
-    url = "https://repo.dec05eba.com/${pname}";
-    tag = version;
-    hash = "sha256-KB4N5DwzPKYhqIi+IlvkS6ZRh3ByFPCfF75Hg+na7Q8=";
+    url = "https://repo.dec05eba.com/gpu-screen-recorder-ui";
+    tag = finalAttrs.version;
+    hash = "sha256-x7MBTUWDKCzClq4ukgtFazOD/RLkX5lgmm9slN5BjVk=";
   };
+
+  patches = [
+    ./remove-gnome-postinstall.patch
+  ];
 
   postPatch = ''
     substituteInPlace depends/mglpp/depends/mgl/src/gl.c \
@@ -41,8 +46,12 @@ stdenv.mkDerivation rec {
 
     substituteInPlace extra/gpu-screen-recorder-ui.service \
       --replace-fail "WantedBy=default.target" "WantedBy=graphical-session.target"
+
     substituteInPlace extra/gpu-screen-recorder-ui.service \
-      --replace-fail "ExecStart=${meta.mainProgram}" "ExecStart=$out/bin/${meta.mainProgram}"
+      --replace-fail "ExecStart=gsr-ui" "ExecStart=$out/bin/gsr-ui"
+
+    substituteInPlace gpu-screen-recorder.desktop \
+      --replace-fail "Exec=gsr-ui" "Exec=$out/bin/gsr-ui"
   '';
 
   nativeBuildInputs = [
@@ -62,6 +71,7 @@ stdenv.mkDerivation rec {
     libglvnd
     libpulseaudio
     libdrm
+    dbus
     wayland
     wayland-scanner
   ];
@@ -78,7 +88,7 @@ stdenv.mkDerivation rec {
       };
     in
     ''
-      wrapProgram "$out/bin/${meta.mainProgram}" \
+      wrapProgram "$out/bin/gsr-ui" \
         --prefix PATH : "${wrapperDir}" \
         --suffix PATH : "${
           lib.makeBinPath [
@@ -98,4 +108,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ js6pak ];
     platforms = lib.platforms.linux;
   };
-}
+})

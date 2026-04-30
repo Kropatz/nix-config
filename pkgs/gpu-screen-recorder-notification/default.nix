@@ -5,24 +5,24 @@
   pkg-config,
   meson,
   ninja,
-  libX11,
-  libXrender,
-  libXrandr,
-  libXext,
+  libx11,
+  libxrender,
+  libxrandr,
+  libxext,
   libglvnd,
   wayland,
   wayland-scanner,
   gitUpdater,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gpu-screen-recorder-notification";
-  version = "1.0.7";
+  version = "1.1.0";
 
   src = fetchgit {
-    url = "https://repo.dec05eba.com/${pname}";
-    tag = version;
-    hash = "sha256-hdsbQewnqSJvWEW9HaFuVf6vDAY5CDCGxVFsxZJ4Yh8=";
+    url = "https://repo.dec05eba.com/gpu-screen-recorder-notification";
+    tag = finalAttrs.version;
+    hash = "sha256-ODifZ046DEBNiGT3+S6pQyF8ekrb6LIHWton8nv1MBo=";
   };
 
   postPatch = ''
@@ -39,10 +39,10 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    libX11
-    libXrender
-    libXrandr
-    libXext
+    libx11
+    libxrender
+    libxrandr
+    libxext
     libglvnd
     wayland
     wayland-scanner
@@ -52,10 +52,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Notification in the style of ShadowPlay";
-    homepage = "https://git.dec05eba.com/${pname}/about/";
+    homepage = "https://git.dec05eba.com/gpu-screen-recorder-notification/about/";
     license = lib.licenses.gpl3Only;
     mainProgram = "gsr-notify";
     maintainers = with lib.maintainers; [ js6pak ];
     platforms = lib.platforms.linux;
   };
-}
+})
