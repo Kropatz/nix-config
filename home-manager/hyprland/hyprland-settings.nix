@@ -475,6 +475,7 @@ in
           bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
           ## trim
           bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}
+          bind = $mainMod, E, exec, ${wl-paste} | sed 's/[ \t]*$//' | ${wl-copy}
           bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
           bind = $mainMod, D, exec, ${dunstctl} close-all
           ## I win
