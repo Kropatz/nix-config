@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchGit {
     url = "gitea@git.kopatz.dev:oberprofis/adams.git";
     ref = "main";
-    rev = "d2c7d7d9d145d28817fae87eb9d452dd0e88ea7d";
+    rev = "1c2bdebaadd3daab1a2ae058429faefaeb41897a";
   };
 
   nativeBuildInputs = [
@@ -36,6 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 3;
-    hash = "sha256-XSfxEmZ9bkHmSsiLXF7qFQ6BI+JdCzdU+BNSvAjzJkU=";
+    hash = "sha256-EXeszomUtsuKBPPzy3pj0GVAWLg26wLzQcmGcY0uNDg";
   };
 })

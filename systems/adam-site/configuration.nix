@@ -119,7 +119,7 @@
       ExecStart = "${
         (pkgs.kop-monitor.overrideAttrs {
           src = fetchGit {
-            url = "git@github.com:kropatz/monitor.git";
+            url = "git@github.com:oberprofis/monitor.git";
             ref = "monitor-homeserver";
             rev = "14e84874302146690491a8ced7e3c89dce183a74";
           };
