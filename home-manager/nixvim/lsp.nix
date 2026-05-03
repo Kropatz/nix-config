@@ -69,7 +69,7 @@
         package = pkgs.csharp-ls;
       };
       tinymist.enable = true; # typst
-      jdtls.enable = true;
+      jdtls.enable = true; # TODO: lombok https://nix-community.github.io/nixvim/plugins/lsp/servers/jdtls/index.html?highlight=lombok#pluginslspserversjdtlsenable
     };
     keymaps = [
       # handled in telescope

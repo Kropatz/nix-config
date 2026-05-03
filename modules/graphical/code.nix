@@ -30,6 +30,7 @@ in
         gcc
         opencode
         claude-code
+        #unstable-small.zed-editor
       ]
       ++ lib.optionals cfg.rider [
         pkgs.jetbrains.rider

@@ -14,7 +14,7 @@
     ../../modules/services/fail2ban.nix
     ../../modules/misc/logging.nix
     ../../modules/misc/motd.nix
-    ../../modules/services/duckdns.nix
+    # ../../modules/services/duckdns.nix
     ../../modules/services/samba.nix
     ../../modules/services/ddclient-cloudflare.nix
     ../../modules/services/grafana.nix
