@@ -182,52 +182,64 @@ in
     postfix.enable = true;
   };
   services.dovecot2 = {
+    package = pkgs.dovecot_2_4;
     enable = true;
     enablePAM = false;
     settings = {
-      protocols.imap = true;
+      dovecot_config_version = "2.4.2";
+      dovecot_storage_version = "2.4.0";
     };
+    # TODO: upgrade to 2.4 https://doc.dovecot.org/2.4.3/installation/upgrade/2.3-to-2.4.html
     configFile = pkgs.writeText "dovecot.conf" ''
-      default_internal_user = ${config.services.dovecot2.settings.default_internal_user}
+      dovecot_config_version=${config.services.dovecot2.settings.dovecot_config_version}
+      dovecot_storage_version=${config.services.dovecot2.settings.dovecot_storage_version}
+      passdb passwd-file {
+        default_password_scheme = CRYPT
+        driver = passwd-file
+        passwd_file_path = /etc/dovecot-users
+        auth_username_format = %{user}
+      }
+
+      userdb passwd-file {
+        driver = passwd-file
+        passwd_file_path = /etc/dovecot-users
+        auth_username_format = %{user}
+
+        fields {
+          gid = vmail
+          home = /home/vmail/%{user}
+          uid = vmail
+        }
+      }
       default_internal_group = ${config.services.dovecot2.settings.default_internal_group}
-      passdb {
-        driver = passwd-file
-        args = scheme=CRYPT username_format=%u /etc/dovecot-users
-      }
+      default_internal_user = ${config.services.dovecot2.settings.default_internal_user}
+      mail_driver = maildir
+      mail_path = /data/vmail/${email-domain}/%{user | username}
+      protocols = imap
 
-      userdb {
-        driver = passwd-file
-        args = username_format=%u /etc/dovecot-users
-        default_fields = uid=vmail gid=vmail home=/home/vmail/%u
-      }
-      mail_location = maildir:/data/vmail/${email-domain}/%n
-
-      #ssl = no
-      #disable_plaintext_auth = no
+      auth_allow_cleartext = no
       auth_mechanisms = plain
-
-      #https://doc.dovecot.org/2.3/configuration_manual/dovecot_ssl_configuration/#dovecot-ssl-configuration
-      #openssl s_client -servername mail.sample.com -connect mail.sample.com:imap -starttls imap
-
-      disable_plaintext_auth = yes
       ssl = required
-      ssl_key = </var/lib/acme/${email-domain}/key.pem 
-      ssl_cert = </var/lib/acme/${email-domain}/cert.pem
-      ssl_prefer_server_ciphers = yes
       ssl_cipher_list = HIGH
+      ssl_server {
+        cert_file = /var/lib/acme/${email-domain}/cert.pem
+        key_file = /var/lib/acme/${email-domain}/key.pem
+        prefer_ciphers = server
+      }
 
       service auth {
+        user = root
+
         unix_listener /var/lib/postfix/queue/private/auth {
           group = postfix
           mode = 0660
           user = postfix
         }
-        user = root
       }
+
       namespace inbox {
         inbox = yes
-
-        # Autocreate special folders
+ 
         mailbox Drafts {
           special_use = \Drafts
           auto = subscribe
@@ -245,6 +257,8 @@ in
           auto = subscribe
         }
       }
+      # Warnings during conversion:
+      # - pruned default: inbox prefix = ' '
     '';
   };
   environment.etc."dovecot-users".text = dovecot_passwords;
