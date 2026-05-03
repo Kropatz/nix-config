@@ -57,7 +57,8 @@ in
   };
     services.nginx.virtualHosts."${cfg.fqdn}" = {
       forceSSL = true;
-      enableACME = true;
+      # enableACME = true;
+      useACMEHost = "kopatz.dev";
       quic = true;
       http3 = true;
       locations."/".proxyPass = "http://localhost:3002";

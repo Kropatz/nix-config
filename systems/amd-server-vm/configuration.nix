@@ -104,6 +104,7 @@
     };
     services = {
       acme.enable = true;
+      acme-cloudflare.enable = true;
       gitea.enable = true;
       # github-runner.enable = true;
       gitea-runner.enable = true;
@@ -124,7 +125,10 @@
         enable = true;
         ip = "192.168.2.1";
       };
-      adguard.enable = true;
+      adguard = {
+        enable = true;
+        fqdn = "adguard.kopatz.dev";
+      };
       syncthing = {
         enable = true;
         basePath = "/data/synced";

@@ -141,6 +141,10 @@ in
     kop
     server-vm
   ];
+  "cloudflare-api-env.age".publicKeys = [
+    kop
+    server-vm
+  ];
   "wireguard-ipv6-private.age".publicKeys = [
     kop
     adam-site

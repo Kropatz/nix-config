@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 {
   imports = [
+    ./acme-cloudflare.nix
     ./acme.nix
     ./adam-site.nix
     ./adguard.nix

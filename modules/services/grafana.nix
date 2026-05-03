@@ -5,8 +5,9 @@
   ...
 }:
 let
-  useHttps = config.services.step-ca.enable;
-  fqdn = "grafana.home.arpa";
+  useHttps = true;
+  fqdn = "grafana.kopatz.dev";
+  useStepCa = false;
   base = "/mnt/tmpfs";
 in
 {
@@ -123,7 +124,7 @@ in
       };
     };
     grafana = {
-      after = [
+      after = lib.mkIf useStepCa [
         "step-ca.service"
       ];
       serviceConfig = {
@@ -132,11 +133,14 @@ in
     };
   };
 
-  security.acme.certs."${fqdn}".server = "https://127.0.0.1:8443/acme/kop-acme/directory";
+  security.acme.certs = lib.mkIf useStepCa {
+    "${fqdn}".server ="https://127.0.0.1:8443/acme/kop-acme/directory";
+  };
   # nginx reverse proxy
   services.nginx.virtualHosts.${fqdn} = {
     forceSSL = useHttps;
-    enableACME = useHttps;
+    enableACME = lib.mkIf useStepCa useHttps;
+    useACMEHost = lib.mkIf (!useStepCa) "kopatz.dev";
     quic = useHttps;
     http3 = useHttps;
     locations."/" = {

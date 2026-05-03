@@ -132,7 +132,8 @@ in
     };
 
     services.nginx.virtualHosts.${domain} = {
-      enableACME = true;
+      # enableACME = true;
+      useACMEHost = "kopatz.dev";
       forceSSL = true;
       quic = true;
       http3 = true;

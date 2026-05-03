@@ -84,10 +84,11 @@ in
 
       virtualHosts =
         let
-          kopConfig = {
+          kopConfig = domain: {
             root = pkgs.kop-website;
             forceSSL = cfg.https;
             enableACME = cfg.https;
+            acmeRoot = if domain == "kopatz.dev" || domain == "www.kopatz.dev" then null else "/var/lib/acme/acme-challenge";
             quic = cfg.https;
             http3 = cfg.https;
             locations = {
@@ -216,12 +217,12 @@ in
           };
         in
         {
-          "kop.oasch.net" = kopConfig;
-          "kop.bobin.at" = kopConfig;
-          "kopatz.dev" = kopConfig;
+          "kop.oasch.net" = kopConfig "kop.oasch.net";
+          "kop.bobin.at"  = kopConfig "kop.bobin.at";
+          "kopatz.dev"    = kopConfig "kopatz.dev";
           "kavita.kopatz.dev" = {
             forceSSL = true;
-            enableACME = true;
+            useACMEHost = "kopatz.dev";
             quic = true;
             http3 = true;
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:5000";

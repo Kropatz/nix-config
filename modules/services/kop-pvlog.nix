@@ -29,12 +29,12 @@ in
       };
       fqdn = mkOption {
         type = types.str;
-        default = "pvlog.home.arpa";
+        default = "pvlog.kopatz.dev";
         description = "FQDN under which the data logger is reachable";
       };
       useStepCa = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
         description = "Use step-ca for ACME certificates";
       };
     };
@@ -53,7 +53,8 @@ in
     };
     services.nginx.virtualHosts."${cfg.fqdn}" = {
       forceSSL = true;
-      enableACME = true;
+      enableACME = mkIf cfg.useStepCa true;
+      useACMEHost = mkIf (!cfg.useStepCa) "kopatz.dev";
       quic = true;
       http3 = true;
       locations."/".proxyPass = "http://127.0.0.1:${builtins.toString cfg.port}";
