@@ -10,9 +10,9 @@ buildGoModule rec {
   version = "0.0.1";
 
   src = fetchGit {
-    url = "gitolite@kopatz.dev:kop-pvlog.git";
+    url = "gitea@git.kopatz.dev:kopatz/kop-pvlog.git";
     ref = "master";
-    rev = "62dd0ddbaa4c12dc0588bc8086d77a7e04be9c76";
+    rev = "b3a46f5eb9ad2dacf025db59645415a215997d18";
   };
   vendorHash = "sha256-8wYERVt3PIsKkarkwPu8Zy/Sdx43P6g2lz2xRfvTZ2E=";
 

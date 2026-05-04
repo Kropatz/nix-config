@@ -4,7 +4,7 @@
 set -e
 
 PACKAGE_FILE="default.nix" # Replace with your package file path
-REPO_URL="gitolite@kopatz.dev:kop-pvlog.git" # Replace with the repository URL
+REPO_URL="gitea@git.kopatz.dev:kopatz/kop-pvlog.git" # Replace with the repository URL
 SCRIPT_DIR=$(dirname $(realpath $0))
 
 echo "Fetching latest revision from $REPO_URL..."
