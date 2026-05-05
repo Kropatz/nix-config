@@ -3,7 +3,6 @@
   imports = [
     ./acme-cloudflare.nix
     ./acme.nix
-    ./adam-site.nix
     ./adguard.nix
     ./caldav.nix
     ./clamav.nix
@@ -25,7 +24,6 @@
     ./kubernetes.nix
     ./nginx.nix
     ./opensnitch.nix
-    ./plausible.nix
     ./smartd.nix
     ./smartd-exporter.nix
     ./syncthing.nix

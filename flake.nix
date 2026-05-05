@@ -214,20 +214,6 @@
             ./systems/dell/configuration.nix
           ];
         };
-        #initial install done with nix run github:nix-community/nixos-anywhere/73a6d3fef4c5b4ab9e4ac868f468ec8f9436afa7 -- --flake .#adam-site root@<ip>
-        #update with nixos-rebuild switch --flake .#adam-site --target-host "root@<ip>"
-        "adam-site" = mkStableServer {
-          minimal = true;
-          system = "aarch64-linux";
-          specialArgs = {
-            pkgsVersion = nixpkgs;
-            home-manager-version = home-manager;
-          };
-          modules = [
-            disko.nixosModules.disko
-            ./systems/adam-site/configuration.nix
-          ];
-        };
         "amd-server" = mkHost {
           modules = [
             ./users/kopatz

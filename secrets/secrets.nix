@@ -4,7 +4,6 @@ let
   laptop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOrNYiH1Z05Ms01tDScPb4GbeNo7vTnSNXYcDQuDKnbs root@framework";
   server-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGsTZvAahTrszYDHn+94sLtcF8865/mpd26ZDVQklSj root@server-vm"; # actual used server
   mini-pc-proxmox = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP0kX32LfIOv8FDVvdp7lWesVvMGh5tj84nv7TkIR1cs root@mini-pc";
-  adam-site = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfaIaKoNStnbfjB9cSJ9+PW0BVO3Uhh1uIbZA2CszDE root@nixos";
   amd-server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/t25OaQF020DZdew53gMFqoeHX1+g3um02mopke2eX root@nixos";
   amd-server-vpn-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKkTbNz36z1gGbKp+7NyyTpMslXcFLX0tOrfJ/GQFn+g root@amd-server-vpn-vm";
   amd-server-exposed-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDLYGX4eMZzIAlI41vvNTgyVikHHW7ygd6+D3yp/pIjU root@amd-server-exposed-vm";
@@ -107,22 +106,9 @@ in
     server
     kop
     amd-server
-    adam-site
   ];
   "stash-auth.age".publicKeys = [
     server-vm
-    kop
-  ];
-  "plausible-admin.age".publicKeys = [
-    adam-site
-    kop
-  ];
-  "plausible-keybase.age".publicKeys = [
-    adam-site
-    kop
-  ];
-  "adminarea.age".publicKeys = [
-    adam-site
     kop
   ];
   "radicale.age".publicKeys = [
@@ -144,10 +130,6 @@ in
   "cloudflare-api-env.age".publicKeys = [
     kop
     server-vm
-  ];
-  "wireguard-ipv6-private.age".publicKeys = [
-    kop
-    adam-site
   ];
   "git-mail-pw.age".publicKeys = [
     kop

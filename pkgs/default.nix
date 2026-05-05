@@ -1,6 +1,5 @@
 { pkgs, ... }:
 rec {
-  adam-site = pkgs.callPackage ./adam-site/default.nix { };
   ente-frontend = pkgs.callPackage ./ente-frontend/default.nix { };
   kop-fhcalendar = pkgs.callPackage ./kop-fhcalendar/default.nix { };
   kop-fileshare = pkgs.callPackage ./kop-fileshare/default.nix { };
