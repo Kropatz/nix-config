@@ -452,7 +452,7 @@ in
           dunstify = "${pkgs.dunst}/bin/dunstify";
           dunstctl = "${pkgs.dunst}/bin/dunstctl";
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep --cache";
-          path = "~/synced/fh/master/incident_handling/merged";
+          path = "~/synced/fh/master/hardware_firmware/merged";
           node = "${pkgs.nodejs}/bin/node";
           set-monitor = "~/.config/hypr/monitor-config.js";
           answer = "${pkgs.answer}/bin/answer";
@@ -479,7 +479,8 @@ in
           bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
           bind = $mainMod, D, exec, ${dunstctl} close-all
           ## I win
-          bind = $mainMod, W, exec, ${wl-paste} | ${answer} "Respond with the correct answer to the following question." | ${wl-copy} && ${dunstify} -t 150 Done
+          # bind = $mainMod, W, exec, ${wl-paste} | ${answer} "Respond with the correct answer to the following question." | ${wl-copy} && ${dunstify} -t 150 Done
+          bind = $mainMod, W, exec, ${wl-paste} | claude -p --system-prompt "Respond with the correct answer to the following question." | ${wl-copy} && ${dunstify} -t 150 Done
           ## notes
 
           bind = $mainMod, 1, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/pruefung.md | ${wl-copy}

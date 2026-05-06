@@ -19,6 +19,8 @@
     "d /1tbssd/shares/exposedvm 0700 exposedvm users -"
     "d /data/shares 0755 root root -"
     "d /data/shares/exposedvm 0755 exposedvm users -"
+    "d /hdd/shares 0755 root root -"
+    "d /hdd/shares/exposedvm 0755 exposedvm users -"
   ];
 
   # add user to samba with smbpasswd -a
@@ -60,6 +62,17 @@
       };
       "medium" = {
         "path" = "/1tbssd/shares/exposedvm";
+        "valid users" = "exposedvm";
+        "public" = "no";
+        "writable" = "yes";
+        "printable" = "no";
+        "create mask" = "0600";
+        "force create mode" = "0600";
+        "directory mask" = "0700";
+        "force directory mode" = "0700";
+      };
+      "large" = {
+        "path" = "/hdd/shares/exposedvm";
         "valid users" = "exposedvm";
         "public" = "no";
         "writable" = "yes";

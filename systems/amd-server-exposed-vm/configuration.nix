@@ -59,6 +59,10 @@
         listenAddr = "0.0.0.0";
         enable = true;
       };
+      transmission = {
+        enable = true;
+        dataDir = "/mnt/seed";
+      };
       kavita = {
         enable = true;
         autoDownload = false;
@@ -197,6 +201,17 @@
       in
       [
         "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kavita.uid},gid=${toString config.users.groups.kavita.gid}"
+      ];
+  };
+  fileSystems."/mnt/seed" = {
+    device = "//${config.custom.vars.serverIp}/large/seed";
+    fsType = "cifs";
+    options =
+      let
+        automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+      in
+      [
+        "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.transmission.uid},gid=${toString config.users.groups.transmission.gid}"
       ];
   };
   #fileSystems."/" = {

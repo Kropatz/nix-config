@@ -30,5 +30,6 @@
     ./wireguard.nix
     ./netbird.nix
     ./netbird-client.nix
+    ./transmission.nix
   ];
 }
