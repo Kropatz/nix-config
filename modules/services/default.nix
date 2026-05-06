@@ -31,5 +31,6 @@
     ./netbird.nix
     ./netbird-client.nix
     ./transmission.nix
+    ./jellyfin.nix
   ];
 }

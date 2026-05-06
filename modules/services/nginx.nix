@@ -239,6 +239,25 @@ in
               '';
             };
           };
+          "jellyfin.kopatz.dev" = {
+            forceSSL = true;
+            useACMEHost = "kopatz.dev";
+            quic = true;
+            http3 = true;
+            locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:8096";
+            locations."/".extraConfig = ''
+              more_clear_headers 'x-frame-options';
+              add_header Access-Control-Allow-Origin *;
+              add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+              add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
+            '';
+            locations."/robots.txt" = {
+              extraConfig = ''
+                add_header Content-Type text/plain;
+                return 200 "User-agent: *\nDisallow: /\n";
+              '';
+            };
+          };
         };
     };
   };

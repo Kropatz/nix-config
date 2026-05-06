@@ -97,6 +97,10 @@ in
           "answer" = ip;
         }
         {
+          "domain" = "jellyfin.kopatz.dev";
+          "answer" = ip;
+        }
+        {
           "domain" = "nextcloud.home.arpa";
           "answer" = wireguardIp;
         }
