@@ -9,6 +9,7 @@
 
   imports = [
     ./vm-common.nix
+    ../../modules/services/ssh.nix
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
     (modulesPath + "/virtualisation/qemu-vm.nix")
@@ -24,12 +25,18 @@
     };
     graphical = {
       #i3.enable = true;
-      #hyprland.enable = true;
+      hyprland.enable = true;
       #lightdm.enable = true;
-      #sddm.enable = true;
+      sddm.enable = true;
       #plasma.enable = true;
       #cosmic.enable = true;
+      stylix = {
+        enable = true;
+        base16Scheme = import ../../modules/themes/ina-matugen.nix;
+        image = ../../wallpaper/ina.jpg;
+      };
     };
+
   };
   #services.xserver = {
   #  enable = true;
@@ -42,14 +49,15 @@
 
   services.xserver.enable = true;
 
-  services.xserver.displayManager.gdm.enable = true;
-  programs.sway.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # programs.sway.enable = true;
 
   virtualisation.qemu.options = [
     "-device virtio-vga"
+    "-serial stdio"
   ];
 
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
 
   virtualisation.vmVariant = {
     #virtualisation.qemu.options = [

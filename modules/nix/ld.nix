@@ -81,8 +81,8 @@ in
       zlib
       zstd
       # TriOS
-      harfbuzz
-      libepoxy
+      # harfbuzz
+      # libepoxy
       # android
       libpng
       libbsd
