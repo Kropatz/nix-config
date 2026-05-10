@@ -25,7 +25,8 @@
     };
     graphical = {
       #i3.enable = true;
-      hyprland.enable = true;
+      # hyprland.enable = true;
+      lxqt.enable = true;
       #lightdm.enable = true;
       sddm.enable = true;
       #plasma.enable = true;
@@ -48,6 +49,9 @@
   #};
 
   services.xserver.enable = true;
+  environment.systemPackages = with pkgs; [
+    qylock
+  ];
 
   # services.xserver.displayManager.gdm.enable = true;
   # programs.sway.enable = true;

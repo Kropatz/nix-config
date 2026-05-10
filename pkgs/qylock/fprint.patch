@@ -1,0 +1,168 @@
+diff --git i/quickshell-lockscreen/shim/SddmShim.qml w/quickshell-lockscreen/shim/SddmShim.qml
+index d998c21..5d64f63 100644
+--- i/quickshell-lockscreen/shim/SddmShim.qml
++++ w/quickshell-lockscreen/shim/SddmShim.qml
+@@ -10,10 +10,19 @@ Item {
+     property var config: ({})
+     property bool configReady: false
+ 
++    readonly property string fpEnvVar: Quickshell.env("QS_FINGERPRINT") || ""
++    readonly property string pamEnvVar: Quickshell.env("QS_PAM_SERVICE") || ""
++    property bool enableFingerprint: false
++    property string pamService: "login"
++    property string fingerprintMessage: ""
++    property bool fingerprintActive: false
++    property bool _internalRestart: false
++
+     function loadConfig(path) {
+         if (!path) {
+             config = { background: "bg.png" };
+             configReady = true;
++            applyAuthConfig();
+             return;
+         }
+         var url = "file://" + path + "/theme.conf";
+@@ -38,6 +47,7 @@ Item {
+                 }
+                 config = newConfig;
+                 configReady = true;
++                shim.applyAuthConfig();
+             }
+         };
+         try {
+@@ -47,6 +57,28 @@ Item {
+             console.warn("SddmShim: failed to load theme.conf:", e);
+             config = { background: "bg.png" };
+             configReady = true;
++            applyAuthConfig();
++        }
++    }
++
++    function applyAuthConfig() {
++        // Env var beats theme.conf
++        if (fpEnvVar !== "") {
++            enableFingerprint = (fpEnvVar === "1" || fpEnvVar.toLowerCase() === "true");
++        } else {
++            enableFingerprint = (config.enableFingerprint === "true" || config.enableFingerprint === "1");
++        }
++
++        if (pamEnvVar !== "") {
++            pamService = pamEnvVar;
++        } else if (config.pamService) {
++            pamService = config.pamService;
++        }
++
++        pam.config = pamService;
++
++        if (enableFingerprint) {
++            pamRestartTimer.start();
+         }
+     }
+ 
+@@ -163,10 +195,29 @@ Item {
+         signal loginFailed()
+         signal loginSucceeded()
+ 
++        readonly property string fingerprintMessage: shim.fingerprintMessage
++        readonly property bool fingerprintActive: shim.fingerprintActive
++
+         function login(user, password, sessionIndex) {
+             pam.user = user;
++            if (pam.responseRequired) {
++                pam.respond(password);
++                pam.pendingPassword = "";
++                return;
++            }
+             pam.pendingPassword = password;
+-            pam.start();
++            if (pam.active) {
++                // Occupy the sensor so pam_fprintd fails fast and PAM falls
++                // through to the password module on the restart.
++                shim._internalRestart = true;
++                if (shim.enableFingerprint) {
++                    fprintdOccupy.running = true;
++                }
++                pam.abort();
++                pamRestartTimer.start();
++            } else {
++                pam.start();
++            }
+         }
+ 
+         function reboot() { Quickshell.execDetached(["bash", "-c", "if [ -d /run/systemd/system ]; then systemctl reboot; else loginctl reboot; fi"]); }
+@@ -175,22 +226,69 @@ Item {
+ 
+     PamContext {
+         id: pam
++        config: shim.pamService
+         property string pendingPassword: ""
+ 
+         onResponseRequiredChanged: {
+-            if (responseRequired && pendingPassword !== "") {
+-                respond(pendingPassword);
+-                pendingPassword = "";
++            if (responseRequired) {
++                shim.fingerprintActive = false;
++                if (pendingPassword !== "") {
++                    respond(pendingPassword);
++                    pendingPassword = "";
++                }
+             }
+         }
+ 
++        onPamMessage: {
++            shim.fingerprintMessage = message;
++            if (!responseRequired && shim.enableFingerprint) {
++                shim.fingerprintActive = true;
++            }
++        }
++
++        onError: (err) => {
++            console.warn("SddmShim: PAM error:", err);
++            shim.fingerprintActive = false;
++        }
++
+         onCompleted: (result) => {
++            shim.fingerprintActive = false;
++            shim.fingerprintMessage = "";
++
+             if (result === PamResult.Success) {
++                fprintdOccupy.running = false;
+                 shim.sddm.loginSucceeded();
+                 Quickshell.execDetached(["loginctl", "unlock-session"]);
+-                // Notify success handlers
+-            } else {
+-                shim.sddm.loginFailed();
++                return;
++            }
++
++            if (shim._internalRestart) {
++                shim._internalRestart = false;
++                return;
++            }
++
++            fprintdOccupy.running = false;
++            shim.sddm.loginFailed();
++
++            // Keep the fingerprint loop alive so the user can retry without input.
++            if (shim.enableFingerprint && pendingPassword === "") {
++                pamRestartTimer.start();
++            }
++        }
++    }
++
++    Process {
++        id: fprintdOccupy
++        command: ["fprintd-verify"]
++    }
++
++    Timer {
++        id: pamRestartTimer
++        interval: 150
++        repeat: false
++        onTriggered: {
++            if (!pam.active) {
++                pam.start();
+             }
+         }
+     }

@@ -93,6 +93,7 @@
   hardware.cpu.amd.ryzen-smu.enable = true;
   environment.systemPackages = with pkgs; [
     nvtopPackages.amd
+    qylock
     ryzenadj
     #fscrypt-experimental
     # (spacetimedb.overrideAttrs (old: {
