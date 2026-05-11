@@ -12,6 +12,7 @@ in
 {
   options.custom.cli-tools = {
     enable = mkEnableOption "Enables cli-tools";
+    saveSpace = mkEnableOption "Saves disk space by skipping some packages.";
   };
 
   config =
@@ -55,66 +56,70 @@ in
         set -g prefix C-space
       '';
 
-      environment.systemPackages = with pkgs; [
-        neovim
-        getTotalPowerUsed
-        watchCurrentPowerUsed
-        (if lib.versionOlder lib.version "25.05" then wget else powerjoular) # monitor power usage
-        bat # fancy cat
-        fd # nicer find
-        duf # nicer du
-        eza # nicer ls
-        ripgrep # faster grep
-        gdu
-        wget
-        pciutils
-        rippkgs # faster nixpkgs search, init with `rippkgs-index nixpkgs && mv rippkgs-index.sqlite ~/.local/share/`;
-        nixos-option
-        btop
-        git
-        gh # github
-        killall
-        #xclip
-        usbutils
-        inputs.agenix.packages."x86_64-linux".default
-        fastfetch
-        pdfgrep
-        mesa-demos
-        vulkan-tools
-        ffmpeg
-        nethogs
-        dig
-        smartmontools
-        bc
-        xxd
-        tldr
-        file
-        unzip
-        lsof
-        lshw
-        screen
-        tmux
-        fatrace # monitor filesystem events
-        nh
-        nix-output-monitor # nom
-        nvd # nix diff, example: nvd diff /nix/var/nix/profiles/system-389-link /nix/var/nix/profiles/system-390-link
-        compsize
-        trashy # move files to trash
-        #shell-gpt #openai bitches stole my credits :(
-        answer
-        libheif # convert heic to jpg with `heif-convert something.heic something.jpg`
-        imagemagick # convert images
-        tree
-        kop-newproject # creates a shell.nix and .envrc
-        nix-tree # show nix derivations
-        binwalk # show what's inside a binary
-        iotop
-        inetutils
-        nettools
-        wireguard-tools
-        yazi
-        sshfs
-        zip
-      ];
+      environment.systemPackages =
+        with pkgs;
+        [
+          neovim
+          getTotalPowerUsed
+          watchCurrentPowerUsed
+          (if lib.versionOlder lib.version "25.05" then wget else powerjoular) # monitor power usage
+          bat # fancy cat
+          fd # nicer find
+          duf # nicer du
+          eza # nicer ls
+          ripgrep # faster grep
+          gdu
+          wget
+          pciutils
+          rippkgs # faster nixpkgs search, init with `rippkgs-index nixpkgs && mv rippkgs-index.sqlite ~/.local/share/`;
+          nixos-option
+          btop
+          git
+          killall
+          #xclip
+          usbutils
+          inputs.agenix.packages."x86_64-linux".default
+          pdfgrep
+          nethogs
+          dig
+          smartmontools
+          bc
+          xxd
+          tldr
+          file
+          unzip
+          lsof
+          lshw
+          screen
+          tmux
+          fatrace # monitor filesystem events
+          nh
+          nix-output-monitor # nom
+          nvd # nix diff, example: nvd diff /nix/var/nix/profiles/system-389-link /nix/var/nix/profiles/system-390-link
+          compsize
+          trashy # move files to trash
+          #shell-gpt #openai bitches stole my credits :(
+          answer
+          libheif # convert heic to jpg with `heif-convert something.heic something.jpg`
+          tree
+          kop-newproject # creates a shell.nix and .envrc
+          nix-tree # show nix derivations
+          iotop
+          inetutils
+          nettools
+          wireguard-tools
+          sshfs
+          zip
+        ]
+        ++ lib.optionals (!cfg.saveSpace) (
+          with pkgs;
+          [
+            yazi
+            imagemagick
+            gh
+            fastfetch
+            binwalk # show what's inside a binary
+          ]
+        );
     };
 }

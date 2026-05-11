@@ -35,6 +35,8 @@
     #  device = "nodev";
     #};
   };
+  hardware.enableRedistributableFirmware = false;
+  hardware.enableAllFirmware = false;
 
   programs.firefox.enable = true;
   services.spice-vdagentd.enable = true;
@@ -45,7 +47,6 @@
   mainUser.variant = "us";
   custom = {
     hardware = {
-      firmware.enable = true;
       ssd.enable = true;
     };
     misc = {
@@ -60,7 +61,10 @@
       };
     };
     nftables.enable = true;
-    cli-tools.enable = true;
+    cli-tools = {
+      enable = true;
+      saveSpace = true;
+    };
     nix = {
       index.enable = true;
       settings.enable = true;

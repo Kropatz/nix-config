@@ -60,6 +60,10 @@ in
         ];
       })
       brave
+
+      # cli tools
+      mesa-demos
+      vulkan-tools
     ];
   };
 }
