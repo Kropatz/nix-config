@@ -22,7 +22,7 @@
     };
     ## unstable
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    # nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     home-manager-unstable = {
       # url = "github:nix-community/home-manager/master";
@@ -72,7 +72,7 @@
       nixpkgs,
       nixos-hardware,
       nixpkgs-unstable,
-      nixpkgs-unstable-small,
+      # nixpkgs-unstable-small,
       agenix,
       home-manager,
       home-manager-unstable,
@@ -91,7 +91,7 @@
         {
           nixpkgs.overlays = with outputs.overlays; [
             #unstable-packages
-            unstable-small-packages
+            # unstable-small-packages
             stable-packages
             additions
             modifications

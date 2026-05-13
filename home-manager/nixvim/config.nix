@@ -33,6 +33,11 @@
 
     termguicolors = lib.mkForce pkgs.stdenv.isLinux;
   };
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+  };
 
   plugins.mini-align.enable = true;
   plugins.lzn-auto-require.enable = true;

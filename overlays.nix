@@ -39,33 +39,33 @@ in
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    vencord = prev.vencord.overrideAttrs {
-
-      pname = "vencord";
-      version = "1.14.13";
-
-      src = prev.fetchFromGitHub {
-        owner = "Vendicated";
-        repo = "Vencord";
-        tag = "v1.14.13";
-        hash = "sha256-Xqk/akTa/NcHjSm6h77y6Fkvq7ayBcR0w0HG0Hwfkf8=";
-      };
-      pnpmDeps = prev.fetchPnpmDeps {
-        pname = "vencordaaaa"; # different hash -> download myself to avoid waiting on slow as hell cache
-        patches = prev.vencord.patches;
-        postPatch = prev.vencord.postPatch;
-
-        src = prev.fetchFromGitHub {
-          owner = "Vendicated";
-          repo = "Vencord";
-          tag = "v1.14.13";
-          hash = "sha256-Xqk/akTa/NcHjSm6h77y6Fkvq7ayBcR0w0HG0Hwfkf8=";
-        };
-        inherit (prev) pnpm;
-        fetcherVersion = 3;
-        hash = "sha256-hk1rnNog5xvuIVI0M1ZJ5xrEuk0zcBiYsbROUycdi+A=";
-      };
-    };
+    # vencord = prev.vencord.overrideAttrs {
+    #
+    #   pname = "vencord";
+    #   version = "1.14.13";
+    #
+    #   src = prev.fetchFromGitHub {
+    #     owner = "Vendicated";
+    #     repo = "Vencord";
+    #     tag = "v1.14.13";
+    #     hash = "sha256-Xqk/akTa/NcHjSm6h77y6Fkvq7ayBcR0w0HG0Hwfkf8=";
+    #   };
+    #   pnpmDeps = prev.fetchPnpmDeps {
+    #     pname = "vencordaaaa"; # different hash -> download myself to avoid waiting on slow as hell cache
+    #     patches = prev.vencord.patches;
+    #     postPatch = prev.vencord.postPatch;
+    #
+    #     src = prev.fetchFromGitHub {
+    #       owner = "Vendicated";
+    #       repo = "Vencord";
+    #       tag = "v1.14.13";
+    #       hash = "sha256-Xqk/akTa/NcHjSm6h77y6Fkvq7ayBcR0w0HG0Hwfkf8=";
+    #     };
+    #     inherit (prev) pnpm;
+    #     fetcherVersion = 3;
+    #     hash = "sha256-hk1rnNog5xvuIVI0M1ZJ5xrEuk0zcBiYsbROUycdi+A=";
+    #   };
+    # };
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
     #tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
@@ -98,26 +98,6 @@ in
     #    hash = "sha256-NnKhIgDAOKOdEqgHzgLq1MSHG3FDT2AVXJZ53Ozzioc=";
     #  };
     #};
-    yt-dlp = prev.yt-dlp.overrideAttrs {
-      version = "2026.02.04";
-      src = prev.fetchFromGitHub {
-        owner = "yt-dlp";
-        repo = "yt-dlp";
-        tag = "2026.02.04";
-        hash = "sha256-KXnz/ocHBftenDUkCiFoBRBxi6yWt0fNuRX+vKFWDQw=";
-      };
-      postPatch = ''
-        substituteInPlace yt_dlp/version.py \
-          --replace-fail "UPDATE_HINT = None" 'UPDATE_HINT = "Nixpkgs/NixOS likely already contain an updated version.\n       To get it run nix-channel --update or nix flake update in your config directory."'
-        ${prev.lib.optionalString true ''
-          # deno is required for full YouTube support (since 2025.11.12).
-          # This makes yt-dlp find deno even if it is used as a python dependency, i.e. in kodiPackages.sendtokodi.
-          # Crafted so people can replace deno with one of the other JS runtimes.
-          substituteInPlace yt_dlp/utils/_jsruntime.py \
-            --replace-fail "path = _determine_runtime_path(self._path, '${prev.deno.meta.mainProgram}')" "path = '${prev.lib.getExe prev.deno}'"
-        ''}
-      '';
-    };
     monado = prev.monado.overrideAttrs (old: {
       cmakeFlags = old.cmakeFlags ++ [
         "-DBUILD_WITH_OPENCV=OFF"
@@ -224,10 +204,10 @@ in
       config.allowUnfree = true;
     };
   };
-  unstable-small-packages = final: _prev: {
-    unstable-small = import inputs.nixpkgs-unstable-small {
-      system = final.system;
-      config.allowUnfree = true;
-    };
-  };
+  # unstable-small-packages = final: _prev: {
+  #   unstable-small = import inputs.nixpkgs-unstable-small {
+  #     system = final.system;
+  #     config.allowUnfree = true;
+  #   };
+  # };
 }

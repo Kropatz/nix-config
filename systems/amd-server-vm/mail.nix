@@ -178,7 +178,7 @@ in
   ];
   services.rspamd = {
     enable = true;
-    package = pkgs.unstable-small.rspamd;
+    package = pkgs.rspamd;
     postfix.enable = true;
   };
   services.dovecot2 = {
