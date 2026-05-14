@@ -34,6 +34,16 @@
       "noatime"
     ];
   };
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/63438e5c-6806-4372-b05f-b7f089e14c04";
+    fsType = "btrfs";
+    options = [
+      "defaults"
+      "compress=zstd"
+      "noatime"
+      "nofail"
+    ];
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/CC7C-CF82";

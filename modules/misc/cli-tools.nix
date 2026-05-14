@@ -83,6 +83,7 @@ in
           nethogs
           dig
           smartmontools
+          hdparm 
           bc
           xxd
           tldr
