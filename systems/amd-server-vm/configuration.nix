@@ -137,12 +137,12 @@
         enable = true;
         scanDirectories = [
           "/data/vmail"
-          "/1tbssd/kop-fileshare"
           "/home"
           "/var/lib"
           "/tmp"
           "/etc"
           "/var/tmp"
+          "/1tbssd/shares"
         ];
       };
       netbird.enable = true;
