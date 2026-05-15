@@ -50,6 +50,10 @@
     fsType = "vfat";
   };
 
+  powerManagement.powerUpCommands = ''
+    ${pkgs.hdparm}/bin/hdparm -B 127 -S 120 -y /dev/sda
+  '';
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

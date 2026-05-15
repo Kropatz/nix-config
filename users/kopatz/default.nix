@@ -28,6 +28,7 @@
       "wheel"
       "docker"
       "input"
+      "video"
     ];
     openssh.authorizedKeys.keys = [ config.mainUser.sshKey ];
   };
