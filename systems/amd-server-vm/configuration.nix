@@ -27,6 +27,10 @@
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
+  powerManagement.powerUpCommands = ''
+    ${pkgs.hdparm}/bin/hdparm -B 127 -S 120 /dev/sdd
+  '';
+
   boot = {
     kernelParams = [
       "console=tty0"
