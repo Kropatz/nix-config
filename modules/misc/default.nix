@@ -17,5 +17,6 @@
     ./virt-manager.nix
     ./wireshark.nix
     ./zram.nix
+    ./hardening.nix
   ];
 }
