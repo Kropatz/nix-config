@@ -25,16 +25,6 @@ in
     environment.etc."sddm.conf.d/virtualkeyboard.conf".text = ''
       InputMethod=
     '';
-    environment.sessionVariables = {
-      QML_IMPORT_PATH = [
-        "${pkgs.qt6.qtmultimedia}/lib/qt-6/qml"
-        "${pkgs.kdePackages.qt5compat}/lib/qt-6/qml"
-      ];
-      QML2_IMPORT_PATH = [
-        "${pkgs.qt6.qtmultimedia}/lib/qt-6/qml"
-        "${pkgs.kdePackages.qt5compat}/lib/qt-6/qml"
-      ];
-    };
     services = {
       displayManager = {
         generic = {
@@ -45,9 +35,12 @@ in
         sddm = {
           enable = true;
           theme = "nier-automata";
-          extraPackages = [
+          extraPackages = with pkgs; [
             (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
             pkgs.qylock
+            kdePackages.qt5compat # provides Qt5Compat.GraphicalEffects used by qylock themes
+            kdePackages.qtmultimedia # for video backgrounds
+            kdePackages.qtsvg
           ];
           #wayland.enable = true;
           #sddm.theme = "breeze";
