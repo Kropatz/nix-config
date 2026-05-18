@@ -10,6 +10,7 @@
     # Include the results of the hardware scan.
     #./hardware-configuration.nix
     ../../modules/services/ssh.nix
+    ../../modules/services/fail2ban.nix
     ../../modules/misc/logging.nix
     ../../modules/misc/motd.nix
     # ../../modules/microvm/routed-network.nix

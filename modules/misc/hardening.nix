@@ -21,6 +21,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    boot.kernelParams = [
+      "debugfs=off"
+    ];
+    security.protectKernelImage = true;
     security.pam.services = {
       su.requireWheel = lib.mkDefault true;
       su-l.requireWheel = lib.mkDefault true;
