@@ -36,7 +36,7 @@ in
   config = lib.mkIf cfg.enable {
     #programs.swaylock.enable = true;
     services.hyprpaper.enable = true;
-    home.packages = [ hyprlandFixLockscreen ];
+    home.packages = [ hyprlandFixLockscreen pkgs.hypridle ];
     home.file.".config/hypr/monitor-config.js".source = ../../.config/hypr/monitor-config.js;
     home.file.".config/hypr/hyprpaper.conf".source = pkgs.writeText "hyprpaper.conf" ''
      wallpaper {

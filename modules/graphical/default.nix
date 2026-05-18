@@ -36,6 +36,7 @@
     ./gpu-screen-recorder-ui.nix
     ./niri.nix
     ./wayvnc.nix
+    ./qylock.nix
   ];
 
   options.custom.graphical.firefox-custom = {
