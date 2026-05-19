@@ -249,7 +249,7 @@ in
             #pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
             #brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
-            hyprlock = "${pkgs.hyprlock}/bin/hyprlock";
+            lock-cmd = if osConfig.custom.graphical.qylock.enable then "qylock-lock" else "${pkgs.hyprlock}/bin/hyprlock";
             hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
             hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
             playerctl = "${pkgs.playerctl}/bin/playerctl";
@@ -261,7 +261,7 @@ in
             "$mainMod, Q, exec, ${kitty}"
             "$mainMod, C, killactive"
             #"$mainMod, L, exec, ${swaylock} -f -c 000000"
-            "$mainMod SHIFT, L, exec, ${hyprlock}"
+            "$mainMod SHIFT, L, exec, ${lock-cmd}"
             "$mainMod, M, exec, ${zenity} --question --text='Quit Hyprland?' && hyprctl dispatch exit"
             "$mainMod, E, exec, ${thunar}"
             "$mainMod, P, pin"

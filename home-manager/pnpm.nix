@@ -4,5 +4,7 @@
     minimumReleaseAge=7200
     blockExoticSubdeps=true
     trustPolicy=no-downgrade
+    minimumReleaseAgeIgnoreMissingTime=false
+    minimumReleaseAgeStrict=true
   '';
 }
