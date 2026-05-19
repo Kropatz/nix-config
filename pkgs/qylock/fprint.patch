@@ -1,168 +1,225 @@
+diff --git i/README.md w/README.md
+index c07d3a9..20687ca 100644
+--- i/README.md
++++ w/README.md
+@@ -122,6 +122,23 @@ Point your Window Manager keybind (e.g., in Hyprland, Qtile, Sway, or i3) direct
+ 
+ <br>
+ 
++#### 🫆 FINGERPRINT (OPTIONAL)
++
++Qylock asks PAM for the `qylock` service. To enable fingerprint unlock you need a matching PAM file with `pam_fprintd.so` in the auth stack.
++
++On **NixOS**, add this to your config:
++
++```nix
++services.fprintd.enable = true;
++security.pam.services.qylock = { };
++```
++
++`security.pam.services.<name>.fprintAuth` defaults to `config.services.fprintd.enable`, so fprintd is wired in automatically — same pattern as `security.pam.services.hyprlock`.
++
++On other distros, drop a file at `/etc/pam.d/qylock` modeled after your existing `hyprlock` / `login` PAM stack with `pam_fprintd.so` added.
++
++<br>
++
+ 
+ 
+ <p align="center">━━━━━━━ ◈ ━━━━━━━</p>
 diff --git i/quickshell-lockscreen/shim/SddmShim.qml w/quickshell-lockscreen/shim/SddmShim.qml
-index d998c21..5d64f63 100644
+index d998c21..3c4aeeb 100644
 --- i/quickshell-lockscreen/shim/SddmShim.qml
 +++ w/quickshell-lockscreen/shim/SddmShim.qml
-@@ -10,10 +10,19 @@ Item {
-     property var config: ({})
-     property bool configReady: false
- 
-+    readonly property string fpEnvVar: Quickshell.env("QS_FINGERPRINT") || ""
-+    readonly property string pamEnvVar: Quickshell.env("QS_PAM_SERVICE") || ""
-+    property bool enableFingerprint: false
-+    property string pamService: "login"
-+    property string fingerprintMessage: ""
-+    property bool fingerprintActive: false
-+    property bool _internalRestart: false
-+
-     function loadConfig(path) {
-         if (!path) {
-             config = { background: "bg.png" };
-             configReady = true;
-+            applyAuthConfig();
-             return;
-         }
-         var url = "file://" + path + "/theme.conf";
-@@ -38,6 +47,7 @@ Item {
-                 }
-                 config = newConfig;
-                 configReady = true;
-+                shim.applyAuthConfig();
-             }
-         };
-         try {
-@@ -47,6 +57,28 @@ Item {
-             console.warn("SddmShim: failed to load theme.conf:", e);
-             config = { background: "bg.png" };
-             configReady = true;
-+            applyAuthConfig();
-+        }
-+    }
-+
-+    function applyAuthConfig() {
-+        // Env var beats theme.conf
-+        if (fpEnvVar !== "") {
-+            enableFingerprint = (fpEnvVar === "1" || fpEnvVar.toLowerCase() === "true");
-+        } else {
-+            enableFingerprint = (config.enableFingerprint === "true" || config.enableFingerprint === "1");
-+        }
-+
-+        if (pamEnvVar !== "") {
-+            pamService = pamEnvVar;
-+        } else if (config.pamService) {
-+            pamService = config.pamService;
-+        }
-+
-+        pam.config = pamService;
-+
-+        if (enableFingerprint) {
-+            pamRestartTimer.start();
-         }
-     }
- 
-@@ -163,10 +195,29 @@ Item {
+@@ -163,10 +163,23 @@ Item {
          signal loginFailed()
          signal loginSucceeded()
  
-+        readonly property string fingerprintMessage: shim.fingerprintMessage
-+        readonly property bool fingerprintActive: shim.fingerprintActive
++        // Fingerprint state surfaced to themes (opt-in: themes that don't read these are unaffected).
++        property string fingerprintMessage: ""
++        property bool fingerprintError: false
++        property bool fingerprintActive: false
 +
          function login(user, password, sessionIndex) {
-             pam.user = user;
-+            if (pam.responseRequired) {
-+                pam.respond(password);
-+                pam.pendingPassword = "";
-+                return;
-+            }
-             pam.pendingPassword = password;
+-            pam.user = user;
+-            pam.pendingPassword = password;
 -            pam.start();
-+            if (pam.active) {
-+                // Occupy the sensor so pam_fprintd fails fast and PAM falls
-+                // through to the password module on the restart.
-+                shim._internalRestart = true;
-+                if (shim.enableFingerprint) {
-+                    fprintdOccupy.running = true;
-+                }
++            if (pam.user !== user) {
++                pam.user = user;
 +                pam.abort();
-+                pamRestartTimer.start();
-+            } else {
 +                pam.start();
++            }
++            if (pam.needsPassword) {
++                pam.needsPassword = false;
++                pam.respond(password);
++            } else {
++                pam.pendingPassword = password;
 +            }
          }
  
          function reboot() { Quickshell.execDetached(["bash", "-c", "if [ -d /run/systemd/system ]; then systemctl reboot; else loginctl reboot; fi"]); }
-@@ -175,22 +226,69 @@ Item {
+@@ -175,26 +188,69 @@ Item {
  
      PamContext {
          id: pam
-+        config: shim.pamService
++        config: "qylock"
++        user: Quickshell.env("USER") || ""
++
          property string pendingPassword: ""
++        property bool needsPassword: false
  
          onResponseRequiredChanged: {
 -            if (responseRequired && pendingPassword !== "") {
--                respond(pendingPassword);
--                pendingPassword = "";
-+            if (responseRequired) {
-+                shim.fingerprintActive = false;
-+                if (pendingPassword !== "") {
-+                    respond(pendingPassword);
-+                    pendingPassword = "";
-+                }
++            if (!responseRequired) return;
++            // responseVisible=false → password-style prompt (pam_unix). Otherwise it's
++            // an interactive text prompt we don't handle; leave it for the user / fprintd retry.
++            if (responseVisible) return;
++            if (pendingPassword !== "") {
+                 respond(pendingPassword);
+                 pendingPassword = "";
++                needsPassword = false;
++            } else {
++                needsPassword = true;
              }
          }
  
 +        onPamMessage: {
-+            shim.fingerprintMessage = message;
-+            if (!responseRequired && shim.enableFingerprint) {
-+                shim.fingerprintActive = true;
-+            }
-+        }
-+
-+        onError: (err) => {
-+            console.warn("SddmShim: PAM error:", err);
-+            shim.fingerprintActive = false;
++            if (message === "") return;
++            shim.sddm.fingerprintMessage = message;
++            shim.sddm.fingerprintError = messageIsError;
 +        }
 +
          onCompleted: (result) => {
-+            shim.fingerprintActive = false;
-+            shim.fingerprintMessage = "";
-+
++            shim.sddm.fingerprintActive = false;
              if (result === PamResult.Success) {
-+                fprintdOccupy.running = false;
++                shim.sddm.fingerprintMessage = "";
++                shim.sddm.fingerprintError = false;
                  shim.sddm.loginSucceeded();
                  Quickshell.execDetached(["loginctl", "unlock-session"]);
 -                // Notify success handlers
--            } else {
--                shim.sddm.loginFailed();
-+                return;
-+            }
+             } else {
+                 shim.sddm.loginFailed();
++                if (result !== PamResult.MaxTries) restartTimer.start();
+             }
+         }
 +
-+            if (shim._internalRestart) {
-+                shim._internalRestart = false;
-+                return;
-+            }
-+
-+            fprintdOccupy.running = false;
-+            shim.sddm.loginFailed();
-+
-+            // Keep the fingerprint loop alive so the user can retry without input.
-+            if (shim.enableFingerprint && pendingPassword === "") {
-+                pamRestartTimer.start();
-+            }
++        onError: (err) => {
++            // Most common cause: /etc/pam.d/qylock missing. Surface it so themes can show something.
++            shim.sddm.fingerprintActive = false;
++            shim.sddm.fingerprintMessage = "PAM error (is /etc/pam.d/qylock configured?)";
++            shim.sddm.fingerprintError = true;
 +        }
 +    }
 +
-+    Process {
-+        id: fprintdOccupy
-+        command: ["fprintd-verify"]
-+    }
-+
++    // Restart PAM after a failed attempt so fprintd / password can be retried.
 +    Timer {
-+        id: pamRestartTimer
-+        interval: 150
-+        repeat: false
++        id: restartTimer
++        interval: 400
 +        onTriggered: {
-+            if (!pam.active) {
-+                pam.start();
-             }
++            pam.pendingPassword = "";
++            pam.needsPassword = false;
++            shim.sddm.fingerprintMessage = "";
++            shim.sddm.fingerprintError = false;
++            if (pam.start()) shim.sddm.fingerprintActive = true;
++        }
+     }
+ 
+     onThemePathChanged: loadConfig(themePath)
+-    Component.onCompleted: sessionEnumerator.running = true
++    Component.onCompleted: {
++        sessionEnumerator.running = true;
++        if (pam.start()) shim.sddm.fingerprintActive = true;
++    }
+ }
+diff --git i/themes/nier-automata/Main.qml w/themes/nier-automata/Main.qml
+index 191a228..97d3bca 100644
+--- i/themes/nier-automata/Main.qml
++++ w/themes/nier-automata/Main.qml
+@@ -672,11 +672,49 @@ Rectangle {
+                 // ── Authentication panel ─────────────────────────────────────
+                 Rectangle {
+                     id: authBox
+-                    width: parent.width; height: 75 * s
++                    width: parent.width; height: 92 * s
+                     color: "transparent"; border.color: root.nierBorder; border.width: 1
++
++                    // Fingerprint state from shim (guarded — works on SDDM where sddm has no such property).
++                    property string fpMessage: (typeof sddm !== "undefined" && sddm.fingerprintMessage !== undefined) ? sddm.fingerprintMessage : ""
++                    property bool fpError: (typeof sddm !== "undefined" && sddm.fingerprintError !== undefined) ? sddm.fingerprintError : false
++                    property bool fpActive: (typeof sddm !== "undefined" && sddm.fingerprintActive !== undefined) ? sddm.fingerprintActive : false
++
+                     Rectangle {
+                         id: authHdr; width: parent.width; height: 24 * s; color: root.nierDark
+                         Text { anchors.left: parent.left; anchors.leftMargin: 12 * s; anchors.verticalCenter: parent.verticalCenter; text: "Authentication"; font.family: root.fontName; font.pixelSize: 12 * s; font.letterSpacing: 1.5; color: root.nierAccent }
++
++                        // Fingerprint indicator — pulses while fprintd is listening.
++                        Item {
++                            anchors.right: parent.right; anchors.rightMargin: 10 * s
++                            anchors.verticalCenter: parent.verticalCenter
++                            width: fpGlyph.implicitWidth + fpLabel.implicitWidth + 6 * s
++                            height: 14 * s
++                            visible: authBox.fpActive
++                            opacity: authBox.fpError ? 0.6 : 1.0
++
++                            Text {
++                                id: fpGlyph
++                                anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
++                                text: "☉"
++                                font.family: root.fontName; font.pixelSize: 11 * s
++                                color: authBox.fpError ? "#ff4444" : root.nierAccent
++                                SequentialAnimation on opacity {
++                                    running: authBox.fpActive && !authBox.fpError
++                                    loops: Animation.Infinite
++                                    NumberAnimation { from: 1.0; to: 0.3; duration: 900; easing.type: Easing.InOutSine }
++                                    NumberAnimation { from: 0.3; to: 1.0; duration: 900; easing.type: Easing.InOutSine }
++                                }
++                            }
++                            Text {
++                                id: fpLabel
++                                anchors.left: fpGlyph.right; anchors.leftMargin: 4 * s
++                                anchors.verticalCenter: parent.verticalCenter
++                                text: "FP"
++                                font.family: root.fontName; font.pixelSize: 9 * s; font.letterSpacing: 1.5
++                                color: authBox.fpError ? "#ff4444" : root.nierBorder
++                            }
++                        }
+                     }
+                     Rectangle {
+                         anchors.top: authHdr.bottom; anchors.topMargin: 8 * s; anchors.left: parent.left; anchors.leftMargin: 12 * s; anchors.right: parent.right; anchors.rightMargin: 12 * s; height: 32 * s
+@@ -734,11 +772,25 @@ Rectangle {
+                     }
+                     Text {
+                         id: errText
+-                        anchors.bottom: parent.bottom; anchors.bottomMargin: 2 * s
++                        anchors.bottom: parent.bottom; anchors.bottomMargin: 14 * s
+                         anchors.horizontalCenter: parent.horizontalCenter
+                         height: 10 * s; verticalAlignment: Text.AlignBottom
+                         text: ""; color: "#ff4444"; font.family: root.fontName; font.pixelSize: 8 * s; font.letterSpacing: 2
+                     }
++                    Text {
++                        id: fpStatus
++                        anchors.bottom: parent.bottom; anchors.bottomMargin: 4 * s
++                        anchors.left: parent.left; anchors.leftMargin: 12 * s
++                        anchors.right: parent.right; anchors.rightMargin: 12 * s
++                        horizontalAlignment: Text.AlignHCenter
++                        elide: Text.ElideRight
++                        height: 10 * s
++                        text: errText.text === "" ? authBox.fpMessage.toUpperCase() : ""
++                        color: authBox.fpError ? "#ff8844" : root.nierBorder
++                        font.family: root.fontName; font.pixelSize: 8 * s; font.letterSpacing: 1.5
++                        opacity: text === "" ? 0 : 0.85
++                        Behavior on opacity { NumberAnimation { duration: 200 } }
++                    }
+                 }
+ 
+                 Column {
+@@ -1088,6 +1140,10 @@ Rectangle {
+             errText.text = "ACCESS DENIED"
+             pwInput.text = ""
+             pwInput.forceActiveFocus()
++            errClear.restart()
          }
      }
++
++    // Auto-clear ACCESS DENIED so a follow-up fingerprint scan can show its own status.
++    Timer { id: errClear; interval: 2200; onTriggered: errText.text = "" }
+ }

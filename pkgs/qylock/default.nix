@@ -19,22 +19,22 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "Darkkal44";
       repo = "qylock";
-      hash = "sha256-u1+0dkL4gYyIQP/Ap2cGyf6WhQbUNHxDQDkxT/gbZ1Q=";
-      rev = "bece4d25a9dcd043a072847c8ed92dca3800616e";
+      hash = "sha256-79SHhz9ATD5ZpOjmOyoVZSrqstddJOfHrs+Drw4nvk0=";
+      rev = "6946b53626b4f3c1507ae9a78c287411df5fb36c";
     };
-    # patches = [
-    #   ./fprint.patch
-    # ];
+    patches = [
+      ./fprint.patch
+    ];
     installPhase = ''
       mkdir -p ${basePath}
-      cp -r $src/themes/${selectedTheme}/* ${basePath}
+      cp -r themes/${selectedTheme}/* ${basePath}
 
       mkdir -p ${quickshellPath}
-      cp $src/quickshell-lockscreen/lock_shell.qml ${quickshellPath}/lock_shell.qml
+      cp quickshell-lockscreen/lock_shell.qml ${quickshellPath}/lock_shell.qml
       cp -r --no-preserve=mode,ownership \
-        $src/quickshell-lockscreen/shim ${quickshellPath}/shim
+        quickshell-lockscreen/shim ${quickshellPath}/shim
       cp -r --no-preserve=mode,ownership \
-        $src/quickshell-lockscreen/imports ${quickshellPath}/imports
+        quickshell-lockscreen/imports ${quickshellPath}/imports
       ln -s $out/share/sddm/themes $out/lib/quickshell-lockscreen/themes_link
     '';
   };

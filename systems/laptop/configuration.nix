@@ -77,6 +77,8 @@
         image = ../../wallpaper/ina.jpg;
       };
       wayvnc.enable = true;
+      qylock.enable = true;
+      sddm.enable = true;
     };
   };
 
@@ -124,7 +126,6 @@
     xkb.layout = config.mainUser.layout;
     xkb.variant = config.mainUser.variant;
     enable = true;
-    displayManager.gdm.enable = true;
   };
   #programs.firejail.wrappedBinaries = with pkgs;
   #  let inherit (config.custom.misc.firejail) mk;

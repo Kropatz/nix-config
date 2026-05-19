@@ -15,4 +15,7 @@ in
   options.custom.graphical.${name} = {
     enable = lib.mkEnableOption "Enables qylock";
   };
+  config = lib.mkIf cfg.enable {
+    security.pam.services.qylock = { };
+  };
 }
