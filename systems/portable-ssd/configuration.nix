@@ -57,6 +57,11 @@
       xfce.enable = true;
       shared.enable = true;
       games.enable = true;
+      stylix = {
+        enable = true;
+        base16Scheme = import ../../modules/themes/ina-matugen.nix;
+        image = ../../wallpaper/ina.jpg;
+      };
     };
   };
   mainUser.layout = "de";

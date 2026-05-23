@@ -70,6 +70,7 @@ in
               "pulseaudio"
               "mpris"
               "battery"
+              "idle_inhibitor"
               "clock"
             ];
           };

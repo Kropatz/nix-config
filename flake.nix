@@ -64,6 +64,7 @@
     #   url = "github:microvm-nix/microvm.nix";
     #   inputs.nixpkgs.follows = "nixpkgs-unstable";
     # };
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
   outputs =
     {
@@ -81,6 +82,7 @@
       stylix,
       disko,
       flake-utils,
+      deploy-rs,
       # microvm,
       ...
     }@inputs:
@@ -171,6 +173,21 @@
       customPackages = flake-utils.lib.eachDefaultSystem (system: {
         packages = import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
       });
+      system = "x86_64-linux";
+      # Unmodified nixpkgs
+      pkgs = import nixpkgs-unstable { inherit system; };
+      deployPkgs = import nixpkgs-unstable {
+        inherit system;
+        overlays = [
+          deploy-rs.overlays.default
+          (self: super: {
+            deploy-rs = {
+              inherit (pkgs) deploy-rs;
+              lib = super.deploy-rs.lib;
+            };
+          })
+        ];
+      };
     in
     {
       overlays = import ./overlays.nix { inherit inputs; };
@@ -261,5 +278,39 @@
       };
 
       packages = customPackages.packages;
+
+      deploy.nodes = {
+        server-vm = {
+          hostname = "kopatz.dev";
+          profiles.system = {
+            sshUser = "root";
+            path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.server-vm;
+          };
+        };
+        amd-server = {
+          hostname = "192.168.0.20";
+          profiles.system = {
+            sshUser = "root";
+            path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.amd-server;
+          };
+        };
+        amd-server-vpn-vm = {
+          hostname = "192.168.0.132";
+          profiles.system = {
+            sshUser = "root";
+            path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.amd-server-vpn-vm;
+          };
+        };
+        amd-server-exposed-vm = {
+          hostname = "192.168.0.22";
+          profiles.system = {
+            sshUser = "root";
+            path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.amd-server-exposed-vm;
+          };
+        };
+      };
+
+      # This is highly advised, and will prevent many possible mistakes
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
 }

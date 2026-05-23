@@ -32,9 +32,11 @@
     };
     hardware = {
       ssd.enable = true;
-      zram.enable = true;
-      newkernel.enable = true;
+    };
+    misc = {
       fasterboot.enable = true;
+      newkernel.enable = true;
+      zram.enable = true;
     };
     graphical = {
       audio.enable = true;
@@ -63,7 +65,7 @@
   #     intel-vaapi-driver
   #   ];
   # };
-  services.xserver.videoDrivers = [ "xf86-video-intel" ];
+  # services.xserver.videoDrivers = [ "xf86-video-intel" ];
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
   };

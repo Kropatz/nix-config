@@ -68,7 +68,7 @@
         rocm.enable = true;
         overdrive = true;
       };
-      vr.enable = false; #borked
+      vr.enable = false; # borked
       firmware.enable = true;
       ssd.enable = true;
       wooting.enable = true;
@@ -165,6 +165,7 @@
     #libimobiledevice
     #ifuse # optional, to mount using 'ifuse'
     wl-clicker
+    deploy-rs
   ];
   documentation.man.generateCaches = true;
 
@@ -255,7 +256,17 @@
         }
       ) { } addr_to_domain_list;
     in
-    flattened;
+    flattened
+    // {
+      "127.0.0.1" = [
+        "lmlicenses.wip4.adobe.com"
+        "lm.licenses.adobe.com"
+        "na1r.services.adobe.com"
+        "hlrcv.stage.adobe.com"
+        "practivate.adobe.com"
+        "activate.adobe.com"
+      ];
+    };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

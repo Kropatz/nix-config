@@ -30,14 +30,16 @@
       ip = "192.168.0.13";
       dns = "${config.custom.vars.serverIp}";
     };
+    misc = {
+      fasterboot.enable = true;
+      newkernel.enable = true;
+      zram.enable = true;
+    };
     hardware = {
       nvidia = {
         enable = true;
       };
       ssd.enable = true;
-      zram.enable = true;
-      newkernel.enable = true;
-      fasterboot.enable = true;
     };
     graphical = {
       audio.enable = true;
