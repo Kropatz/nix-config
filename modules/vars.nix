@@ -23,5 +23,17 @@ in
       type = lib.types.str;
       default = "192.168.0.20";
     };
+
+    internalCidr = lib.mkOption {
+      type = lib.types.str;
+      default = "192.168.0.0/24";
+    };
+
+    gids = {
+      torrent = lib.mkOption {
+        type = lib.types.int;
+        default = 2004;
+      };
+    };
   };
 }

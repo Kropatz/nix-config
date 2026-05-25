@@ -24,6 +24,13 @@ in
   config = lib.mkIf cfg.enable {
     # systemd.tmpfiles.rules = [ "d /hdd/seed 0700 ${config.services.transmission.user} ${config.services.transmission.group} -" ];
     #  https://raw.githubusercontent.com/Naunter/BT_BlockLists/master/bt_blocklists.gz
+
+    users.users.transmission.extraGroups = [ "torrent" ];
+    users.groups = {
+      torrent = {
+        gid = config.custom.vars.gids.torrent;
+      };
+    };
     services.transmission = {
       enable = true; # Enable transmission daemon
       openRPCPort = true; # Open firewall for RPC

@@ -32,5 +32,6 @@
     ./netbird-client.nix
     ./transmission.nix
     ./jellyfin.nix
+    ./qbittorrent.nix
   ];
 }
