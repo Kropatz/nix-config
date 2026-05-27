@@ -10,6 +10,7 @@
   };
 
   imports = [
+    ../../home-manager/default.nix
     #../../home-manager/nvim.nix
     ../../home-manager/zsh
     #../../home-manager/rofi.nix

@@ -18,6 +18,7 @@
   };
 
   imports = [
+    ../../home-manager/default.nix
     ../../home-manager/nixvim
     ../../home-manager/gitconfig.nix
     ../../home-manager/zsh

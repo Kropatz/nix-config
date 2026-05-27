@@ -20,6 +20,7 @@
   };
 
   imports = [
+    ../../home-manager/default.nix
     ../../home-manager/code.nix
     ../../home-manager/fastfetch.nix
     ../../home-manager/direnv.nix

@@ -6,12 +6,13 @@
     # nix user repository
     nur = {
       url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     ## stable
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      # url = "github:nix-community/home-manager/master";
+      url = "github:Bad3r/home-manager/fix/librewolf-tests";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # secrets management
@@ -20,49 +21,46 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    ## unstable
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
-    home-manager-unstable = {
-      # url = "github:nix-community/home-manager/master";
-      url = "github:Bad3r/home-manager/fix/librewolf-tests";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    nixpkgs-working-xrdp.url = "github:NixOS/nixpkgs/b26c89e6aa1d7731d5e267656207f2e1c2f37f1d";
+    #nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    #home-manager-stable = {
+    #  url = "github:nix-community/home-manager/release-25.11";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
     # cosmic testing
     #nixos-cosmic = {
     #  url = "github:lilyinstarlight/nixos-cosmic";
-    #  inputs.nixpkgs.follows = "nixpkgs-unstable";
+    #  inputs.nixpkgs.follows = "nixpkgs";
     #};
     # vim configuration with nix
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # styling
     stylix = {
       #url = "github:danth/stylix";
       url = "github:make-42/stylix/matugen";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.home-manager.follows = "home-manager-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
     # disk management
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     #hyprland = {
     #  url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    #  inputs.nixpkgs.follows = "nixpkgs-unstable";
+    #  inputs.nixpkgs.follows = "nixpkgs";
     #};
     #quickshell = {
     #  url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-    #  inputs.nixpkgs.follows = "nixpkgs-unstable";
+    #  inputs.nixpkgs.follows = "nixpkgs";
     #};
     # microvm = {
     #   url = "github:microvm-nix/microvm.nix";
-    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    #   inputs.nixpkgs.follows = "nixpkgs";
     # };
     deploy-rs.url = "github:serokell/deploy-rs";
   };
@@ -71,12 +69,12 @@
       self,
       nur,
       nixpkgs,
+      home-manager,
       nixos-hardware,
-      nixpkgs-unstable,
+      #nixpkgs-stable,
+      #home-manager-stable,
       # nixpkgs-unstable-small,
       agenix,
-      home-manager,
-      home-manager-unstable,
       #, nixos-cosmic
       nixvim,
       stylix,
@@ -94,7 +92,7 @@
           nixpkgs.overlays = with outputs.overlays; [
             #unstable-packages
             # unstable-small-packages
-            stable-packages
+            #stable-packages
             additions
             modifications
             nur.overlays.default
@@ -110,8 +108,8 @@
         {
           modules,
           specialArgs ? {
-            pkgsVersion = nixpkgs-unstable;
-            home-manager-version = home-manager-unstable;
+            pkgsVersion = nixpkgs;
+            home-manager-version = home-manager;
           },
           system ? "x86_64-linux",
           minimal ? false,
@@ -143,40 +141,13 @@
             inherit inputs outputs;
           };
         };
-      mkStableServer =
-        {
-          modules,
-          specialArgs ? {
-            pkgsVersion = nixpkgs;
-            home-manager-version = home-manager;
-          },
-          system ? "x86_64-linux",
-          minimal ? false,
-        }:
-        let
-          lib = specialArgs.pkgsVersion.lib;
-        in
-        specialArgs.pkgsVersion.lib.nixosSystem {
-          inherit system;
-          modules =
-            modules
-            ++ [
-              ./modules
-              agenix.nixosModules.default
-              overlays
-            ]
-            ++ lib.lists.optionals (!minimal) [ specialArgs.home-manager-version.nixosModules.home-manager ];
-          specialArgs = specialArgs // {
-            inherit inputs outputs;
-          };
-        };
       customPackages = flake-utils.lib.eachDefaultSystem (system: {
-        packages = import ./pkgs { pkgs = nixpkgs-unstable.legacyPackages.${system}; };
+        packages = import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; };
       });
       system = "x86_64-linux";
       # Unmodified nixpkgs
-      pkgs = import nixpkgs-unstable { inherit system; };
-      deployPkgs = import nixpkgs-unstable {
+      pkgs = import nixpkgs { inherit system; };
+      deployPkgs = import nixpkgs {
         inherit system;
         overlays = [
           deploy-rs.overlays.default

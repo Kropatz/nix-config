@@ -198,12 +198,12 @@ in
   #    config.permittedInsecurePackages = [ "electron-27.3.11" ];
   #  };
   #};
-  stable-packages = final: _prev: {
-    stable = import inputs.nixpkgs {
-      system = final.system;
-      config.allowUnfree = true;
-    };
-  };
+  # stable-packages = final: _prev: {
+  #   stable = import inputs.nixpkgs {
+  #     system = final.system;
+  #     config.allowUnfree = true;
+  #   };
+  # };
   # unstable-small-packages = final: _prev: {
   #   unstable-small = import inputs.nixpkgs-unstable-small {
   #     system = final.system;

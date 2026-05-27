@@ -38,6 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 1; # Dropped from 3 due to chmod error when no -exec exists
-    hash = "sha256-rfXMiQp3HfZjaHjFhGGBEMWLqhgFZBSe0x/10lLHCLc=";
+    hash = "sha256-d4RWbo1ZicgZDp2BNYTvpaKVBQ806ZcveRIkv9yV30I=";
   };
 })
