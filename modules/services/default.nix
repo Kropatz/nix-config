@@ -33,5 +33,6 @@
     ./transmission.nix
     ./jellyfin.nix
     ./qbittorrent.nix
+    ./dtrack.nix
   ];
 }

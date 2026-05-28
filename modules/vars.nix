@@ -29,6 +29,12 @@ in
       default = "192.168.0.0/24";
     };
 
+    ports = {
+      dtrack = lib.mkOption {
+        type = lib.types.int;
+        default = 4005;
+      };
+    };
     uids = {
       jakob-nas = lib.mkOption {
         type = lib.types.int;

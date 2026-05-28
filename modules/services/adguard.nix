@@ -101,6 +101,10 @@ in
           "answer" = ip;
         }
         {
+          "domain" = "dtrack.kopatz.dev";
+          "answer" = ip;
+        }
+        {
           "domain" = "nextcloud.home.arpa";
           "answer" = wireguardIp;
         }

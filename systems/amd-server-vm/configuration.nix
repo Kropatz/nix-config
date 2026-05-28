@@ -156,6 +156,7 @@
       };
       netbird.enable = true;
       netbird-client.enable = true;
+      dependency-track.enable = false; # TODO: wait until it doesnt use nodejs20 anymore (marked insecure)
     };
     nftables.enable = true;
     cli-tools.enable = true;
