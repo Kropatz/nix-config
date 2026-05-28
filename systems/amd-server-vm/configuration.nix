@@ -27,9 +27,9 @@
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
-  powerManagement.powerUpCommands = ''
-    ${pkgs.hdparm}/bin/hdparm -B 127 -S 120 /dev/sdd
-  '';
+  # powerManagement.powerUpCommands = ''
+  #   ${pkgs.hdparm}/bin/hdparm -B 127 -S 120 /dev/sdd
+  # '';
 
   boot = {
     kernelParams = [
@@ -73,7 +73,14 @@
             "/data/synced/default/"
             "/data/synced/work_drive/"
           ];
-          syncthingFull = syncthing ++ [
+          netbird = [
+            "/1tbssd/netbird/config/"
+            "/1tbssd/netbird/dashboard/"
+            "/1tbssd/netbird/store.db"
+            "/1tbssd/netbird/idp.db"
+            "/1tbssd/netbird/events.db"
+          ];
+          syncthingFull = [
             "/data/synced/fh/"
             "/data/synced/books/"
           ];
@@ -81,19 +88,17 @@
             "/home"
           ]
           ++ syncthing
-          ++ mail;
+          ++ mail
+          ++ netbird;
           backupPathsMedium = [
-            "/home"
-          ]
-          ++ syncthing
-          ++ mail;
-          backupPathsFull = [
-            "/home"
-            kavita
             gitea
           ]
+          ++ backupPathsSmall;
+          backupPathsFull = [
+            kavita
+          ]
           ++ syncthingFull
-          ++ mail;
+          ++ backupPathsMedium;
         in
         {
           enable = true;
@@ -176,6 +181,7 @@
   services.xserver.videoDrivers = [ "vmware" ];
   environment.systemPackages = with pkgs; [
     kop-audio
+    cifs-utils
   ];
 
   # 8888 = scheibenmeister skip button
@@ -244,6 +250,34 @@
       "nofail"
       "noatime"
     ];
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /mnt 0755 root root -"
+    "d /mnt/jakob-nas 0770 jakob-nas jakob-nas -"
+  ];
+
+  age.secrets.samba-jakob-nas = {
+    file = ../../secrets/samba-jakob-nas.age;
+  };
+  users.users.jakob-nas = {
+    uid = config.custom.vars.uids."jakob-nas";
+    group = "jakob-nas";
+    isSystemUser = true;
+  };
+  users.groups.jakob-nas = {
+    gid = config.custom.vars.gids."jakob-nas";
+  };
+  fileSystems."/mnt/jakob-nas" = {
+    device = "//192.168.1.125/home"; # not domain name cus DNS doesnt wanna work :)
+    fsType = "cifs";
+    options =
+      let
+        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0770,file_mode=0660";
+      in
+      [
+        "${automount_opts},credentials=${config.age.secrets.samba-jakob-nas.path},uid=${toString config.users.users.jakob-nas.uid},gid=${toString config.users.groups.jakob-nas.gid}"
+      ];
   };
 
   # Configure console keymap

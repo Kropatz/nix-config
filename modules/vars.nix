@@ -29,10 +29,20 @@ in
       default = "192.168.0.0/24";
     };
 
+    uids = {
+      jakob-nas = lib.mkOption {
+        type = lib.types.int;
+        default = 2005;
+      };
+    };
     gids = {
       torrent = lib.mkOption {
         type = lib.types.int;
         default = 2004;
+      };
+      jakob-nas = lib.mkOption {
+        type = lib.types.int;
+        default = 2005;
       };
     };
   };

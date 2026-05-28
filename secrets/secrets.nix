@@ -147,6 +147,10 @@ in
     kop
     amd-server-exposed-vm
   ];
+  "samba-jakob-nas.age".publicKeys = [
+    kop
+    server-vm
+  ];
   "discord-token-sanitizer.age".publicKeys = [
     kop
     amd-server-exposed-vm

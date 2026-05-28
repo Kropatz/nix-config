@@ -123,9 +123,9 @@ in
 
       ## Network File System - Common Internet File System (CIFS):
       ##
-      install cifs /usr/bin/disabled-netfilesys-by-security-misc
-      install cifs_arc4 /usr/bin/disabled-netfilesys-by-security-misc
-      install cifs_md4 /usr/bin/disabled-netfilesys-by-security-misc
+      #install cifs /usr/bin/disabled-netfilesys-by-security-misc
+      #install cifs_arc4 /usr/bin/disabled-netfilesys-by-security-misc
+      #install cifs_md4 /usr/bin/disabled-netfilesys-by-security-misc
 
       ## Network File System - Network File System (NFS):
       ##

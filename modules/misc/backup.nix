@@ -191,6 +191,23 @@ in
             ];
             repository = "/hdd/restic";
           };
+          remotebackup-jakob-nas = {
+            initialize = true;
+            passwordFile = config.age.secrets.restic-pw.path;
+            exclude = cfg.excludePathsRemote;
+            paths = cfg.medium;
+            timerConfig = {
+              OnCalendar = "03:00";
+              Persistent = true;
+            };
+            pruneOpts = [
+              "--keep-daily 7"
+              "--keep-weekly 3"
+              "--keep-monthly 3"
+              "--keep-yearly 3"
+            ];
+            repository = "/mnt/jakob-nas/restic";
+          };
           #localbackup-1tb = {
           #    initialize = true;
           #    passwordFile = config.age.secrets.restic-pw.path;
