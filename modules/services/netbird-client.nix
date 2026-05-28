@@ -16,6 +16,7 @@ in
     enable = lib.mkEnableOption "Enables netbird-client";
   };
 
+  # HOWTO: Enable config, then run netbird-wt0 up --management-url https://netbird.kopatz.dev --setup-key <setup-key>
   config = lib.mkIf cfg.enable {
     services.netbird.clients.wt0 = {
 

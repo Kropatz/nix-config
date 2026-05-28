@@ -2,3 +2,5 @@
 *.qcow2
 result
 ignored*
+sbom.*
+htt

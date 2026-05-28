@@ -288,6 +288,7 @@ in
               "class<jetbrains-idea>" = "";
               "class<Logseq>" = "";
               "class<brave-browser>" = "";
+              "class<com.github.wwmm.easyeffects>" = " ";
             };
           };
         };
