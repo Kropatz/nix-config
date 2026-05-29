@@ -170,53 +170,51 @@
     file = ../../secrets/samba-exposedvm.age;
   };
   environment.systemPackages = [ pkgs.cifs-utils ];
-  fileSystems."/mnt/medium" = {
-    device = "//${config.custom.vars.serverIp}/medium";
-    fsType = "cifs";
-    options =
-      let
-        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+  fileSystems = {
+    "/mnt/medium" = {
+      device = "//${config.custom.vars.serverIp}/medium";
+      fsType = "cifs";
+      options =
+        let
+          automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
 
-      in
-      [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=1000,gid=100" ];
-    # or if you have specified `uid` and `gid` explicitly through NixOS configuration,
-    # you can refer to them rather than hard-coding the values:
-    # in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=${toString config.users.users.<username>.uid},gid=${toString config.users.groups.<group>.gid}"];
-  };
-  fileSystems."/mnt/kop-fileshare" = {
-    device = "//${config.custom.vars.serverIp}/medium/kop-fileshare";
-    fsType = "cifs";
-    options =
-      let
-        automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+        in
+        [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=1000,gid=100" ];
+    };
+    "/mnt/kop-fileshare" = {
+      device = "//${config.custom.vars.serverIp}/medium/kop-fileshare";
+      fsType = "cifs";
+      options =
+        let
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
 
-      in
-      [
-        "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kop-fileshare.uid},gid=${toString config.users.groups.kop-fileshare.gid}"
-      ];
-  };
-
-  fileSystems."/mnt/kavita" = {
-    device = "//${config.custom.vars.serverIp}/small/kavita";
-    fsType = "cifs";
-    options =
-      let
-        automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
-      in
-      [
-        "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kavita.uid},gid=${toString config.users.groups.kavita.gid}"
-      ];
-  };
-  fileSystems."/mnt/seed" = {
-    device = "//${config.custom.vars.serverIp}/large/seed";
-    fsType = "cifs";
-    options =
-      let
-        automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0775,file_mode=0775";
-      in
-      [
-        "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.transmission.uid},gid=${toString config.users.groups.torrent.gid}"
-      ];
+        in
+        [
+          "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kop-fileshare.uid},gid=${toString config.users.groups.kop-fileshare.gid}"
+        ];
+    };
+    "/mnt/kavita" = {
+      device = "//${config.custom.vars.serverIp}/small/kavita";
+      fsType = "cifs";
+      options =
+        let
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+        in
+        [
+          "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kavita.uid},gid=${toString config.users.groups.kavita.gid}"
+        ];
+    };
+    "/mnt/seed" = {
+      device = "//${config.custom.vars.serverIp}/large/seed";
+      fsType = "cifs";
+      options =
+        let
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0775,file_mode=0775";
+        in
+        [
+          "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.transmission.uid},gid=${toString config.users.groups.torrent.gid}"
+        ];
+    };
   };
   #fileSystems."/" = {
   #  device = "/dev/disk/by-label/nixos";

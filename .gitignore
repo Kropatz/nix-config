@@ -4,3 +4,4 @@ result
 ignored*
 sbom.*
 htt
+http_cache.sqlite
