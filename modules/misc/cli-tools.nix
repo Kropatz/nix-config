@@ -118,7 +118,7 @@ in
             yazi
             imagemagick
             gh
-            fastfetch
+            # fastfetch
             binwalk # show what's inside a binary
           ]
         );

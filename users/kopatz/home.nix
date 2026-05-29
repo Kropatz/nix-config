@@ -22,7 +22,7 @@
   imports = [
     ../../home-manager/default.nix
     ../../home-manager/code.nix
-    ../../home-manager/fastfetch.nix
+    # ../../home-manager/fastfetch.nix
     ../../home-manager/direnv.nix
     ../../home-manager/firefox
     #../../home-manager/floorp
@@ -49,7 +49,7 @@
   ];
 
   programs.helix = {
-    enable = true;
+    enable = false;
     settings = {
       editor = {
         completion-trigger-len = 1;
