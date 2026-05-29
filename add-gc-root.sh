@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 GCROOT_DIR="/nix/var/nix/gcroots/my-configs"
 sudo mkdir -p "$GCROOT_DIR"
 

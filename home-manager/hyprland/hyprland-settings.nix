@@ -455,7 +455,7 @@ in
           path = "~/synced/fh/master/hardware_firmware/merged";
           node = "${pkgs.nodejs}/bin/node";
           set-monitor = "~/.config/hypr/monitor-config.js";
-          answer = "${pkgs.answer}/bin/answer";
+          answer = "${pkgs.answer}/bin/gpt-answer";
           #wlrctl = "${pkgs.wlrctl}/bin/wlrctl";
           ydotool = "${pkgs.ydotool}/bin/ydotool";
           wl-kbptr = "${pkgs.wl-kbptr}/bin/wl-kbptr";
