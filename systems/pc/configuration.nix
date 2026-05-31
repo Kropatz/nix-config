@@ -16,6 +16,7 @@
     ../../modules/flatpak.nix
     ../../modules/gpg.nix
     ../../modules/services/syncthing.nix
+    ../../modules/services/ssh.nix
     ../../modules/support/ntfs.nix
     ../../modules/fh/writing.nix
     ../../modules/work/vpn.nix
@@ -157,6 +158,10 @@
     };
   };
 
+  age.secrets.robot-email-pw = {
+    file = ../../secrets/robot-email-pw.age;
+    owner = "kopatz";
+  };
   # apple shit
   #services.usbmuxd.enable = true;
   environment.systemPackages = with pkgs; [
@@ -166,6 +171,7 @@
     #ifuse # optional, to mount using 'ifuse'
     wl-clicker
     deploy-rs
+    msmtp
   ];
   documentation.man.generateCaches = true;
 
@@ -173,7 +179,6 @@
   networking.firewall.allowedUDPPorts = [ 1234 ]; # 6567 ]; # mindustry
   mainUser.layout = "de";
   mainUser.variant = "us";
-  age.identityPaths = [ /home/kopatz/.ssh/id_rsa ];
 
   # fix index
   services.xserver.extraConfig = ''

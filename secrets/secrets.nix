@@ -1,5 +1,6 @@
 let
   kop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFeP6qtVqE/gu72ZUZE8cdRi3INiUW9NqDR7SjXIzTw2 lukas@Kopatz-PC2";
+  kop-pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFx2xf3EM/FIlOOPdFof/iLK9vw+g5IY/xjZFoig+n9R root@kop-pc";
   server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAUA7uVKXAF2UcwaIDSJP2Te8Fi++2zkKzSPoRx1vQrI root@server";
   laptop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOrNYiH1Z05Ms01tDScPb4GbeNo7vTnSNXYcDQuDKnbs root@framework";
   server-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGsTZvAahTrszYDHn+94sLtcF8865/mpd26ZDVQklSj root@server-vm"; # actual used server
@@ -154,5 +155,9 @@ in
   "discord-token-sanitizer.age".publicKeys = [
     kop
     amd-server-exposed-vm
+  ];
+  "robot-email-pw.age".publicKeys = [
+    kop
+    kop-pc
   ];
 }

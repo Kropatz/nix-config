@@ -12,6 +12,7 @@ let
     school:{CRYPT}$2y$05$RRIjDak/PWhHITKMvGJ9b.MSMrsduUXjLJOfuXQ0k.pQX24shAsq2:5000:5000::/home/school";
     spam:{CRYPT}$2y$05$jkoR3nro0ux19Q7eupvvWetRXLazjuQuLUK0V0E7nRY8wwEwMBmoK:5000:5000::/home/spam";
     gitea@kopatz.dev:{CRYPT}$2y$05$FU60i8/H6I0ZI1MH20.tyuImrIsxiKt.h4aoSDAKYJUiQWAxhENyq:5000:5000::/home/gitea";
+    robot@kopatz.dev:{CRYPT}$2y$05$kyMJFlbsdjxCSjkP6EHvyOvsvJE0kaO7a7GsaoqsSH56RNo510tpi:5000:5000::/home/robot";
   '';
   email-domain = "kopatz.dev";
 in
@@ -162,6 +163,7 @@ in
         test@${email-domain} ${email-domain}/test/
         spam@${email-domain} ${email-domain}/spam/
         gitea@${email-domain} ${email-domain}/gitea/
+        robot@${email-domain} ${email-domain}/robot/
       '';
     };
   };

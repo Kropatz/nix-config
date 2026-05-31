@@ -50,6 +50,7 @@ in
             "^/tmp/tmux-.*"
             "^/tmp/.*dotnet-diagnostic-.*"
             "^/tmp/.*clr-debug-pipe-.*"
+            "^/tmp/.*plugin[0-9]+"
           ];
         };
       };

@@ -2,7 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     perf
-    hotspot
+    # hotspot
     (writeShellScriptBin "start-recording" ''
       PID=$(pgrep $1)
       if [ -z "$PID" ]; then
