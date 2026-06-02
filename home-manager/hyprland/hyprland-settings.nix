@@ -157,7 +157,6 @@ in
           new_render_scheduling = true;
         };
         misc = {
-          vfr = true;
           middle_click_paste = false;
           enable_anr_dialog = false;
           disable_hyprland_logo = true;
@@ -201,7 +200,7 @@ in
 
         dwindle = {
           # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-          pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+          # pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
           preserve_split = true; # you probably want this
         };
 
@@ -452,7 +451,7 @@ in
           dunstify = "${pkgs.dunst}/bin/dunstify";
           dunstctl = "${pkgs.dunst}/bin/dunstctl";
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep --cache";
-          path = "~/synced/fh/master/hardware_firmware/merged";
+          path = "~/synced/fh/master/security_testing/merged";
           node = "${pkgs.nodejs}/bin/node";
           set-monitor = "~/.config/hypr/monitor-config.js";
           answer = "${pkgs.answer}/bin/gpt-answer";
@@ -467,10 +466,10 @@ in
           bind = $mainMod, M, exec, hyprctl keyword monitor ",preferred,auto,1,mirror,${monitor1}" && ${dunstify} "Mirroring enabled"
           bind = $mainMod, R, exec, hyprctl keyword monitor ",preferred,auto,auto" && ${dunstify} "Mirroring disabled"
           bind = $mainMod, P, exec, ${node} ${set-monitor}
-          ## below
-          bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
           ## above
-          bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+          bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
+          ## below
+          bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
           ## context
           bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
           ## trim
@@ -480,7 +479,7 @@ in
           bind = $mainMod, D, exec, ${dunstctl} close-all
           ## I win
           # bind = $mainMod, W, exec, ${wl-paste} | ${answer} "Respond with the correct answer to the following question." | ${wl-copy} && ${dunstify} -t 150 Done
-          bind = $mainMod, W, exec, ${wl-paste} | claude -p --system-prompt "Respond with the correct answer to the following question." | ${wl-copy} && ${dunstify} -t 150 Done
+          bind = $mainMod, W, exec, ${wl-paste} | claude -p --system-prompt "Respond with the correct answer to the following question. Do not provide detailed explanations, only tell me the correct answer if possible." | ${wl-copy} && ${dunstify} -t 150 Done
           ## notes
 
           bind = $mainMod, 1, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/pruefung.md | ${wl-copy}
