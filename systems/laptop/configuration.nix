@@ -33,7 +33,7 @@
     cli-tools.enable = true;
     tmpfs.enable = true;
     wireshark.enable = true;
-    # virt-manager.enable = true;
+    virt-manager.enable = true;
     nixvimPlugins = true;
     nix = {
       ld.enable = true;
@@ -56,6 +56,7 @@
     };
     services = {
       syncthing.enable = true;
+      netbird-client.enable = true;
     };
     graphical = {
       audio.enable = true;
