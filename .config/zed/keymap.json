@@ -1,0 +1,52 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "shift shift": "file_finder::Toggle",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu && !Terminal",
+    "bindings": {
+      "space": null,
+      "space q": "pane::CloseActiveItem",
+      "space o": "tab_switcher::Toggle",
+      "space space": "command_palette::Toggle",
+      "space f": "file_finder::Toggle",
+      "ctrl-t": "terminal_panel::Toggle",
+      "space /": "workspace::NewSearch",
+      "space shift-d": "diagnostics::Deploy",
+      "space d d": "diagnostics::Deploy",
+      "space d w": "diagnostics::ToggleWarnings",
+      "space d o": "editor::GoToDiagnostic",
+      "space d n": "editor::GoToPreviousDiagnostic",
+      // "space s": "outline::Toggle",
+      "space s f": "file_finder::Toggle",
+      "space s g": "pane::DeploySearch",
+      "space g g": [
+        "task::Spawn",
+        { "task_name": "start lazygit", "reveal_target": "center" },
+      ],
+      "space shift-s": "project_symbols::Toggle",
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-t": "terminal_panel::Toggle",
+    },
+  },
+]

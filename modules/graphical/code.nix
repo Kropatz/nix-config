@@ -29,6 +29,8 @@ in
         python3
         gcc
         opencode
+        zed-editor
+        lazygit
         (claude-code.overrideAttrs {
           version = "2.1.159";
           src = fetchurl {
@@ -36,7 +38,21 @@ in
             sha256 = "e2126caf00ed3ec09371a29947658c7e9b31185256b2ac5728263bd95f7e3541";
           };
         })
-        #unstable-small.zed-editor
+      ]
+      ++ [
+        nixd
+        csharp-ls
+        tinymist
+        dart
+        gotools
+        gopls
+        rust-analyzer
+        typescript-language-server
+        bash-language-server
+        python313Packages.python-lsp-server
+        clang-tools
+        jdt-language-server
+        angular-language-server
       ]
       ++ lib.optionals cfg.rider [
         pkgs.jetbrains.rider

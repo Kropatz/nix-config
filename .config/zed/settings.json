@@ -1,0 +1,69 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `zed: Open Default Settings` command
+// from the command palette
+{
+  "cli_default_open_behavior": "new_window",
+  "prettier": {
+    "parser": "",
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": false,
+    },
+  },
+  "base_keymap": "JetBrains",
+  "proxy": "",
+  "status_bar": {
+    "show_active_file": false,
+  },
+  "vim": {
+    "gdefault": true,
+    "use_smartcase_find": true,
+    "toggle_relative_line_numbers": false,
+  },
+  "minimap": {
+    "show": "auto",
+  },
+  "mouse_wheel_zoom": true,
+  "which_key": {
+    "enabled": true,
+  },
+  "autosave": "on_focus_change",
+  "auto_update": false,
+  "project_panel": {
+    "dock": "left",
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "agent": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-5.2-codex",
+      "enable_thinking": true,
+      "effort": "high",
+    },
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "git_panel": {
+    "dock": "left",
+  },
+  "vim_mode": true,
+  "ui_font_size": 18.0,
+  "buffer_font_size": 16.0,
+  "theme": "One Dark",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+}
