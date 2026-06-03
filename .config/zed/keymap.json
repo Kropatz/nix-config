@@ -25,7 +25,7 @@
       "space q": "pane::CloseActiveItem",
       "space o": "tab_switcher::Toggle",
       "space space": "command_palette::Toggle",
-      "space f": "file_finder::Toggle",
+      "space f m ": "editor::Format",
       "ctrl-t": "terminal_panel::Toggle",
       "space /": "workspace::NewSearch",
       "space shift-d": "diagnostics::Deploy",

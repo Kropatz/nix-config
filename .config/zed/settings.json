@@ -7,9 +7,20 @@
 // custom settings, run the `zed: Open Default Settings` command
 // from the command palette
 {
+  "icon_theme": "Zed (Default)",
   "cli_default_open_behavior": "new_window",
   "prettier": {
     "parser": "",
+  },
+  "edit_predictions": {
+    "allow_data_collection": "no",
+    "provider": "open_ai_compatible_api",
+    "open_ai_compatible_api": {
+      "max_output_tokens": 512,
+      "api_url": "http://localhost:8080/v1/completions",
+      "model": "zeta-2.1-Q5_K_M.gguf",
+      "prompt_format": "zeta2_1",
+    },
   },
   "diagnostics": {
     "inline": {
@@ -31,6 +42,7 @@
   },
   "mouse_wheel_zoom": true,
   "which_key": {
+    "delay_ms": 400,
     "enabled": true,
   },
   "autosave": "on_focus_change",
@@ -61,7 +73,11 @@
   "vim_mode": true,
   "ui_font_size": 18.0,
   "buffer_font_size": 16.0,
-  "theme": "One Dark",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "One Dark",
+  },
   "telemetry": {
     "diagnostics": false,
     "metrics": false,
