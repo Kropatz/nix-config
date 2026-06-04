@@ -438,6 +438,7 @@ in
           "[workspace 9 silent] sleep 2 && discordcanary"
           "[workspace 10 silent] firefox"
           "xrandr --monitor ${monitor1} --primary"
+          "${pkgs.kop-llama-systray}/bin/kop-llama-systray &"
         ]
         ++ [
           "sleep 3 && ${pkgs.waybar}/bin/waybar &"

@@ -172,6 +172,7 @@
     wl-clicker
     deploy-rs
     msmtp
+    kop-llama-systray
   ];
   documentation.man.generateCaches = true;
 

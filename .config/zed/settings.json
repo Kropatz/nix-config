@@ -17,7 +17,7 @@
     "provider": "open_ai_compatible_api",
     "open_ai_compatible_api": {
       "max_output_tokens": 512,
-      "api_url": "http://localhost:8080/v1/completions",
+      "api_url": "http://localhost:4442/v1/completions",
       "model": "zeta-2.1-Q5_K_M.gguf",
       "prompt_format": "zeta2_1",
     },
