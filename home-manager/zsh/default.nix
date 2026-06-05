@@ -90,6 +90,7 @@
       nix-shell = "nix-shell --command zsh";
       drag = "ripdrag";
       notes = "cd ~/synced/default/vimwiki && nvim index.md";
+      zed = "zeditor";
     };
     #plugins = with pkgs; [
     #  {

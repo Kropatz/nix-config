@@ -247,6 +247,7 @@ in
             };
             # "format-window-separator" = "->";
             "window-rewrite-default" = "";
+            # https://www.nerdfonts.com/cheat-sheet
             "window-rewrite" = {
               "class<org.keepassxc.KeePassXC>" = "󰢁";
               "class<Caprine>" = "󰈎";
@@ -264,6 +265,8 @@ in
               "class<firefox> title<.*github.*>" = "";
               "class<firefox> title<.*twitch|youtube|plex|tntdrama|bally sports.*>" = "";
               "class<kitty>" = "";
+              "class<kitty> title<notes>" = "󰂮";
+              "class<kitty> title<nvim.*>" = "󰂮";
               "class<org.wezfurlong.wezterm>" = "";
               "class<mediainfo-gui>" = "󱂷";
               "class<org.kde.digikam>" = "󰄄";
@@ -289,6 +292,7 @@ in
               "class<Logseq>" = "";
               "class<brave-browser>" = "";
               "class<com.github.wwmm.easyeffects>" = " ";
+              "class<dev.zed.Zed>" = "󰂮";
             };
           };
         };
