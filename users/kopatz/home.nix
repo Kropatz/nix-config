@@ -48,6 +48,8 @@
     #  inputs.stylix.homeModules.stylix
   ];
 
+  home.sessionPath = [ "/home/kopatz/.local/bin" ];
+
   programs.helix = {
     enable = false;
     settings = {

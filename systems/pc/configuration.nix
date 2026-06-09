@@ -173,6 +173,7 @@
     deploy-rs
     msmtp
     kop-llama-systray
+    crystaldisk-linux
   ];
   documentation.man.generateCaches = true;
 

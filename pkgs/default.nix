@@ -31,4 +31,5 @@ rec {
   internxt-cli = pkgs.callPackage ./internxt-cli/default.nix { };
   discord-sanitizer = pkgs.callPackage ./discord-sanitizer/default.nix { };
   qylock = pkgs.callPackage ./qylock/default.nix { };
+  crystaldisk-linux = pkgs.callPackage ./crystaldisk-linux/default.nix { };
 }
