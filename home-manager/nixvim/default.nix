@@ -56,7 +56,6 @@ in
   };
   home.packages = with pkgs; [
     nixfmt
-    plantuml
   ]; # nixd config option to set nixpkgs-fmt should work, but it doesn't
   programs.nixvim = merged;
   xdg.desktopEntries = {
