@@ -48,6 +48,7 @@
       ssd.enable = true;
     };
     misc = {
+      # docker.enable = true;
       newkernel.enable = true;
       zram.enable = true;
     };
@@ -171,13 +172,30 @@
   };
   environment.systemPackages = [ pkgs.cifs-utils ];
   fileSystems = {
+    "/mnt/small" = {
+      device = "//${config.custom.vars.serverIp}/small";
+      fsType = "cifs";
+      options =
+        let
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0700,file_mode=0600";
+        in
+        [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=1000,gid=100" ];
+    };
     "/mnt/medium" = {
       device = "//${config.custom.vars.serverIp}/medium";
       fsType = "cifs";
       options =
         let
-          automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
-
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0700,file_mode=0600";
+        in
+        [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=1000,gid=100" ];
+    };
+    "/mnt/large" = {
+      device = "//${config.custom.vars.serverIp}/large";
+      fsType = "cifs";
+      options =
+        let
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0700,file_mode=0600,nobrl";
         in
         [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=1000,gid=100" ];
     };
@@ -198,7 +216,7 @@
       fsType = "cifs";
       options =
         let
-          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,mfsymlinks";
         in
         [
           "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kavita.uid},gid=${toString config.users.groups.kavita.gid}"
