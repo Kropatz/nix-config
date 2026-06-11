@@ -94,7 +94,7 @@ in
       systemd.services = {
         kavita = {
           serviceConfig = {
-            ReadWritePaths = [ "${baseDir}" ];
+            ReadWritePaths = [ "${baseDir}" "/localdata/kavita" ];
             # Security hardening
             UMask = "027";
             CapabilityBoundingSet = "";
