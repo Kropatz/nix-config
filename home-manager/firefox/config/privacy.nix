@@ -40,20 +40,7 @@
   # This preference controls when to store extra information about a session:
   # contents of forms, scrollbar positions, cookies, and POST data.
   "browser.sessionstore.privacy_level" = 2;
-  # Disable Link Prefetching
-  # Firefox prefetches the next site on some links, so the site is loaded even when
-  # you never click.
-  "network.prefetch-next" = false;
-  "network.dns.disablePrefetch" = true;
-  "network.dns.disablePrefetchFromHTTPS" = true;
-  "network.predictor.enabled" = false;
-  "network.predictor.enable-prefetch" = false;
-  # Disable speculative website loading.
-  # In some situations Firefox already starts loading web pages when the mouse
-  # pointer is over a link, i. e. before you actually click. This is to speed up the
-  # loading of web pages by a few milliseconds.
-  "network.http.speculative-parallel-limit" = 0;
-  "browser.urlbar.speculativeConnect.enabled" = false;
+  # Link prefetching and speculative loading prefs live in speed.nix
   # Use a private container for new tab page thumbnails
   # Load the pages displayed on the new tab page in a private container when
   # creating thumbnails.
@@ -86,7 +73,7 @@
   # Firefox suggests search terms in the search field. This will send everything
   # typed or pasted in the search field to the chosen search engine, even when you
   # did not press enter.
-  "browser.search.suggest.enabled" = true;
+  "browser.search.suggest.enabled" = false;
   # Disable Search Keyword
   # When you mistype some url, Firefox starts a search even from urlbar. This
   # feature is useful for quick searching, but may harm your privacy, when it's

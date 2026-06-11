@@ -9,7 +9,7 @@
   "toolkit.telemetry.unified" = false;
   "toolkit.telemetry.unifiedIsOptIn" = false;
   "toolkit.telemetry.prompted" = 2;
-  "toolkit.telemetry.server" = "";
+  "toolkit.telemetry.server" = "data:,";
   "toolkit.telemetry.cachedClientID" = "";
   "toolkit.telemetry.newProfilePing.enabled" = false;
   "toolkit.telemetry.shutdownPingSender.enabled" = false;
@@ -18,6 +18,10 @@
   "toolkit.telemetry.firstShutdownPing.enabled" = false;
   "toolkit.telemetry.hybridContent.enabled" = false;
   "toolkit.telemetry.reportingpolicy.firstRun" = false;
+  "toolkit.telemetry.coverage.opt-out" = true;
+  "toolkit.coverage.opt-out" = true;
+  "toolkit.coverage.endpoint.base" = "";
+  "datareporting.usage.uploadEnabled" = false;
   # Disable health report
   # Disable sending Firefox health reports
   # (https://www.mozilla.org/privacy/firefox/#health-report) to Mozilla
