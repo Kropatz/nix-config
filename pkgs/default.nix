@@ -1,6 +1,7 @@
 { pkgs, ... }:
 rec {
   ente-frontend = pkgs.callPackage ./ente-frontend/default.nix { };
+  ente-backend = pkgs.callPackage ./ente-backend/default.nix { };
   kop-fhcalendar = pkgs.callPackage ./kop-fhcalendar/default.nix { };
   kop-fileshare = pkgs.callPackage ./kop-fileshare/default.nix { };
   kop-pvlog = pkgs.callPackage ./kop-pvlog/default.nix { };

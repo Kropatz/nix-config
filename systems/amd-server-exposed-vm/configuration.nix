@@ -56,6 +56,7 @@
       kop-sanitizer-bot.enable = true;
       jellyfin.enable = true;
       qbittorrent.enable = true;
+      ente.enable = true;
       kop-fileshare = {
         basePath = "/stash";
         dataDir = "/mnt/kop-fileshare";
@@ -84,6 +85,7 @@
   networking.firewall.extraInputRules = ''
     ip saddr ${config.custom.vars.serverIp} tcp dport ${toString config.custom.services.kop-fileshare.port} counter accept comment allow_from_main_server
     ip saddr ${config.custom.vars.serverIp} tcp dport ${toString config.services.kavita.settings.Port} counter accept comment allow_from_main_server
+    ip saddr ${config.custom.vars.serverIp} tcp dport 8081 counter accept comment allow_ente_from_main_server
     ip saddr ${config.custom.vars.serverIp} tcp dport 8096 counter accept comment allow_jellyfin_from_main_server
   '';
 

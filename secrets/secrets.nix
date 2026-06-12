@@ -160,4 +160,8 @@ in
     kop
     kop-pc
   ];
+  "ente-config.age".publicKeys = [
+    kop
+    amd-server-exposed-vm
+  ];
 }

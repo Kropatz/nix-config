@@ -63,7 +63,7 @@
       newkernel.enable = true;
       backup =
         let
-          kavita = "/data/kavita";
+          kavita = "/data/shares/exposedvm/kavita";
           gitea = "/1tbssd/gitea";
           mail = [
             "/data/vmail"
@@ -96,6 +96,7 @@
           ++ backupPathsSmall;
           backupPathsFull = [
             kavita
+            "/data/shares/exposedvm/ente"
           ]
           ++ syncthingFull
           ++ backupPathsMedium;
@@ -128,7 +129,6 @@
         enable = true;
         dav = true;
       };
-      ente.enable = true;
       kavita-gitea-runner.enable = true;
       wireguard = {
         enable = true;

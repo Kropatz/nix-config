@@ -130,7 +130,7 @@ in
                 extraConfig = ''
                   rewrite /tracker-site/api/(.*) /$1 break;
                 '';
-                proxyPass = "http://127.0.0.1:8080";
+                proxyPass = "http://192.168.0.22:8081";
               };
               "/radicale/" = {
                 extraConfig = ''

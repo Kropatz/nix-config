@@ -40,6 +40,11 @@ in
         type = lib.types.int;
         default = 2005;
       };
+
+      ente = lib.mkOption {
+        type = lib.types.int;
+        default = 2006;
+      };
     };
     gids = {
       torrent = lib.mkOption {
@@ -49,6 +54,10 @@ in
       jakob-nas = lib.mkOption {
         type = lib.types.int;
         default = 2005;
+      };
+      ente = lib.mkOption {
+        type = lib.types.int;
+        default = 2006;
       };
     };
   };
