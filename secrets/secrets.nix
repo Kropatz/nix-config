@@ -131,6 +131,7 @@ in
   "cloudflare-api-env.age".publicKeys = [
     kop
     server-vm
+    amd-server-exposed-vm
   ];
   "git-mail-pw.age".publicKeys = [
     kop

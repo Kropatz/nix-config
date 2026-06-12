@@ -129,6 +129,10 @@ in
           "answer" = ip;
         }
         {
+          "domain" = "exposedvm.kopatz.dev";
+          "answer" = config.custom.vars.exposedServerIp;
+        }
+        {
           "domain" = "powerline.home.arpa";
           "answer" = "192.168.0.2";
         }

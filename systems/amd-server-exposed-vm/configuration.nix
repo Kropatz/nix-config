@@ -11,10 +11,13 @@
     #./hardware-configuration.nix
     ../../modules/services/ssh.nix
     ../../modules/services/fail2ban.nix
+    ../../modules/services/acme.nix
+    ../../modules/services/acme-cloudflare.nix
     ../../modules/misc/logging.nix
     ../../modules/misc/motd.nix
     # ../../modules/microvm/routed-network.nix
     ./disk-config.nix
+    ./mail.nix
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
@@ -53,6 +56,8 @@
       zram.enable = true;
     };
     services = {
+      acme.enable = true;
+      acme-cloudflare.enable = true;
       kop-sanitizer-bot.enable = true;
       jellyfin.enable = true;
       qbittorrent.enable = true;

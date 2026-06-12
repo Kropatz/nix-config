@@ -65,9 +65,9 @@
         let
           kavita = "/data/shares/exposedvm/kavita";
           gitea = "/1tbssd/gitea";
+          # opendkim moved to the exposed VM; mail storage stays here.
           mail = [
             "/data/vmail"
-            "/var/lib/opendkim"
           ];
           syncthing = [
             "/data/synced/default/"
