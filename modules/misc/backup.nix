@@ -171,6 +171,7 @@ in
               "--keep-weekly 3"
               "--keep-monthly 3"
               "--keep-yearly 3"
+              "--group-by ''"
             ];
             repository = "/1tbssd/restic";
           };
@@ -188,6 +189,7 @@ in
               "--keep-weekly 3"
               "--keep-monthly 3"
               "--keep-yearly 3"
+              "--group-by ''"
             ];
             repository = "/hdd/restic";
           };
@@ -205,6 +207,7 @@ in
               "--keep-weekly 3"
               "--keep-monthly 3"
               "--keep-yearly 3"
+              "--group-by ''"
             ];
             repository = "/mnt/jakob-nas/restic";
           };
@@ -232,6 +235,7 @@ in
               "--keep-weekly 3"
               "--keep-monthly 3"
               "--keep-yearly 3"
+              "--group-by ''"
             ];
             timerConfig = {
               OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
@@ -249,6 +253,7 @@ in
               "--keep-weekly 3"
               "--keep-monthly 3"
               "--keep-yearly 3"
+              "--group-by ''"
             ];
             timerConfig = {
               OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
@@ -277,6 +282,7 @@ in
                 "--keep-weekly 3"
                 "--keep-monthly 3"
                 "--keep-yearly 3"
+                "--group-by ''"
               ];
               timerConfig = {
                 OnCalendar = "*-*-03,06,09,12,15,18,21,24,27,30 02:00:00";
