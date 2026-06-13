@@ -104,8 +104,10 @@ in
         smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject_unauth_destination";
         smtpd_relay_restrictions = "permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination";
         # For DKIM (milter = mail filter)
-        smtpd_milters = [ "unix:/run/opendkim/opendkim.sock" ];
-        non_smtpd_milters = [ "unix:/run/opendkim/opendkim.sock" ];
+        # smtpd_milters = [ "unix:/run/opendkim/opendkim.sock" ];
+        # non_smtpd_milters = [ "unix:/run/opendkim/opendkim.sock" ];
+        # smtpd_milters = [ "inet:local_ip_address:11334" ];
+        # non_smtpd_milters = [ "inet:local_ip_address:11334" ];
         milter_default_action = "accept";
       };
     };
@@ -142,20 +144,27 @@ in
       '';
     };
   };
-  services.opendkim = {
-    enable = true;
-    user = "postfix";
-    group = "postfix";
-    domains = "csl:${email-domain}";
-    selector = "mail";
-    socket = "local:/run/opendkim/opendkim.sock";
-  };
-  nixpkgs.config.permittedInsecurePackages = [
-    "opendkim-2.11.0-Beta2"
-  ];
   services.rspamd = {
     enable = true;
     package = pkgs.rspamd;
     postfix.enable = true;
+    # locals."logging.inc".text = ''
+    #   level = "info";
+    #   debug_modules = ["dkim", "dkim_signing"];
+    # '';
+    locals."dkim_signing.conf".text = ''
+      enabled = true;
+      allow_username_mismatch = true;
+      domain {
+        kopatz.dev {
+           path = "/var/lib/rspamd/dkim/mail.private";
+           selector = "mail";
+        }
+      }
+      # Sign outbound mail only
+      sign_authenticated = true;
+      sign_local = true;
+      sign_inbound = false;
+    '';
   };
 }
