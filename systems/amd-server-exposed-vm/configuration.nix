@@ -152,7 +152,7 @@
   networking.firewall.allowedTCPPorts = [
     # 25565
     # 25566
-    # 8888
+    8888
     # 30033 # teamspeak6 file transfer port
   ];
 

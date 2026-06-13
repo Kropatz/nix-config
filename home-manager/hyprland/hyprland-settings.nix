@@ -273,7 +273,7 @@ in
             # "$mainMod, I, exec, ${rofi} -show drun -show-icons"
             "$mainMod, period, exec, ${rofimoji}"
             "$mainMod, Z, exec, ${woomer}"
-            ''$mainMod, S, exec, echo "skip" | nc kopatz.dev 8888''
+            ''$mainMod, S, exec, echo "skip" | nc exposedvm.kopatz.dev 8888''
             ''$mainMod SHIFT, R, exec, hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"''
             "$mainMod SHIFT, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
             "        , Print, exec, ${hyprshot} -s -z -m region --clipboard-only"

@@ -185,12 +185,10 @@
     cifs-utils
   ];
 
-  # 8888 = scheibenmeister skip button
   networking.firewall.allowedTCPPorts = [
     25565
     25566
-    8888
-    #30033 # teamspeak6 file transfer port
+    # 30033 # teamspeak6 file transfer port
   ];
 
   networking.firewall.allowedUDPPorts = [
