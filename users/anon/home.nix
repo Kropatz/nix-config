@@ -18,11 +18,11 @@
   };
 
   imports = [
-    ../../home-manager/default.nix
-    ../../home-manager/nixvim
-    ../../home-manager/gitconfig.nix
-    ../../home-manager/zsh
-    ../../home-manager/direnv.nix
+    ../../modules/opt-impl/home-manager/default.nix
+    ../../modules/opt-impl/home-manager/nixvim
+    ../../modules/opt-impl/home-manager/gitconfig.nix
+    ../../modules/opt-impl/home-manager/zsh
+    ../../modules/opt-impl/home-manager/direnv.nix
     inputs.nixvim.homeManagerModules.nixvim
   ];
 

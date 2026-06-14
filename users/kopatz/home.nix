@@ -20,30 +20,30 @@
   };
 
   imports = [
-    ../../home-manager/default.nix
-    ../../home-manager/code.nix
-    # ../../home-manager/fastfetch.nix
-    ../../home-manager/direnv.nix
-    ../../home-manager/firefox
+    ../../modules/opt-impl/home-manager/default.nix
+    ../../modules/opt-impl/home-manager/code.nix
+    ../../modules/opt-impl/home-manager/direnv.nix
+    ../../modules/opt-impl/home-manager/firefox
+    ../../modules/opt-impl/home-manager/gitconfig.nix
+    ../../modules/opt-impl/home-manager/hyprland
+    ../../modules/opt-impl/home-manager/kitty.nix
+    ../../modules/opt-impl/home-manager/nixvim # nixvim adds ~2-3 secs to eval time even when just using programs.nixvim.enable = true;
+    ../../modules/opt-impl/home-manager/rofi
+    ../../modules/opt-impl/home-manager/dunst.nix
+    ../../modules/opt-impl/home-manager/opensnitch-ui.nix
+    ../../modules/opt-impl/home-manager/zsh
+    ../../modules/opt-impl/home-manager/i3.nix
+    ../../modules/opt-impl/home-manager/stylix.nix
+    ../../modules/opt-impl/home-manager/mpv.nix
+    ../../modules/opt-impl/home-manager/discord-theme.nix
+    ../../modules/opt-impl/home-manager/vr.nix
+    ../../modules/opt-impl/home-manager/easyeffects
+    ../../modules/opt-impl/home-manager/pnpm.nix
     #../../home-manager/floorp
-    ../../home-manager/gitconfig.nix
-    ../../home-manager/hyprland
     #../../home-manager/kde-path.nix
-    ../../home-manager/kitty.nix
     #../../home-manager/lf.nix broken atm
-    ../../home-manager/nixvim # nixvim adds ~2-3 secs to eval time even when just using programs.nixvim.enable = true;
-    ../../home-manager/rofi
-    ../../home-manager/dunst.nix
-    ../../home-manager/opensnitch-ui.nix
+    # ../../home-manager/fastfetch.nix
     #../../home-manager/theme.nix
-    ../../home-manager/zsh
-    ../../home-manager/i3.nix
-    ../../home-manager/stylix.nix
-    ../../home-manager/mpv.nix
-    ../../home-manager/discord-theme.nix
-    ../../home-manager/vr.nix
-    ../../home-manager/easyeffects
-    ../../home-manager/pnpm.nix
     inputs.nixvim.homeModules.nixvim
     #  inputs.stylix.homeModules.stylix
   ];

@@ -29,7 +29,7 @@ in
 
       home.file.".config/waybar" = {
         recursive = true;
-        source = ../../.config/waybar;
+        source = ../../../../.config/waybar;
       };
       programs.waybar = {
         enable = true;

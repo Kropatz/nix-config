@@ -67,7 +67,7 @@ in
   home.file.".config/rofi" = {
     enable = true;
     recursive = true;
-    source = ../../.config/rofi;
+    source = ../../../../.config/rofi;
   };
 
   home.file.".config/rofi/rofi_stylix_colors.rasi" = {

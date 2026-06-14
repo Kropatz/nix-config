@@ -40,10 +40,10 @@ in
       hyprlandFixLockscreen
       pkgs.hypridle
     ];
-    home.file.".config/hypr/monitor-config.js".source = ../../.config/hypr/monitor-config.js;
+    home.file.".config/hypr/monitor-config.js".source = ../../../../.config/hypr/monitor-config.js;
     home.file.".config/hypr/hyprpaper.conf".source = pkgs.writeText "hyprpaper.conf" ''
       wallpaper {
-         monitor = 
+         monitor =
          path = ${config.stylix.image}
          fit_mode = cover
       }
@@ -547,7 +547,7 @@ in
 
           # Exit cursor submap
           # If you do not use cursor timeout or cursor:hide_on_key_press, you can delete its respective calls.
-          bind=,escape,exec, hyprctl dispatch submap reset 
+          bind=,escape,exec, hyprctl dispatch submap reset
 
           submap = reset
 
