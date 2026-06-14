@@ -14,7 +14,7 @@ in
 
   config = lib.mkIf cfg.enable {
     age.secrets.cloudflare-api-env = {
-      file = ../../secrets/cloudflare-api-env.age;
+      file = ../../../../secrets/cloudflare-api-env.age;
     };
     security.acme = {
       defaults = {

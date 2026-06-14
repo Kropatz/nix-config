@@ -11,7 +11,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     age.secrets.radicale-users = {
-      file = ../../secrets/radicale.age;
+      file = ../../../../secrets/radicale.age;
       owner = "radicale";
     };
     services.radicale = {

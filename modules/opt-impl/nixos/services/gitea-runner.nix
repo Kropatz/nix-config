@@ -20,12 +20,12 @@ in
       extraGroups = [ "docker" ];
     };
     age.secrets.gitea-runner-token = {
-      file = ../../secrets/gitea-runner-token.age;
+      file = ../../../../secrets/gitea-runner-token.age;
       owner = "gitea-actions-runner";
       group = "gitea-actions-runner";
     };
     age.secrets.gitea-runner-pw = {
-      file = ../../secrets/github-runner-pw.age;
+      file = ../../../../secrets/github-runner-pw.age;
       owner = "gitea-actions-runner";
       group = "gitea-actions-runner";
     };

@@ -9,11 +9,6 @@
   imports = [
     # Include the results of the hardware scan.
     #./hardware-configuration.nix
-    ../../modules/services/fail2ban.nix
-    ../../modules/services/acme.nix
-    ../../modules/services/acme-cloudflare.nix
-    ../../modules/misc/logging.nix
-    ../../modules/misc/motd.nix
     # ../../modules/microvm/routed-network.nix
     ./disk-config.nix
     ./mail.nix
@@ -57,6 +52,7 @@
     services = {
       ssh.enable = true;
       kop-sanitizer-bot.enable = true;
+      fail2ban.enable = true;
       jellyfin.enable = true;
       qbittorrent.enable = true;
       ente.enable = true;

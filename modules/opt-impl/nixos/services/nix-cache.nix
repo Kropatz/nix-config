@@ -2,7 +2,7 @@
 {
 
   age.secrets.binary-cache = {
-    file = ../../secrets/binary-cache.age;
+    file = ../../../../secrets/binary-cache.age;
   };
   nix.sshServe = {
     enable = true;

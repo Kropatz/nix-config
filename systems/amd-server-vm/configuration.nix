@@ -10,9 +10,6 @@
     # Include the results of the hardware scan.
     #./hardware-configuration.nix
     ../../modules/services/step-ca.nix
-    ../../modules/services/fail2ban.nix
-    ../../modules/misc/logging.nix
-    ../../modules/misc/motd.nix
     # ../../modules/services/duckdns.nix
     ../../modules/services/samba.nix
     ../../modules/services/ddclient-cloudflare.nix
@@ -116,6 +113,7 @@
       acme.enable = true;
       acme-cloudflare.enable = true;
       gitea.enable = true;
+      fail2ban.enable = true;
       # github-runner.enable = true;
       gitea-runner.enable = true;
       caldav.enable = true;
@@ -257,7 +255,7 @@
   ];
 
   age.secrets.samba-jakob-nas = {
-    file = ../../secrets/samba-jakob-nas.age;
+    file = ../../../../secrets/samba-jakob-nas.age;
   };
   users.users.jakob-nas = {
     uid = config.custom.vars.uids."jakob-nas";

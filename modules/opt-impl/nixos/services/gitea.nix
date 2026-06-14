@@ -11,7 +11,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     age.secrets.git-mail-pw = {
-      file = ../../secrets/git-mail-pw.age;
+      file = ../../../../secrets/git-mail-pw.age;
       owner = "gitea";
     };
     # Initial setup requires creating an admin user with DISABLE_REGISTRATION set to false

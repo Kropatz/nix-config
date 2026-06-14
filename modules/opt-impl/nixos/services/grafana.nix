@@ -14,12 +14,12 @@ in
   age.secrets.grafana-contact-points = {
     name = "contact-points.yml";
     owner = "grafana";
-    file = ../../secrets/grafana-contact-points.age;
+    file = ../../../../secrets/grafana-contact-points.age;
   };
 
   age.secrets.grafana-pw = {
     owner = "grafana";
-    file = ../../secrets/grafana-pw.age;
+    file = ../../../../secrets/grafana-pw.age;
   };
 
   fileSystems = {

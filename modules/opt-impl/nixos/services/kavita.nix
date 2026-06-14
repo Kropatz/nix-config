@@ -34,7 +34,7 @@ in
       };
 
       age.secrets.kavita = mkIf (!cfg.isTest) {
-        file = ../../secrets/kavita.age;
+        file = ../../../../secrets/kavita.age;
         owner = "kavita";
         group = "kavita";
       };

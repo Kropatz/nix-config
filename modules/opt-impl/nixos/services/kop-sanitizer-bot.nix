@@ -12,7 +12,7 @@ in
 
   config = mkIf cfg.enable {
     age.secrets.sanitizer-bot = {
-      file = ../../secrets/discord-token-sanitizer.age;
+      file = ../../../../secrets/discord-token-sanitizer.age;
     };
 
     systemd.services.kop-sanitizer-bot = {

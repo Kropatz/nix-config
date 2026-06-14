@@ -30,7 +30,7 @@ in
     };
 
     age.secrets.ente-config = {
-      file = ../../secrets/ente-config.age;
+      file = ../../../../secrets/ente-config.age;
       owner = "ente";
       group = "ente";
     };

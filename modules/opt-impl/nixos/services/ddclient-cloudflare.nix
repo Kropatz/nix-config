@@ -6,7 +6,7 @@
 }:
 {
   age.secrets.cloudflare-api = {
-    file = ../../secrets/cloudflare-api.age;
+    file = ../../../../secrets/cloudflare-api.age;
   };
   services.ddclient = {
     enable = true;

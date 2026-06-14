@@ -8,7 +8,7 @@
 {
 
   age.secrets.wireguard-client = {
-    file = ../../secrets/wireguard-client.age;
+    file = ../../../../secrets/wireguard-client.age;
   };
 
   systemd.network.networks.wg0 = {

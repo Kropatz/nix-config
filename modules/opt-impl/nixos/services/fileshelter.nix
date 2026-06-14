@@ -18,7 +18,7 @@ in
     };
     users.groups.fileshelter = { };
     age.secrets.fileshelter-conf = {
-      file = ../../secrets/fileshelter-conf.age;
+      file = ../../../../secrets/fileshelter-conf.age;
       owner = "fileshelter";
     };
     systemd.tmpfiles.rules = [

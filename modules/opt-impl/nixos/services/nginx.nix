@@ -21,7 +21,7 @@ in
     ];
 
     age.secrets.stash-auth = {
-      file = ../../secrets/stash-auth.age;
+      file = ../../../../secrets/stash-auth.age;
       owner = "nginx";
     };
 

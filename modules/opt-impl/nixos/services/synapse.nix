@@ -68,7 +68,7 @@ in
   };
 
   age.secrets.matrix-registration = {
-    file = ../../secrets/matrix-registration.age;
+    file = ../../../../secrets/matrix-registration.age;
     owner = "matrix-synapse";
     group = "matrix-synapse";
   };

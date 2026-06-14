@@ -7,7 +7,7 @@
 }:
 {
   age.secrets.duckdns = {
-    file = ../../secrets/duckdns.age;
+    file = ../../../../secrets/duckdns.age;
   };
   services.duckdns = {
     enable = true;

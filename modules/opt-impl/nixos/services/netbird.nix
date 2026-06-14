@@ -25,7 +25,7 @@ in
     };
 
     age.secrets.netbird-conf = {
-      file = ../../secrets/netbird-conf.age;
+      file = ../../../../secrets/netbird-conf.age;
     };
     environment.etc."netbird/config.yaml" = {
       source = config.age.secrets.netbird-conf.path;

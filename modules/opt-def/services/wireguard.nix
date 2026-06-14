@@ -19,7 +19,7 @@ in
     };
     secretFile = mkOption {
       type = types.path;
-      default = ../../secrets/wireguard-private.age;
+      default = ../../../../secrets/wireguard-private.age;
       description = "agenix secret file for wireguard";
     };
     externalInterface = mkOption {

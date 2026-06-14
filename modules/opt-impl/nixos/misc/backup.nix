@@ -20,7 +20,7 @@ in
           echo "Checking storage space (small) with excluded paths..."
           du -sch ${
             builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)
-          } ${builtins.concatStringsSep " " cfg.small} 
+          } ${builtins.concatStringsSep " " cfg.small}
           echo "Checking storage space (small) with excluded paths (remote)..."
           du -sch ${
             builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)
@@ -28,7 +28,7 @@ in
           echo "Checking storage space (medium) with excluded paths..."
           du -sch ${
             builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePaths)
-          } ${builtins.concatStringsSep " " cfg.medium} 
+          } ${builtins.concatStringsSep " " cfg.medium}
           echo "Checking storage space (medium) with excluded paths (remote)..."
           du -sch ${
             builtins.concatStringsSep " " (map (x: "--exclude=" + x) cfg.excludePathsRemote)
@@ -101,16 +101,16 @@ in
         pkgs.internxt-cli
       ];
       age.secrets.restic-pw = {
-        file = ../../secrets/restic-pw.age;
+        file = ../../../../secrets/restic-pw.age;
       };
       age.secrets.restic-s3 = {
-        file = ../../secrets/restic-s3.age;
+        file = ../../../../secrets/restic-s3.age;
       };
       age.secrets.restic-gdrive = {
-        file = ../../secrets/restic-gdrive.age;
+        file = ../../../../secrets/restic-gdrive.age;
       };
       age.secrets.restic-internxt = {
-        file = ../../secrets/restic-internxt.age;
+        file = ../../../../secrets/restic-internxt.age;
       };
       services.restic = {
         backups = {

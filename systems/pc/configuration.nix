@@ -161,7 +161,7 @@
   };
 
   age.secrets.robot-email-pw = {
-    file = ../../secrets/robot-email-pw.age;
+    file = ../../../../secrets/robot-email-pw.age;
     owner = "kopatz";
   };
   # apple shit

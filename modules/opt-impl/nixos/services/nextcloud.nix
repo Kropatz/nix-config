@@ -41,7 +41,7 @@ in
   };
 
   age.secrets.nextcloud-admin = {
-    file = ../../secrets/nextcloud-admin.age;
+    file = ../../../../secrets/nextcloud-admin.age;
     owner = "nextcloud";
     group = "nextcloud";
   };

@@ -36,5 +36,6 @@
     ./dtrack.nix
     ./ssh.nix
     ./node-exporter.nix
+    ./fail2ban.nix
   ];
 }

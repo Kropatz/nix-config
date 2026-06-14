@@ -9,6 +9,8 @@
     ./support
     ./graphical
     ./networking
+    ./misc/motd.nix
+    ./misc/logging.nix
   ];
 
   # Set your time zone.

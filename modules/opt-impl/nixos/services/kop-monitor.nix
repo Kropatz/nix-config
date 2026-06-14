@@ -12,7 +12,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     age.secrets.webhook = {
-      file = ../../secrets/webhook.age;
+      file = ../../../../secrets/webhook.age;
     };
     # service that runs all the time, pkgs.kop-monitor
     systemd.services.kop-monitor = {
