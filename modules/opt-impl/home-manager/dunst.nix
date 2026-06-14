@@ -1,11 +1,11 @@
 {
   lib,
-  osConfig,
+  config,
   pkgs,
   ...
 }:
 let
-  enable = osConfig.custom.graphical.i3.enable || osConfig.custom.graphical.hyprland.enable;
+  enable = config.custom.graphical.i3.enable || config.custom.graphical.hyprland.enable;
 in
 {
   config = lib.mkIf enable {

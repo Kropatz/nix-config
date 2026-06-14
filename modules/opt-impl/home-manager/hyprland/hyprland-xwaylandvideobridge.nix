@@ -1,6 +1,5 @@
 {
   config,
-  osConfig,
   pkgs,
   inputs,
   lib,
@@ -8,7 +7,7 @@
 }:
 with lib;
 let
-  cfg = osConfig.custom.graphical.hyprland.videobridge;
+  cfg = config.custom.graphical.hyprland.videobridge;
 in
 {
   config = lib.mkIf cfg.enable {

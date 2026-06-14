@@ -7,7 +7,7 @@
   ...
 }:
 let
-  cfg = osConfig.custom.graphical.hyprland;
+  cfg = config.custom.graphical.hyprland;
   isPc = osConfig.networking.hostName == "kop-pc";
   isLaptop = osConfig.networking.hostName == "framework";
   restartPortals = pkgs.writeShellScript "restart-portals" ''
@@ -106,7 +106,7 @@ in
           "GDK_SCALE,${scale}"
           "SDL_VIDEO_DISPLAY_PRIORITY,${monitor1}"
         ]
-        ++ lib.optionals osConfig.custom.hardware.nvidia.enable [
+        ++ lib.optionals config.custom.hardware.nvidia.enable [
           "LIBVA_DRIVER_NAME,nvidia"
           "GBM_BACKEND,nvidia-drm"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
@@ -255,7 +255,7 @@ in
             #brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
             lock-cmd =
-              if osConfig.custom.graphical.qylock.enable then "qylock-lock" else "${pkgs.hyprlock}/bin/hyprlock";
+              if config.custom.graphical.qylock.enable then "qylock-lock" else "${pkgs.hyprlock}/bin/hyprlock";
             hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
             hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
             playerctl = "${pkgs.playerctl}/bin/playerctl";

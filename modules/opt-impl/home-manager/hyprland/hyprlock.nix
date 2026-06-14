@@ -1,16 +1,15 @@
 {
   config,
-  osConfig,
   pkgs,
   inputs,
   lib,
   ...
 }:
 let
-  cfg = osConfig.custom.graphical.hyprland;
+  cfg = config.custom.graphical.hyprland;
 in
 {
-  config = lib.mkIf (cfg.enable && !osConfig.custom.graphical.qylock.enable) {
+  config = lib.mkIf (cfg.enable && !config.custom.graphical.qylock.enable) {
     programs.hyprlock.enable = true;
     programs.hyprlock.settings = {
       general = {

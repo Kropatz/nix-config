@@ -1,12 +1,11 @@
 {
   pkgs,
   config,
-  osConfig,
   lib,
   ...
 }:
 {
-  config = lib.mkIf osConfig.custom.hardware.vr.enable {
+  config = lib.mkIf config.custom.hardware.vr.enable {
     xdg.configFile."openxr/1/active_runtime.json".source =
       "${pkgs.monado}/share/openxr/1/openxr_monado.json";
     xdg.configFile."openvr/openvrpaths.vrpath".text = ''

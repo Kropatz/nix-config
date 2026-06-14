@@ -1,13 +1,12 @@
 {
   lib,
   pkgs,
-  osConfig,
   config,
   ...
 }:
 # https://nix-community.github.io/nixvim/NeovimOptions/index.html
 let
-  cfg = osConfig.custom.nixvimPlugins;
+  cfg = config.custom.nixvimPlugins;
   args = { inherit lib pkgs config; };
 
   importFile =

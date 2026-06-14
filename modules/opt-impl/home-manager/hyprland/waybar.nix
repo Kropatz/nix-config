@@ -8,7 +8,7 @@
 }:
 with lib;
 let
-  cfg = osConfig.custom.graphical.hyprland;
+  cfg = config.custom.graphical.hyprland;
 in
 {
   config =
@@ -58,8 +58,8 @@ in
               "memory"
               "temperature"
             ]
-            ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "custom/nvidia" ]
-            ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "custom/amd-gpu" ]
+            ++ lib.optionals config.custom.hardware.nvidia.enable [ "custom/nvidia" ]
+            ++ lib.optionals config.custom.hardware.amd-gpu.enable [ "custom/amd-gpu" ]
             ++ lib.optionals osConfig.services.power-profiles-daemon.enable [ "power-profiles-daemon" ];
           };
           "group/other" = {

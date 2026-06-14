@@ -1,12 +1,11 @@
 {
-  osConfig,
   pkgs,
   config,
   lib,
   ...
 }:
 let
-  cfg = osConfig.custom.graphical.i3;
+  cfg = config.custom.graphical.i3;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -66,8 +65,8 @@ in
           modules-right = [
             "music network memory cpu cpu-wattage cpu-temp"
           ]
-          ++ lib.optionals osConfig.custom.hardware.nvidia.enable [ "nvidia-gpu" ]
-          ++ lib.optionals osConfig.custom.hardware.amd-gpu.enable [ "amd-gpu" ]
+          ++ lib.optionals config.custom.hardware.nvidia.enable [ "nvidia-gpu" ]
+          ++ lib.optionals config.custom.hardware.amd-gpu.enable [ "amd-gpu" ]
           ++ [ "pulseaudio date tray" ];
           cursor-click = "pointer";
           cursor-scroll = "ns-resize";

@@ -1,13 +1,12 @@
 {
   config,
-  osConfig,
   pkgs,
   inputs,
   lib,
   ...
 }:
 let
-  cfg = osConfig.custom.graphical.hyprland;
+  cfg = config.custom.graphical.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -21,7 +20,7 @@ in
         after_sleep_cmd = "hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
         lock_cmd =
-          if osConfig.custom.graphical.qylock.enable then
+          if config.custom.graphical.qylock.enable then
             "pidof .quickshell-wrapped || qylock-lock"
           else
             "pidof hyprlock || hyprlock ";

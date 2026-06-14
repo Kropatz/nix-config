@@ -1,5 +1,4 @@
 {
-  osConfig,
   config,
   pkgs,
   inputs,
@@ -7,7 +6,7 @@
   ...
 }:
 {
-  config = lib.mkIf osConfig.custom.graphical.code.enable rec {
+  config = lib.mkIf config.custom.graphical.code.enable rec {
     #home.activation.makeVSCodeConfigWritable =
     #  let
     #    configDirName = {

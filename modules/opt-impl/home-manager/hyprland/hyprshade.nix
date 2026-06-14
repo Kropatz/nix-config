@@ -1,12 +1,12 @@
 {
-  osConfig,
+  config,
   pkgs,
   lib,
   ...
 }:
 
 let
-  cfg = osConfig.custom.graphical.hyprland;
+  cfg = config.custom.graphical.hyprland;
 in
 {
   config = lib.mkIf false {

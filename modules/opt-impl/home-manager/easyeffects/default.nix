@@ -1,12 +1,11 @@
 {
   pkgs,
   config,
-  osConfig,
   lib,
   ...
 }:
 {
-  config = lib.mkIf osConfig.custom.graphical.noise-supression.enable {
+  config = lib.mkIf config.custom.graphical.noise-supression.enable {
     services.easyeffects = {
       enable = true;
       preset = "mic";

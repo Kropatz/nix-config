@@ -1,5 +1,4 @@
 {
-  osConfig,
   config,
   pkgs,
   inputs,
@@ -20,6 +19,7 @@
   };
 
   imports = [
+    ./home-import-os-config.nix
     ../../modules/opt-impl/home-manager/default.nix
     ../../modules/opt-impl/home-manager/code.nix
     ../../modules/opt-impl/home-manager/direnv.nix

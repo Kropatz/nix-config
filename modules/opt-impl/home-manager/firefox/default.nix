@@ -1,12 +1,12 @@
 {
   pkgs,
   lib,
-  osConfig,
+  config,
   ...
 }:
 let
 
-  base16 = osConfig.stylix.base16Scheme;
+  base16 = config.custom.graphical.stylix.base16Scheme;
   merge = lib.foldr (a: b: a // b) { };
   # later entries override earlier ones on conflict
   privacySettings = [
@@ -18,7 +18,7 @@ let
     (import ./config/speed.nix)
     (import ./config/betterfox.nix)
   ];
-  nvidiaSettings = lib.optionals osConfig.custom.hardware.nvidia.enable [
+  nvidiaSettings = lib.optionals config.custom.hardware.nvidia.enable [
     (import ./config/nvidia-fixes.nix)
   ];
   privacyExtensions = with pkgs.nur.repos.rycee.firefox-addons; [
@@ -136,13 +136,13 @@ let
   '';
 in
 {
-  stylix = lib.mkIf osConfig.custom.graphical.stylix.enable {
+  stylix = lib.mkIf config.custom.graphical.stylix.enable {
     targets.firefox = {
       profileNames = [ "default" ];
       colorTheme.enable = true;
     };
   };
-  programs.firefox = lib.mkIf osConfig.custom.graphical.firefox-custom.enable {
+  programs.firefox = lib.mkIf config.custom.graphical.firefox-custom.enable {
     enable = true;
     policies = {
       DisableTelemetry = true;
