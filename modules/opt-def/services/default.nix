@@ -37,5 +37,12 @@
     ./ssh.nix
     ./node-exporter.nix
     ./fail2ban.nix
+    ./step-ca.nix
+    ./blocklist.nix
+    ./coturn.nix
+    ./ddclient-cloudflare.nix
+    ./grafana.nix
+    ./tdata.nix
+    ./samba.nix
   ];
 }

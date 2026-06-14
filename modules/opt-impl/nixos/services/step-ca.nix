@@ -1,10 +1,14 @@
 {
-  pkgs,
-  lib,
   config,
+  pkgs,
+  inputs,
+  system,
+  lib,
   ...
 }:
 let
+  name = "step-ca";
+  cfg = config.custom.services.${name};
   root_ca = ''
     -----BEGIN CERTIFICATE-----
     MIIBjTCCATKgAwIBAgIRAMVH2+JHZ3wm2fLUlKjTYDswCgYIKoZIzj0EAwIwJDEM
@@ -35,65 +39,68 @@ let
 
 in
 {
-  security.pki.certificates = [ root_ca ];
-  age.secrets.step-ca-pw = {
-    file = ../../../../secrets/step-ca-pw.age;
-    owner = "step-ca";
-    group = "step-ca";
-  };
-  age.secrets.step-ca-key = {
-    file = ../../../../secrets/step-ca-key.age;
-    owner = "step-ca";
-    group = "step-ca";
-  };
-  networking.firewall.allowedTCPPorts = [ 8443 ];
-  services.step-ca = {
-    enable = true;
-    address = "";
-    port = 8443;
-    intermediatePasswordFile = config.age.secrets.step-ca-pw.path;
-    settings = {
-      dnsNames = [
-        "localhost"
-        "127.0.0.1"
-        "*.home.arpa"
-        "${config.custom.vars.serverIp}"
-      ];
-      root = pkgs.writeTextFile {
-        name = "root.ca";
-        text = root_ca;
-      };
-      crt = pkgs.writeTextFile {
-        name = "intermediate.ca";
-        text = intermediate_ca;
-      };
-      key = config.age.secrets.step-ca-key.path;
-      db = {
-        type = "badger";
-        dataSource = "/var/lib/step-ca/db";
-      };
-      authority = {
-        claims = {
-          minTLSCertDuration = "5m";
-          maxTLSCertDuration = "72h";
-          defaultTLSCertDuration = "72h";
+
+  config = lib.mkIf cfg.enable {
+    security.pki.certificates = [ root_ca ];
+    age.secrets.step-ca-pw = {
+      file = ../../../../secrets/step-ca-pw.age;
+      owner = "step-ca";
+      group = "step-ca";
+    };
+    age.secrets.step-ca-key = {
+      file = ../../../../secrets/step-ca-key.age;
+      owner = "step-ca";
+      group = "step-ca";
+    };
+    networking.firewall.allowedTCPPorts = [ 8443 ];
+    services.step-ca = {
+      enable = true;
+      address = "";
+      port = 8443;
+      intermediatePasswordFile = config.age.secrets.step-ca-pw.path;
+      settings = {
+        dnsNames = [
+          "localhost"
+          "127.0.0.1"
+          "*.home.arpa"
+          "${config.custom.vars.serverIp}"
+        ];
+        root = pkgs.writeTextFile {
+          name = "root.ca";
+          text = root_ca;
         };
-        provisioners = [
-          {
-            type = "ACME";
-            name = "kop-acme";
-            forceCN = true;
-          }
-        ];
-      };
-      tls = {
-        cipherSuites = [
-          "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
-          "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
-        ];
-        minVersion = 1.2;
-        maxVersion = 1.3;
-        renegotiation = false;
+        crt = pkgs.writeTextFile {
+          name = "intermediate.ca";
+          text = intermediate_ca;
+        };
+        key = config.age.secrets.step-ca-key.path;
+        db = {
+          type = "badger";
+          dataSource = "/var/lib/step-ca/db";
+        };
+        authority = {
+          claims = {
+            minTLSCertDuration = "5m";
+            maxTLSCertDuration = "72h";
+            defaultTLSCertDuration = "72h";
+          };
+          provisioners = [
+            {
+              type = "ACME";
+              name = "kop-acme";
+              forceCN = true;
+            }
+          ];
+        };
+        tls = {
+          cipherSuites = [
+            "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
+            "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+          ];
+          minVersion = 1.2;
+          maxVersion = 1.3;
+          renegotiation = false;
+        };
       };
     };
   };

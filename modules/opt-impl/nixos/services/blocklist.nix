@@ -4,8 +4,9 @@
   pkgs,
   ...
 }:
-
 let
+  name = "blocklist";
+  cfg = config.custom.services.${name};
   # --- Blocklist sources ---
   # Add or remove URLs here. Each must be a plain list of IPs or CIDRs (one per line).
   # Comments (#) and blank lines are stripped automatically.
@@ -119,75 +120,78 @@ let
 
 in
 {
-  # -------------------------------------------------------------------------
-  # systemd one-shot service that runs the updater
-  # -------------------------------------------------------------------------
-  systemd.services.nft-blocklist-update = {
-    description = "Update nftables IP blocklist (scanners / bots / scrapers)";
-    after = [
-      "network-online.target"
-      "nftables.service"
-    ];
-    wants = [ "network-online.target" ];
-    # Also run once at boot (after nftables is up) so the set is populated immediately
-    wantedBy = [ "multi-user.target" ];
 
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = lib.getExe updaterScript;
-      # Run as root — required to call nft
-      User = "root";
-      # Basic hardening
-      PrivateTmp = true;
-      ProtectSystem = "strict";
-      ProtectHome = true;
-      # Allow writing only to /tmp (via PrivateTmp)
-      ReadWritePaths = [ ];
+  config = lib.mkIf cfg.enable {
+    # -------------------------------------------------------------------------
+    # systemd one-shot service that runs the updater
+    # -------------------------------------------------------------------------
+    systemd.services.nft-blocklist-update = {
+      description = "Update nftables IP blocklist (scanners / bots / scrapers)";
+      after = [
+        "network-online.target"
+        "nftables.service"
+      ];
+      wants = [ "network-online.target" ];
+      # Also run once at boot (after nftables is up) so the set is populated immediately
+      wantedBy = [ "multi-user.target" ];
+
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = lib.getExe updaterScript;
+        # Run as root — required to call nft
+        User = "root";
+        # Basic hardening
+        PrivateTmp = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        # Allow writing only to /tmp (via PrivateTmp)
+        ReadWritePaths = [ ];
+      };
     };
-  };
 
-  # -------------------------------------------------------------------------
-  # systemd timer — fires on the configured interval
-  # -------------------------------------------------------------------------
-  systemd.timers.nft-blocklist-update = {
-    description = "Periodically refresh nftables IP blocklist";
-    wantedBy = [ "timers.target" ];
+    # -------------------------------------------------------------------------
+    # systemd timer — fires on the configured interval
+    # -------------------------------------------------------------------------
+    systemd.timers.nft-blocklist-update = {
+      description = "Periodically refresh nftables IP blocklist";
+      wantedBy = [ "timers.target" ];
 
-    timerConfig = {
-      OnCalendar = refreshInterval;
-      # Spread the start time by up to 5 min to avoid thundering-herd
-      RandomizedDelaySec = "5m";
-      Persistent = true; # catch up if the machine was off
+      timerConfig = {
+        OnCalendar = refreshInterval;
+        # Spread the start time by up to 5 min to avoid thundering-herd
+        RandomizedDelaySec = "5m";
+        Persistent = true; # catch up if the machine was off
+      };
     };
+
+    # -------------------------------------------------------------------------
+    # nftables — make sure the table + set exist so the updater can populate them
+    # This merges with whatever other rules you already have.
+    # -------------------------------------------------------------------------
+    networking.nftables.tables.ip_drop = {
+      family = "inet";
+      content = ''
+        set blocked-ip4 {
+          typeof ip saddr
+          flags interval
+          auto-merge
+          # starts empty; nft-blocklist-update.service fills it at boot + every 4h
+          elements = { 45.144.212.240, 74.7.227.136 }
+        }
+
+        chain input {
+          type filter hook input priority -100; policy accept;
+          ip saddr @blocked-ip4 log prefix "nftables drop: " level info counter drop
+        }
+
+        chain forward {
+          type filter hook forward priority -100; policy accept;
+          ip saddr @blocked-ip4 drop
+        }
+      '';
+    };
+
+    # Make the script available on PATH for manual runs: nft-blocklist-update
+    environment.systemPackages = [ updaterScript ];
   };
-
-  # -------------------------------------------------------------------------
-  # nftables — make sure the table + set exist so the updater can populate them
-  # This merges with whatever other rules you already have.
-  # -------------------------------------------------------------------------
-  networking.nftables.tables.ip_drop = {
-    family = "inet";
-    content = ''
-      set blocked-ip4 {
-        typeof ip saddr
-        flags interval
-        auto-merge
-        # starts empty; nft-blocklist-update.service fills it at boot + every 4h
-        elements = { 45.144.212.240, 74.7.227.136 }
-      }
-
-      chain input {
-        type filter hook input priority -100; policy accept;
-        ip saddr @blocked-ip4 log prefix "nftables drop: " level info counter drop
-      }
-
-      chain forward {
-        type filter hook forward priority -100; policy accept;
-        ip saddr @blocked-ip4 drop
-      }
-    '';
-  };
-
-  # Make the script available on PATH for manual runs: nft-blocklist-update
-  environment.systemPackages = [ updaterScript ];
 }

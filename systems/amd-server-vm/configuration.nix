@@ -9,14 +9,7 @@
   imports = [
     # Include the results of the hardware scan.
     #./hardware-configuration.nix
-    ../../modules/services/step-ca.nix
     # ../../modules/services/duckdns.nix
-    ../../modules/services/samba.nix
-    ../../modules/services/ddclient-cloudflare.nix
-    ../../modules/services/grafana.nix
-    ../../modules/services/coturn.nix
-    ../../modules/services/blocklist.nix
-    ../../modules/services/tdata.nix
     ./disk-config.nix
     ./mail.nix
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -114,6 +107,13 @@
       acme-cloudflare.enable = true;
       gitea.enable = true;
       fail2ban.enable = true;
+      step-ca.enable = true;
+      samba.enable = true;
+      ddclient-cloudflare.enable = true;
+      grafana.enable = true;
+      coturn.enable = true;
+      blocklist.enable = true;
+      tdata.enable = true;
       # github-runner.enable = true;
       gitea-runner.enable = true;
       caldav.enable = true;
@@ -255,7 +255,7 @@
   ];
 
   age.secrets.samba-jakob-nas = {
-    file = ../../../../secrets/samba-jakob-nas.age;
+    file = ../../secrets/samba-jakob-nas.age;
   };
   users.users.jakob-nas = {
     uid = config.custom.vars.uids."jakob-nas";
