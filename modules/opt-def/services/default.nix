@@ -34,5 +34,7 @@
     ./jellyfin.nix
     ./qbittorrent.nix
     ./dtrack.nix
+    ./ssh.nix
+    ./node-exporter.nix
   ];
 }

@@ -9,8 +9,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../modules/networkmanager.nix
-    ../../modules/services/ssh.nix
   ];
 
   custom = {
@@ -18,6 +16,9 @@
     nftables.enable = true;
     cli-tools.enable = true;
     #virt-manager.enable = true;
+    networking = {
+      networkmanager.enable = true;
+    };
     nix = {
       useLatest = true;
       #index.enable = true;
@@ -40,6 +41,9 @@
         enable = true;
       };
       ssd.enable = true;
+    };
+    services = {
+      ssh.enable = true;
     };
     graphical = {
       audio.enable = true;

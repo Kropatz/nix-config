@@ -9,7 +9,6 @@
   imports = [
     # Include the results of the hardware scan.
     #./hardware-configuration.nix
-    ../../modules/services/ssh.nix
     ../../modules/services/fail2ban.nix
     ../../modules/services/acme.nix
     ../../modules/services/acme-cloudflare.nix
@@ -56,6 +55,7 @@
       zram.enable = true;
     };
     services = {
+      ssh.enable = true;
       kop-sanitizer-bot.enable = true;
       jellyfin.enable = true;
       qbittorrent.enable = true;

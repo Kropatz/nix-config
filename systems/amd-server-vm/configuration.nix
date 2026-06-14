@@ -9,7 +9,6 @@
   imports = [
     # Include the results of the hardware scan.
     #./hardware-configuration.nix
-    ../../modules/services/ssh.nix
     ../../modules/services/step-ca.nix
     ../../modules/services/fail2ban.nix
     ../../modules/misc/logging.nix
@@ -113,6 +112,7 @@
         };
     };
     services = {
+      ssh.enable = true;
       acme.enable = true;
       acme-cloudflare.enable = true;
       gitea.enable = true;

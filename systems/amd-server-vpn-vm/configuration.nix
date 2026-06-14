@@ -10,7 +10,6 @@
   imports = [
     # Include the results of the hardware scan.
     #./hardware-configuration.nix
-    ../../modules/services/ssh.nix
     ../../modules/misc/logging.nix
     ../../modules/misc/motd.nix
     ../../modules/work/vpn.nix
@@ -53,6 +52,7 @@
       newkernel.enable = true;
     };
     services = {
+      ssh.enable = true;
       wireguard = {
         enable = true;
         ip = "192.168.3.1";

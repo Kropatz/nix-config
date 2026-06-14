@@ -10,7 +10,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./modules/battery.nix
-    ../../modules/services/ssh.nix
     ../../modules/misc/tv-on-off.nix
     ../../modules/thunderbolt.nix
     ./disk-config.nix
@@ -31,6 +30,9 @@
       firmware.enable = true;
       ssd.enable = true;
       fingerprint.enable = true;
+    };
+    services = {
+      ssh.enable = true;
     };
     graphical = {
       audio.enable = true;

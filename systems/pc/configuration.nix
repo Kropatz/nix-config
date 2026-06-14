@@ -16,12 +16,10 @@
     ../../modules/opt-impl/nixos/flatpak.nix
     ../../modules/opt-impl/nixos/gpg.nix
     ../../modules/opt-impl/nixos/services/syncthing.nix
-    ../../modules/opt-impl/nixos/services/ssh.nix
     ../../modules/opt-impl/nixos/support/ntfs.nix
     ../../modules/opt-impl/nixos/fh/writing.nix
     ../../modules/opt-impl/nixos/work/vpn.nix
     ../../modules/opt-impl/nixos/package-collections/perf.nix
-    ../../modules/opt-impl/nixos/networkmanager.nix
     #../../modules/hardware/ryzenmonitor.nix
     # ../../modules/services/k3s-single-node.nix
     #./tailscale-client.nix
@@ -34,6 +32,9 @@
     nftables.enable = true;
     cli-tools.enable = true;
     nixvimPlugins = true;
+    networking = {
+      networkmanager.enable = true;
+    };
     nix = {
       useLatest = true;
       index.enable = true;
@@ -61,6 +62,7 @@
       };
       adguard.ip = "${config.custom.vars.serverIp}";
       netbird-client.enable = true;
+      ssh.enable = true;
     };
     hardware = {
       android.enable = true;

@@ -10,8 +10,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../modules/services/ssh.nix
-    ../../modules/services/node-exporter.nix
   ];
 
   custom = {
@@ -43,9 +41,11 @@
       wooting.enable = false;
     };
     services = {
+      ssh.enable = true;
       acme.enable = true;
       smartd.enable = true;
       smartd-exporter.enable = true;
+      node-exporter.enable = true;
       #adguard = {
       #  enable = true;
       #  acme-url = "https://192.168.0.10:8443/acme/kop-acme/directory";

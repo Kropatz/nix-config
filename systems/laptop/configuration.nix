@@ -15,7 +15,6 @@
     ../../modules/support/ntfs.nix
     ../../modules/thunderbolt.nix
     ../../modules/services/wireguard-client.nix
-    ../../modules/services/ssh.nix
     ../../modules/work/vpn.nix
     #../../modules/vmware-host.nix
     #../../modules/fh/forensik.nix
@@ -55,6 +54,7 @@
       fingerprint.enable = true;
     };
     services = {
+      ssh.enable = true;
       syncthing.enable = true;
       netbird-client.enable = true;
     };

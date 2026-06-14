@@ -8,6 +8,7 @@
     ./services
     ./support
     ./graphical
+    ./networking
   ];
 
   # Set your time zone.

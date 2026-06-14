@@ -10,14 +10,15 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./disk-config.nix
-    ../../modules/networkmanager.nix
-    ../../modules/services/ssh.nix
   ];
 
   custom = {
     tmpfs.enable = true;
     nftables.enable = true;
     cli-tools.enable = true;
+    networking = {
+      networkmanager.enable = true;
+    };
     nix = {
       useLatest = true;
       #index.enable = true;
@@ -37,6 +38,9 @@
       fasterboot.enable = true;
       newkernel.enable = true;
       zram.enable = true;
+    };
+    services = {
+      ssh.enable = true;
     };
     graphical = {
       audio.enable = true;

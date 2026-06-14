@@ -7,5 +7,6 @@
     ./services
     ./graphical
     ./vars.nix
+    ./networking
   ];
 }

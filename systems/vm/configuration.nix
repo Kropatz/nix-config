@@ -9,7 +9,6 @@
 
   imports = [
     ./vm-common.nix
-    ../../modules/services/ssh.nix
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
     (modulesPath + "/virtualisation/qemu-vm.nix")
@@ -22,6 +21,9 @@
     nix = {
       settings.enable = true;
       settings.optimise = false;
+    };
+    services = {
+      ssh.enable = true;
     };
     graphical = {
       #i3.enable = true;
