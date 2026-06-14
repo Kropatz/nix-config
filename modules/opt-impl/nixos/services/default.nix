@@ -1,0 +1,38 @@
+{ pkgs, config, ... }:
+{
+  imports = [
+    ./acme-cloudflare.nix
+    ./acme.nix
+    ./adguard.nix
+    ./caldav.nix
+    ./clamav.nix
+    ./dnsmasq.nix
+    ./ente.nix
+    ./fileshelter.nix
+    ./games
+    ./gitea-runner.nix
+    ./gitea.nix
+    ./github-runner.nix
+    ./gitolite.nix
+    ./hardening.nix
+    ./kavita-gitea-runner.nix
+    ./kavita.nix
+    ./kop-fileshare.nix
+    ./kop-monitor.nix
+    ./kop-pvlog.nix
+    ./kop-sanitizer-bot.nix
+    ./kubernetes.nix
+    ./nginx.nix
+    ./opensnitch.nix
+    ./smartd.nix
+    ./smartd-exporter.nix
+    ./syncthing.nix
+    ./wireguard.nix
+    ./netbird.nix
+    ./netbird-client.nix
+    ./transmission.nix
+    ./jellyfin.nix
+    ./qbittorrent.nix
+    ./dtrack.nix
+  ];
+}

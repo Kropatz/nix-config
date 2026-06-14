@@ -127,7 +127,8 @@
             ++ lib.lists.optionals (!minimal && graphical) [
               stylix.nixosModules.stylix
               inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
-              ./modules/graphical/stylix.nix
+              ./modules/opt-def/graphical/stylix.nix
+              ./modules/opt-impl/nixos/graphical/stylix.nix
               #nixos-cosmic.nixosModules.default
               #./modules/graphical/cosmic.nix
               (

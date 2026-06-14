@@ -11,12 +11,12 @@ buildNpmPackage rec {
   src = fetchGit {
     url = "git@github.com:oberprofis/scheibnkleister-presence.git";
     ref = "master";
-    rev = "82cf49e6a9bc4171e4d8202ebf59d30100fadd7f";
+    rev = "28923f9e6de59f54788b4976f523bb908f90dcba";
   };
 
   forceGitDeps = true;
   dontNpmBuild = true;
-  npmDepsHash = "sha256-ncjKsjox28t11t3KoIiRlrwO/ISzYmRZ0mfTPO+8XBE=";
+  npmDepsHash = "sha256-2DlMY2kEBMQUs1LTrZJgT9J2itPlhmACLu2sJ6HBGq8=";
 
   # The prepack script runs the build script, which we'd rather do in the build phase.
   npmPackFlags = [ "--ignore-scripts" ];

@@ -1,4 +1,9 @@
-{config, inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   environment.systemPackages = [ pkgs.home-manager ];
   home-manager = {

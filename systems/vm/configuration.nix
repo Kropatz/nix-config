@@ -33,7 +33,7 @@
       #cosmic.enable = true;
       stylix = {
         enable = true;
-        base16Scheme = import ../../modules/themes/ina-matugen.nix;
+        base16Scheme = import ../../wallpaper/themes/ina-matugen.nix;
         image = ../../wallpaper/ina.jpg;
       };
     };

@@ -36,14 +36,17 @@ in
   config = lib.mkIf cfg.enable {
     #programs.swaylock.enable = true;
     services.hyprpaper.enable = true;
-    home.packages = [ hyprlandFixLockscreen pkgs.hypridle ];
+    home.packages = [
+      hyprlandFixLockscreen
+      pkgs.hypridle
+    ];
     home.file.".config/hypr/monitor-config.js".source = ../../.config/hypr/monitor-config.js;
     home.file.".config/hypr/hyprpaper.conf".source = pkgs.writeText "hyprpaper.conf" ''
-     wallpaper {
-        monitor = 
-        path = ${config.stylix.image}
-        fit_mode = cover
-     }
+      wallpaper {
+         monitor = 
+         path = ${config.stylix.image}
+         fit_mode = cover
+      }
     '';
     wayland.windowManager.hyprland = {
       enable = true;
@@ -195,7 +198,10 @@ in
           #animation = border, 1, 10, default
           #animation = borderangle, 1, 8, default
           #animation = fade, 1, 7, default
-          animation = [ "workspaces, 0" "  windows,1, 3, default"];
+          animation = [
+            "workspaces, 0"
+            "  windows,1, 3, default"
+          ];
         };
 
         dwindle = {
@@ -248,7 +254,8 @@ in
             #pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
             #brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
             #swaylock = "${pkgs.swaylock}/bin/swaylock";
-            lock-cmd = if osConfig.custom.graphical.qylock.enable then "qylock-lock" else "${pkgs.hyprlock}/bin/hyprlock";
+            lock-cmd =
+              if osConfig.custom.graphical.qylock.enable then "qylock-lock" else "${pkgs.hyprlock}/bin/hyprlock";
             hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
             hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
             playerctl = "${pkgs.playerctl}/bin/playerctl";
@@ -277,9 +284,9 @@ in
             ''$mainMod SHIFT, R, exec, hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"''
             "$mainMod SHIFT, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
             "        , Print, exec, ${hyprshot} -s -z -m region --clipboard-only"
-            ''$mainMod, Print, exec, export OUT=/tmp && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}''
-            ''Shift_L, Print, exec, export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}''
-            ''$mainMod Shift_L, Print, exec, export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd-output}''
+            "$mainMod, Print, exec, export OUT=/tmp && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}"
+            "Shift_L, Print, exec, export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}"
+            "$mainMod Shift_L, Print, exec, export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd-output}"
             #"$mainMod, G, exec, ${peek}" # record gif
             "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
             " , XF86AudioPlay, exec, ${playerctl} play-pause"
@@ -497,10 +504,10 @@ in
 
           # Cursor submap (similar to the Mouse mode in Sway)
           submap=cursor
-          
+
           # Jump cursor to a position
           bind=,a,exec,hyprctl dispatch submap reset && ${wl-kbptr} && hyprctl dispatch submap cursor
-          
+
           # Cursor movement
           binde=,J,exec,${ydotool} mousemove -- 0 10
           binde=,K,exec,${ydotool} mousemove -- 0 -10
@@ -525,7 +532,7 @@ in
           bind=,D,exec,${ydotool} click 0xC2
           # Right button
           bind=,F,exec,${ydotool} click 0xC1
-          
+
           # Scroll up and down
           binde=,E,exec,${ydotool} mousemove -w -- 0 -1
           binde=,R,exec,${ydotool} mousemove -w -- 0 1
@@ -537,7 +544,7 @@ in
           binde=,G,exec,${ydotool} mousemove -w -- -1 0
           binde=SHIFT,T,exec,${ydotool} mousemove -w -- 5 0
           binde=SHIFT,G,exec,${ydotool} mousemove -w -- -5 0
-          
+
           # Exit cursor submap
           # If you do not use cursor timeout or cursor:hide_on_key_press, you can delete its respective calls.
           bind=,escape,exec, hyprctl dispatch submap reset 
@@ -547,7 +554,7 @@ in
           # Entrypoint
           # If you do not use cursor timeout or cursor:hide_on_key_press, you can delete its respective calls.
           bind=$mainMod,W,exec,hyprctl dispatch submap cursor
-          
+
 
 
         '';

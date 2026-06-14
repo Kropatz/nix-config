@@ -1,0 +1,161 @@
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
+with lib;
+let
+  cfg = config.custom.graphical.shared;
+in
+{
+
+  config = mkIf cfg.enable {
+    programs.dconf.enable = true;
+
+    fonts.fontDir.enable = true;
+    fonts.packages = with pkgs; [
+      #uw-ttyp0
+      #corefonts
+      #nerd-fonts.noto
+      noto-fonts
+      nerd-fonts.hack
+      #noto-fonts
+      #noto-fonts-emoji
+      noto-fonts-cjk-sans
+      #font-awesome
+    ];
+    services.libinput = {
+      enable = true;
+      # disabling mouse acceleration
+      mouse = {
+        accelProfile = "flat";
+        middleEmulation = false;
+      };
+    };
+    programs.kdeconnect.enable = true;
+    networking.firewall = {
+      enable = true;
+      allowedTCPPorts = [ 53317 ]; # localsend
+      allowedUDPPorts = [
+        1194
+        53317
+      ]; # openvpn, localsend
+      allowedTCPPortRanges = [
+        {
+          from = 1714;
+          to = 1764;
+        } # KDE Connect
+      ];
+      allowedUDPPortRanges = [
+        {
+          from = 1714;
+          to = 1764;
+        } # KDE Connect
+      ];
+    };
+
+    #services.xserver.wacom.enable = true;
+    services.tumbler.enable = true; # for thumbnails
+    programs.thunar.enable = true;
+    programs.thunar.plugins = with pkgs; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+    services.gvfs.enable = true; # for file manager, trash support, etc.
+
+    programs.ssh.startAgent = if config.services.gnome.gnome-keyring.enable then false else true;
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    # List packages installed in system profile. To search, run:
+    # $ nix search wget
+    environment.systemPackages = with pkgs; [
+      file-roller
+      keepassxc
+      wl-clipboard
+      xarchiver # archive tool
+      adwaita-icon-theme
+      zenity
+      ripdrag
+    ];
+    xdg.terminal-exec = {
+      enable = true;
+      settings = {
+        default = [
+          "kitty.desktop"
+        ];
+      };
+    };
+    xdg.mime =
+      let
+        mkAssociation =
+          desktop: mimeTypes:
+          (map (name: {
+            inherit name;
+            value = desktop;
+          }) mimeTypes)
+          |> builtins.listToAttrs;
+        associations =
+          mkAssociation "firefox.desktop" [
+            "application/x-extension-shtml"
+            "application/x-extension-xhtml"
+            "application/x-extension-html"
+            "application/x-extension-xht"
+            "application/x-extension-htm"
+            "x-scheme-handler/unknown"
+            "x-scheme-handler/mailto"
+            "x-scheme-handler/chrome"
+            "x-scheme-handler/about"
+            "x-scheme-handler/https"
+            "x-scheme-handler/http"
+            "application/xhtml+xml"
+            "application/pdf"
+            "text/html"
+          ]
+          // mkAssociation "neovim.desktop" [
+            "application/javascript"
+            "application/json"
+            "application/x-lua"
+            "application/x-perl"
+            "application/x-python"
+            "application/x-ruby"
+            "application/x-shellscript"
+            "application/xml"
+            "application/x-yaml"
+            "text/css"
+            "text/csv"
+            "text/javascript"
+            "text/markdown"
+            "text/plain"
+            "text/x-c"
+            "text/x-chdr"
+            "text/x-csrc"
+            "text/x-c++src"
+            "text/x-diff"
+            "text/x-ini"
+            "text/x-java"
+            "text/x-lua"
+            "text/x-makefile"
+            "text/x-patch"
+            "text/x-perl"
+            "text/x-python"
+            "text/x-ruby"
+            "text/x-rust"
+            "text/x-sh"
+            "text/x-shellscript"
+            "text/x-toml"
+            "text/xml"
+            "text/x-yaml"
+          ];
+      in
+      {
+        enable = true;
+        addedAssociations = associations;
+        defaultApplications = associations;
+      };
+  };
+}

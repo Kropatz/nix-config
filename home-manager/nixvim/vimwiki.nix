@@ -10,6 +10,9 @@
         }
       ];
     };
-    lazyLoad.settings.ft = [ "markdown" "vimwiki"];
+    lazyLoad.settings.ft = [
+      "markdown"
+      "vimwiki"
+    ];
   };
 }

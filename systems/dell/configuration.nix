@@ -70,7 +70,7 @@
       "mem_sleep_default=s2idle"
     ];
   };
-  networking.firewall.allowedTCPPorts = [ 3389 ]; # Allow RDP 
+  networking.firewall.allowedTCPPorts = [ 3389 ]; # Allow RDP
 
   mainUser.layout = "de";
   mainUser.variant = "";

@@ -20,7 +20,11 @@ in
         before_sleep_cmd = "loginctl lock-session";
         after_sleep_cmd = "hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
-        lock_cmd = if osConfig.custom.graphical.qylock.enable then "pidof .quickshell-wrapped || qylock-lock" else "pidof hyprlock || hyprlock ";
+        lock_cmd =
+          if osConfig.custom.graphical.qylock.enable then
+            "pidof .quickshell-wrapped || qylock-lock"
+          else
+            "pidof hyprlock || hyprlock ";
       };
 
       listener = [

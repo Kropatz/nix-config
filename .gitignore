@@ -3,6 +3,8 @@
 result
 ignored*
 sbom.*
+sbom
 htt
 http_cache.sqlite
 .env
+.claude
