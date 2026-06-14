@@ -56,8 +56,6 @@
       zram.enable = true;
     };
     services = {
-      acme.enable = true;
-      acme-cloudflare.enable = true;
       kop-sanitizer-bot.enable = true;
       jellyfin.enable = true;
       qbittorrent.enable = true;

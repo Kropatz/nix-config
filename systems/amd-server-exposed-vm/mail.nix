@@ -19,10 +19,30 @@ in
     587
   ];
 
+  users.users.synccert = {
+    isSystemUser = true;
+
+    group = "postfix";
+    shell = pkgs.zsh;
+    openssh.authorizedKeys.keys =
+      let
+        # Wrapper that only permits scp writes into /var/lib/acme/
+        syncWrapper = pkgs.writeShellScript "synccert-forced-command" ''
+          set -eu
+          exec ${pkgs.openssh}/libexec/sftp-server \
+            -d /var/lib/acme \
+            -P remove,rename,symlink,hardlink,posix-rename
+        '';
+      in
+      [
+        ''command="${syncWrapper}",restrict ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILGsTZvAahTrszYDHn+94sLtcF8865/mpd26ZDVQklSj root@server-vm''
+      ];
+  };
+
   # ACME cert for the mail domain via DNS-01 (cloudflare). There is no nginx on
   # this host, so the "nginx" group the acme-cloudflare module assigns does not
   # exist; postfix (running smtpd as root) reads the cert regardless of group.
-  security.acme.certs."${email-domain}".group = lib.mkForce "postfix";
+  # security.acme.certs."${email-domain}".group = lib.mkForce "postfix";
 
   services.postfix = {
     enable = true;

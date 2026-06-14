@@ -22,6 +22,25 @@ in
   networking.firewall.allowedTCPPorts = [
     143
   ];
+
+  systemd.services.sync-acme-kopatz = {
+    description = "Sync kopatz.dev ACME certs to exposedvm";
+    after = [ "acme-kopatz.dev.service" ];
+    wants = [ "acme-kopatz.dev.service" ];
+    wantedBy = [ "acme-kopatz.dev.service" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      ExecStart = ''
+        ${pkgs.openssh}/bin/scp -r \
+          -i /etc/ssh/ssh_host_ed25519_key \
+          -o StrictHostKeyChecking=accept-new \
+          /var/lib/acme/kopatz.dev \
+          synccert@exposedvm.kopatz.dev:/var/lib/acme/
+      '';
+    };
+  };
   # Let the exposed VM's postfix deliver via LMTP (24) and authenticate
   # submission users against dovecot's SASL service (12345). Nothing else on
   # the LAN/internet may reach these.
@@ -120,7 +139,7 @@ in
 
       namespace inbox {
         inbox = yes
- 
+
         mailbox Drafts {
           special_use = \Drafts
           auto = subscribe
