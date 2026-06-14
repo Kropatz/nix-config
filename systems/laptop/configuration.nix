@@ -12,17 +12,17 @@
     ./modules/battery.nix
     #../../modules/ecryptfs.nix
     #../../modules/fh/scanning.nix
-    ../../modules/support/ntfs.nix
-    ../../modules/thunderbolt.nix
-    ../../modules/services/wireguard-client.nix
-    ../../modules/work/vpn.nix
+    ../../modules/opt-impl/nixos/support/ntfs.nix
+    ../../modules/opt-impl/nixos/thunderbolt.nix
+    ../../modules/opt-impl/nixos/services/wireguard-client.nix
+    ../../modules/opt-impl/nixos/work/vpn.nix
+    ../../modules/opt-impl/nixos/misc/tv-on-off.nix
     #../../modules/vmware-host.nix
     #../../modules/fh/forensik.nix
     #../../modules/no-sleep-lid-closed.nix
     #../../modules/static-ip.nix
     #../../modules/wake-on-lan.nix
     #./modules/wireguard.nix
-    ../../modules/misc/tv-on-off.nix
     # ../../modules/services/k3s-single-node.nix
     ./disk-config.nix
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
@@ -74,7 +74,7 @@
       noise-supression.enable = true;
       stylix = {
         enable = true;
-        base16Scheme = import ../../modules/themes/ina.nix;
+        base16Scheme = import ../../wallpaper/themes/ina.nix;
         image = ../../wallpaper/ina.jpg;
       };
       wayvnc.enable = true;
