@@ -63,7 +63,11 @@
       shared.enable = true;
       #games.enable = true;
       #basics.enable = true;
-      stylix.enable = true;
+      stylix = {
+        enable = true;
+        base16Scheme = import ../../wallpaper/themes/tsukasa.nix;
+        image = ../../wallpaper/tsukasa.jpg;
+      };
     };
   };
   mainUser.layout = "de";
