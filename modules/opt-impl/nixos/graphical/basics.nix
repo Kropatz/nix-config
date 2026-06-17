@@ -12,6 +12,11 @@ in
 {
 
   config = mkIf cfg.enable {
+    # logseq
+    nixpkgs.config.permittedInsecurePackages = [
+      "electron-39.8.10"
+    ];
+
     environment.systemPackages = with pkgs; [
       keepassxc
       discord
@@ -36,7 +41,7 @@ in
       #libsForQt5.kcalc
       #syncthingtray #doesnt work with socket yet
       v4l-utils
-      # logseq # notes TODO: electron insecure
+      logseq # notes
       ani-cli
       # (ani-cli.overrideAttrs {
       #   version = "99";

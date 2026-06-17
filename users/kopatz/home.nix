@@ -21,7 +21,7 @@
   imports = [
     ./home-import-os-config.nix
     ../../modules/opt-impl/home-manager/default.nix
-    ../../modules/opt-impl/home-manager/code.nix
+    # ../../modules/opt-impl/home-manager/code.nix
     ../../modules/opt-impl/home-manager/direnv.nix
     ../../modules/opt-impl/home-manager/firefox
     ../../modules/opt-impl/home-manager/gitconfig.nix
