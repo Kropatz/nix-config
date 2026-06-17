@@ -48,6 +48,7 @@
       fasterboot.enable = true;
     };
     hardware = {
+      android.enable = true;
       firmware.enable = true;
       ssd.enable = true;
       #tablet.enable = true;
