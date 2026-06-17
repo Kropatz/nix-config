@@ -36,7 +36,7 @@ in
       #libsForQt5.kcalc
       #syncthingtray #doesnt work with socket yet
       v4l-utils
-      logseq # notes
+      # logseq # notes TODO: electron insecure
       ani-cli
       # (ani-cli.overrideAttrs {
       #   version = "99";

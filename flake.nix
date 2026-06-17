@@ -11,8 +11,7 @@
     ## stable
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      # url = "github:nix-community/home-manager/master";
-      url = "github:Bad3r/home-manager/fix/librewolf-tests";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # secrets management
@@ -40,8 +39,8 @@
     };
     # styling
     stylix = {
-      #url = "github:danth/stylix";
-      url = "github:make-42/stylix/matugen";
+      url = "github:danth/stylix";
+      # url = "github:make-42/stylix/matugen";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };

@@ -26,9 +26,8 @@
     #      fi
     #    '';
     #  };
-    programs.vscode = {
+    programs.vscodium = {
       enable = true;
-      package = pkgs.vscodium;
       #userSettings = { typst-lsp.exportPdf = "onType"; };
       profiles.default = {
         userSettings = {
