@@ -75,6 +75,7 @@
           ];
           backupPathsSmall = [
             "/home"
+            "/etc/netbird"
           ]
           ++ syncthing
           ++ mail
