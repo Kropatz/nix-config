@@ -52,6 +52,7 @@
     services = {
       ssh.enable = true;
       kop-sanitizer-bot.enable = true;
+      netbird-native.enable = true;
       fail2ban.enable = true;
       jellyfin.enable = true;
       qbittorrent.enable = true;
@@ -86,6 +87,7 @@
     ip saddr ${config.custom.vars.serverIp} tcp dport ${toString config.services.kavita.settings.Port} counter accept comment allow_from_main_server
     ip saddr ${config.custom.vars.serverIp} tcp dport 8081 counter accept comment allow_ente_from_main_server
     ip saddr ${config.custom.vars.serverIp} tcp dport 8096 counter accept comment allow_jellyfin_from_main_server
+    ip saddr ${config.custom.vars.serverIp} tcp dport 4003 counter accept comment allow_netbird_from_main_server
   '';
 
   services.openssh.extraConfig = ''
@@ -98,6 +100,8 @@
         PermitRootLogin no
         AllowUsers gitea
   '';
+
+
 
   virtualisation.vmware.guest.enable = true;
   services.xserver.videoDrivers = [ "vmware" ];
@@ -173,8 +177,8 @@
   };
   environment.systemPackages = [ pkgs.cifs-utils ];
   fileSystems = {
-    "/mnt/small" = {
-      device = "//${config.custom.vars.serverIp}/small";
+    "/mnt/ente" = {
+      device = "//${config.custom.vars.serverIp}/small/ente";
       fsType = "cifs";
       options =
         let
@@ -182,8 +186,8 @@
         in
         [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=1000,gid=100" ];
     };
-    "/mnt/medium" = {
-      device = "//${config.custom.vars.serverIp}/medium";
+    "/mnt/playlist" = {
+      device = "//${config.custom.vars.serverIp}/medium/playlist";
       fsType = "cifs";
       options =
         let
@@ -191,14 +195,14 @@
         in
         [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=1000,gid=100" ];
     };
-    "/mnt/large" = {
-      device = "//${config.custom.vars.serverIp}/large";
+    "/mnt/backups" = {
+      device = "//${config.custom.vars.serverIp}/medium/backups";
       fsType = "cifs";
       options =
         let
-          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0700,file_mode=0600,nobrl";
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0700,file_mode=0600";
         in
-        [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=1000,gid=100" ];
+        [ "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=0,gid=0" ];
     };
     "/mnt/kop-fileshare" = {
       device = "//${config.custom.vars.serverIp}/medium/kop-fileshare";

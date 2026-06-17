@@ -45,6 +45,11 @@ in
         type = lib.types.int;
         default = 2006;
       };
+
+      netbird = lib.mkOption {
+        type = lib.types.int;
+        default = 2007;
+      };
     };
     gids = {
       torrent = lib.mkOption {
@@ -58,6 +63,10 @@ in
       ente = lib.mkOption {
         type = lib.types.int;
         default = 2006;
+      };
+      netbird = lib.mkOption {
+        type = lib.types.int;
+        default = 2007;
       };
     };
   };

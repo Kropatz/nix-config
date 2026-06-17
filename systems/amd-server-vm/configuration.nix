@@ -63,11 +63,10 @@
             "/data/synced/work_drive/"
           ];
           netbird = [
-            "/1tbssd/netbird/config/"
-            "/1tbssd/netbird/dashboard/"
-            "/1tbssd/netbird/store.db"
-            "/1tbssd/netbird/idp.db"
-            "/1tbssd/netbird/events.db"
+            "/1tbssd/shares/exposedvm/backups/netbird/etc-netbird/config.yaml"
+            "/1tbssd/shares/exposedvm/backups/netbird/var-lib-netbird/store.db"
+            "/1tbssd/shares/exposedvm/backups/netbird/var-lib-netbird/idp.db"
+            "/1tbssd/shares/exposedvm/backups/netbird/var-lib-netbird/events.db"
           ];
           syncthingFull = [
             "/data/synced/fh/"

@@ -79,21 +79,21 @@ in
     # };
 
     virtualisation.oci-containers.containers = {
-      netbird-server = {
-        image = "netbirdio/netbird-server:latest";
-        ports = [
-          "127.0.0.1:4003:80/tcp"
-          "3478:3478/udp"
-        ];
-        volumes = [
-          "${cfg.baseDir}:/var/lib/netbird"
-          "/etc/netbird/config.yaml:/etc/netbird/config.yaml:ro"
-        ];
-        cmd = [
-          "--config"
-          "/etc/netbird/config.yaml"
-        ];
-      };
+      # netbird-server = {
+      #   image = "netbirdio/netbird-server:latest";
+      #   ports = [
+      #     "127.0.0.1:4003:80/tcp"
+      #     "3478:3478/udp"
+      #   ];
+      #   volumes = [
+      #     "${cfg.baseDir}:/var/lib/netbird"
+      #     "/etc/netbird/config.yaml:/etc/netbird/config.yaml:ro"
+      #   ];
+      #   cmd = [
+      #     "--config"
+      #     "/etc/netbird/config.yaml"
+      #   ];
+      # };
 
       netbird-dashboard = {
         image = "netbirdio/dashboard:latest";
@@ -136,7 +136,7 @@ in
         grpc_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
         location ~ ^/(relay|ws-proxy/) {
-          proxy_pass http://127.0.0.1:4003;
+          proxy_pass http://${config.custom.vars.exposedServerIp}:4003;
           proxy_http_version 1.1;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection "Upgrade";
@@ -145,14 +145,14 @@ in
         }
 
         location ~ ^/(signalexchange\.SignalExchange|management\.ManagementService|management\.ProxyService)/ {
-          grpc_pass grpc://127.0.0.1:4003;
+          grpc_pass grpc://${config.custom.vars.exposedServerIp}:4003;
           grpc_read_timeout 1d;
           grpc_send_timeout 1d;
           grpc_socket_keepalive on;
         }
 
         location ~ ^/(api|oauth2)/ {
-          proxy_pass http://127.0.0.1:4003;
+          proxy_pass http://${config.custom.vars.exposedServerIp}:4003;
           proxy_set_header Host $host;
         }
 

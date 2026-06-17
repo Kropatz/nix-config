@@ -14,7 +14,7 @@ in
     services.cron = {
       enable = true;
       systemCronJobs = [
-        "0 23 * * *      root    bash /mnt/small/ente/backup.sh >/dev/null 2>&1"
+        "0 23 * * *      root    bash /mnt/ente/backup.sh >/dev/null 2>&1"
       ];
     };
 

@@ -44,5 +44,6 @@
     ./grafana.nix
     ./tdata.nix
     ./samba.nix
+    ./netbird-native.nix
   ];
 }
