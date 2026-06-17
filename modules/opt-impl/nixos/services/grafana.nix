@@ -164,8 +164,18 @@ in
       exporters = {
         node = {
           enable = true;
-          enabledCollectors = [ "systemd" ];
-          disabledCollectors = [ "arp" ];
+          # enabledCollectors = [ "systemd" ];
+          disabledCollectors = [
+            "arp"
+            "entropy"
+            "btrfs"
+            "filefd"
+            "sockstat"
+            "softnet"
+            "time"
+            "timex"
+          ];
+          extraFlags = [ "--web.disable-exporter-metrics" ];
           port = 9001;
         };
         nginx = {
@@ -198,6 +208,13 @@ in
               ++ (lib.optional config.services.prometheus.exporters.nginxlog.enable "127.0.0.1:${toString config.services.prometheus.exporters.nginxlog.port}");
             }
           ];
+          metric_relabel_configs = [
+            {
+              action = "drop";
+              regex = "node_scrape_collector_.+";
+              source_labels = [ "__name__" ];
+            }
+          ];
         }
         {
           job_name = "host";
@@ -209,6 +226,13 @@ in
               labels = {
                 instance = "host";
               };
+            }
+          ];
+          metric_relabel_configs = [
+            {
+              action = "drop";
+              regex = "node_scrape_collector_.+";
+              source_labels = [ "__name__" ];
             }
           ];
         }
