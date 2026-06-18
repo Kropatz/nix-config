@@ -39,6 +39,8 @@ in
     home.packages = [
       hyprlandFixLockscreen
       pkgs.hypridle
+      pkgs.hyprshot
+      pkgs.hyprpicker
     ];
     home.file.".config/hypr/monitor-config.js".source = ../../../../.config/hypr/monitor-config.js;
     home.file.".config/hypr/hyprpaper.conf".source = pkgs.writeText "hyprpaper.conf" ''
@@ -466,6 +468,7 @@ in
           #wlrctl = "${pkgs.wlrctl}/bin/wlrctl";
           ydotool = "${pkgs.ydotool}/bin/ydotool";
           wl-kbptr = "${pkgs.wl-kbptr}/bin/wl-kbptr";
+          hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
         in
         ''
           bind = $mainMod, A, submap, notes
@@ -488,6 +491,7 @@ in
           ## I win
           # bind = $mainMod, W, exec, ${wl-paste} | ${answer} "Respond with the correct answer to the following question." | ${wl-copy} && ${dunstify} -t 150 Done
           bind = $mainMod, W, exec, ${wl-paste} | claude -p --system-prompt "Respond with the correct answer to the following question. Do not provide detailed explanations, only tell me the correct answer if possible." | ${wl-copy} && ${dunstify} -t 150 Done
+          bind = $mainMod SHIFT, W, exec, ${hyprshot} -s --mode active --mode output -o /tmp -f question.png; claude -p --allowed-tools "Read" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done
           ## notes
 
           bind = $mainMod, 1, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/pruefung.md | ${wl-copy}
