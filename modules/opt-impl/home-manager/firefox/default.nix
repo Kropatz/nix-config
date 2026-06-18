@@ -144,6 +144,9 @@ in
   };
   programs.firefox = lib.mkIf config.custom.graphical.firefox-custom.enable {
     enable = true;
+    configPath = ".mozilla/firefox";
+    # TODO: To migrate to the XDG path, move `~/.mozilla/firefox` to `$XDG_CONFIG_HOME/mozilla/firefox` and remove the old directory.
+    #configPath = "${config.xdg.configHome}/mozilla/firefox";
     policies = {
       DisableTelemetry = true;
       DontCheckDefaultBrowser = true;

@@ -177,7 +177,7 @@
     kop-llama-systray
     crystaldisk-linux
   ];
-  documentation.man.generateCaches = true;
+  documentation.man.cache.enable = true;
 
   #networking.firewall.allowedTCPPorts = [ 6567 ]; # mindustry
   networking.firewall.allowedUDPPorts = [ 1234 ]; # 6567 ]; # mindustry

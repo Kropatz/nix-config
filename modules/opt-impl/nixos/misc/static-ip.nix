@@ -30,8 +30,12 @@ in
       };
 
       services.resolved = lib.mkIf config.services.resolved.enable {
-        llmnr = "false";
-        fallbackDns = [ "1.1.1.1" ];
+        settings = {
+          Resolve = {
+            LLMR = "false";
+            FallbackDNS = [ "1.1.1.1" ];
+          };
+        };
       };
     };
 }

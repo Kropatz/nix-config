@@ -42,7 +42,7 @@
       url = "github:danth/stylix";
       # url = "github:make-42/stylix/matugen";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      # inputs.home-manager.follows = "home-manager";
     };
     # disk management
     disko = {
