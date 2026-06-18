@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   #TODO: puts "no information available when doing K (hover)"
   # plugins.noice = {
@@ -10,4 +11,15 @@
   #     };
   #   };
   # };
+  extraPlugins = [
+    (pkgs.vimUtils.buildVimPlugin {
+      name = "rip-substitute";
+      src = pkgs.fetchFromGitHub {
+        owner = "hrisgrieser";
+        repo = "nvim-rip-substitute";
+        "rev" = "c65592d88f0fa00396e260da99d9e419f4891e3b";
+        "hash" = "sha256-sKfxZxB2b2jUNEc/EvCd81s9FMZqBdiMZXJJKkOUyz4=";
+      };
+    })
+  ];
 }

@@ -190,13 +190,13 @@
     }
 
     # Rust
-    {
-      # Start standalone rust-analyzer (fixes issues when opening files from nvim tree)
-      mode = "n";
-      key = "<leader>rs";
-      action = "<CMD>RustStartStandaloneServerForBuffer<CR>";
-      options.desc = "Start standalone rust-analyzer";
-    }
+    # {
+    #   # Start standalone rust-analyzer (fixes issues when opening files from nvim tree)
+    #   mode = "n";
+    #   key = "<leader>rs";
+    #   action = "<CMD>RustStartStandaloneServerForBuffer<CR>";
+    #   options.desc = "Start standalone rust-analyzer";
+    # }
 
     # refactoring
     {
@@ -261,11 +261,17 @@
       '';
       options.remap = true;
     }
-    # grug-far
+    # grug-far <localleader> = \ btw
     {
       key = "<leader>fr";
       action = "<CMD>GrugFar<CR>";
       options.desc = "Find and replace";
+    }
+    #rip-substitute
+    {
+      key = "<leader>sr";
+      action = ''<CMD>lua require("rip-substitute").sub()<CR>'';
+      options.desc = "Search and replace";
     }
   ];
 }

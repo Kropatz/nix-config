@@ -56,7 +56,9 @@ in
   home.packages = with pkgs; [
     nixfmt
   ]; # nixd config option to set nixpkgs-fmt should work, but it doesn't
-  programs.nixvim = merged;
+  programs.nixvim = merged // {
+    nixpkgs.useGlobalPackages = true;
+  };
   xdg.desktopEntries = {
     neovim = {
       name = "Neovim";
