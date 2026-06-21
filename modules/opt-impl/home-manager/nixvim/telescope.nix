@@ -1,6 +1,7 @@
 let
   keymaps = {
-    "<leader>sg" = "live_grep";
+    # "<leader>sg" = "live_grep";
+    "<leader>sg" = "live_grep_args";
     "<leader>sf" = {
       action = "find_files";
       options.desc = "[S]earch [F]iles";
@@ -65,6 +66,7 @@ in
       #ui-select = {
       #  enable = true;
       #};
+      live-grep-args.enable = true;
       fzf-native.enable = true;
     };
   };
