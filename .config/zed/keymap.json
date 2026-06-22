@@ -49,4 +49,10 @@
       "ctrl-t": "terminal_panel::Toggle",
     },
   },
+  {
+    "context": "Workspace || Editor",
+    "unbind": {
+      "ctrl-shift-k": "git::Push"
+    }
+  }
 ]

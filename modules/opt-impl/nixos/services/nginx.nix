@@ -214,6 +214,7 @@ in
         {
           "kop.oasch.net" = kopConfig "kop.oasch.net";
           "kop.bobin.at" = kopConfig "kop.bobin.at";
+          "kop.detschn.net" = kopConfig "kop.detschn.net";
           "kopatz.dev" = (kopConfig "kopatz.dev") // {
             default = true;
           };
