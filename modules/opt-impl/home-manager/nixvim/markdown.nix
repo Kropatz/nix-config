@@ -39,6 +39,8 @@
         position = "right";
         icons.__raw = ''function(ctx) return (""):rep(ctx.level) .. "" end'';
       };
+      # tables are rendered by the md-table-fit plugin (fit-to-width + wrapping)
+      pipe_table.enabled = false;
     };
     luaConfig.post = ''
       local get_hl = function(hl_name)
