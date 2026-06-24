@@ -45,9 +45,9 @@ let
       ./experimental.nix
       ./snippets.nix
       ./grug-far.nix
+      ./other-plugins
     ]
   );
-  merged = builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) { } configs;
 in
 {
   home.sessionVariables = {
@@ -56,9 +56,7 @@ in
   home.packages = with pkgs; [
     nixfmt
   ]; # nixd config option to set nixpkgs-fmt should work, but it doesn't
-  programs.nixvim = merged // {
-    nixpkgs.useGlobalPackages = true;
-  };
+  programs.nixvim = lib.mkMerge configs;
   xdg.desktopEntries = {
     neovim = {
       name = "Neovim";
