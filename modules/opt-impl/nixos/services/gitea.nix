@@ -31,7 +31,7 @@ in
         mailer = {
           ENABLED = true;
           PROTOCOL = "smtp+starttls";
-          SMTP_ADDR = "kopatz.dev";
+          SMTP_ADDR = "exposedvm.kopatz.dev";
           SMTP_PORT = 587;
           USER = "gitea@kopatz.dev";
         };

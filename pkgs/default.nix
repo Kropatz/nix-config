@@ -11,6 +11,7 @@ rec {
   kop-website = pkgs.callPackage ./website/default.nix { inherit kop-hub ente-frontend; };
   kop-audio = pkgs.callPackage ./kop-audio/default.nix { };
   kop-llama-systray = pkgs.callPackage ./kop-llama-systray/default.nix { };
+  kop-service-dashboard = pkgs.callPackage ./kop-service-dashboard/default.nix { };
   scheibnkleister-presence = pkgs.callPackage ./scheibnkleister-presence/default.nix { };
   custom-sddm-astronaut = pkgs.callPackage ./sddm-astronaut/default.nix { };
   mangal-patched = pkgs.callPackage ./mangal/default.nix { };

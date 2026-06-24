@@ -34,6 +34,10 @@ in
         type = lib.types.int;
         default = 4005;
       };
+      service-dashboard = lib.mkOption {
+        type = lib.types.int;
+        default = 4006;
+      };
     };
     uids = {
       jakob-nas = lib.mkOption {

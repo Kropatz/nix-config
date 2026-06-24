@@ -45,5 +45,6 @@
     ./tdata.nix
     ./samba.nix
     ./netbird-native.nix
+    ./kop-service-dashboard.nix
   ];
 }

@@ -57,6 +57,7 @@ in
         # Security hardening
         UMask = "077";
         CapabilityBoundingSet = "";
+        InaccessiblePaths = (lib.remove "-/data" config.custom.services.hardening.dataMounts) ++ [ "-/data/synced"];
         NoNewPrivileges = true;
         ProtectSystem = "strict";
         PrivateMounts = true;

@@ -93,6 +93,10 @@ in
           "answer" = ip;
         }
         {
+          "domain" = "service-dashboard.kopatz.dev";
+          "answer" = ip;
+        }
+        {
           "domain" = "netbird.kopatz.dev";
           "answer" = ip;
         }

@@ -118,6 +118,10 @@
       gitea-runner.enable = true;
       caldav.enable = true;
       kop-monitor.enable = true;
+      kop-service-dashboard = {
+        enable = true;
+        dataDir = "/data/service-dashboard";
+      };
       kop-pvlog = {
         enable = true;
         basePath = "/";
