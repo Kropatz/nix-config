@@ -490,13 +490,21 @@ in
           bind = $mainMod, D, exec, ${dunstctl} close-all
           ## I win
           # bind = $mainMod, W, exec, ${wl-paste} | ${answer} "Respond with the correct answer to the following question." | ${wl-copy} && ${dunstify} -t 150 Done
-          bind = $mainMod, W, exec, ${wl-paste} | claude -p --system-prompt "Respond with the correct answer to the following question. Do not provide detailed explanations, only tell me the correct answer if possible." | ${wl-copy} && ${dunstify} -t 150 Done
-          bind = $mainMod SHIFT, W, exec, ${hyprshot} -s --mode active --mode output -o /tmp -f question.png; claude -p --allowed-tools "Read" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done
+          bind = $mainMod, W, exec, ${wl-paste} | claude -p --model opus --system-prompt "Respond with the correct answer to the following question. Do not provide detailed explanations or answer in markdown, only tell me the correct answer if possible." | ${wl-copy} && ${dunstify} -t 150 Done
+          bind = $mainMod SHIFT, W, exec, ${hyprshot} -s --mode active --mode output -o /tmp -f question.png; claude -p --model opus --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done
+          bind = $mainMod CTRL, W, exec, ${hyprshot} -s --mode region -o /tmp -f question.png; claude -p --model opus --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done
+
+          bind = $mainMod, E, exec, ${wl-paste} | claude -p --model sonnet --system-prompt "Respond with the correct answer to the following question. Do not provide detailed explanations or answer in markdown, only tell me the correct answer if possible." | ${wl-copy} && ${dunstify} -t 150 Done
+          bind = $mainMod SHIFT, E, exec, ${hyprshot} -s --mode active --mode output -o /tmp -f question.png; claude -p --model sonnet --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done
+          bind = $mainMod CTRL, E, exec, ${hyprshot} -s --mode region -o /tmp -f question.png; claude -p --model sonnet --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done
+          bind = $mainMod, S, exec, pgrep claude && ${dunstify} -t 150 Working || ${dunstify} -t 150 Not_found
+          bind = $mainMod, K, exec, kill -9 $(pgrep claude) && ${dunstify} -t 150 Killed || ${dunstify} -t 150 Not_found
+
           ## notes
 
-          bind = $mainMod, 1, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/pruefung.md | ${wl-copy}
-          bind = $mainMod, 2, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/a.md | ${wl-copy}
-          bind = $mainMod, 3, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/events.md | ${wl-copy}
+          #bind = $mainMod, 1, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/pruefung.md | ${wl-copy}
+          #bind = $mainMod, 2, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/a.md | ${wl-copy}
+          #bind = $mainMod, 3, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/events.md | ${wl-copy}
           #bind = $mainMod, 4, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
           #bind = $mainMod, 5, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
           #bind = $mainMod, 6, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
