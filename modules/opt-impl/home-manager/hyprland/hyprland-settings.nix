@@ -461,7 +461,7 @@ in
           dunstify = "${pkgs.dunst}/bin/dunstify";
           dunstctl = "${pkgs.dunst}/bin/dunstctl";
           pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep --cache";
-          path = "~/synced/fh/master/security_testing/merged";
+          path = "~/synced/fh/master/governance/merged";
           node = "${pkgs.nodejs}/bin/node";
           set-monitor = "~/.config/hypr/monitor-config.js";
           answer = "${pkgs.answer}/bin/gpt-answer";
