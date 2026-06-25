@@ -500,6 +500,9 @@ in
           bind = $mainMod, S, exec, pgrep claude && ${dunstify} -t 150 Working || ${dunstify} -t 150 Not_found
           bind = $mainMod, K, exec, kill -9 $(pgrep claude) && ${dunstify} -t 150 Killed || ${dunstify} -t 150 Not_found
 
+          bind = $mainMod, F, exec, ${wl-paste} | ~/synced/default/scripts/fragen --path ~/synced/fh/master/governance/merged/fragen.md | ${wl-copy} && ${dunstctl} close-all && ${dunstify} "$(${wl-paste})"
+          bind = $mainMod SHIFT, F, exec, ~/synced/default/scripts/fragen --next | ${wl-copy} && ${dunstctl} close-all && ${dunstify} "$(${wl-paste})"
+
           ## notes
 
           bind = $mainMod, 1, exec, cat ~/synced/fh/master/governance/merged/1.txt | ${wl-copy}

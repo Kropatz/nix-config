@@ -10,9 +10,7 @@
   imports = [
     # Include the results of the hardware scan.
     #./hardware-configuration.nix
-    ../../modules/misc/logging.nix
-    ../../modules/misc/motd.nix
-    ../../modules/work/vpn.nix
+    ../../modules/opt-impl/nixos/work/vpn.nix
     #./disk-config.nix
     ./hardware.nix
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -56,7 +54,7 @@
       wireguard = {
         enable = true;
         ip = "192.168.3.1";
-        secretFile = ../../../../secrets/wireguard-evo-vpn.age;
+        secretFile = ../../secrets/wireguard-evo-vpn.age;
         externalInterface = "tun0";
       };
     };
