@@ -80,10 +80,10 @@ buildGoModule (finalAttrs: {
     owner = "netbirdio";
     repo = "netbird";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-osWOVV8nX5OC6YFO8lRO+q/IoEth1wZhrukkZZk3K+0=";
+    hash = "sha256-KDtu29DaiaQ3IdlaqNdgJWt+n853pnE2PbRnYVxpU8A=";
   };
 
-  vendorHash = "sha256-6FN7l+e75Pw2+v0sktomlck+7daro1i6c4ZV53SRePI=";
+  vendorHash = "sha256-qa++ONGrFsKJTK7R6Q/9FsMfptKNK9bza32nFKosDxY=";
 
   nativeBuildInputs = [ installShellFiles ] ++ lib.optional (componentName == "ui") pkg-config;
 

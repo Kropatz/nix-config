@@ -25,15 +25,15 @@ in
 
   systemd.services.sync-acme-kopatz = {
     description = "Sync kopatz.dev ACME certs to exposedvm";
-    after = [ "acme-kopatz.dev.service" ];
-    wants = [ "acme-kopatz.dev.service" ];
+    after = [ "acme-kopatz.dev.service" "adguardhome.service" ];
+    wants = [ "acme-kopatz.dev.service" "adguardhome.service" ];
     wantedBy = [ "acme-kopatz.dev.service" ];
 
     serviceConfig = {
       Type = "oneshot";
       User = "root";
       ExecStart = ''
-        ${pkgs.openssh}/bin/scp -r \
+        sleep 5 && ${pkgs.openssh}/bin/scp -r \
           -i /etc/ssh/ssh_host_ed25519_key \
           -o StrictHostKeyChecking=accept-new \
           /var/lib/acme/kopatz.dev \

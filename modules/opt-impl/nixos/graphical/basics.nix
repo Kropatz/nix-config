@@ -41,7 +41,18 @@ in
       #libsForQt5.kcalc
       #syncthingtray #doesnt work with socket yet
       v4l-utils
-      logseq # notes
+      #logseq # notes
+      ((import
+        (fetchTarball {
+          url = "https://github.com/NixOS/nixpkgs/archive/567a49d1913ce81ac6e9582e3553dd90a955875f.tar.gz";
+          sha256 = "1vq77hlx8mi3z03pw2nf6r5h7473r1p9yxyf58ym3fh01zppmfln";
+        })
+        {
+          config.permittedInsecurePackages = [ "electron-39.8.10" ];
+          system = pkgs.stdenv.hostPlatform.system;
+        }
+      ).logseq
+      )
       ani-cli
       # (ani-cli.overrideAttrs {
       #   version = "99";
