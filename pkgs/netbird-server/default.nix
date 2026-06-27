@@ -74,7 +74,7 @@ let
 in
 buildGoModule (finalAttrs: {
   pname = "netbird-${componentName}";
-  version = "0.72.3";
+  version = "0.73.1";
 
   src = fetchFromGitHub {
     owner = "netbirdio";
