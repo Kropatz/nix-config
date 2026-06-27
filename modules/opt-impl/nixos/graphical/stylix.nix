@@ -35,7 +35,7 @@ in
       cursor = {
         size = 24;
         name = "breeze_cursors";
-        package = pkgs.kdePackages.breeze;
+        package = pkgs.kdePackages.breeze-icons;
       };
       opacity = {
         applications = 0.85;
