@@ -261,6 +261,18 @@
       '';
       options.remap = true;
     }
+    # Open cursor in man
+    {
+      key = "<leader>sm";
+      action.__raw = ''
+                function()
+          require("telescope.builtin").man_pages({
+            sections = { "ALL" },
+            man_cmd = { "apropos", "-r", "^" .. vim.fn.expand('<cword>') .. "$" }
+          })
+        end
+      '';
+    }
     # grug-far <localleader> = \ btw
     {
       key = "<leader>fr";
