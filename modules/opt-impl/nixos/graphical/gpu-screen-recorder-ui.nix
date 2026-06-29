@@ -16,9 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.gpu-screen-recorder.enable = lib.mkDefault true;
 
-    environment.systemPackages = [ package ];
-
-    systemd.packages = [ package ];
+    environment.systemPackages = [ package pkgs.gpu-screen-recorder-notification ];
 
     security.wrappers."gsr-global-hotkeys" = {
       owner = "root";

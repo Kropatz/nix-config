@@ -280,6 +280,9 @@ in
       ##
       install rndis_host /usr/bin/disabled-miscellaneous-by-security-misc
       install usb_f_rndis /usr/bin/disabled-miscellaneous-by-security-misc
+
+      # CVE-2026-46331 and don't need it
+      install act_pedit /usr/bin/disabled-miscellaneous-by-security-misc
     '';
   };
 }

@@ -265,7 +265,7 @@
     {
       key = "<leader>sm";
       action.__raw = ''
-                function()
+        function()
           require("telescope.builtin").man_pages({
             sections = { "ALL" },
             man_cmd = { "apropos", "-r", "^" .. vim.fn.expand('<cword>') .. "$" }
