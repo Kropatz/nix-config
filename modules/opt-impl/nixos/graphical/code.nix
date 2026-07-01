@@ -20,7 +20,7 @@ in
         jetbrains.idea
         typescript
         bruno
-        nodejs_22 # needed for tabby extension
+        nodejs
         python3
         gcc
         opencode
@@ -33,6 +33,15 @@ in
             sha256 = "sha256-hJ4AcnegRCqydXDT49bUN4dQeUZZDo3RlH5aObcIH54=";
           };
         })
+        (pkgs.writeShellScriptBin "devc" ''
+          IS_RUNNING=$(docker ps --filter status=running | grep dev)
+          if [ $? -eq 0 ]; then
+            docker exec -it dev bash
+            exit 0
+          fi
+          cd ~/projects/selfhosted/stuff/devcontainer
+          ./docker.sh
+        '')
       ]
       ++ [
         nixd
