@@ -22,7 +22,7 @@
       pyright
       eslint
       ccls
-      nodejs_22
+      nodejs
       go
     ];
   };
