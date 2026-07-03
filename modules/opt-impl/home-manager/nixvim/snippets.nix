@@ -8,13 +8,11 @@ let
 
     ls.add_snippets("nix", {
       s("mkShell", {
-        t({ "{ pkgs ? import <nixpkgs> {} }:", "", "pkgs.mkShell {", "  packages = with pkgs; [", "    " }),
-        i(1, "# packages here"),
-        t({ "", "  ];", "", "  shellHook =", "    let",
-          "      libraries = with pkgs; [ ",
-        }),
-        i(2, ""),
-        t({ " ];", "    in", "    '''", "      export LD_LIBRARY_PATH=''${pkgs.lib.makeLibraryPath libraries}:$LD_LIBRARY_PATH", "", "    ''';", "}" }),
+        t({ "{ pkgs ? import <nixpkgs> {} }:", "", "let", "  runtimeLibs = with pkgs; [ " }),
+        i(1, ""),
+        t({ " ];", "in", "pkgs.mkShell {", "  nativeBuildInputs = with pkgs; [ pkg-config ];", "", "  packages = with pkgs; [", "    " }),
+        i(2, "# packages here"),
+        t({ "", "  ] ++ runtimeLibs;", "", "  shellHook = '''", "    export LD_LIBRARY_PATH=''${pkgs.lib.makeLibraryPath runtimeLibs}:$LD_LIBRARY_PATH", "  ''';", "}" }),
       }),
       s("mkModule", {
         t({ "{", "  config,", "  pkgs,", "  inputs,", "  system,", "  lib,", "  ...", "}:",
