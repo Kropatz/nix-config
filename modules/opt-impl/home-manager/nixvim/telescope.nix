@@ -15,8 +15,15 @@ let
       options.desc = "[S]earch [B]uffer";
     };
     "<leader><space>" = {
-      action = "buffers";
+      # action = ''<CMD>lua require("telescope.builtin").buffers({ sort_mru = true, ignore_current_buffer = true })<CR>'';
+      # action.__raw = ''require("telescope.builtin").buffers({ sort_mru = true, ignore_current_buffer = true })'';
       options.desc = "List buffers";
+      # action = "buffers";
+      action = "buffers ignore_current_buffer=true sort_mru=true";
+      # settings = {
+      #   sort_mru = true;
+      #   ignore_current_buffer = true;
+      # };
     };
     # LSP
     "gd" = {
