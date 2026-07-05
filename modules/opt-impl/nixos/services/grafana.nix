@@ -217,7 +217,7 @@ in
           ];
         }
         {
-          job_name = "host";
+          job_name = "node";
           static_configs = [
             {
               targets = [
@@ -225,6 +225,14 @@ in
               ];
               labels = {
                 instance = "host";
+              };
+            }
+            {
+              targets = [
+                "exposedvm.kopatz.dev:9100"
+              ];
+              labels = {
+                instance = "exposedvm";
               };
             }
           ];

@@ -27,7 +27,12 @@ in
       #element-desktop
       #krita
       gimp3
-      libreoffice
+      (libreoffice.overrideAttrs (old: {
+        doCheck = false;
+      }))
+      #   .override {
+      #     langs = ["en-US" "de"];
+      # })
       hunspell # needed for libreoffice spellcheck
       hunspellDicts.en_US-large
       hunspellDicts.de_AT

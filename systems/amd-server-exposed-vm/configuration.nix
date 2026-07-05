@@ -52,6 +52,7 @@
     services = {
       ssh.enable = true;
       kop-sanitizer-bot.enable = true;
+      node-exporter.enable = true;
       netbird-native.enable = true;
       fail2ban.enable = true;
       jellyfin.enable = true;
