@@ -113,7 +113,7 @@
         image = ../../wallpaper/ina.jpg;
       };
       wayvnc.enable = true;
-      qylock.enable = true;
+      qylock.enable = false;
     };
   };
 

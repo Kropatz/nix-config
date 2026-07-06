@@ -27,10 +27,10 @@ in
         zed-editor
         lazygit
         (claude-code.overrideAttrs {
-          version = "2.1.170";
+          version = "2.1.201";
           src = fetchurl {
-            url = "https://downloads.claude.ai/claude-code-releases/2.1.170/linux-x64/claude";
-            sha256 = "sha256-hJ4AcnegRCqydXDT49bUN4dQeUZZDo3RlH5aObcIH54=";
+            url = "https://downloads.claude.ai/claude-code-releases/2.1.201/linux-x64/claude";
+            sha256 = "sha256-o0gJpoOf3v/yG5NH1/tba1jmqcwgil5ihT8pyD6xB6M=";
           };
         })
         (pkgs.writeShellScriptBin "devc" ''

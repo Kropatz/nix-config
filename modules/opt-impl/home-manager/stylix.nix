@@ -13,7 +13,7 @@ in
     stylix = {
       enable = true;
       targets = {
-        hyprlock.enable = true;
+        hyprlock.enable = false;
         hyprland.enable = false;
         hyprpaper.enable = false;
         waybar = {
