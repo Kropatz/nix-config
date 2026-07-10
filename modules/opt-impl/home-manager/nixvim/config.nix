@@ -273,6 +273,10 @@
         end
       '';
     }
+    {
+      key = "<leader>sw";
+      action = ":lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor()<CR>";
+    }
     # grug-far <localleader> = \ btw
     {
       key = "<leader>fr";

@@ -106,15 +106,15 @@ in
     });
 
     # test failure atm
-    openldap = prev.openldap.overrideAttrs (_: {
-      doCheck = false;
-    });
+    # openldap = prev.openldap.overrideAttrs (_: {
+    #   doCheck = false;
+    # });
 
-    luajitPackages = prev.luajitPackages // {
-      neotest = prev.luajitPackages.neotest.overrideAttrs {
-        patches = [ (prev.writeText "neotest-patch" neotestPatch) ];
-      };
-    };
+    # luajitPackages = prev.luajitPackages // {
+    #   neotest = prev.luajitPackages.neotest.overrideAttrs {
+    #     patches = [ (prev.writeText "neotest-patch" neotestPatch) ];
+    #   };
+    # };
     nginxModules = prev.nginxModules // {
       dav = (
         prev.nginxModules.dav
