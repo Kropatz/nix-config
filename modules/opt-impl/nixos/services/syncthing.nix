@@ -2,13 +2,13 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 let
   cfg = config.custom.services.syncthing;
 in
 {
+  imports = [ ./syncthing-workaround.nix ];
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.rules = [ "d ${cfg.basePath} 0700 ${config.mainUser.name} users -" ];
 

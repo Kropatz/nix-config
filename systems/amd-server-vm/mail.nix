@@ -32,8 +32,8 @@ in
     serviceConfig = {
       Type = "oneshot";
       User = "root";
-      ExecStart = ''
-        sleep 5 && ${pkgs.openssh}/bin/scp -r \
+      ExecStart = pkgs.writeShellScript "sync-acme-kopatz" ''
+          ${pkgs.coreutils}/bin/sleep 5 && ${pkgs.openssh}/bin/scp -r \
           -i /etc/ssh/ssh_host_ed25519_key \
           -o StrictHostKeyChecking=accept-new \
           /var/lib/acme/kopatz.dev \

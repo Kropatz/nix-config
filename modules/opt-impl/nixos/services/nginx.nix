@@ -103,6 +103,27 @@ in
                   proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
                 '';
               };
+              "/stash/upload" = {
+                basicAuthFile = config.age.secrets.stash-auth.path;
+                extraConfig = ''
+                  more_set_headers       "Access-Control-Allow-Origin: null";
+                  more_set_headers       "Access-Control-Allow-Methods: POST, OPTIONS";
+                  more_set_headers       "Access-Control-Allow-Headers: Authorization, Content-Type";
+                  more_set_headers       "Access-Control-Allow-Credentials: true";
+                  more_set_headers       "Vary: Origin";
+                  if ($request_method = OPTIONS) {
+                    return 204;
+                  }
+                  client_max_body_size    20000M;
+                  proxy_redirect          off;
+                  proxy_set_header        Host $host;
+                  proxy_set_header        X-Real-IP $remote_addr;
+                  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header        X-Forwarded-Proto $scheme;
+                  proxy_set_header        X-NginX-Proxy true;
+                  proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
+                '';
+              };
               "/stash/files" = {
                 extraConfig = ''
                   proxy_redirect          off;
