@@ -34,8 +34,21 @@ in
     };
 
     wayland.windowManager.hyprland.settings = lib.mkIf config.custom.graphical.hyprland.enable {
-      env = [ "GTK_THEME,adw-gtk3" ];
-      general."col.active_border" = lib.mkForce "rgb(${base16.base07}) rgb(${base16.base04}) 45deg";
+      env = [
+        {
+          _args = [
+            "GTK_THEME"
+            "adw-gtk3"
+          ];
+        }
+      ];
+      config.general.col.active_border = lib.mkForce {
+        colors = [
+          "rgb(${base16.base07})"
+          "rgb(${base16.base04})"
+        ];
+        angle = 45;
+      };
     };
   };
 }

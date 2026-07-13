@@ -31,6 +31,22 @@ let
     else
       "eDP-1";
   monitor2 = "HDMI-A-1";
+  lua = lib.generators.mkLuaInline;
+  toLua = lib.generators.toLua { };
+  mkCall = args: { _args = args; };
+  mkBind =
+    keys: dispatcher: flags:
+    mkCall (
+      [
+        keys
+        (lua dispatcher)
+      ]
+      ++ lib.optional (flags != { }) flags
+    );
+  execDispatcher = command: "hl.dsp.exec_cmd(${toLua command})";
+  mkExecBind = keys: command: mkBind keys (execDispatcher command) { };
+  mkRepeatExecBind = keys: command: mkBind keys (execDispatcher command) { repeating = true; };
+  workspaceKey = workspace: if workspace == 10 then "0" else toString workspace;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -50,530 +66,448 @@ in
          fit_mode = cover
       }
     '';
-    wayland.windowManager.hyprland = {
-      enable = true;
-      #enableNvidiaPatches = true;
-      xwayland.enable = true;
-      #plugins = [ pkgs.hyprlandPlugins.hyprscrolling ];
-      settings = {
-        #
-        # Please note not all available settings / options are set here.
-        # For a full list, see the wiki
-        #
-
-        # See https://wiki.hyprland.org/Configuring/Monitors/
-        monitor =
-          if isPc then
-            [
-              "${monitor2},1920x1080@60,0x0,${scale}"
-              "${monitor1},2560x1440@144,1920x0,${scale}"
-              "Unknown-1,disable"
-            ]
-          else if isLaptop then
-            [
-              # laptop
-              "eDP-1,2256x1504@60,0x0,${scale}"
-              #"DP-3,1920x1080@60,1920x0,1"
-              #",preferred,auto,1,mirror,eDP-1"
-              ",preferred,auto,auto"
-            ]
-          else
-            [
-              # Default
-              ",preferred,auto,auto"
-            ];
-
-        workspace = lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
-          "1,monitor:${monitor1}"
-          "2,monitor:${monitor1}"
-          "3,monitor:${monitor1}"
-          "4,monitor:${monitor1}"
-          "5,monitor:${monitor1}"
-          "9,monitor:${monitor2}"
-          "10,monitor:${monitor2}"
-        ];
-
-        # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-
-        # Execute your favorite apps at launch
-        # exec-once = waybar & hyprpaper & firefox
-
-        # Source a file (multi-file configs)
-        # source = ~/.config/hypr/myColors.conf
-
-        # Some default env vars.
-        env = [
-          "XCURSOR_SIZE,24"
-          "NIXOS_OZONE_WL,1"
-          "GDK_SCALE,${scale}"
-          "SDL_VIDEO_DISPLAY_PRIORITY,${monitor1}"
+    wayland.windowManager.hyprland =
+      let
+        rofi = "${pkgs.rofi}/bin/rofi";
+        rofimoji = "${pkgs.rofimoji}/bin/rofimoji";
+        kitty = "${pkgs.kitty}/bin/kitty";
+        thunar = "${pkgs.thunar}/bin/thunar";
+        lock-cmd =
+          if config.custom.graphical.qylock.enable then "qylock-lock" else "${pkgs.hyprlock}/bin/hyprlock";
+        hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
+        hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
+        playerctl = "${pkgs.playerctl}/bin/playerctl";
+        zenity = "${pkgs.zenity}/bin/zenity";
+        woomer = "${pkgs.woomer}/bin/woomer";
+        brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+        wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+        wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+        dunstify = "${pkgs.dunst}/bin/dunstify";
+        dunstctl = "${pkgs.dunst}/bin/dunstctl";
+        pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep --cache";
+        path = "~/synced/fh/master/governance/merged";
+        node = "${pkgs.nodejs}/bin/node";
+        set-monitor = "~/.config/hypr/monitor-config.js";
+        ydotool = "${pkgs.ydotool}/bin/ydotool";
+        wl-kbptr = "${pkgs.wl-kbptr}/bin/wl-kbptr";
+        saved-screenshot-cmd = ''
+          ${hyprshot} -z -s -m region -o $OUT -f $FILE && notify-send "Saved screenshot to $OUT/$FILE" -h string:image-path:$OUT/$FILE && echo "file://$(realpath $OUT/$FILE)" | wl-copy -t text/uri-list
+        '';
+        saved-screenshot-cmd-output = ''
+          ${hyprshot} -z -s -m output -o $OUT -f $FILE && notify-send "Saved screenshot to $OUT/$FILE" -h string:image-path:$OUT/$FILE && echo "file://$(realpath $OUT/$FILE)" | wl-copy -t text/uri-list
+        '';
+        startupCommands = [
+          { command = "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"; }
+          { command = "dex --autostart --environment Hyprland"; }
+          { command = "${pkgs.hypridle}/bin/hypridle &"; }
+          { command = "${pkgs.ydotool}/bin/ydotoold &"; }
         ]
-        ++ lib.optionals config.custom.hardware.nvidia.enable [
-          "LIBVA_DRIVER_NAME,nvidia"
-          "GBM_BACKEND,nvidia-drm"
-          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-        ]
-        ++ lib.optionals osConfig.programs.ssh.startAgent [
-          "SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent"
-        ];
-
-        # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
-        input = {
-          kb_layout = osConfig.mainUser.layout;
-          kb_variant = osConfig.mainUser.variant;
-          kb_model = "";
-          kb_options = "";
-          kb_rules = "";
-
-          follow_mouse = 1;
-          float_switch_override_focus = 2;
-
-          touchpad = {
-            natural_scroll = true;
-          };
-
-          accel_profile = "flat";
-          sensitivity = 0;
-          repeat_delay = 250;
-        };
-
-        #cursor = { no_hardware_cursors = true; };
-
-        #render = {
-        #  explicit_sync = 1;
-        #  explicit_sync_kms = 0;
-        #};
-
-        general = {
-          # See https://wiki.hyprland.org/Configuring/Variables
-
-          gaps_in = 5;
-          gaps_out = 5;
-          border_size = 2;
-          "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-          "col.inactive_border" = "rgba(595959aa)";
-
-          layout = "dwindle";
-          #layout = "scrolling";
-          allow_tearing = true;
-        };
-
-        render = {
-          new_render_scheduling = true;
-        };
-        misc = {
-          middle_click_paste = false;
-          enable_anr_dialog = false;
-          disable_hyprland_logo = true;
-        };
-        xwayland = lib.mkIf isPc { force_zero_scaling = true; };
-
-        decoration = {
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-          #rounding = 10;
-          rounding = 0;
-          #blur = yes
-          #blur_size = 3
-          #blur_passes = 1
-          #blur_new_optimizations = on
-          blur = {
-            enabled = false;
-          };
-          shadow = {
-            enabled = false;
-            range = 4;
-            render_power = 3;
-            color = "rgba(1a1a1aee)";
-          };
-        };
-
-        animations = {
-          enabled = true;
-
-          # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-
-          #bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-
-          #animation = windows, 1, 7, myBezier
-          #animation = windowsOut, 1, 7, default, popin 80%
-          #animation = border, 1, 10, default
-          #animation = borderangle, 1, 8, default
-          #animation = fade, 1, 7, default
-          animation = [
-            "workspaces, 0"
-            "  windows,1, 3, default"
-          ];
-        };
-
-        dwindle = {
-          # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-          # pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-          preserve_split = true; # you probably want this
-        };
-
-        master = {
-          # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-          #new_is_master = true;
-          new_status = "master";
-        };
-
-        gestures = {
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
-          # doesnt exist anymore TODO: change
-          #workspace_swipe = true;
-        };
-
-        # Example per-device config
-        # See https://wiki.hyprland.org/Configuring/Keywords/#executing for more
-        #"device:epic-mouse-v1" = {
-        #    sensitivity = -0.5;
-        #};
-
-        # Example windowrule v1
-        # windowrule = float, ^(kitty)$
-        # Example windowrule v2
-        # float,match:class ^(kitty)$,title:^(kitty)$
-        # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-
-        # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-        "$mainMod" = "SUPER";
-
-        # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-        bind =
-          let
-            rofi = "${pkgs.rofi}/bin/rofi";
-            rofimoji = "${pkgs.rofimoji}/bin/rofimoji";
-            kitty = "${pkgs.kitty}/bin/kitty";
-            #dolphin = "${pkgs.dolphin}/bin/dolphin";
-            thunar = "${pkgs.thunar}/bin/thunar";
-            saved-screenshot-cmd = ''
-              ${hyprshot} -z -s -m region -o $OUT -f $FILE && notify-send "Saved screenshot to $OUT/$FILE" -h string:image-path:$OUT/$FILE && echo "file://$(realpath $OUT/$FILE)" | wl-copy -t text/uri-list
-            '';
-            saved-screenshot-cmd-output = ''
-              ${hyprshot} -z -s -m output -o $OUT -f $FILE && notify-send "Saved screenshot to $OUT/$FILE" -h string:image-path:$OUT/$FILE && echo "file://$(realpath $OUT/$FILE)" | wl-copy -t text/uri-list
-            '';
-            #pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep";
-            #brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
-            #swaylock = "${pkgs.swaylock}/bin/swaylock";
-            lock-cmd =
-              if config.custom.graphical.qylock.enable then "qylock-lock" else "${pkgs.hyprlock}/bin/hyprlock";
-            hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
-            hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
-            playerctl = "${pkgs.playerctl}/bin/playerctl";
-            #peek = "${pkgs.peek}/bin/peek";
-            zenity = "${pkgs.zenity}/bin/zenity";
-            woomer = "${pkgs.woomer}/bin/woomer";
-          in
-          [
-            "$mainMod, Q, exec, ${kitty}"
-            "$mainMod, C, killactive"
-            #"$mainMod, L, exec, ${swaylock} -f -c 000000"
-            "$mainMod SHIFT, L, exec, ${lock-cmd}"
-            "$mainMod, M, exec, ${zenity} --question --text='Quit Hyprland?' && hyprctl dispatch exit"
-            "$mainMod, E, exec, ${thunar}"
-            "$mainMod, P, pin"
-            "$mainMod SHIFT, P, exec, ${hyprpicker} --autocopy"
-            "$mainMod, F, fullscreen"
-            "$mainMod, V, togglefloating"
-            "$mainMod, T, togglegroup"
-            "$mainMod, TAB, changegroupactive"
-            "$mainMod Shift_L, TAB, changegroupactive, b"
-            # "$mainMod, I, exec, ${rofi} -show drun -show-icons"
-            "$mainMod, period, exec, ${rofimoji}"
-            "$mainMod, Z, exec, ${woomer}"
-            ''$mainMod, S, exec, echo "skip" | nc exposedvm.kopatz.dev 8888''
-            ''$mainMod SHIFT, R, exec, hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"''
-            "$mainMod SHIFT, W, exec, hyprctl hyprpaper reload ,${config.stylix.image}"
-            "        , Print, exec, ${hyprshot} -s -z -m region --clipboard-only"
-            "$mainMod, Print, exec, export OUT=/tmp && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}"
-            "Shift_L, Print, exec, export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}"
-            "$mainMod Shift_L, Print, exec, export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd-output}"
-            #"$mainMod, G, exec, ${peek}" # record gif
-            "$mainMod, SPACE, exec, ${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi"
-            " , XF86AudioPlay, exec, ${playerctl} play-pause"
-            " , XF86AudioNext, exec, ${playerctl} next"
-            " , XF86AudioPrev, exec, ${playerctl} previous"
-            "$mainMod, U, pseudo" # dwindle
-            "$mainMod, I, layoutmsg, togglesplit" # dwindle
-            # Move focus with mainMod + arrow keys
-            "$mainMod, left, movefocus, l"
-            "$mainMod, right, movefocus, r"
-            "$mainMod, up, movefocus, u"
-            "$mainMod, down, movefocus, d"
-            "$mainMod CTRL, left, movewindow, l"
-            "$mainMod CTRL, right, movewindow, r"
-            "$mainMod CTRL, up, movewindow, u"
-            "$mainMod CTRL, down, movewindow, d"
-            # Same bindings, but for hjkl
-            "$mainMod, h, movefocus, l"
-            "$mainMod, l, movefocus, r"
-            "$mainMod, k, movefocus, u"
-            "$mainMod, j, movefocus, d"
-            "$mainMod CTRL, h, movewindow, l"
-            "$mainMod CTRL, l, movewindow, r"
-            "$mainMod CTRL, k, movewindow, u"
-            "$mainMod CTRL, j, movewindow, d"
-            # would love to set this to only $mainMod, but the event doesn't come through
-            "$mainMod, B, global, waybar:toggle_bar"
-
-            # Switch workspaces with mainMod + [0-9]
-            "$mainMod, 1, workspace, 1"
-            "$mainMod, 2, workspace, 2"
-            "$mainMod, 3, workspace, 3"
-            "$mainMod, 4, workspace, 4"
-            "$mainMod, 5, workspace, 5"
-            "$mainMod, 6, workspace, 6"
-            "$mainMod, 7, workspace, 7"
-            "$mainMod, 8, workspace, 8"
-            "$mainMod, 9, workspace, 9"
-            "$mainMod, 0, workspace, 10"
-
-            # Move active window to a workspace with mainMod + SHIFT + [0-9]
-            "$mainMod SHIFT, 1, movetoworkspace, 1"
-            "$mainMod SHIFT, 2, movetoworkspace, 2"
-            "$mainMod SHIFT, 3, movetoworkspace, 3"
-            "$mainMod SHIFT, 4, movetoworkspace, 4"
-            "$mainMod SHIFT, 5, movetoworkspace, 5"
-            "$mainMod SHIFT, 6, movetoworkspace, 6"
-            "$mainMod SHIFT, 7, movetoworkspace, 7"
-            "$mainMod SHIFT, 8, movetoworkspace, 8"
-            "$mainMod SHIFT, 9, movetoworkspace, 9"
-            "$mainMod SHIFT, 0, movetoworkspace, 10"
-
-            # special workspace
-            "$mainMod, X, togglespecialworkspace"
-            "$mainMod SHIFT, X, movetoworkspace, special"
-
-            # Scroll through existing workspaces with mainMod + scroll
-            "$mainMod, mouse_down, workspace, e+1"
-            "$mainMod, mouse_up, workspace, e-1"
-
-            "ALT, Tab, cyclenext,"
-            # "ALT, Tab, bringactivetotop,"
-          ];
-
-        # e = repeat when held
-        binde =
-          let
-            brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
-
-          in
-          [
-            " , XF86MonBrightnessUp, exec, ${brightnessctl} s +5%"
-            " , XF86MonBrightnessDown, exec, ${brightnessctl} s 5%-"
-            # Example volume button that allows press and hold, volume limited to 150%
-            " , XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
-            # Example volume button that will activate even while an input inhibitor is active
-            " , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-            " , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-            " , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-            "$mainMod SHIFT, left, resizeactive, -30 0"
-            "$mainMod SHIFT, right, resizeactive, 30 0"
-            "$mainMod SHIFT, up, resizeactive, 0 -30"
-            "$mainMod SHIFT, down, resizeactive, 0 30"
-            "$mainMod SHIFT, h, resizeactive, -30 0"
-            "$mainMod SHIFT, l, resizeactive, 30 0"
-            "$mainMod SHIFT, k, resizeactive, 0 -30"
-            "$mainMod SHIFT, j, resizeactive, 0 30"
-          ];
-
-        bindm = [
-          # Move/resize windows with mainMod + LMB/RMB and dragging
-          "$mainMod, mouse:272, movewindow"
-          "$mainMod, mouse:273, resizewindow"
-        ];
-
-        windowrule = [
-          "float on, match:class zenity"
-          "center on, match:class zenity"
-          "workspace 1, match:class steam_app_.*"
-          "allows_input on, match:title Trove"
-          #"stay_focused on, match:title Trove"
-          # Fix splash screen showing in weird places and prevent annoying focus takeovers
-          #"tag +jetbrains-splash, match:class ^(jetbrains-.*)$, title:^(splash)$, floating:1"
-          #"center, tag:jetbrains-splash"
-          #"nofocus, tag:jetbrains-splash"
-          #"noborder, tag:jetbrains-splash"
-          ## Center popups/find windows
-          #"tag +jetbrains, match:class ^(jetbrains-.*), title:^()$, floating:1"
-          #"center, tag:jetbrains"
-          ## Enabling this makes it possible to provide input in popup dialogs (search window, new file, etc.)
-          #"stayfocused, tag:jetbrains"
-          #"noborder, tag:jetbrains"
-          ## For some reason tag:jetbrains does not work for size rule
-          #"size >50% >50%, match:class ^(jetbrains-.*), title:^()$, floating:1"
-          ## Disable window flicker when autocomplete or tooltips appear
-          #"noinitialfocus, match:class ^(jetbrains-.*)$, title:^(win.*)$, floating:1"
-          ## Disable mouse focus
-          #"nofollowmouse, match:class ^(jetbrains-.*)$"
-
-          #"center, match:class jetbrains-idea"
-          #"noinitialfocus,match:class ^jetbrains-(?!toolbox),floating:1"
-
-          ## -- Fix odd behaviors in IntelliJ IDEs --
-          ##! Fix focus issues when dialogs are opened or closed
-          #"windowdance,match:class ^(jetbrains-.*)$,floating:1"
-          ##! Fix splash screen showing in weird places and prevent annoying focus takeovers
-          #"center,match:class ^(jetbrains-.*)$,title:^(splash)$,floating:1"
-          #"nofocus,match:class ^(jetbrains-.*)$,title:^(splash)$,floating:1"
-          #"noborder,match:class ^(jetbrains-.*)$,title:^(splash)$,floating:1"
-
-          ##! Center popups/find windows
-          #"center,match:class ^(jetbrains-.*)$,title:^( )$,floating:1"
-          #"stayfocused,match:class ^(jetbrains-.*)$,title:^( )$,floating:1"
-          #"noborder,match:class ^(jetbrains-.*)$,title:^( )$,floating:1"
-          ##! Disable window flicker when autocomplete or tooltips appear
-          #"nofocus,match:class ^(jetbrains-.*)$,title:^(win.*)$,floating:1"
-          ##"immediate, match:class ^(Risk.*)$"
-          "stay_focused on, match:class (steam_app_107410)"
-          "immediate on, match:class ^tetrio-desktop$"
-          "opacity 0.9, match:class thunar"
-          "opacity 0.9, match:class discord, match:fullscreen 0"
-          "opacity 0.1, match:title cava"
-          "float on, match:title Picture-in-Picture"
-          "suppress_event maximize, match:title Picture-in-Picture"
-        ];
-
-        exec-once = [
-          "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator &"
-          "dex --autostart --environment Hyprland"
-          "${pkgs.hypridle}/bin/hypridle &"
-          "${pkgs.ydotool}/bin/ydotoold &"
-          #"${pkgs.dunst}/bin/dunst &"
-        ]
-        ++ lib.lists.optionals (osConfig.networking.hostName == "kop-pc") [
-          "[workspace 9 silent] sleep 2 && discord"
-          "[workspace 9 silent] sleep 2 && discordcanary"
-          "[workspace 10 silent] firefox"
-          "xrandr --monitor ${monitor1} --primary"
-          "${pkgs.kop-llama-systray}/bin/kop-llama-systray &"
+        ++ lib.optionals isPc [
+          {
+            command = "sleep 2 && discord";
+            rules.workspace = "9 silent";
+          }
+          {
+            command = "sleep 2 && discordcanary";
+            rules.workspace = "9 silent";
+          }
+          {
+            command = "firefox";
+            rules.workspace = "10 silent";
+          }
+          { command = "xrandr --monitor ${monitor1} --primary"; }
+          { command = "${pkgs.kop-llama-systray}/bin/kop-llama-systray &"; }
         ]
         ++ [
-          "sleep 3 && ${pkgs.waybar}/bin/waybar &"
-          "${restartPortals}"
+          { command = "sleep 3 && ${pkgs.waybar}/bin/waybar &"; }
+          { command = "${restartPortals}"; }
         ];
-      };
-      extraConfig =
-        let
-          wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
-          wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-          dunstify = "${pkgs.dunst}/bin/dunstify";
-          dunstctl = "${pkgs.dunst}/bin/dunstctl";
-          pdfgrep = "${pkgs.pdfgrep}/bin/pdfgrep --cache";
-          path = "~/synced/fh/master/governance/merged";
-          node = "${pkgs.nodejs}/bin/node";
-          set-monitor = "~/.config/hypr/monitor-config.js";
-          answer = "${pkgs.answer}/bin/gpt-answer";
-          #wlrctl = "${pkgs.wlrctl}/bin/wlrctl";
-          ydotool = "${pkgs.ydotool}/bin/ydotool";
-          wl-kbptr = "${pkgs.wl-kbptr}/bin/wl-kbptr";
-          hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
-        in
-        ''
-          bind = $mainMod, A, submap, notes
+        renderStartupCommand =
+          entry:
+          "hl.exec_cmd(${toLua entry.command}${lib.optionalString (entry ? rules) ", ${toLua entry.rules}"})";
+      in
+      {
+        enable = true;
+        configType = "lua";
+        xwayland.enable = true;
 
-          submap = notes
-          bind = $mainMod, M, exec, hyprctl keyword monitor ",preferred,auto,1,mirror,${monitor1}" && ${dunstify} "Mirroring enabled"
-          bind = $mainMod, R, exec, hyprctl keyword monitor ",preferred,auto,auto" && ${dunstify} "Mirroring disabled"
-          bind = $mainMod, P, exec, ${node} ${set-monitor}
-          ## above
-          bind = $mainMod, A, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
-          ## below
-          bind = $mainMod, B, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
-          ## context
-          bind = $mainMod, C, exec, ${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}
-          ## trim
-          bind = $mainMod, T, exec, ${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}
-          bind = $mainMod, E, exec, ${wl-paste} | sed 's/[ \t]*$//' | ${wl-copy}
-          bind = $mainMod, N, exec, ${dunstify} "$(${wl-paste})"
-          bind = $mainMod, D, exec, ${dunstctl} close-all
-          ## I win
-          # bind = $mainMod, W, exec, ${wl-paste} | ${answer} "Respond with the correct answer to the following question." | ${wl-copy} && ${dunstify} -t 150 Done
-          bind = $mainMod, W, exec, ${wl-paste} | claude -p --model opus --system-prompt "Respond with the correct answer to the following question. Do not provide detailed explanations or answer in markdown, only tell me the correct answer if possible." | ${wl-copy} && ${dunstify} -t 150 Done
-          bind = $mainMod SHIFT, W, exec, ${hyprshot} -s --mode active --mode output -o /tmp -f question.png; claude -p --model opus --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done
-          bind = $mainMod CTRL, W, exec, ${hyprshot} -s --mode region -o /tmp -f question.png; claude -p --model opus --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done
+        settings = {
+          monitor =
+            if isPc then
+              [
+                {
+                  output = monitor2;
+                  mode = "1920x1080@60";
+                  position = "0x0";
+                  scale = builtins.fromJSON scale;
+                }
+                {
+                  output = monitor1;
+                  mode = "2560x1440@144";
+                  position = "1920x0";
+                  scale = builtins.fromJSON scale;
+                }
+                {
+                  output = "Unknown-1";
+                  disabled = true;
+                }
+              ]
+            else if isLaptop then
+              [
+                {
+                  output = "eDP-1";
+                  mode = "2256x1504@60";
+                  position = "0x0";
+                  scale = builtins.fromJSON scale;
+                }
+                {
+                  output = "";
+                  mode = "preferred";
+                  position = "auto";
+                  scale = "auto";
+                }
+              ]
+            else
+              [
+                {
+                  output = "";
+                  mode = "preferred";
+                  position = "auto";
+                  scale = "auto";
+                }
+              ];
 
-          bind = $mainMod, E, exec, ${wl-paste} | claude -p --model sonnet --system-prompt "Respond with the correct answer to the following question. Do not provide detailed explanations or answer in markdown, only tell me the correct answer if possible." | ${wl-copy} && ${dunstify} -t 150 Done
-          bind = $mainMod SHIFT, E, exec, ${hyprshot} -s --mode active --mode output -o /tmp -f question.png; claude -p --model sonnet --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done
-          bind = $mainMod CTRL, E, exec, ${hyprshot} -s --mode region -o /tmp -f question.png; claude -p --model sonnet --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done
-          bind = $mainMod, S, exec, pgrep claude && ${dunstify} -t 150 Working || ${dunstify} -t 150 Not_found
-          bind = $mainMod, K, exec, kill -9 $(pgrep claude) && ${dunstify} -t 150 Killed || ${dunstify} -t 150 Not_found
+          workspace_rule = lib.optionals isPc (
+            map
+              (workspace: {
+                workspace = toString workspace;
+                monitor = if workspace <= 5 then monitor1 else monitor2;
+              })
+              [
+                1
+                2
+                3
+                4
+                5
+                9
+                10
+              ]
+          );
 
-          bind = $mainMod, F, exec, ${wl-paste} | ~/synced/default/scripts/fragen --path ~/synced/fh/master/governance/merged/fragen.md | ${wl-copy} && ${dunstctl} close-all && ${dunstify} "$(${wl-paste})"
-          bind = $mainMod SHIFT, F, exec, ~/synced/default/scripts/fragen --next | ${wl-copy} && ${dunstctl} close-all && ${dunstify} "$(${wl-paste})"
+          env =
+            let
+              env = name: value: {
+                _args = [
+                  name
+                  (toString value)
+                ];
+              };
 
-          ## notes
+              mkEnv = attrs: attrs |> builtins.mapAttrs env |> builtins.attrValues;
+            in
+            mkEnv (
+              {
+                "XCURSOR_SIZE" = "24";
+                "NIXOS_OZONE_WL" = "1";
+                "GDK_SCALE" = scale;
+                "SDL_VIDEO_DISPLAY_PRIORITY" = monitor1;
+              }
+              // lib.optionalAttrs config.custom.hardware.nvidia.enable {
+                "LIBVA_DRIVER_NAME" = "nvidia";
+                "GBM_BACKEND" = "nvidia-drm";
+                "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
+              }
+            )
+            ++ lib.optionals osConfig.programs.ssh.startAgent [
+              (mkCall [
+                "SSH_AUTH_SOCK"
+                (lua ''os.getenv("XDG_RUNTIME_DIR") .. "/ssh-agent"'')
+              ])
+            ];
 
-          bind = $mainMod, 1, exec, cat ~/synced/fh/master/governance/merged/1.txt | ${wl-copy}
-          bind = $mainMod, 2, exec, ${wl-paste} | xargs -I _ rg -i _ ~/synced/fh/master/governance/merged/1.txt | ${wl-copy}
-          #bind = $mainMod, 3, exec, cat ~/synced/default/vimwiki/fh/master/incident_handling/events.md | ${wl-copy}
-          #bind = $mainMod, 4, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          #bind = $mainMod, 5, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          #bind = $mainMod, 6, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          #bind = $mainMod, 7, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          #bind = $mainMod, 8, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
-          #bind = $mainMod, 0, exec, cat ~/Nextcloud/test.txt | ${wl-copy}
+          config = {
+            input = {
+              kb_layout = osConfig.mainUser.layout;
+              kb_variant = osConfig.mainUser.variant;
+              kb_model = "";
+              kb_options = "";
+              kb_rules = "";
+              follow_mouse = 1;
+              float_switch_override_focus = 2;
+              touchpad.natural_scroll = true;
+              accel_profile = "flat";
+              sensitivity = 0;
+              repeat_delay = 250;
+            };
 
-          bind = , escape, submap, reset
+            general = {
+              gaps_in = 5;
+              gaps_out = 5;
+              border_size = 2;
+              col = {
+                active_border = {
+                  colors = [
+                    "rgba(33ccffee)"
+                    "rgba(00ff99ee)"
+                  ];
+                  angle = 45;
+                };
+                inactive_border = "rgba(595959aa)";
+              };
+              layout = "dwindle";
+              allow_tearing = true;
+            };
 
-          # Cursor submap (similar to the Mouse mode in Sway)
-          submap=cursor
+            render.new_render_scheduling = true;
+            misc = {
+              middle_click_paste = false;
+              enable_anr_dialog = false;
+              disable_hyprland_logo = true;
+            };
+            xwayland = lib.mkIf isPc { force_zero_scaling = true; };
+            decoration = {
+              rounding = 0;
+              blur.enabled = false;
+              shadow = {
+                enabled = false;
+                range = 4;
+                render_power = 3;
+                color = "rgba(1a1a1aee)";
+              };
+            };
+            animations.enabled = true;
+            dwindle.preserve_split = true;
+            master.new_status = "master";
+          };
 
-          # Jump cursor to a position
-          bind=,a,exec,hyprctl dispatch submap reset && ${wl-kbptr} && hyprctl dispatch submap cursor
+          animation = [
+            {
+              leaf = "workspaces";
+              enabled = false;
+            }
+            {
+              leaf = "windows";
+              enabled = true;
+              speed = 3;
+              bezier = "default";
+            }
+          ];
 
-          # Cursor movement
-          binde=,J,exec,${ydotool} mousemove -- 0 10
-          binde=,K,exec,${ydotool} mousemove -- 0 -10
-          binde=,L,exec,${ydotool} mousemove -- 10 0
-          binde=,H,exec,${ydotool} mousemove -- -10 0
-          binde=,down,exec,${ydotool} mousemove -- 0 10
-          binde=,up,exec,${ydotool} mousemove -- 0 -10
-          binde=,right,exec,${ydotool} mousemove -- 10 0
-          binde=,left,exec,${ydotool} mousemove -- -10 0
-          binde=SHIFT,J,exec,${ydotool} mousemove -- 0 50
-          binde=SHIFT,K,exec,${ydotool} mousemove -- 0 -50
-          binde=SHIFT,L,exec,${ydotool} mousemove -- 50 0
-          binde=SHIFT,H,exec,${ydotool} mousemove -- -50 0
-          binde=SHIFT,down,exec,${ydotool} mousemove -- 0 50
-          binde=SHIFT,up,exec,${ydotool} mousemove -- 0 -50
-          binde=SHIFT,right,exec,${ydotool} mousemove -- 50 0
-          binde=SHIFT,left,exec,${ydotool} mousemove -- -50 0
+          bind = [
+            (mkExecBind "SUPER + Q" kitty)
+            (mkBind "SUPER + C" "hl.dsp.window.close()" { })
+            (mkExecBind "SUPER + SHIFT + L" lock-cmd)
+            (mkExecBind "SUPER + M" "${zenity} --question --text='Quit Hyprland?' && hyprctl dispatch exit")
+            (mkExecBind "SUPER + E" thunar)
+            (mkBind "SUPER + P" "hl.dsp.window.pin()" { })
+            (mkExecBind "SUPER + SHIFT + P" "${hyprpicker} --autocopy")
+            (mkBind "SUPER + F" "hl.dsp.window.fullscreen()" { })
+            (mkBind "SUPER + V" "hl.dsp.window.float()" { })
+            (mkBind "SUPER + T" "hl.dsp.group.toggle()" { })
+            (mkBind "SUPER + TAB" "hl.dsp.group.next()" { })
+            (mkBind "SUPER + SHIFT + TAB" "hl.dsp.group.prev()" { })
+            (mkExecBind "SUPER + period" rofimoji)
+            (mkExecBind "SUPER + Z" woomer)
+            (mkExecBind "SUPER + S" ''echo "skip" | nc exposedvm.kopatz.dev 8888'')
+            (mkExecBind "SUPER + SHIFT + R" ''hyprctl hyprpaper reload ,"$(ls -d ~/synced/default/dinge/Bg/* | shuf -n 1)"'')
+            (mkExecBind "SUPER + SHIFT + W" "hyprctl hyprpaper reload ,${config.stylix.image}")
+            (mkExecBind "Print" "${hyprshot} -s -z -m region --clipboard-only")
+            (mkExecBind "SUPER + Print" "export OUT=/tmp && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}")
+            (mkExecBind "SHIFT + Print" "export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd}")
+            (mkExecBind "SUPER + SHIFT + Print" "export OUT=~/Pictures && FILE=$(date +'%s_screenshot.png') && ${saved-screenshot-cmd-output}")
+            (mkExecBind "SUPER + SPACE" "${rofi} -modi drun -show drun -config ~/.config/rofi/rofidmenu.rasi")
+            (mkExecBind "XF86AudioPlay" "${playerctl} play-pause")
+            (mkExecBind "XF86AudioNext" "${playerctl} next")
+            (mkExecBind "XF86AudioPrev" "${playerctl} previous")
+            (mkBind "SUPER + U" "hl.dsp.window.pseudo()" { })
+            (mkBind "SUPER + I" ''hl.dsp.layout("togglesplit")'' { })
+            (mkBind "SUPER + left" ''hl.dsp.focus({ direction = "left" })'' { })
+            (mkBind "SUPER + right" ''hl.dsp.focus({ direction = "right" })'' { })
+            (mkBind "SUPER + up" ''hl.dsp.focus({ direction = "up" })'' { })
+            (mkBind "SUPER + down" ''hl.dsp.focus({ direction = "down" })'' { })
+            (mkBind "SUPER + CTRL + left" ''hl.dsp.window.move({ direction = "left" })'' { })
+            (mkBind "SUPER + CTRL + right" ''hl.dsp.window.move({ direction = "right" })'' { })
+            (mkBind "SUPER + CTRL + up" ''hl.dsp.window.move({ direction = "up" })'' { })
+            (mkBind "SUPER + CTRL + down" ''hl.dsp.window.move({ direction = "down" })'' { })
+            (mkBind "SUPER + h" ''hl.dsp.focus({ direction = "left" })'' { })
+            (mkBind "SUPER + l" ''hl.dsp.focus({ direction = "right" })'' { })
+            (mkBind "SUPER + k" ''hl.dsp.focus({ direction = "up" })'' { })
+            (mkBind "SUPER + j" ''hl.dsp.focus({ direction = "down" })'' { })
+            (mkBind "SUPER + CTRL + h" ''hl.dsp.window.move({ direction = "left" })'' { })
+            (mkBind "SUPER + CTRL + l" ''hl.dsp.window.move({ direction = "right" })'' { })
+            (mkBind "SUPER + CTRL + k" ''hl.dsp.window.move({ direction = "up" })'' { })
+            (mkBind "SUPER + CTRL + j" ''hl.dsp.window.move({ direction = "down" })'' { })
+            (mkBind "SUPER + B" ''hl.dsp.global("waybar:toggle_bar")'' { })
+          ]
+          ++ map (
+            workspace:
+            mkBind "SUPER + ${workspaceKey workspace}" "hl.dsp.focus({ workspace = ${toString workspace} })" { }
+          ) (lib.range 1 10)
+          ++ map (
+            workspace:
+            mkBind "SUPER + SHIFT + ${workspaceKey workspace}"
+              "hl.dsp.window.move({ workspace = ${toString workspace} })"
+              { }
+          ) (lib.range 1 10)
+          ++ [
+            (mkBind "SUPER + X" ''hl.dsp.workspace.toggle_special("")'' { })
+            (mkBind "SUPER + SHIFT + X" ''hl.dsp.window.move({ workspace = "special" })'' { })
+            (mkBind "SUPER + mouse_down" ''hl.dsp.focus({ workspace = "e+1" })'' { })
+            (mkBind "SUPER + mouse_up" ''hl.dsp.focus({ workspace = "e-1" })'' { })
+            (mkBind "ALT + Tab" "hl.dsp.window.cycle_next()" { })
+            (mkRepeatExecBind "XF86MonBrightnessUp" "${brightnessctl} s +5%")
+            (mkRepeatExecBind "XF86MonBrightnessDown" "${brightnessctl} s 5%-")
+            (mkRepeatExecBind "XF86AudioRaiseVolume" "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+")
+            (mkRepeatExecBind "XF86AudioLowerVolume" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
+            (mkRepeatExecBind "XF86AudioMute" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
+            (mkRepeatExecBind "XF86AudioMicMute" "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle")
+            (mkBind "SUPER + SHIFT + left" "hl.dsp.window.resize({ x = -30, y = 0, relative = true })" {
+              repeating = true;
+            })
+            (mkBind "SUPER + SHIFT + right" "hl.dsp.window.resize({ x = 30, y = 0, relative = true })" {
+              repeating = true;
+            })
+            (mkBind "SUPER + SHIFT + up" "hl.dsp.window.resize({ x = 0, y = -30, relative = true })" {
+              repeating = true;
+            })
+            (mkBind "SUPER + SHIFT + down" "hl.dsp.window.resize({ x = 0, y = 30, relative = true })" {
+              repeating = true;
+            })
+            (mkBind "SUPER + SHIFT + h" "hl.dsp.window.resize({ x = -30, y = 0, relative = true })" {
+              repeating = true;
+            })
+            (mkBind "SUPER + SHIFT + l" "hl.dsp.window.resize({ x = 30, y = 0, relative = true })" {
+              repeating = true;
+            })
+            (mkBind "SUPER + SHIFT + k" "hl.dsp.window.resize({ x = 0, y = -30, relative = true })" {
+              repeating = true;
+            })
+            (mkBind "SUPER + SHIFT + j" "hl.dsp.window.resize({ x = 0, y = 30, relative = true })" {
+              repeating = true;
+            })
+            (mkBind "SUPER + mouse:272" "hl.dsp.window.drag()" { mouse = true; })
+            (mkBind "SUPER + mouse:273" "hl.dsp.window.resize()" { mouse = true; })
+            (mkBind "SUPER + A" ''hl.dsp.submap("notes")'' { })
+            (mkBind "SUPER + W" ''hl.dsp.submap("cursor")'' { })
+          ];
 
-          # Left button
-          bind=,S,exec,${ydotool} click 0xC0
-          # Middle button
-          bind=,D,exec,${ydotool} click 0xC2
-          # Right button
-          bind=,F,exec,${ydotool} click 0xC1
+          window_rule = [
+            {
+              match.class = "zenity";
+              float = true;
+            }
+            {
+              match.class = "zenity";
+              center = true;
+            }
+            {
+              match.class = "steam_app_.*";
+              workspace = "1";
+            }
+            {
+              match.title = "Trove";
+              allows_input = true;
+            }
+            {
+              match.class = "(steam_app_107410)";
+              stay_focused = true;
+            }
+            {
+              match.class = "^tetrio-desktop$";
+              immediate = true;
+            }
+            {
+              match.class = "thunar";
+              opacity = "0.9";
+            }
+            {
+              match = {
+                class = "discord";
+                fullscreen = false;
+              };
+              opacity = "0.9";
+            }
+            {
+              match.title = "cava";
+              opacity = "0.1";
+            }
+            {
+              match.title = "Picture-in-Picture";
+              float = true;
+            }
+            {
+              match.title = "Picture-in-Picture";
+              suppress_event = "maximize";
+            }
+          ];
 
-          # Scroll up and down
-          binde=,E,exec,${ydotool} mousemove -w -- 0 -1
-          binde=,R,exec,${ydotool} mousemove -w -- 0 1
-          binde=,Q,exec,${ydotool} mousemove -w -- 0 -5
-          binde=,W,exec,${ydotool} mousemove -w -- 0 5
+        };
 
-          # Scroll left and right
-          binde=,T,exec,${ydotool} mousemove -w -- 1 0
-          binde=,G,exec,${ydotool} mousemove -w -- -1 0
-          binde=SHIFT,T,exec,${ydotool} mousemove -w -- 5 0
-          binde=SHIFT,G,exec,${ydotool} mousemove -w -- -5 0
+        submaps = {
+          notes.settings.bind = [
+            (mkExecBind "SUPER + M" ''hyprctl keyword monitor ",preferred,auto,1,mirror,${monitor1}" && ${dunstify} "Mirroring enabled"'')
+            (mkExecBind "SUPER + R" ''hyprctl keyword monitor ",preferred,auto,auto" && ${dunstify} "Mirroring disabled"'')
+            (mkExecBind "SUPER + P" "${node} ${set-monitor}")
+            (mkExecBind "SUPER + A" ''${wl-paste} | xargs -I {} ${pdfgrep} -B 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}'')
+            (mkExecBind "SUPER + B" ''${wl-paste} | xargs -I {} ${pdfgrep} -A 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}'')
+            (mkExecBind "SUPER + C" ''${wl-paste} | xargs -I {} ${pdfgrep} -C 15 -h -i "{}" ${path}/*.pdf | sed 's/[ \t]*$//' | ${wl-copy}'')
+            (mkExecBind "SUPER + T" ''${wl-paste} | sed 's/[ \t]*$//' | sed 's/^[ \t]*//' | sed '/^[[:space:]]*$/d' | ${wl-copy}'')
+            (mkExecBind "SUPER + E" ''${wl-paste} | sed 's/[ \t]*$//' | ${wl-copy}'')
+            (mkExecBind "SUPER + N" ''${dunstify} "$(${wl-paste})"'')
+            (mkExecBind "SUPER + D" "${dunstctl} close-all")
+            (mkExecBind "SUPER + W" ''${wl-paste} | claude -p --model opus --system-prompt "Respond with the correct answer to the following question. Do not provide detailed explanations or answer in markdown, only tell me the correct answer if possible." | ${wl-copy} && ${dunstify} -t 150 Done'')
+            (mkExecBind "SUPER + SHIFT + W" ''${hyprshot} -s --mode active --mode output -o /tmp -f question.png; claude -p --model opus --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done'')
+            (mkExecBind "SUPER + CTRL + W" ''${hyprshot} -s --mode region -o /tmp -f question.png; claude -p --model opus --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done'')
+            (mkExecBind "SUPER + E" ''${wl-paste} | claude -p --model sonnet --system-prompt "Respond with the correct answer to the following question. Do not provide detailed explanations or answer in markdown, only tell me the correct answer if possible." | ${wl-copy} && ${dunstify} -t 150 Done'')
+            (mkExecBind "SUPER + SHIFT + E" ''${hyprshot} -s --mode active --mode output -o /tmp -f question.png; claude -p --model sonnet --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done'')
+            (mkExecBind "SUPER + CTRL + E" ''${hyprshot} -s --mode region -o /tmp -f question.png; claude -p --model sonnet --allowed-tools "Read,WebFetch,WebSearch" --system-prompt "Respond with the correct answer to the question in the screenshot. Do not provide detailed explanations or answer in markdown, only tell me the correct answer (or answers if it there are multiple)." "Read /tmp/question.png and answer the question in it" | ${wl-copy} && ${dunstify} -t 150 Done'')
+            (mkExecBind "SUPER + S" "pgrep claude && ${dunstify} -t 150 Working || ${dunstify} -t 150 Not_found")
+            (mkExecBind "SUPER + K" "kill -9 $(pgrep claude) && ${dunstify} -t 150 Killed || ${dunstify} -t 150 Not_found")
+            (mkExecBind "SUPER + F" ''${wl-paste} | ~/synced/default/scripts/fragen --path ~/synced/fh/master/governance/merged/fragen.md | ${wl-copy} && ${dunstctl} close-all && ${dunstify} "$(${wl-paste})"'')
+            (mkExecBind "SUPER + SHIFT + F" ''~/synced/default/scripts/fragen --next | ${wl-copy} && ${dunstctl} close-all && ${dunstify} "$(${wl-paste})"'')
+            (mkExecBind "SUPER + 1" "cat ~/synced/fh/master/governance/merged/1.txt | ${wl-copy}")
+            (mkExecBind "SUPER + 2" "${wl-paste} | xargs -I _ rg -i _ ~/synced/fh/master/governance/merged/1.txt | ${wl-copy}")
+            (mkBind "escape" ''hl.dsp.submap("reset")'' { })
+          ];
 
-          # Exit cursor submap
-          # If you do not use cursor timeout or cursor:hide_on_key_press, you can delete its respective calls.
-          bind=,escape,exec, hyprctl dispatch submap reset
+          cursor.settings.bind = [
+            (mkExecBind "a" "hyprctl dispatch submap reset && ${wl-kbptr} && hyprctl dispatch submap cursor")
+            (mkRepeatExecBind "J" "${ydotool} mousemove -- 0 10")
+            (mkRepeatExecBind "K" "${ydotool} mousemove -- 0 -10")
+            (mkRepeatExecBind "L" "${ydotool} mousemove -- 10 0")
+            (mkRepeatExecBind "H" "${ydotool} mousemove -- -10 0")
+            (mkRepeatExecBind "down" "${ydotool} mousemove -- 0 10")
+            (mkRepeatExecBind "up" "${ydotool} mousemove -- 0 -10")
+            (mkRepeatExecBind "right" "${ydotool} mousemove -- 10 0")
+            (mkRepeatExecBind "left" "${ydotool} mousemove -- -10 0")
+            (mkRepeatExecBind "SHIFT + J" "${ydotool} mousemove -- 0 50")
+            (mkRepeatExecBind "SHIFT + K" "${ydotool} mousemove -- 0 -50")
+            (mkRepeatExecBind "SHIFT + L" "${ydotool} mousemove -- 50 0")
+            (mkRepeatExecBind "SHIFT + H" "${ydotool} mousemove -- -50 0")
+            (mkRepeatExecBind "SHIFT + down" "${ydotool} mousemove -- 0 50")
+            (mkRepeatExecBind "SHIFT + up" "${ydotool} mousemove -- 0 -50")
+            (mkRepeatExecBind "SHIFT + right" "${ydotool} mousemove -- 50 0")
+            (mkRepeatExecBind "SHIFT + left" "${ydotool} mousemove -- -50 0")
+            (mkExecBind "S" "${ydotool} click 0xC0")
+            (mkExecBind "D" "${ydotool} click 0xC2")
+            (mkExecBind "F" "${ydotool} click 0xC1")
+            (mkRepeatExecBind "E" "${ydotool} mousemove -w -- 0 -1")
+            (mkRepeatExecBind "R" "${ydotool} mousemove -w -- 0 1")
+            (mkRepeatExecBind "Q" "${ydotool} mousemove -w -- 0 -5")
+            (mkRepeatExecBind "W" "${ydotool} mousemove -w -- 0 5")
+            (mkRepeatExecBind "T" "${ydotool} mousemove -w -- 1 0")
+            (mkRepeatExecBind "G" "${ydotool} mousemove -w -- -1 0")
+            (mkRepeatExecBind "SHIFT + T" "${ydotool} mousemove -w -- 5 0")
+            (mkRepeatExecBind "SHIFT + G" "${ydotool} mousemove -w -- -5 0")
+            (mkBind "escape" ''hl.dsp.submap("reset")'' { })
+          ];
+        };
 
-          submap = reset
-
-          # Entrypoint
-          # If you do not use cursor timeout or cursor:hide_on_key_press, you can delete its respective calls.
-          bind=$mainMod,W,exec,hyprctl dispatch submap cursor
-
-
-
+        extraConfig = ''
+          hl.on("hyprland.start", function()
+          ${lib.concatMapStringsSep "\n" renderStartupCommand startupCommands}
+          end)
         '';
-      #experimental:explicit_sync = true
-    };
+      };
   };
 }
