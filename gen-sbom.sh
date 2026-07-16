@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p sbomnix jq
+#!nix-shell -i bash -p jq
+# !nix-shell -i bash -p sbomnix jq
 set -e
 OUT_DIR="sbom"
 mkdir -p "$OUT_DIR"

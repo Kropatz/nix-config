@@ -167,6 +167,7 @@
   # apple shit
   #services.usbmuxd.enable = true;
   environment.systemPackages = with pkgs; [
+    sbomnix
     #inputs.quickshell.packages.x86_64-linux.default
     #kdePackages.qtdeclarative
     #libimobiledevice

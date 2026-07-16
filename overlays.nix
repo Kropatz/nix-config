@@ -105,6 +105,24 @@ in
       ];
     });
 
+    python3Packages = prev.python3Packages // {
+      dfdiskcache = prev.python3Packages.dfdiskcache.overrideAttrs (old: {
+        pythonRelaxDeps = [ "pandas" ];
+      });
+    };
+    python314Packages = prev.python314Packages // {
+      dfdiskcache = prev.python314Packages.dfdiskcache.overrideAttrs (old: {
+        pythonRelaxDeps = [ "pandas" ];
+      });
+    };
+    python3 = prev.python3 // {
+      pkgs = prev.python3.pkgs // {
+        dfdiskcache = prev.python314Packages.dfdiskcache.overrideAttrs (old: {
+          pythonRelaxDeps = [ "pandas" ];
+        });
+      };
+    };
+
     # test failure atm
     # openldap = prev.openldap.overrideAttrs (_: {
     #   doCheck = false;
@@ -150,6 +168,20 @@ in
     #   inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.hyprland;
     # xdg-desktop-portal-hyprland =
     #   inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+
+    waybar = prev.waybar.overrideAttrs (oldAttrs: {
+      version = "v0.15.0";
+      src = prev.fetchFromGitHub {
+        owner = "Alexays";
+        repo = "Waybar";
+        rev = "cf19c836d3dafc1646bb60a49269d981623b680a";
+        hash = "sha256-h1ZmLmqBkm3MyShV6p83kBtpeLa9rnZUVz75kp+0Ccw=";
+      };
+      buildInputs = oldAttrs.buildInputs ++ [
+        prev.modemmanager
+        prev.libcava
+      ];
+    });
 
     # to add input capture protocol support (needed for kde connect)
     #hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
