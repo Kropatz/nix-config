@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
     (fetchGit {
       url = "gitea@git.kopatz.dev:oberprofis/ente.git";
       ref = "master";
-      rev = "e25759557425b18a677bc23a9dad6a7f96e9e313";
+      rev = "918d171bd9cd75c258279d7ef3e46fde1d8e5cc8";
     })
   }/new-bot";
 
