@@ -11,12 +11,24 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    services.cron = {
-      enable = true;
-      systemCronJobs = [
-        "0 23 * * *      root    bash /mnt/ente/backup.sh >/dev/null 2>&1"
-      ];
+  systemd.services.ente-backup = {
+    description = "Ente backup";
+    path = with pkgs; [ gnutar gzip coreutils sqlite ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      ExecStart = "${pkgs.bash}/bin/bash /mnt/ente/backup.sh";
     };
+  };
+
+  systemd.timers.ente-backup = {
+    description = "Daily Ente backup";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "*-*-* 23:00:00";
+      Persistent = true;
+    };
+  };
 
     users.users.ente = {
       home = cfg.dataDir;
