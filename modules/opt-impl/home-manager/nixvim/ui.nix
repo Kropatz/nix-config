@@ -1,9 +1,13 @@
 { config, ... }:
 {
+
+  opts = {
+    timeoutlen = 500;
+  };
   plugins = {
-    barbar = {
-      enable = true;
-    }; # tab bar up top
+    which-key.enable = true;
+    barbar.enable = true; # tab bar up top
+    trouble.enable = true; # display errors and warnings
     indent-blankline = {
       enable = true;
       settings = {
@@ -17,9 +21,7 @@
         };
       };
     };
-    lightline = {
-      enable = true;
-    }; # status line at the bottom
+    lightline.enable = true; # status line at the bottom
     colorizer.enable = true; # highlight colors in text
     # wilder = {
     #   enable = true;

@@ -8,9 +8,40 @@
   #      capabilities = capabilities,
   #    })
   # '';
-  plugins.ts-autotag.enable = true; # auto close and rename html tags
-  #plugins.java.enable = true;
-  plugins.lspconfig.enable = true;
+  plugins = {
+    ts-autotag.enable = true; # auto close and rename html tags
+    #plugins.java.enable = true;
+    lspconfig.enable = true;
+    none-ls = {
+      # LSP bridge for diagnostics and formatting
+      enable = true;
+      sources = {
+        diagnostics = {
+          golangci_lint.enable = true;
+          statix.enable = true;
+        };
+        formatting = {
+          fantomas.enable = true;
+          gofmt.enable = true;
+          goimports.enable = true;
+          #nixfmt.enable = true;
+          markdownlint.enable = true;
+          shellharden.enable = true;
+          shfmt.enable = true;
+        };
+      };
+    };
+    otter = {
+      # provide lsp functionality for code embedded in other languages
+      enable = true;
+      settings.handle_leading_whitespace = true;
+    };
+
+    lsp-lines = {
+      enable = true;
+    };
+    rustaceanvim.enable = true;
+  };
   lsp = {
     inlayHints.enable = true;
     servers = {
@@ -131,18 +162,6 @@
       #   #desc = "LSP [W]orkspace [S]ymbols";
       # }
     ];
-  };
-  plugins = {
-    otter = {
-      # provide lsp functionality for code embedded in other languages
-      enable = true;
-      settings.handle_leading_whitespace = true;
-    };
-
-    lsp-lines = {
-      enable = true;
-    };
-    rustaceanvim.enable = true;
   };
   diagnostic.settings.virtual_lines.only_current_line = true;
 }

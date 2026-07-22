@@ -71,6 +71,7 @@ in
     services.monado = {
       enable = true;
       defaultRuntime = true; # Register as default OpenXR runtime
+      highPriority = true;
     };
     environment.systemPackages = with pkgs; [
       monado

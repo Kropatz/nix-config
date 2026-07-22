@@ -20,31 +20,23 @@ let
       ./config.nix
     ]
     ++ lib.optionals cfg [
-      ./auto-pairs.nix
-      ./autosave.nix
+      ./ui.nix
+      ./editing.nix
       # ./cmp.nix
       ./blink.nix
-      ./refactoring.nix
-      ./git.nix
       ./lsp.nix
-      ./images.nix
-      ./none-ls.nix
-      ./nvim-tree.nix
-      #./neo-tree.nix
-      ./telescope.nix
       ./toggleterm.nix
       ./treesitter.nix
-      ./trouble.nix
-      ./which_key.nix
-      ./typst-preview.nix
-      ./markdown.nix
-      ./hop.nix
-      ./surround.nix
-      ./vimwiki.nix
-      ./ui.nix
       ./experimental.nix
       ./snippets.nix
-      ./grug-far.nix
+      ./support/git.nix
+      ./support/images.nix
+      ./support/typst-preview.nix
+      ./support/vimwiki.nix
+      ./support/markdown.nix
+      ./navigation/nvim-tree.nix
+      ./navigation/telescope.nix
+      #./neo-tree.nix
       ./other-plugins
     ]
   );
