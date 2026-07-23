@@ -264,6 +264,10 @@ in
               enable_anr_dialog = false;
               disable_hyprland_logo = true;
             };
+            ecosystem = {
+              no_donation_nag = true;
+              no_update_news = true;
+            };
             xwayland = lib.mkIf isPc { force_zero_scaling = true; };
             decoration = {
               rounding = 0;

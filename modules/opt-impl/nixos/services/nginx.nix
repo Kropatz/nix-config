@@ -189,6 +189,10 @@ in
               "/comms2/api" = {
                 extraConfig = ''
                   client_max_body_size    20000M;
+                  more_set_headers       "Access-Control-Allow-Origin: app://index";
+                  more_set_headers       "Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE";
+                  more_set_headers       "Access-Control-Allow-Headers: Authorization, Content-Type";
+                  more_set_headers       "Access-Control-Allow-Credentials: true";
                   rewrite /comms2/api/(.*) /$1 break;
                 '';
                 proxyPass = "http://localhost:3200/";
