@@ -14,6 +14,10 @@ let
       action = "current_buffer_fuzzy_find";
       options.desc = "[S]earch [B]uffer";
     };
+    "<leader>ff" = {
+      action = "treesitter symbols=function";
+      options.desc = "[F]ind [F]unctions (treesitter)";
+    };
     "<leader><space>" = {
       # action = ''<CMD>lua require("telescope.builtin").buffers({ sort_mru = true, ignore_current_buffer = true })<CR>'';
       # action.__raw = ''require("telescope.builtin").buffers({ sort_mru = true, ignore_current_buffer = true })'';
@@ -59,6 +63,10 @@ let
     "<leader>gb" = {
       action = "git_branches";
       options.desc = "[G]it: [B]ranches";
+    };
+    "<leader>gs" = {
+      action = "git_status";
+      options.desc = "[G]it: [S]tatus (changed files)";
     };
     # end git
   };
