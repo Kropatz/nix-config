@@ -24,6 +24,7 @@ in
           "anon"
           "minecraftserver"
           "nix-ssh"
+          "katze"
         ];
         experimental-features = [
           "nix-command"

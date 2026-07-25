@@ -169,6 +169,18 @@
     };
   };
 
+
+  users.users.katze = {
+    createHome = true;
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    uid = config.custom.vars.uids.katze;
+    group = "katze";
+  };
+  users.groups.katze = {
+    gid = config.custom.vars.gids.katze;
+  };
+
   services.openssh.extraConfig = ''
     # Internal network: allow everyone
     Match Address 192.168.2.0/24,192.168.0.0/24
