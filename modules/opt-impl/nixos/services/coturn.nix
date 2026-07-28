@@ -25,13 +25,13 @@ in
         to = 50000;
       }
     ];
-    networking.firewall.allowedUDPPorts = [ 3478 ]; # 5349 ];
-    networking.firewall.allowedTCPPorts = [ 3478 ]; # 5349 ];
+    networking.firewall.allowedUDPPorts = [ 3478  5349 ];
+    networking.firewall.allowedTCPPorts = [ 3478  5349 ];
 
     services.coturn = {
       enable = true;
       no-cli = true;
-      #tls-listening-port = 5349;
+      tls-listening-port = 5349;
       #no-tcp-relay = true;
       listening-port = 3478;
       min-port = 49000;
@@ -39,7 +39,7 @@ in
       use-auth-secret = true;
       static-auth-secret-file = config.age.secrets.coturn-secret.path;
       relay-ips = [
-        "${config.custom.vars.serverVpnIp}"
+      #   "${config.custom.vars.serverVpnIp}"
         "${config.custom.vars.serverIp}"
       ];
       listening-ips = [
@@ -54,8 +54,9 @@ in
         no-tlsv1
         no-tlsv1_1
         no-tlsv1_2
+        external-ip=82.218.2.36/192.168.0.10
         # for debugging
-        verbose
+        # verbose
         # ban private IP ranges
         no-multicast-peers
         allowed-peer-ip=192.168.2.0-192.168.2.255
