@@ -116,6 +116,7 @@
       tdata.enable = true;
       # github-runner.enable = true;
       gitea-runner.enable = true;
+      kavita-gitea-runner.enable = true;
       caldav.enable = true;
       kop-monitor.enable = true;
       kop-service-dashboard = {
@@ -131,7 +132,6 @@
         enable = true;
         dav = true;
       };
-      kavita-gitea-runner.enable = true;
       wireguard = {
         enable = true;
         ip = "192.168.2.1";
