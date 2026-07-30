@@ -10,7 +10,7 @@ buildGoModule rec {
   version = "0.0.1";
 
   src = fetchGit {
-    url = "gitea@git.kopatz.dev:kopatz/llama-systray.git";
+    url = "ssh://gitea@git.kopatz.dev/kopatz/llama-systray.git";
     ref = "master";
     rev = "3c2baf722da089b2b7400349518a6badb93c84a3";
   };

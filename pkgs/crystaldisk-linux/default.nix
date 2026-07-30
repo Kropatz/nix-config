@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation {
   pname = "crystaldiskinfo-clone";
   version = "0.1.0";
   src = fetchGit {
-    url = "gitea@git.kopatz.dev:kopatz/crystaldiskinfo-linux.git";
+    url = "ssh://gitea@git.kopatz.dev/kopatz/crystaldiskinfo-linux.git";
     ref = "master";
     rev = "7d4707171ac84a4d856fb77d935dcc1c507e0d79";
   };

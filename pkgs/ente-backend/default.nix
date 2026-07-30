@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = "${
     (fetchGit {
-      url = "gitea@git.kopatz.dev:oberprofis/ente.git";
+      url = "ssh://gitea@git.kopatz.dev/oberprofis/ente.git";
       ref = "master";
       rev = "918d171bd9cd75c258279d7ef3e46fde1d8e5cc8";
     })

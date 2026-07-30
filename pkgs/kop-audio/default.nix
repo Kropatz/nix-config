@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   version = "0.0.1";
 
   src = fetchGit {
-    url = "git@github.com:kropatz/kop-audio.git";
+    url = "ssh://git@github.com/kropatz/kop-audio.git";
     ref = "master";
     rev = "431a8dd069eb8b5ae56d49ee20652ba2fc1c2969";
   };

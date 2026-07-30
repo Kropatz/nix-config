@@ -10,7 +10,7 @@ buildGoModule rec {
   version = "0.0.1";
 
   src = fetchGit {
-    url = "gitea@git.kopatz.dev:kopatz/kop-pvlog.git";
+    url = "ssh://gitea@git.kopatz.dev/kopatz/kop-pvlog.git";
     ref = "master";
     rev = "b3a46f5eb9ad2dacf025db59645415a215997d18";
   };

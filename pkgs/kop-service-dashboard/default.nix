@@ -10,7 +10,7 @@ buildGoModule rec {
   version = "0.0.1";
 
   src = fetchGit {
-    url = "gitea@git.kopatz.dev:kopatz/kop-service-dashboard.git";
+    url = "ssh://gitea@git.kopatz.dev/kopatz/kop-service-dashboard.git";
     ref = "master";
     rev = "d49f95dbcb18710d0f4beb493f112386217be8f3";
   };

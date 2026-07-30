@@ -8,7 +8,7 @@ stdenv.mkDerivation {
   version = "0.0.1";
 
   src = fetchGit {
-    url = "gitea@git.kopatz.dev:kopatz/kop-startpage.git";
+    url = "ssh://gitea@git.kopatz.dev/kopatz/kop-startpage.git";
     ref = "master";
     rev = "265c7b2616d99ee31e4674e530a00d9c83acba58";
   };

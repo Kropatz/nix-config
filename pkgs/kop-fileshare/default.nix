@@ -10,7 +10,7 @@ buildGoModule rec {
   version = "0.0.1";
 
   src = fetchGit {
-    url = "git@github.com:kropatz/kop-fileshare.git";
+    url = "ssh://git@github.com/kropatz/kop-fileshare.git";
     ref = "master";
     rev = "da8a92c70514b5194564036bc6b9f8c4005c797f";
   };

@@ -9,7 +9,7 @@ buildNpmPackage rec {
   version = "0.0.1";
 
   src = fetchGit {
-    url = "git@github.com:oberprofis/scheibnkleister-presence.git";
+    url = "ssh://git@github.com/oberprofis/scheibnkleister-presence.git";
     ref = "master";
     rev = "28923f9e6de59f54788b4976f523bb908f90dcba";
   };

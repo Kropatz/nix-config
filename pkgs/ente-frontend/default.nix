@@ -11,7 +11,7 @@ buildNpmPackage rec {
 
   src = "${
     (fetchGit {
-      url = "git@github.com:oberprofis/ente.git";
+      url = "ssh://git@github.com/oberprofis/ente.git";
       ref = "master";
       rev = "fe6eb090e513fc2aaac15274dbd94792b3e41052";
     })

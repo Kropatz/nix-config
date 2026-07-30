@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   version = "1.0.0";
 
   src = fetchGit {
-    url = "gitea@git.kopatz.dev:kopatz/url-replacer-bot.git";
+    url = "ssh://gitea@git.kopatz.dev/kopatz/url-replacer-bot.git";
     ref = "master";
     rev = "4b5e4fdc73a99e24e93eedd1d3ae020736986aaf";
   };

@@ -9,7 +9,7 @@ rustPlatform.buildRustPackage {
   version = "1.0.0";
 
   src = fetchGit {
-    url = "git@github.com:kropatz/kop-fhcalendar.git";
+    url = "ssh://git@github.com/kropatz/kop-fhcalendar.git";
     ref = "master";
     rev = "f1c9cea0874cdd8465c38b10f73f73272e9d4233";
   };
