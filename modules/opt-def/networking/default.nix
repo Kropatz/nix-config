@@ -1,6 +1,6 @@
-{ pkgs, config, ... }:
+{ lib, ... }:
 {
-  imports = [
-    ./networkmanager.nix
-  ];
+  options.custom.networking = {
+    networkmanager.enable = lib.mkEnableOption "Enables networkmanager";
+  };
 }
