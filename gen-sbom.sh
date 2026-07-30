@@ -5,6 +5,17 @@ set -e
 OUT_DIR="sbom"
 mkdir -p "$OUT_DIR"
 
+# These hosts are built into the HDD chroot store, so sbomnix has to look there.
+# NIX_REMOTE redirects the nix calls sbomnix makes internally. Exported here rather
+# than in the shebang so nix-shell itself still resolves jq against the SSD store.
+# See docs/hdd-store.md.
+if mountpoint -q /data; then
+  export NIX_REMOTE="${NIX_HDD_STORE:-/data/nix-store}"
+else
+  echo "/data is not mounted - refusing to build onto the SSD" >&2
+  exit 1
+fi
+
 for host in server-vm amd-server amd-server-exposed-vm amd-server-vpn-vm; do
   mkdir -p "$OUT_DIR/$host"
   sbomnix .#nixosConfigurations.$host.config.system.build.toplevel \

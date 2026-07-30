@@ -71,6 +71,7 @@ in
         passwordFile = config.age.secrets."cloudflare-api".path;
         usev6 = "disabled";
       };
+      systemd.services.ddclient.after = [ "nss-user-lookup.target" ];
     })
     # configure git clone gitolite@server:gitolite-admin
     # help ssh gitolite@server help
