@@ -12,7 +12,7 @@ buildGoModule rec {
   src = fetchGit {
     url = "gitea@git.kopatz.dev:kopatz/kop-minihttp.git";
     ref = "master";
-    rev = "89df4a72bb9cfff3c0e2618d94feb269aefc439c";
+    rev = "5caa395fe58b5b84da4e77b174376104e24f16a9";
   };
   vendorHash = null;
 

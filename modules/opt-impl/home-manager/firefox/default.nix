@@ -21,6 +21,21 @@ let
   nvidiaSettings = lib.optionals config.custom.hardware.nvidia.enable [
     (import ./config/nvidia-fixes.nix)
   ];
+  # served by the kop-startpage user service below
+  startpagePort = 6767;
+  startpageUrl = "http://localhost:${toString startpagePort}";
+  startpageSettings = {
+    "browser.startup.homepage" = startpageUrl;
+  };
+  # Firefox removed the browser.newtab.url pref in 41, the new tab URL can only
+  # be set from privileged code since then. Do it from the wrapper's autoconfig
+  # file (mozilla.cfg). try/catch so that an upstream rename of the module just
+  # falls back to the built-in new tab page instead of breaking startup.
+  # startpageAutoConfig = ''
+  #   try {
+  #     ChromeUtils.importESModule("resource:///modules/AboutNewTab.sys.mjs").AboutNewTab.newTabURL = "${startpageUrl}";
+  #   } catch (e) {}
+  # '';
   privacyExtensions = with pkgs.nur.repos.rycee.firefox-addons; [
     clearurls
     darkreader
@@ -144,6 +159,7 @@ in
   };
   programs.firefox = lib.mkIf config.custom.graphical.firefox-custom.enable {
     enable = true;
+    # package = pkgs.firefox.override { extraPrefs = startpageAutoConfig; };
     configPath = ".mozilla/firefox";
     # TODO: To migrate to the XDG path, move `~/.mozilla/firefox` to `$XDG_CONFIG_HOME/mozilla/firefox` and remove the old directory.
     #configPath = "${config.xdg.configHome}/mozilla/firefox";
@@ -180,7 +196,12 @@ in
       default = {
         name = "privacy-friendly";
         # tracking-webaudio.nix re-enables webaudio (overrides tracking.nix)
-        settings = merge (privacySettings ++ [ (import ./config/tracking-webaudio.nix) ] ++ nvidiaSettings);
+        settings = merge (
+          privacySettings
+          ++ [ (import ./config/tracking-webaudio.nix) ]
+          ++ nvidiaSettings
+          ++ [ startpageSettings ]
+        );
         inherit userChrome;
         userContent = ''
           body:-moz-only-whitespace {
@@ -210,6 +231,7 @@ in
             (import ./config/speed.nix)
           ]
           ++ nvidiaSettings
+          ++ [ startpageSettings ]
         );
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           clearurls
@@ -223,5 +245,15 @@ in
         inherit search;
       };
     };
+  };
+
+  # serves the startpage that is set as the firefox homepage above
+  systemd.user.services.kop-startpage = lib.mkIf config.custom.graphical.firefox-custom.enable {
+    Unit.Description = "kop-startpage on port ${toString startpagePort}";
+    Service = {
+      ExecStart = "${lib.getExe' pkgs.kop-minihttp "kop-minihttp"} -dir ${pkgs.kop-startpage}";
+      Restart = "on-failure";
+    };
+    Install.WantedBy = [ "default.target" ];
   };
 }

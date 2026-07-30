@@ -4,7 +4,7 @@
 set -e
 
 PACKAGE_FILE="default.nix" # Replace with your package file path
-REPO_URL="git@github.com:kropatz/kop-fileshare.git" # Replace with the repository URL
+REPO_URL="gitea@git.kopatz.dev:kopatz/kop-minihttp.git" # Replace with the repository URL
 
 SCRIPT_DIR=$(dirname $(realpath $0))
 
