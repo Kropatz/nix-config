@@ -2,8 +2,11 @@
 #!nix-shell -i bash -p jq nix-prefetch-git
 
 set -e
-
-PACKAGE_FILE="default.nix" # Replace with your package file path
+#
+# Resolve the real path to this script, following symlinks, so PACKAGE_FILE
+# is always found relative to where the script itself lives, not $PWD.
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+PACKAGE_FILE="$SCRIPT_DIR/default.nix"
 REPO_URL="gitea@git.kopatz.dev:oberprofis/hub.git" # Replace with the repository URL
 
 echo "Fetching latest revision from $REPO_URL..."

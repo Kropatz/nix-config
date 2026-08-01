@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     mkdir -p $out/tracker-site
-    cp -r ${kop-hub}/* $out
-    cp -r ${ente-frontend}/* $out/tracker-site
+    cp -rT ${kop-hub} $out
+    cp -rT ${ente-frontend} $out/tracker-site
   '';
 })
