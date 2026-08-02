@@ -13,7 +13,6 @@ in
   config = mkIf cfg.enable {
     programs.dconf.enable = true; # virt-manager requires dconf to remember settings
     environment.systemPackages = with pkgs; [ virtiofsd ];
-    environment.sessionVariables.GSETTINGS_BACKEND = "keyfile";
     boot.extraModprobeConfig = ''
       options kvm ignore_msrs=1
     '';

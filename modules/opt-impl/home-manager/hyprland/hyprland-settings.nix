@@ -301,7 +301,7 @@ in
             (mkExecBind "SUPER + Q" kitty)
             (mkBind "SUPER + C" "hl.dsp.window.close()" { })
             (mkExecBind "SUPER + SHIFT + L" lock-cmd)
-            (mkExecBind "SUPER + M" "${zenity} --question --text='Quit Hyprland?' && hyprctl dispatch exit")
+            (mkExecBind "SUPER + M" "${zenity} --question --text='Quit Hyprland?' && hyprctl dispatch 'hl.dsp.exit()'")
             (mkExecBind "SUPER + E" thunar)
             (mkBind "SUPER + P" "hl.dsp.window.pin()" { })
             (mkExecBind "SUPER + SHIFT + P" "${hyprpicker} --autocopy")

@@ -33,15 +33,14 @@ in
       };
     };
 
+    # Stylix only ships colors; it never states the light/dark preference.
+    # GTK 4.20+/libadwaita pick their palette from the color scheme instead of
+    # from Stylix's @define-color overrides, so without this every GTK app
+    # renders light. Writes gtk-application-prefer-dark-theme (GTK 3),
+    # gtk-interface-color-scheme (GTK 4) and the matching dconf key.
+    gtk.colorScheme = lib.mkIf (config.stylix.polarity != "either") config.stylix.polarity;
+
     wayland.windowManager.hyprland.settings = lib.mkIf config.custom.graphical.hyprland.enable {
-      env = [
-        {
-          _args = [
-            "GTK_THEME"
-            "adw-gtk3"
-          ];
-        }
-      ];
       config.general.col.active_border = lib.mkForce {
         colors = [
           "rgb(${base16.base07})"
