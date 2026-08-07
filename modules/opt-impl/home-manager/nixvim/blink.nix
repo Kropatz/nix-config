@@ -5,7 +5,17 @@
     copilot-lua = {
       enable = true;
       settings = {
-        suggestion.enabled = false;
+        suggestion = {
+          enabled = true;
+          auto_trigger = true;
+          hide_during_completion = false;
+          debounce = 75;
+          keymap = {
+            accept = "<C-CR>";
+            accept_word = false;
+            accept_line = false;
+          };
+        };
         panel.enabled = false;
       };
     };
@@ -25,13 +35,13 @@
             "path"
             "snippets"
             "buffer"
-            "copilot"
+            # "copilot"
           ];
           providers = {
-            copilot = {
-              name = "copilot";
-              module = "blink-cmp-copilot";
-            };
+            # copilot = {
+            #   name = "copilot";
+            #   module = "blink-cmp-copilot";
+            # };
             # cmdline = {
             #   min_keyword_length = config.lib.nixvim.mkRaw ''
             #     function(ctx)
@@ -129,6 +139,6 @@
     };
 
     # Extra source packages
-    blink-cmp-copilot.enable = true;
+    # blink-cmp-copilot.enable = true;
   };
 }
