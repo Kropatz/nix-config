@@ -145,6 +145,7 @@
   };
   services.jenkins.enable = false;
   virtualisation.waydroid.enable = false;
+  # programs.noctalia.enable = true;
 
   systemd.user.services.scheibnkleister-presence = {
     description = "scheibnkleister-presence";
@@ -206,6 +207,9 @@
     #  theme = "${pkgs.hollow-grub}/grub/theme";
     #};
   };
+  boot.extraModprobeConfig = ''
+    options snd-usb-audio quirk_flags=1532:0503:ignore_clock_source|get_sample_rate|ctl_msg_delay
+  '';
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   networking.hostName = "kop-pc"; # Define your hostname.

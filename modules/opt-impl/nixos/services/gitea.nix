@@ -25,6 +25,8 @@ in
       settings = {
         server.HTTP_PORT = 3001;
         service.DISABLE_REGISTRATION = true;
+        # security.ALLOWED_HOST_LIST = "external,loopback,192.168.0.11";
+        security.ALLOWED_HOST_LIST = "external";
         server.DOMAIN = cfg.fqdn;
         server.ROOT_URL = "https://${cfg.fqdn}";
         #service.REQUIRE_SIGNIN_VIEW = true;

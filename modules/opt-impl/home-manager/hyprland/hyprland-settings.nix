@@ -443,6 +443,14 @@ in
               match.title = "Picture-in-Picture";
               suppress_event = "maximize";
             }
+            {
+              match.workspace = 5;
+              no_screen_share = true;
+            }
+            {
+              match.workspace = 7;
+              no_screen_share = true;
+            }
           ];
 
         };
