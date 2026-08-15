@@ -295,6 +295,20 @@ in
               '';
             };
           };
+          "gitui.kopatz.dev" = {
+            forceSSL = true;
+            # enableACME = true;
+            useACMEHost = "kopatz.dev";
+            quic = true;
+            http3 = true;
+            locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:3002";
+            locations."/robots.txt" = {
+              extraConfig = ''
+                add_header Content-Type text/plain;
+                return 200 "User-agent: *\nDisallow: /\n";
+              '';
+            };
+          };
         };
     };
   };

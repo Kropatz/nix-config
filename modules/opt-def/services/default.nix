@@ -42,6 +42,10 @@ in
           }
           {
             "domain" = "git.kopatz.dev";
+            "answer" = config.custom.vars.exposedServerIp;
+          }
+          {
+            "domain" = "gitui.kopatz.dev";
             "answer" = ip;
           }
           {

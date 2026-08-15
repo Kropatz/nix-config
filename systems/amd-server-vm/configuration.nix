@@ -53,7 +53,10 @@
       backup =
         let
           kavita = "/data/shares/exposedvm/kavita";
-          gitea = "/1tbssd/gitea";
+          gitea = [
+            "/1tbssd/shares/exposedvm/gitea"
+            "/1tbssd/shares/exposedvm/backups/gitea"
+          ];
           # opendkim moved to the exposed VM; mail storage stays here.
           mail = [
             "/data/vmail"
@@ -79,14 +82,13 @@
           ++ syncthing
           ++ mail
           ++ netbird;
-          backupPathsMedium = [
-            gitea
-          ]
+          backupPathsMedium = gitea
           ++ backupPathsSmall;
           backupPathsFull = [
             kavita
             "/data/shares/exposedvm/ente"
           ]
+          ++ gitea
           ++ syncthingFull
           ++ backupPathsMedium;
         in

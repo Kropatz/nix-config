@@ -61,6 +61,80 @@ in
         METRICS_BIND_NETWORK = "tcp";
       };
     };
+    systemd.timers.backup-gitea = {
+      description = "Periodically backup gitea data";
+      wantedBy = [ "timers.target" ];
+
+      timerConfig = {
+        OnCalendar = "daily";
+        RandomizedDelaySec = "5m";
+      };
+    };
+    systemd.services = {
+      backup-gitea =
+        let
+          backupGitea = pkgs.writeShellScript "backup-gitea" ''
+            set -euo pipefail
+
+            DEST="/mnt/backups/gitea"
+
+            mkdir -p "''${DEST}"
+            ls -la /var/lib
+            ls -la /var/lib/gitea
+            ls ${cfg.dataDir}
+            cp -r ${cfg.dataDir}/data "''${DEST}/"
+
+            echo "Backup completed: ''${DEST}"
+          '';
+        in
+        {
+          description = "Periodically backup gitea data";
+          after = [
+            "mnt-backups.mount"
+          ];
+          requires = [
+            "mnt-backups.mount"
+          ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${backupGitea}";
+            User = "root";
+            ReadWritePaths = [ "/mnt/backups" ];
+            ReadOnlyPaths = [
+              "${cfg.dataDir}"
+            ];
+            # Basic hardening
+            # CapabilityBoundingSet = "";
+            CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
+            NoNewPrivileges = true;
+            ProtectSystem = "strict";
+            # needs access to /mnt/backups, so we can't use PrivateMounts
+            PrivateMounts = false;
+            ProtectHome = true;
+            PrivateTmp = true;
+            # needed
+            PrivateUsers = false;
+            PrivateDevices = true;
+            ProtectClock = true;
+            ProtectControlGroups = true;
+            ProtectHostname = true;
+            ProtectKernelLogs = true;
+            ProtectKernelModules = true;
+            ProtectKernelTunables = true;
+            RemoveIPC = true; # Remove IPC objects when unit is stopped
+            RestrictAddressFamilies = [ "none" ];
+            RestrictNamespaces = "yes";
+            RestrictRealtime = true;
+            RestrictSUIDSGID = true;
+            SystemCallFilter = "@system-service";
+            SystemCallArchitectures = "native";
+            ## Proc filesystem
+            ProcSubset = "pid";
+            ProtectProc = "invisible";
+            PrivateNetwork = true;
+          };
+        };
+    };
     services.nginx.virtualHosts."${cfg.fqdn}" = lib.mkIf cfg.enableNginx {
       forceSSL = true;
       # enableACME = true;
