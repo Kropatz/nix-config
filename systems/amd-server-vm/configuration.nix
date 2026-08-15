@@ -105,7 +105,7 @@
       ssh.enable = true;
       acme.enable = true;
       acme-cloudflare.enable = true;
-      gitea.enable = true;
+      # gitea = {enable = true; enableNginx = true;};
       fail2ban.enable = true;
       step-ca.enable = true;
       samba.enable = true;

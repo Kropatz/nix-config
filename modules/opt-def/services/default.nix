@@ -207,6 +207,17 @@ in
         default = "git.kopatz.dev";
         description = "FQDN under which gitea is available";
       };
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/1tbssd/gitea";
+        description = "Data dir";
+      };
+      repoDir = lib.mkOption {
+        type = lib.types.str;
+        default = "${config.custom.services.gitea.dataDir}/repositories";
+        description = "Data dir";
+      };
+      enableNginx = lib.mkEnableOption "Enables nginx reverse proxy for gitea";
     };
     gitea-runner = {
       enable = lib.mkEnableOption "Enables gitea-runner service.";

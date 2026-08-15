@@ -14,6 +14,17 @@ in
       file = ../../../../secrets/git-mail-pw.age;
       owner = "gitea";
     };
+    users.users.gitea = {
+      isSystemUser = true;
+      group = "gitea";
+      createHome = true;
+      uid = config.custom.vars.uids.gitea;
+      home = cfg.dataDir;
+    };
+
+    users.groups.gitea = {
+      gid = config.custom.vars.uids.gitea;
+    };
     # Initial setup requires creating an admin user with DISABLE_REGISTRATION set to false
     # https://docs.gitea.com/next/administration/config-cheat-sheet
     services.gitea = {
@@ -21,7 +32,8 @@ in
       user = "gitea";
       group = "gitea";
       mailerPasswordFile = config.age.secrets.git-mail-pw.path;
-      stateDir = "/1tbssd/gitea";
+      stateDir = cfg.dataDir;
+      repositoryRoot = cfg.repoDir;
       settings = {
         server.HTTP_PORT = 3001;
         service.DISABLE_REGISTRATION = true;
@@ -49,7 +61,7 @@ in
         METRICS_BIND_NETWORK = "tcp";
       };
     };
-    services.nginx.virtualHosts."${cfg.fqdn}" = {
+    services.nginx.virtualHosts."${cfg.fqdn}" = lib.mkIf cfg.enableNginx {
       forceSSL = true;
       # enableACME = true;
       useACMEHost = "kopatz.dev";

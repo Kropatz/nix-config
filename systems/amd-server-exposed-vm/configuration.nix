@@ -51,6 +51,12 @@
     };
     services = {
       ssh.enable = true;
+      gitea = {
+        enable = true;
+        enableNginx = true;
+        dataDir = "/var/lib/gitea";
+        repoDir = "/mnt/gitea";
+      };
       kop-sanitizer-bot.enable = true;
       node-exporter.enable = true;
       netbird-native.enable = true;
@@ -89,6 +95,7 @@
     ip saddr ${config.custom.vars.serverIp} tcp dport 8081 counter accept comment allow_ente_from_main_server
     ip saddr ${config.custom.vars.serverIp} tcp dport 8096 counter accept comment allow_jellyfin_from_main_server
     ip saddr ${config.custom.vars.serverIp} tcp dport 4003 counter accept comment allow_netbird_from_main_server
+    ip saddr ${config.custom.vars.serverIp} tcp dport 3002 counter accept comment allow_gitea_from_main_server
   '';
 
   services.openssh.extraConfig = ''
@@ -101,8 +108,6 @@
         PermitRootLogin no
         AllowUsers gitea
   '';
-
-
 
   virtualisation.vmware.guest.enable = true;
   services.xserver.videoDrivers = [ "vmware" ];
@@ -215,6 +220,17 @@
         in
         [
           "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kop-fileshare.uid},gid=${toString config.users.groups.kop-fileshare.gid}"
+        ];
+    };
+    "/mnt/gitea" = {
+      device = "//${config.custom.vars.serverIp}/medium/gitea";
+      fsType = "cifs";
+      options =
+        let
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,mfsymlinks,dir_mode=0700,file_mode=0600";
+        in
+        [
+          "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.gitea.uid},gid=${toString config.users.groups.gitea.gid}"
         ];
     };
     "/mnt/kavita" = {

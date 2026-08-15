@@ -59,6 +59,11 @@ in
         type = lib.types.int;
         default = 2008;
       };
+
+      gitea = lib.mkOption {
+        type = lib.types.int;
+        default = 2009;
+      };
     };
     gids = {
       torrent = lib.mkOption {
@@ -80,6 +85,10 @@ in
       katze = lib.mkOption {
         type = lib.types.int;
         default = 2008;
+      };
+      gitea = lib.mkOption {
+        type = lib.types.int;
+        default = 2009;
       };
     };
   };

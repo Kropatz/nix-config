@@ -136,6 +136,7 @@ in
   "git-mail-pw.age".publicKeys = [
     kop
     server-vm
+    amd-server-exposed-vm
   ];
   "gitea-runner-token.age".publicKeys = [
     kop
