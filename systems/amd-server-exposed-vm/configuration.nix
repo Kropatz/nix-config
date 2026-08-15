@@ -187,7 +187,7 @@
       fsType = "cifs";
       options =
         let
-          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,mfsymlinks,dir_mode=0700,file_mode=0600";
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,mfsymlinks,dir_mode=0700,file_mode=0700";
         in
         [
           "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.gitea.uid},gid=${toString config.users.groups.gitea.gid}"
