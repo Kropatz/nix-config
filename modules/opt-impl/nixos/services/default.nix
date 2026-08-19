@@ -87,5 +87,30 @@ in
         enable = true;
       };
     })
+    (lib.mkIf cfg.searxng.enable {
+      age.secrets.searxng-secrets = {
+        file = ../../../../secrets/searxng-secrets.age;
+      };
+      networking.firewall.allowedTCPPorts = [ 8787 ];
+      services.searx = {
+        enable = true;
+        environmentFile = config.age.secrets."searxng-secrets".path;
+        settings = {
+          use_default_settings = true;
+          server = {
+            port = 8787;
+            bind_address = "0.0.0.0";
+            secret_key = "1";
+          };
+          search = {
+            formats = [
+              "json"
+              "html"
+            ];
+            favicon_resolver = "duckduckgo";
+          };
+        };
+      };
+    })
   ];
 }

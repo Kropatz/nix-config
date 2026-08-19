@@ -389,6 +389,7 @@ in
       };
     };
     samba.enable = lib.mkEnableOption "Enables samba";
+    searxng.enable = lib.mkEnableOption "Enables searxng";
     smartd.enable = lib.mkEnableOption "Enables smartd monitoring";
     smartd-exporter.enable = lib.mkEnableOption "Enables smartd monitoring";
     ssh.enable = lib.mkEnableOption "Enables ssh";

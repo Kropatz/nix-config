@@ -166,4 +166,8 @@ in
     kop
     amd-server-exposed-vm
   ];
+  "searxng-secrets.age".publicKeys = [
+    kop
+    amd-server-exposed-vm
+  ];
 }

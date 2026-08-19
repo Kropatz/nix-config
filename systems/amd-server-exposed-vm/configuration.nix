@@ -51,6 +51,7 @@
     };
     services = {
       ssh.enable = true;
+      searxng.enable = true;
       gitea = {
         enable = true;
         enableNginx = true;

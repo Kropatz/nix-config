@@ -127,18 +127,6 @@
     HandlePowerKey = "suspend";
   };
   nix.gc.automatic = lib.mkForce false;
-  services.searx = {
-    enable = false;
-    settings = {
-      use_default_settings = true;
-      server.port = 8787;
-      server.bind_address = "0.0.0.0";
-      server.secret_key = "1";
-      search = {
-        favicon_resolver = "duckduckgo";
-      };
-    };
-  };
   services.ollama = {
     enable = false;
     package = pkgs.ollama-vulkan;

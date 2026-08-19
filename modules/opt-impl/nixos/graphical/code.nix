@@ -26,6 +26,7 @@ in
         opencode
         zed-editor
         lazygit
+        sqlite
         (claude-code.overrideAttrs {
           version = "2.1.220";
           src = fetchurl {
