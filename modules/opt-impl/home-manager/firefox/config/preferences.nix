@@ -67,4 +67,7 @@
   "widget.disable-workspace-management" = true;
   # Automatically enable extensions, don't manually confirm if it should be enabled
   "extensions.autoDisableScopes" = 0;
+  # Scrolling with middle mouse
+  "middlemouse.paste" = false;
+  "general.autoScroll" = true;
 }
