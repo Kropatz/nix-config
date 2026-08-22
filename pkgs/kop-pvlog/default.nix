@@ -12,7 +12,7 @@ buildGoModule rec {
   src = fetchGit {
     url = "ssh://gitea@git.kopatz.dev/kopatz/kop-pvlog.git";
     ref = "master";
-    rev = "b3a46f5eb9ad2dacf025db59645415a215997d18";
+    rev = "58961f3897eddc94c8a272aa86ba3057a44dd37a";
   };
   vendorHash = "sha256-8wYERVt3PIsKkarkwPu8Zy/Sdx43P6g2lz2xRfvTZ2E=";
 
