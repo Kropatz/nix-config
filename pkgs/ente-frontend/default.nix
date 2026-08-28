@@ -3,28 +3,42 @@
   buildNpmPackage,
   fetchFromGitHub,
   npm-lockfile-fix,
+  fetchPnpmDeps,
+  nodejs,
+  pnpm,
+  pnpmConfigHook,
+  stdenv,
 }:
 
-buildNpmPackage rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ente-website";
-  version = "1.0.0";
+  version = "1.1.0";
 
   src = "${
     (fetchGit {
-      url = "ssh://git@github.com/oberprofis/ente.git";
+      url = "ssh://gitea@git.kopatz.dev/oberprofis/ente.git";
       ref = "master";
-      rev = "fe6eb090e513fc2aaac15274dbd94792b3e41052";
+      rev = "6e19d5e27e769fe48cfa2223c2f5f113fd087389";
     })
   }/website/tracker-site";
-  npmDepsHash = "sha256-fYTRhIU+8pdIm3wC5wJRcDUhgN3d+mmvfmVzuu0pjLQ=";
 
-  # The prepack script runs the build script, which we'd rather do in the build phase.
-  #npmPackFlags = [ "--ignore-scripts" ];
-  #npmFlags = [ "--legacy-peer-deps" ];
+  pnpmDeps = fetchPnpmDeps {
+    inherit (finalAttrs) pname version src;
+    fetcherVersion = 4;
+    hash = "sha256-9BWrCWEEbYURjx4N5BZ9lNKde8zruGKepMn/6y7rzLc=";
+  };
+
+  nativeBuildInputs = [
+    nodejs
+    pnpmConfigHook
+    pnpm
+  ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out
-    ls .
+    pnpm run build
     cp -r ./dist/tracker-site/browser/* $out
+    runHook postInstall
   '';
-}
+})

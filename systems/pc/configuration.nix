@@ -20,6 +20,8 @@
     ../../modules/opt-impl/nixos/fh/writing.nix
     ../../modules/opt-impl/nixos/work/vpn.nix
     ../../modules/opt-impl/nixos/package-collections/perf.nix
+     # ../../modules/opt-impl/nixos/microvm/routed-network.nix
+    # ./test-microvm.nix
     #../../modules/hardware/ryzenmonitor.nix
     # ../../modules/services/k3s-single-node.nix
     #./tailscale-client.nix

@@ -3,6 +3,9 @@
 
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+cd "$SCRIPT_DIR"
+
 PACKAGE_FILE="default.nix" # Replace with your package file path
 REPO_URL="gitea@git.kopatz.dev:kopatz/url-replacer-bot.git" # Replace with the repository URL
 

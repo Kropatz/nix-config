@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
     (fetchGit {
       url = "ssh://gitea@git.kopatz.dev/oberprofis/ente.git";
       ref = "master";
-      rev = "918d171bd9cd75c258279d7ef3e46fde1d8e5cc8";
+      rev = "6e19d5e27e769fe48cfa2223c2f5f113fd087389";
     })
   }/new-bot";
 
@@ -84,7 +84,7 @@ stdenvNoCC.mkDerivation rec {
     outputHashAlgo = "sha256";
     outputHash =
       {
-        x86_64-linux = "sha256-pX1oh2Q4bXELabbH8N8KtLjZYb9iRVKocr1Fk3Nnbpw=";
+        x86_64-linux = "sha256-m2xKKaaFMh2KguF4HmbsjR65w5vnfua0VTCMmcPC5nk=";
         aarch64-linux = "";
       }
       .${stdenv.hostPlatform.system} or (throw "Unsupported system ${stdenv.hostPlatform.system}");

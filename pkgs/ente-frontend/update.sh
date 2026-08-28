@@ -3,8 +3,11 @@
 
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+cd "$SCRIPT_DIR"
+
 PACKAGE_FILE="default.nix" # Replace with your package file path
-REPO_URL="git@github.com:oberprofis/ente.git" # Replace with the repository URL
+REPO_URL="gitea@git.kopatz.dev:oberprofis/ente.git" # Replace with the repository URL
 
 echo "Fetching latest revision from $REPO_URL..."
 
