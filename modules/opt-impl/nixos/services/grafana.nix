@@ -42,7 +42,6 @@ in
       "d ${base} 0755 grafana grafana -"
       "d ${base}/grafana 0750 grafana grafana -"
       "d ${base}/loki 0750 loki grafana -"
-      "d ${base}/fluent-bit 0750 fluent-bit grafana -"
       "d ${base}/prometheus 0750 prometheus grafana -"
       #"d ${base}/prometheus/data 0750 prometheus grafana -"
       "L+ /var/lib/prometheus2 - - - - ${base}/prometheus"
@@ -291,77 +290,7 @@ in
       configFile = ./grafana/loki.yml;
     };
 
-    users.users.fluent-bit = {
-      isSystemUser = true;
-      group = "fluent-bit";
-    };
-    users.groups.fluent-bit = { };
-    systemd.services.fluent-bit.serviceConfig = {
-      DynamicUser = lib.mkForce false;
-      User = lib.mkForce "fluent-bit";
-      Group = lib.mkForce "fluent-bit";
-      WorkingDirectory = lib.mkForce "${base}/fluent-bit";
-      ReadWritePaths = lib.mkForce [ "${base}/fluent-bit" ];
-      # Security hardening
-      UMask = "077";
-      CapabilityBoundingSet = "";
-      NoNewPrivileges = true;
-      ProtectSystem = "strict";
-      PrivateMounts = true;
-      ProtectHome = true;
-      PrivateTmp = true;
-      PrivateUsers = true;
-      PrivateDevices = true;
-      ProtectClock = true;
-      ProtectControlGroups = true;
-      ProtectHostname = true;
-      # ProtectKernelLogs = true;
-      ProtectKernelModules = true;
-      ProtectKernelTunables = true;
-      RemoveIPC = true; # Remove IPC objects when unit is stopped
-      RestrictNamespaces = "yes";
-      RestrictRealtime = true;
-      RestrictSUIDSGID = true;
-      SystemCallFilter = "@system-service";
-      SystemCallArchitectures = "native";
-      ## Proc filesystem
-      ProcSubset = "pid";
-      ProtectProc = "invisible";
-      # Needs network access
-      PrivateNetwork = false;
-      # End Security hardening
-    };
-
-    services.fluent-bit = {
-      enable = true;
-      settings = {
-        pipeline = {
-          inputs = [
-            {
-              name = "systemd";
-              tag = "systemd.*";
-              db = "${base}/fluent-bit/fluent-bit-systemd.db";
-              read_from_tail = true;
-            }
-          ];
-          filters = [
-            {
-              name = "modify";
-              match = "systemd.*";
-              Rename = [ "_SYSTEMD_UNIT unit" ];
-            }
-          ];
-          outputs = [
-            {
-              name = "loki";
-            }
-          ];
-        };
-        service = {
-          grace = 30;
-        };
-      };
-    };
+    networking.firewall.extraInputRules = "ip saddr ${config.custom.vars.exposedServerIp} tcp dport 3100 counter accept comment loki__allow_from_exposed_server";
 
     # services.promtail = {
     #   enable = true;

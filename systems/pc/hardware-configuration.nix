@@ -45,6 +45,17 @@
     ];
   };
 
+  fileSystems."/datassd" = {
+    device = "/dev/disk/by-uuid/02385015-74d6-4958-93da-7be1edbd9305";
+    fsType = "btrfs";
+    options = [
+      "defaults"
+      "compress=zstd"
+      "noatime"
+      "nofail"
+    ];
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/CC7C-CF82";
     fsType = "vfat";

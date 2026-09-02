@@ -33,12 +33,13 @@
     };
     misc = {
       fasterboot.enable = true;
-      newkernel.enable = true;
+      # newkernel.enable = true; #brokie with legacy nvidia driver
       zram.enable = true;
     };
     hardware = {
       nvidia = {
         enable = true;
+        package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
       };
       ssd.enable = true;
     };
@@ -67,13 +68,13 @@
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.windowManager.openbox.enable = true;
   # == start section sunshine ==
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true;
-    package = (pkgs.sunshine.override { cudaSupport = true; });
-  };
+  # services.sunshine = {
+  #   enable = true;
+  #   autoStart = true;
+  #   capSysAdmin = true;
+  #   openFirewall = true;
+  #   package = (pkgs.sunshine.override { cudaSupport = true; });
+  # };
   services.avahi.publish.enable = true;
   services.avahi.publish.userServices = true;
 

@@ -133,33 +133,28 @@ in
     #     patches = [ (prev.writeText "neotest-patch" neotestPatch) ];
     #   };
     # };
+    # nginxModules.dav is a real derivation (nginx-mod-dav-*), so the patch has
+    # to go through overrideAttrs -- an `// { src = ...; }` update leaves
+    # drvPath untouched and is silently ignored by the nginx build.
     nginxModules = prev.nginxModules // {
-      dav = (
-        prev.nginxModules.dav
-        // {
-          src =
-            let
-              davPatch = prev.writeText "dav-propfind.patch" ''
-                diff --git a/ngx_http_dav_ext_module.c b/ngx_http_dav_ext_module.c
-                index cdb213d..5f14246 100644
-                --- a/ngx_http_dav_ext_module.c
-                +++ b/ngx_http_dav_ext_module.c
-                @@ -862,7 +862,7 @@ ngx_http_dav_ext_propfind(ngx_http_request_t *r, ngx_uint_t props)
-                         name.len = ngx_de_namelen(&dir);
-                         name.data = ngx_de_name(&dir);
-                 
-                -        if (name.data[0] == '.') {
-                +        if ((name.len == 1 && name.data[0] == '.') || (name.len == 2 && name.data[0] == '.' && name.data[1] == '.')) {
-                             continue;
-                         }
-              '';
-            in
-            prev.applyPatches {
-              src = prev.nginxModules.dav.src;
-              patches = prev.nginxModules.dav.src.patches or [ ] ++ [ davPatch ];
-            };
-        }
-      );
+      dav = prev.nginxModules.dav.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [
+          (prev.writeText "dav-propfind.patch" ''
+            diff --git a/ngx_http_dav_ext_module.c b/ngx_http_dav_ext_module.c
+            index cdb213d..5f14246 100644
+            --- a/ngx_http_dav_ext_module.c
+            +++ b/ngx_http_dav_ext_module.c
+            @@ -862,7 +862,7 @@ ngx_http_dav_ext_propfind(ngx_http_request_t *r, ngx_uint_t props)
+                     name.len = ngx_de_namelen(&dir);
+                     name.data = ngx_de_name(&dir);
+
+            -        if (name.data[0] == '.') {
+            +        if ((name.len == 1 && name.data[0] == '.') || (name.len == 2 && name.data[0] == '.' && name.data[1] == '.')) {
+                         continue;
+                     }
+          '')
+        ];
+      });
     };
     #hyprland = prev.hyprland.override {
     #  debug = true;

@@ -113,6 +113,7 @@
       samba.enable = true;
       ddclient-cloudflare.enable = true;
       grafana.enable = true;
+      grafana-log-agent.enable = true;
       coturn.enable = true;
       blocklist.enable = true;
       tdata.enable = true;

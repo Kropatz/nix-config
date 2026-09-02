@@ -11,22 +11,22 @@ in
   config = lib.mkIf cfg.enable {
     home.file.".config/i3" = {
       recursive = true;
-      source = ../.config/i3;
+      source = ../../../.config/i3;
     };
 
     home.file.".config/picom" = {
       recursive = true;
-      source = ../.config/picom;
+      source = ../../../.config/picom;
     };
 
     home.file.".config/wallpapers" = {
       recursive = true;
-      source = ../.config/wallpapers;
+      source = ../../../.config/wallpapers;
     };
 
     home.file.".config/polybar" = {
       recursive = true;
-      source = ../.config/polybar;
+      source = ../../../.config/polybar;
     };
     services.polybar = {
       enable = true;

@@ -52,7 +52,7 @@ in
         nvidiaSettings = true;
         # Optionally, you may need to select the appropriate driver version for your specific GPU.
         #package = config.boot.kernelPackages.nvidiaPackages.beta;
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+        package = cfg.package;
         #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
         #  version = "570.124.04";
         #  sha256_64bit = "sha256-G3hqS3Ei18QhbFiuQAdoik93jBlsFI2RkWOBXuENU8Q=";

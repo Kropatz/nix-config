@@ -45,6 +45,7 @@ in
     ./blocklist.nix
     ./coturn.nix
     ./grafana.nix
+    ./grafana-log-agent.nix
     ./tdata.nix
     ./samba.nix
     ./netbird-native.nix

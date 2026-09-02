@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, ... }:
 {
   options.custom.hardware = {
     amd-gpu = {
@@ -11,6 +11,10 @@
     firmware.enable = lib.mkEnableOption "Enables firmware";
     nvidia = {
       enable = lib.mkEnableOption "Enables nvidia gpus";
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = config.boot.kernelPackages.nvidiaPackages.stable;
+      };
       powerLimit = {
         enable = lib.mkEnableOption "Increase GPU power limit";
         wattage = lib.mkOption {

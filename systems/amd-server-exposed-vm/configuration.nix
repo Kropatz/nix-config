@@ -64,6 +64,7 @@
       fail2ban.enable = true;
       jellyfin.enable = true;
       qbittorrent.enable = true;
+      grafana-log-agent.enable = true;
       ente.enable = true;
       kop-fileshare = {
         basePath = "/stash";
