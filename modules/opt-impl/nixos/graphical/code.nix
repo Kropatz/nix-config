@@ -27,13 +27,7 @@ in
         zed-editor
         lazygit
         sqlite
-        (claude-code.overrideAttrs {
-          version = "2.1.220";
-          src = fetchurl {
-            url = "https://downloads.claude.ai/claude-code-releases/2.1.220/linux-x64/claude";
-            sha256 = "sha256-Z09h8g/zBvMQDPkgDkw2xLcCeLW+8ohFSYGblCqJyGM=";
-          };
-        })
+        claude-code
         (pkgs.writeShellScriptBin "devc" ''
           IS_RUNNING=$(docker ps --filter status=running | grep dev)
           if [ $? -eq 0 ]; then

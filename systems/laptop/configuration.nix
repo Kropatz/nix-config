@@ -97,7 +97,7 @@
   environment.systemPackages = with pkgs; [
     nvtopPackages.amd
     qylock
-    ryzenadj
+    # ryzenadj
     #fscrypt-experimental
     # (spacetimedb.overrideAttrs (old: {
     #   version = "2.0.3";

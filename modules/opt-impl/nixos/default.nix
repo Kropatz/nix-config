@@ -15,6 +15,7 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
+  # time.timeZone = "America/New_York";
 
   services.speechd.enable = false;
 
