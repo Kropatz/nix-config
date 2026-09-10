@@ -42,6 +42,82 @@
     };
     rustaceanvim.enable = true;
   };
+  # otter only attaches to a buffer once it is activated
+  autoCmd = [
+    {
+      event = [ "FileType" ];
+      pattern = [ "go" ];
+      desc = "Attach otter to embedded languages in go raw strings";
+      callback.__raw = ''
+        function()
+          require("otter").activate()
+        end
+      '';
+    }
+  ];
+
+  # treesitter has no injections for go raw strings, so teach it the jetbrains
+  # style `// language=<lang>` marker. otter (and highlighting) follow from that.
+  extraFiles."after/queries/go/injections.scm".text = ''
+    ;; extends
+
+    ; // language=html
+    ; const IndexTemplate = `<!DOCTYPE html> ... `
+    (
+      (comment) @injection.language
+      .
+      [
+        (const_declaration
+          (const_spec
+            value: (expression_list
+              (raw_string_literal
+                (raw_string_literal_content) @injection.content))))
+        (var_declaration
+          (var_spec
+            value: (expression_list
+              (raw_string_literal
+                (raw_string_literal_content) @injection.content))))
+        (const_spec
+          value: (expression_list
+            (raw_string_literal
+              (raw_string_literal_content) @injection.content)))
+        (var_spec
+          value: (expression_list
+            (raw_string_literal
+              (raw_string_literal_content) @injection.content)))
+        (short_var_declaration
+          right: (expression_list
+            (raw_string_literal
+              (raw_string_literal_content) @injection.content)))
+        (assignment_statement
+          right: (expression_list
+            (raw_string_literal
+              (raw_string_literal_content) @injection.content)))
+      ]
+      (#lua-match? @injection.language "^/[/*]%s*language=")
+      (#gsub! @injection.language "^/[/*]%s*language=([%w_+-]+).*$" "%1"))
+
+    ; the comment before the first statement of a block is a sibling of the
+    ; statement_list instead of the statement, so it needs its own pattern
+    (block
+      (comment) @injection.language
+      .
+      (statement_list
+        .
+        [
+          (short_var_declaration
+            right: (expression_list
+              (raw_string_literal
+                (raw_string_literal_content) @injection.content)))
+          (assignment_statement
+            right: (expression_list
+              (raw_string_literal
+                (raw_string_literal_content) @injection.content)))
+        ])
+      (#lua-match? @injection.language "^/[/*]%s*language=")
+      (#gsub! @injection.language "^/[/*]%s*language=([%w_+-]+).*$" "%1"))
+  '';
+
   lsp = {
     inlayHints.enable = true;
     servers = {
@@ -50,7 +126,13 @@
       bashls.enable = true;
       #ccls.enable = true;
       clangd.enable = true;
-      gopls.enable = true;
+      gopls = {
+        enable = true;
+        # lspconfig turns gopls' semantic tokens on, and those win over
+        # treesitter (125 > 100), which would repaint the injected html/css
+        # in raw strings as a plain go string. keep them everywhere but strings.
+        config.settings.gopls.semanticTokenTypes.string = false;
+      };
       svelte.enable = true;
       #clojure_lsp.enable = true;
       # kubernetes doesnt work ._.
