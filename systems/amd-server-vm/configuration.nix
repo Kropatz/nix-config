@@ -82,8 +82,7 @@
           ++ syncthing
           ++ mail
           ++ netbird;
-          backupPathsMedium = gitea
-          ++ backupPathsSmall;
+          backupPathsMedium = gitea ++ backupPathsSmall;
           backupPathsFull = [
             kavita
             "/data/shares/exposedvm/ente"
@@ -172,16 +171,124 @@
     };
   };
 
-
   users.users.katze = {
     createHome = true;
     isNormalUser = true;
     shell = pkgs.zsh;
     uid = config.custom.vars.uids.katze;
     group = "katze";
+    linger = true;
   };
   users.groups.katze = {
     gid = config.custom.vars.gids.katze;
+  };
+
+  systemd.user.services.wolke7bridge = {
+    enable = true;
+    after = [ "network.target" ];
+    wantedBy = [ "default.target" ];
+    description = "wolke7bridge";
+    unitConfig = {
+      ConditionUser = "katze";
+    };
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.nodejs}/bin/node dist/index.js";
+      WorkingDirectory = "/data/comms/discord-bridge";
+      # Security hardening
+      UMask = "077";
+      CapabilityBoundingSet = "";
+      InaccessiblePaths = (lib.remove "-/data" config.custom.services.hardening.dataMounts) ++ [
+        "-/data/synced"
+      ];
+      NoNewPrivileges = true;
+      ProtectSystem = "strict";
+      PrivateMounts = true;
+      ProtectHome = true;
+      PrivateTmp = true;
+      PrivateUsers = true;
+      PrivateDevices = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      RemoveIPC = true; # Remove IPC objects when unit is stopped
+      RestrictAddressFamilies = [
+        "AF_UNIX"
+        "AF_INET"
+        "AF_INET6"
+      ];
+      RestrictNamespaces = "yes";
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      SystemCallFilter = "@system-service";
+      SystemCallArchitectures = "native";
+      ## Proc filesystem
+      ProcSubset = "pid";
+      ProtectProc = "invisible";
+      # Needs network access
+      PrivateNetwork = false;
+      # End Security hardening
+    };
+  };
+
+  systemd.user.services.wolke7 = {
+    enable = true;
+    after = [ "network.target" ];
+    wantedBy = [ "default.target" ];
+    description = "wolke7";
+    unitConfig = {
+      ConditionUser = "katze";
+    };
+    serviceConfig =
+      let
+        dataDir = "/data/comms";
+      in
+      {
+        Type = "simple";
+        ExecStart = "${pkgs.nodejs}/bin/node dist/index.js";
+        WorkingDirectory = dataDir;
+        BindPaths = [ "${dataDir}" ];
+        ReadWritePaths = [ "${dataDir}" ];
+        # Security hardening
+        UMask = "077";
+        CapabilityBoundingSet = "";
+        InaccessiblePaths = (lib.remove "-/data" config.custom.services.hardening.dataMounts) ++ [
+          "-/data/synced"
+        ];
+        NoNewPrivileges = true;
+        ProtectSystem = "strict";
+        PrivateMounts = true;
+        ProtectHome = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        PrivateDevices = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        RemoveIPC = true; # Remove IPC objects when unit is stopped
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
+        RestrictNamespaces = "yes";
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallFilter = "@system-service";
+        SystemCallArchitectures = "native";
+        ## Proc filesystem
+        ProcSubset = "pid";
+        ProtectProc = "invisible";
+        # Needs network access
+        PrivateNetwork = false;
+        # End Security hardening
+      };
   };
 
   services.openssh.extraConfig = ''
