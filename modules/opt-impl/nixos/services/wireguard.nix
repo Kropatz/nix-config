@@ -97,6 +97,7 @@ in
               ];
               publicKey = "/dIW7K49vB9HOghFeXvcY7wu2utQltuv6RfgCbxZwlk=";
             }
+            # jolla phone
             {
               allowedIPs = [
                 "${baseIp}.23/32"

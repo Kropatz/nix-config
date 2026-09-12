@@ -63,6 +63,7 @@
           ];
           syncthing = [
             "/data/synced/default/"
+            "/data/synced/no_phone/"
             "/data/synced/work_drive/"
           ];
           netbird = [

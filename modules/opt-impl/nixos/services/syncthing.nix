@@ -55,6 +55,12 @@ in
               "tcp://192.168.2.20"
             ];
           };
+          jollaPhone = {
+            id = "CVHTSGW-LX6FWHO-FJPK6HZ-KI4XVBJ-DIGEFKJ-AEQMJKQ-ROU5GE3-E4ELEQM";
+            addresses = [
+              "tcp://192.168.2.23"
+            ];
+          };
         };
         folders."default" = {
           id = "default";
@@ -64,6 +70,17 @@ in
             "server"
             "laptop"
             "phone"
+            "jollaPhone"
+          ];
+          ignorePerms = false;
+        };
+        folders."no_phone" = {
+          id = "no_phone";
+          path = "${cfg.basePath}/no_phone";
+          devices = [
+            "kop-pc"
+            "server"
+            "laptop"
           ];
           ignorePerms = false;
         };
@@ -86,6 +103,7 @@ in
             "server"
             "laptop"
             "phone"
+            "jollaPhone"
           ];
         };
 
