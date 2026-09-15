@@ -41,7 +41,7 @@ in
         "self-hosted"
         "Linux"
       ];
-      url = "https://git.kopatz.dev";
+      url = "https://gitui.kopatz.dev";
       hostPackages = with pkgs; [
         bash
         coreutils
