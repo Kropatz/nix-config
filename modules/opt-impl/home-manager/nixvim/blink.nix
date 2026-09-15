@@ -66,6 +66,7 @@
             auto_brackets.enabled = true;
           };
           menu = {
+            auto_show = false;
             draw.treesitter = [ "lsp" ];
           };
         };

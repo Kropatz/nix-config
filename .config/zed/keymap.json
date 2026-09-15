@@ -35,7 +35,9 @@
       "space d n": "editor::GoToPreviousDiagnostic",
       // "space s": "outline::Toggle",
       "space s f": "file_finder::Toggle",
-      "space s g": "pane::DeploySearch",
+      "space s s": "project_symbols::Toggle",
+      // "space s g": "pane::DeploySearch",
+      "space s g": "text_finder::Toggle",
       "space g g": [
         "task::Spawn",
         { "task_name": "start lazygit", "reveal_target": "center" },

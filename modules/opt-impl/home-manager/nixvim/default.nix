@@ -24,6 +24,7 @@ let
       ./editing.nix
       # ./cmp.nix
       ./blink.nix
+      # ./minuet.nix
       ./lsp.nix
       ./toggleterm.nix
       ./treesitter.nix

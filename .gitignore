@@ -1,6 +1,7 @@
 .idea
 *.qcow2
 result
+result-*
 ignored*
 sbom.*
 sbom
