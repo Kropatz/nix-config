@@ -68,6 +68,7 @@ in
     # };
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
+    # postfix = prev.postfix.override { withSQLite = true; };
     #tetrio-desktop = prev.tetrio-desktop.override { withTetrioPlus = true; };
     #xrdp = (import inputs.nixpkgs-working-xrdp {
     #  system = "x86_64-linux";

@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchGit {
       url = "ssh://gitea@git.kopatz.dev/oberprofis/ente.git";
       ref = "master";
-      rev = "6e19d5e27e769fe48cfa2223c2f5f113fd087389";
+      rev = "209b40aaa24b3cfe2814807416fa17072ef81c22";
     })
   }/website/tracker-site";
 
