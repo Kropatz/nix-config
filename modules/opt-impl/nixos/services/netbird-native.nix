@@ -105,7 +105,7 @@ in
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
-          ExecStart = "${pkgs.netbird-server}/bin/netbird-server -c /etc/netbird/config.yaml";
+          ExecStart = "${pkgs.netbird-combined}/bin/netbird-server -c /etc/netbird/config.yaml";
           WorkingDirectory = cfg.dataDir;
           BindPaths = [ "${cfg.dataDir}" ];
           ReadWritePaths = [ "${cfg.dataDir}" ];

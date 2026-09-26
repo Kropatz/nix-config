@@ -131,6 +131,10 @@
         _hddBuildAndCopy "$@" || return 1
         nh os switch "$_HDD_OUT"
       }
+      nhBootHdd() {
+        _hddBuildAndCopy "$@" || return 1
+        nh os boot "$_HDD_OUT"
+      }
     '';
     history = {
       size = 100000;

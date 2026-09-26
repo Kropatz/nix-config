@@ -2,7 +2,10 @@
   description = "Kop's NixOS Flake";
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # nix user repository
     nur = {
       url = "github:nix-community/NUR";

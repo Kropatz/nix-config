@@ -14,6 +14,7 @@ in
 
   # HOWTO: Enable config, then run netbird-wt0 up --management-url https://netbird.kopatz.dev --setup-key <setup-key>
   config = lib.mkIf cfg.enable {
+    networking.nftables.flushRuleset = false;
     services.netbird.clients.wt0 = {
 
       # Automatically login to your Netbird network with a setup key

@@ -19,6 +19,7 @@
       #inactive_tab_background = "#${config.colorScheme.colors.base00}";
       env = "TERM=xterm-256color";
       background_opacity = lib.mkForce "0.9";
+      remember_window_size = "no";
       font_size = 13;
       # ...
     };
