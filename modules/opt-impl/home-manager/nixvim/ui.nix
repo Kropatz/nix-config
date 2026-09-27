@@ -22,7 +22,11 @@
       };
     };
     lightline.enable = true; # status line at the bottom
-    colorizer.enable = true; # highlight colors in text
+    colorizer = {
+      enable = true; # highlight colors in text
+      # no auto-attach, extraConfigLua below attaches only to buffers under a size limit
+      settings.filetypes.__raw = "{}"; # a plain [ ] gets dropped by nixvim
+    };
     # wilder = {
     #   enable = true;
     #   modes = [
@@ -51,4 +55,31 @@
       };
     }; # show LSP progress in the corner
   };
+  # colorizer hangs on huge (minified) lines, only attach to buffers under a size limit
+  extraConfigLua = ''
+    local colorizer_max_bytes = 1024 * 1024
+    local function buf_bytes(buf)
+      return vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
+    end
+    local colorizer_guard = vim.api.nvim_create_augroup("colorizer_size_guard", { clear = true })
+    vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+      group = colorizer_guard,
+      callback = function(args)
+        local c = require("colorizer")
+        if vim.bo[args.buf].buftype == "" and buf_bytes(args.buf) <= colorizer_max_bytes
+          and not c.is_buffer_attached(args.buf) then
+          c.attach_to_buffer(args.buf)
+        end
+      end,
+    })
+    vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+      group = colorizer_guard,
+      callback = function(args)
+        local c = require("colorizer")
+        if c.is_buffer_attached(args.buf) and buf_bytes(args.buf) > colorizer_max_bytes then
+          c.detach_from_buffer(args.buf)
+        end
+      end,
+    })
+  '';
 }

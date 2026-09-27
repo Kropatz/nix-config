@@ -23,6 +23,20 @@
       };
     };
     #treesitter-context.enable = true;
-    rainbow-delimiters.enable = true;
+    rainbow-delimiters = {
+      enable = true;
+      settings = {
+        # rainbow-delimiters re-walks the whole tree on every change, which hangs on big json
+        blacklist = [
+          "json"
+          "jsonc"
+        ];
+        condition.__raw = ''
+          function(bufnr)
+            return vim.api.nvim_buf_get_offset(bufnr, vim.api.nvim_buf_line_count(bufnr)) < 512 * 1024
+          end
+        '';
+      };
+    };
   };
 }
