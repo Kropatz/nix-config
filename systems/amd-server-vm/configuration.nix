@@ -186,7 +186,8 @@
 
   systemd.user.services.wolke7bridge = {
     enable = true;
-    after = [ "network.target" ];
+    after = [ "network-online.target" "nss-lookup.target" ];
+    wants = [ "network-online.target" "nss-lookup.target" ];
     wantedBy = [ "default.target" ];
     description = "wolke7bridge";
     unitConfig = {

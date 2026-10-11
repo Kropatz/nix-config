@@ -57,5 +57,18 @@
       rocm.enable = lib.mkEnableOption "Enables rocm";
     };
     wooting.enable = lib.mkEnableOption "Enable wooting hardware support";
+    usb-recovery = {
+      enable = lib.mkEnableOption "Power-cycle USB ports (and reset the controller) when a device fails to enumerate";
+      resetController = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "As a last resort, unbind/rebind the whole xHCI controller (briefly drops every device on it)";
+      };
+      noPowerSavingDevices = lib.mkOption {
+        type = with lib.types; listOf str;
+        default = [ ];
+        description = "vendor:product IDs to exclude from LPM/autosuspend";
+      };
+    };
   };
 }

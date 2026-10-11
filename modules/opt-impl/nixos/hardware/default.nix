@@ -13,6 +13,7 @@ in
     ./nvidia.nix
     ./vfio.nix
     ./wooting.nix
+    ./usb-recovery.nix
     ./vr.nix
   ];
 

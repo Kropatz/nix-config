@@ -77,6 +77,10 @@
       firmware.enable = true;
       ssd.enable = true;
       wooting.enable = true;
+      usb-recovery = {
+        enable = true;
+        noPowerSavingDevices = [ "1532:0503" ]; # Razer Seiren
+      };
       tpm.enable = true;
       #tablet.enable = true;
     };

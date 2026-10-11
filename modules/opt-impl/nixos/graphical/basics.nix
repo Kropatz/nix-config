@@ -26,7 +26,7 @@ in
       localsend
       #element-desktop
       #krita
-      gimp3
+      #gimp3
       libreoffice
       # (libreoffice.overrideAttrs (old: {
       #   doCheck = false;

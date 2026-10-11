@@ -177,6 +177,9 @@ in
               "/misc-files/" = {
                 alias = "/var/www/misc-files/";
               };
+              "/misc-big/" = {
+                alias = "/hdd/nginx/misc-big/";
+              };
               "/javaland/" = {
                 alias = "/var/www/javaland/";
                 extraConfig = ''
