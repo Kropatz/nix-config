@@ -28,7 +28,7 @@ in
       gamescopeSession.enable = true;
       extraCompatPackages = with pkgs; [
         proton-ge-bin
-        steamtinkerlaunch
+        # steamtinkerlaunch
       ];
     };
     programs.gamemode = {
@@ -60,13 +60,17 @@ in
           winetricks
           heroic
           prismlauncher
-          steamtinkerlaunch
           tetrio-desktop
           #beyond-all-reason
           #libs
         ]
       )
-      ++ optionals cfg.enableVr (with pkgs; [ bs-manager ]);
+      ++ optionals cfg.enableVr (
+        with pkgs;
+        [
+          #bs-manager
+        ]
+      );
 
   };
 }

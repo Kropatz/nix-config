@@ -42,7 +42,8 @@ in
       qbittorrent
       brightnessctl
       #wacomtablet
-      pinta # paint
+      # using https://github.com/storytold/photocraft as flatpak instead
+      # pinta # paint
       #qalculate-qt # calculator TODO build broken
       #libsForQt5.kcalc
       #syncthingtray #doesnt work with socket yet

@@ -29,7 +29,7 @@
 
   custom = {
     tmpfs.enable = true;
-    wireshark.enable = true;
+    # wireshark.enable = true;
     virt-manager.enable = true;
     nftables.enable = true;
     cli-tools.enable = true;
@@ -171,7 +171,8 @@
     deploy-rs
     msmtp
     kop-llama-systray
-    crystaldisk-linux
+    # crystaldisk-linux
+    qdiskinfo
   ];
   documentation.man.cache.enable = true;
 
