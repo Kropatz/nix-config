@@ -62,7 +62,7 @@ in
               "quic://dns.adguard-dns.com"
               #"tls://noads.libredns.gr" slow
               "https://noads.joindns4.eu/dns-query"
-              "tls://getdnsapi.net"
+              #"tls://getdnsapi.net" dead, connection times out
               "https://base.dns.mullvad.net/dns-query"
               "https://dns.quad9.net/dns-query"
             ];
@@ -71,6 +71,12 @@ in
               "1.0.0.1"
             ];
             use_http3_upstreams = true;
+            # query all upstreams at once, use the fastest answer
+            upstream_mode = "parallel";
+            # default 20 qps per client drops queries during page loads
+            ratelimit = 0;
+            # serve expired cache entries while refreshing in the background
+            cache_optimistic = true;
           };
           querylog = {
             enabled = false;
