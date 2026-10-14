@@ -12,6 +12,7 @@
     ./modules/battery.nix
     #../../modules/ecryptfs.nix
     #../../modules/fh/scanning.nix
+    ../../modules/opt-impl/nixos/flatpak.nix
     ../../modules/opt-impl/nixos/support/ntfs.nix
     ../../modules/opt-impl/nixos/thunderbolt.nix
     ../../modules/opt-impl/nixos/services/wireguard-client.nix
