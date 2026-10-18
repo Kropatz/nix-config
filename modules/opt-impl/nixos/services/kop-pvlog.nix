@@ -34,6 +34,8 @@ in
         add_header Access-Control-Allow-Origin *;
         add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
         add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
+
+        ${config.custom.vars.nginx.allowOnlyInternalIps}
       '';
     };
     systemd.services.kop-pvlog = {

@@ -29,6 +29,17 @@ in
       default = "192.168.0.0/24";
     };
 
+    nginx = {
+      allowOnlyInternalIps = lib.mkOption {
+        type = lib.types.nonEmptyStr;
+        default = ''
+            allow 192.168.0.0/24;
+            allow 192.168.2.0/24;
+            deny all;
+        '';
+      };
+    };
+
     ports = {
       dtrack = lib.mkOption {
         type = lib.types.int;

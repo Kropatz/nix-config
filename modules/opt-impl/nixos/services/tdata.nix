@@ -21,6 +21,9 @@ in
       locations."/" = {
         proxyPass = "http://127.0.0.1:4000";
         proxyWebsockets = true;
+        extraConfig = ''
+          ${config.custom.vars.nginx.allowOnlyInternalIps}
+        '';
       };
     };
     services.nginx.virtualHosts."tui.kopatz.dev" = {
@@ -29,6 +32,9 @@ in
       locations."/" = {
         proxyPass = "http://127.0.0.1:4001";
         proxyWebsockets = true;
+        extraConfig = ''
+          ${config.custom.vars.nginx.allowOnlyInternalIps}
+        '';
       };
     };
   };

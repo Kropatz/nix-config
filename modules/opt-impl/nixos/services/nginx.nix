@@ -225,9 +225,7 @@ in
                   client_body_temp_path /hdd/nginx/dav-tmp;
                   autoindex on;
 
-                  allow 192.168.0.0/24;
-                  allow 192.168.2.0/24;
-                  deny all;
+                  ${config.custom.vars.nginx.allowOnlyInternalIps}
                 '';
               };
               "/robots.txt" = {
