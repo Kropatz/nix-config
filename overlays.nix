@@ -170,8 +170,8 @@ in
       src = prev.fetchFromGitHub {
         owner = "Alexays";
         repo = "Waybar";
-        rev = "cf19c836d3dafc1646bb60a49269d981623b680a";
-        hash = "sha256-h1ZmLmqBkm3MyShV6p83kBtpeLa9rnZUVz75kp+0Ccw=";
+        rev = "4e207a0cb51a9eb89b4245d90245721f5e39bf06";
+        hash = "sha256-0L1elPWYo9yKgEwpXWWVWQyPVU0SW36LkWUR26CksgU=";
       };
       buildInputs = oldAttrs.buildInputs ++ [
         prev.modemmanager

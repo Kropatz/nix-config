@@ -234,7 +234,10 @@ in
     github-runner.enable = lib.mkEnableOption "Enables github-runner service.";
     gitolite.enable = lib.mkEnableOption "Enables ente";
     grafana.enable = lib.mkEnableOption "Enables grafana";
-    grafana-log-agent.enable = lib.mkEnableOption "Enables sending logs to grafana";
+    grafana-log-agent = {
+      enable = lib.mkEnableOption "Enables sending logs to grafana";
+      enableNginxLogs = lib.mkEnableOption "Enables sending nginx logs to grafana";
+    };
     hardening.dataMounts = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [

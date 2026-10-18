@@ -40,6 +40,7 @@ in
 
       services.adguardhome = {
         enable = true;
+        port = 3000;
         settings = {
           schema_version = 28;
           users = [

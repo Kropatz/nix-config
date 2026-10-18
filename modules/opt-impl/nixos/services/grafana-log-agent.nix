@@ -9,9 +9,7 @@
 let
   cfg = config.custom.services.grafana-log-agent;
   base = "/mnt/tmpfs";
-  dirOwner = if config.services.grafana.enable
-    then "grafana"
-    else "fluent-bit";
+  dirOwner = if config.services.grafana.enable then "grafana" else "fluent-bit";
 in
 {
   config = lib.mkIf cfg.enable {
@@ -33,6 +31,7 @@ in
     users.users.fluent-bit = {
       isSystemUser = true;
       group = "fluent-bit";
+      extraGroups = lib.optionals cfg.enableNginxLogs [ "nginx" ];
     };
     users.groups.fluent-bit = { };
     systemd.services.fluent-bit.serviceConfig = {
@@ -82,6 +81,15 @@ in
               db = "${base}/fluent-bit/fluent-bit-systemd.db";
               read_from_tail = true;
             }
+          ]
+          ++ lib.optionals cfg.enableNginxLogs [
+            {
+              name = "tail";
+              tag = "nginx.access";
+              path = "/var/log/nginx/access.log";
+              db = "${base}/fluent-bit/fluent-bit-nginx-access.db";
+            }
+
           ];
           filters = [
             {
@@ -111,16 +119,69 @@ in
                 "CONTAINER_ID_FULL"
               ];
             }
+          ]
+          ++ lib.optionals cfg.enableNginxLogs [
+            {
+              # parse in a filter instead of the tail input so the raw line is kept
+              # https://github.com/fluent/fluent-bit/blob/master/conf/parsers.conf
+              name = "parser";
+              match = "nginx.access";
+              key_name = "log";
+              parser = "nginx";
+              reserve_data = true;
+              preserve_key = true;
+            }
+            {
+              name = "grep";
+              match = "nginx.access";
+              regex = "$code ^[235][0-9][0-9]$";
+            }
+            {
+              name = "grep";
+              match = "nginx.access";
+              exclude = "$path ^/signalexchange.SignalExchange/Send$";
+            }
+            {
+              name = "grep";
+              match = "nginx.access";
+              exclude = "$path ^/api/actions/runner.v1.RunnerService/FetchTask$";
+            }
+            {
+              # no host in the combined format, requests from the grafana ui carry it as referer
+              name = "grep";
+              match = "nginx.access";
+              exclude = "$referer ^https?://grafana\\.kopatz\\.dev/";
+            }
+            {
+              name = "modify";
+              match = "nginx.access";
+              # Regex ^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*?)(?: +\S*)?)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")
+              Rename = [
+                "log MESSAGE"
+                "remote ngx_client_ip"
+                "host ngx_host"
+                "user ngx_client_user"
+                "time ngx_time_local"
+                "method ngx_request_method"
+                "path ngx_request_uri"
+                "code ngx_status"
+                "size ngx_body_bytes_sent"
+                "referer ngx_http_referer"
+                "agent ngx_http_user_agent"
+              ];
+            }
           ];
           outputs = [
             {
               name = "loki";
+              match = "*";
               host = config.custom.vars.serverIp;
             }
           ];
         };
         service = {
           grace = 30;
+          parsers_file = "${config.services.fluent-bit.package}/etc/fluent-bit/parsers.conf";
         };
       };
     };

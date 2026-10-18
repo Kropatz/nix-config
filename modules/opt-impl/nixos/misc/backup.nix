@@ -94,6 +94,7 @@ in
       };
     in
     mkIf cfg.enable {
+      programs.fuse.enable = true;
       environment.systemPackages = [
         checkStorageSpace
         startInternxtWebdav
