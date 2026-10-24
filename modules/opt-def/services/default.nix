@@ -160,6 +160,7 @@ in
         description = "list of domains to rewrite to this server's ip";
       };
     };
+    audit.enable = lib.mkEnableOption "Enables auditing";
     blocklist.enable = lib.mkEnableOption "Enables blocklist";
     caldav.enable = lib.mkEnableOption "Enables caldav server";
     clamav = {
@@ -383,6 +384,14 @@ in
       dav = lib.mkEnableOption "Enables WebDAV support on /hdd/nginx";
     };
     node-exporter.enable = lib.mkEnableOption "Enables node-exporter";
+    openobserve = {
+      enable = lib.mkEnableOption "Enables openobserve";
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/var/lib/openobserve";
+        description = "Directory to store data";
+      };
+    };
     opensnitch.enable = lib.mkEnableOption "Enables opensnitch";
     qbittorrent = {
       enable = lib.mkEnableOption "Enables qbittorrent";

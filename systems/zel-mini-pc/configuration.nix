@@ -41,6 +41,8 @@
     };
     services = {
       ssh.enable = true;
+      audit.enable = true;
+      openobserve.enable = true;
     };
     graphical = {
       audio.enable = false;

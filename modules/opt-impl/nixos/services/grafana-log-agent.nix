@@ -99,6 +99,8 @@ in
                 "_SYSTEMD_UNIT unit"
                 "_HOSTNAME hostname"
               ];
+              # openobserve derives the row colour from severity (0-7 = syslog levels), it doesn't know PRIORITY
+              Copy = [ "PRIORITY severity" ];
               Remove = [
                 "_MACHINE_ID"
                 "_PID"
@@ -176,6 +178,21 @@ in
               name = "loki";
               match = "*";
               host = config.custom.vars.serverIp;
+            }
+            {
+              name = "http";
+              match = "*";
+              uri= "/api/default/default/_json";
+              tls = "off";
+              compress = "gzip";
+              json_date_key = "_timestamp";
+              json_date_format = "iso8601";
+              http_user = "root@kopatz.dev";
+              http_passwd = "o2oi_4SYuvexBd7Ne2Opglns7WWWCo8FgmdAc"; # dont care about the ingestion token being in git
+              host = config.custom.vars.zelIp;
+              port = 5080;
+              log_response_payload = false;
+              log_level = "warn";
             }
           ];
         };

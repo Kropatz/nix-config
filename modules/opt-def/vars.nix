@@ -11,6 +11,10 @@ in
       type = lib.types.str;
       default = "192.168.0.10";
     };
+    zelIp = lib.mkOption {
+      type = lib.types.str;
+      default = "192.168.0.13";
+    };
     serverVpnIp = lib.mkOption {
       type = lib.types.str;
       default = "192.168.2.1";
