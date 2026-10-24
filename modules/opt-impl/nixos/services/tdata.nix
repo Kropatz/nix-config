@@ -18,23 +18,23 @@ in
     services.nginx.virtualHosts."tdata.kopatz.dev" = {
       forceSSL = true;
       useACMEHost = "kopatz.dev";
+      extraConfig = ''
+        ${config.custom.vars.nginx.allowOnlyInternalIps}
+      '';
       locations."/" = {
         proxyPass = "http://127.0.0.1:4000";
         proxyWebsockets = true;
-        extraConfig = ''
-          ${config.custom.vars.nginx.allowOnlyInternalIps}
-        '';
       };
     };
     services.nginx.virtualHosts."tui.kopatz.dev" = {
       forceSSL = true;
       useACMEHost = "kopatz.dev";
+      extraConfig = ''
+        ${config.custom.vars.nginx.allowOnlyInternalIps}
+      '';
       locations."/" = {
         proxyPass = "http://127.0.0.1:4001";
         proxyWebsockets = true;
-        extraConfig = ''
-          ${config.custom.vars.nginx.allowOnlyInternalIps}
-        '';
       };
     };
   };

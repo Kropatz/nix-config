@@ -27,6 +27,10 @@ in
       useACMEHost = mkIf (!cfg.useStepCa) "kopatz.dev";
       quic = true;
       http3 = true;
+      extraConfig = ''
+        if ($reject_br) { return 415; }
+        ${config.custom.vars.nginx.allowOnlyInternalIps}
+      ''; # TODO: brotli decoder vuln
       locations."/".proxyPass = "http://127.0.0.1:${builtins.toString cfg.port}";
       locations."/".extraConfig = ''
         gzip_types application/octet-stream application/json text/css text/javascript application/javascript;
@@ -34,8 +38,6 @@ in
         add_header Access-Control-Allow-Origin *;
         add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
         add_header Access-Control-Allow-Headers "Authorization, Origin, X-Requested-With, Content-Type, Accept";
-
-        ${config.custom.vars.nginx.allowOnlyInternalIps}
       '';
     };
     systemd.services.kop-pvlog = {
@@ -59,7 +61,9 @@ in
         # Security hardening
         UMask = "077";
         CapabilityBoundingSet = "";
-        InaccessiblePaths = (lib.remove "-/data" config.custom.services.hardening.dataMounts) ++ [ "-/data/synced"];
+        InaccessiblePaths = (lib.remove "-/data" config.custom.services.hardening.dataMounts) ++ [
+          "-/data/synced"
+        ];
         NoNewPrivileges = true;
         ProtectSystem = "strict";
         PrivateMounts = true;

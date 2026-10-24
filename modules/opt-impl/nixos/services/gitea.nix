@@ -140,6 +140,7 @@ in
       useACMEHost = "kopatz.dev";
       quic = true;
       http3 = true;
+      extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
       locations."/".proxyPass = "http://localhost:3002";
       locations."/robots.txt" = {
         extraConfig = ''

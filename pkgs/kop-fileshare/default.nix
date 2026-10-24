@@ -7,12 +7,12 @@
 }:
 buildGoModule rec {
   pname = "kop-fileshare";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchGit {
     url = "ssh://git@github.com/kropatz/kop-fileshare.git";
     ref = "master";
-    rev = "da8a92c70514b5194564036bc6b9f8c4005c797f";
+    rev = "e995ddd606f277559f4fe0c4c9e0e90ff3afe5ba";
   };
   vendorHash = "sha256-OQ6rNgOQHrrhE7DT+ulwpWJCDJ4DeJiDzriAu3mfS7I=";
 

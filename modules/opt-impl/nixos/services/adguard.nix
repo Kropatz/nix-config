@@ -26,12 +26,13 @@ in
       services.nginx.virtualHosts.${cfg.fqdn} = {
         forceSSL = cfg.useHttps;
         useACMEHost = "kopatz.dev";
+        extraConfig = ''
+          if ($reject_br) { return 415; }
+          ${config.custom.vars.nginx.allowOnlyInternalIps}
+        ''; # TODO: brotli decoder vuln
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.adguardhome.port}";
           proxyWebsockets = true;
-          extraConfig = ''
-            ${config.custom.vars.nginx.allowOnlyInternalIps}
-          '';
         };
       };
       systemd.services.adguardhome = {

@@ -24,6 +24,10 @@ in
       useACMEHost = "kopatz.dev";
       quic = true;
       http3 = true;
+      extraConfig = ''
+        if ($reject_br) { return 415; }
+        ${config.custom.vars.nginx.allowOnlyInternalIps}
+      ''; # TODO: brotli decoder vuln
       locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
       locations."/".extraConfig = ''
         gzip_types application/octet-stream application/json text/css text/javascript application/javascript;

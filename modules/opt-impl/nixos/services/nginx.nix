@@ -71,10 +71,23 @@ in
         more_set_headers "Content-Security-Policy: frame-ancestors https://kop.oasch.net https://kopatz.dev";
         more_set_headers "Referrer-Policy: same-origin";
         more_set_headers "Permissions-Policy: geolocation=(), microphone=()";
+
+        map $http_content_encoding $reject_br {
+            default   0;
+            "~*br"    1;
+        }
       '';
 
       virtualHosts =
         let
+          proxy_headers = ''
+            proxy_redirect          off;
+            proxy_set_header        Host $host;
+            proxy_set_header        X-Real-IP $remote_addr;
+            proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header        X-Forwarded-Proto $scheme;
+            proxy_set_header        X-NginX-Proxy true;
+          '';
           kopConfig = domain: {
             root = pkgs.kop-website;
             forceSSL = cfg.https;
@@ -86,6 +99,7 @@ in
                 "/var/lib/acme/acme-challenge";
             quic = cfg.https;
             http3 = cfg.https;
+            extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
             locations = {
               "~* ^/assets/.*\\.(jpg|png)$".extraConfig = ''
                 add_header Access-Control-Allow-Origin *;
@@ -94,12 +108,7 @@ in
                 basicAuthFile = config.age.secrets.stash-auth.path;
                 extraConfig = ''
                   client_max_body_size    20000M;
-                  proxy_redirect          off;
-                  proxy_set_header        Host $host;
-                  proxy_set_header        X-Real-IP $remote_addr;
-                  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                  proxy_set_header        X-Forwarded-Proto $scheme;
-                  proxy_set_header        X-NginX-Proxy true;
+                  ${proxy_headers}
                   proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
                 '';
               };
@@ -115,23 +124,19 @@ in
                     return 204;
                   }
                   client_max_body_size    20000M;
-                  proxy_redirect          off;
-                  proxy_set_header        Host $host;
-                  proxy_set_header        X-Real-IP $remote_addr;
-                  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                  proxy_set_header        X-Forwarded-Proto $scheme;
-                  proxy_set_header        X-NginX-Proxy true;
+                  ${proxy_headers}
                   proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
                 '';
               };
               "/stash/files" = {
                 extraConfig = ''
-                  proxy_redirect          off;
-                  proxy_set_header        Host $host;
-                  proxy_set_header        X-Real-IP $remote_addr;
-                  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                  proxy_set_header        X-Forwarded-Proto $scheme;
-                  proxy_set_header        X-NginX-Proxy true;
+                  ${proxy_headers}
+                  proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
+                '';
+              };
+              "/stash/status" = {
+                extraConfig = ''
+                  ${proxy_headers}
                   proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
                 '';
               };
@@ -141,6 +146,9 @@ in
               "/tracker-site/api" = {
                 extraConfig = ''
                   rewrite /tracker-site/api/(.*) /$1 break;
+
+                  # TODO: brotli decoder vuln
+                  ${config.custom.vars.nginx.allowOnlyInternalIps}
                 '';
                 proxyPass = "http://192.168.0.22:8081";
               };
@@ -197,6 +205,9 @@ in
                   more_set_headers       "Access-Control-Allow-Headers: Authorization, Content-Type";
                   more_set_headers       "Access-Control-Allow-Credentials: true";
                   rewrite /comms2/api/(.*) /$1 break;
+
+                  # TODO: brotli decoder vuln
+                  ${config.custom.vars.nginx.allowOnlyInternalIps}
                 '';
                 proxyPass = "http://localhost:3200/";
                 proxyWebsockets = true;
@@ -249,6 +260,7 @@ in
             useACMEHost = "kopatz.dev";
             quic = true;
             http3 = true;
+            extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:5000";
             locations."/".extraConfig = ''
               more_clear_headers 'x-frame-options';
@@ -268,6 +280,7 @@ in
             useACMEHost = "kopatz.dev";
             quic = true;
             http3 = true;
+            extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:8096";
             locations."/".extraConfig = ''
               more_clear_headers 'x-frame-options';
@@ -288,6 +301,7 @@ in
             useACMEHost = "kopatz.dev";
             quic = true;
             http3 = true;
+            extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:3002";
             locations."/robots.txt" = {
               extraConfig = ''
@@ -302,6 +316,7 @@ in
             useACMEHost = "kopatz.dev";
             quic = true;
             http3 = true;
+            extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:3002";
             locations."/robots.txt" = {
               extraConfig = ''

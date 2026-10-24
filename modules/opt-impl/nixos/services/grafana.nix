@@ -148,12 +148,13 @@ in
       useACMEHost = lib.mkIf (!useStepCa) "kopatz.dev";
       quic = useHttps;
       http3 = useHttps;
+      extraConfig = ''
+        if ($reject_br) { return 415; }
+        ${config.custom.vars.nginx.allowOnlyInternalIps}
+      ''; # TODO: brotli decoder vuln
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
         proxyWebsockets = true;
-        extraConfig = ''
-          ${config.custom.vars.nginx.allowOnlyInternalIps}
-        '';
       };
     };
 

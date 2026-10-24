@@ -128,6 +128,9 @@ in
         client_header_timeout 1d;
         client_body_timeout 1d;
 
+        # TODO: brotli decoder vuln
+        if ($reject_br) { return 415; }
+
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Scheme $scheme;

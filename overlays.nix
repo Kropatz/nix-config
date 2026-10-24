@@ -205,71 +205,84 @@ in
         hash = "sha256-ENi7htGWHdWC7iqZW1AhevQhWc722ZkCHS4hJyJzaWk=";
       };
 
-        patches = [ (prev.writeText "testing-patch" ''
---- a/src/shared/ToplevelManager.cpp
-+++ b/src/shared/ToplevelManager.cpp
-@@ -56,5 +56,5 @@ void CToplevelManager::activate() {
- 
-     wl_display_roundtrip(g_pPortalManager->m_sWaylandConnection.display);
- 
--    Debug::log(LOG, "[toplevel] Activated, bound to {:x}, toplevels: {}", (uintptr_t)m_pManager, m_vToplevels.size());
-+    Debug::log(LOG, "[toplevel] Activated, bound to {:x}, toplevels: {}", (uintptr_t)m_pManager.get(), m_vToplevels.size());
- }
---- a/src/portals/Screencopy.cpp
-+++ b/src/portals/Screencopy.cpp
-@@ -631,5 +631,5 @@ void CScreencopyPortal::queueNextShareFrame(CScreencopyPortal::SSession* pSessio
-         {std::clamp(MSTILNEXTREFRESH - 1.0 /* safezone */, 6.0, 1000.0), [pSession]() { g_pPortalManager->m_sPortals.screencopy->startFrameCopy(pSession); }});
- }
- bool CScreencopyPortal::hasToplevelCapabilities() {
--    return m_sState.toplevel;
-+    return static_cast<bool>(m_sState.toplevel);
- }
---- a/src/portals/RemoteDesktop.cpp
-+++ b/src/portals/RemoteDesktop.cpp
-@@ -471,9 +471,27 @@
-                         eis_device_configure_capability(dev, EIS_DEVICE_CAP_POINTER_ABSOLUTE);
-                         eis_device_configure_capability(dev, EIS_DEVICE_CAP_BUTTON);
-                         eis_device_configure_capability(dev, EIS_DEVICE_CAP_SCROLL);
-+                        // A device with EIS_DEVICE_CAP_POINTER_ABSOLUTE needs at least one region,
-+                        // otherwise libei silently discards every absolute motion event.
-+                        {
-+                            uint32_t extentW = 1920, extentH = 1080;
-+                            if (g_pPortalManager)
-+                                g_pPortalManager->getOutputExtents(extentW, extentH);
-+                            if (auto* region = eis_device_new_region(dev)) {
-+                                eis_region_set_offset(region, 0, 0);
-+                                eis_region_set_size(region, extentW, extentH);
-+                                eis_region_set_physical_scale(region, 1.0);
-+                                eis_region_add(region);
-+                                eis_region_unref(region);
-+                            }
-+                        }
-                         eis_device_add(dev);
--                        eis_device_start_emulating(dev, 0);
--                        Debug::log(LOG, "[remotedesktop] EIS pointer device added & emulating");
-+                        // The libei client is a sender (ei_new_sender), so it is the one that
-+                        // calls ei_device_start_emulating(). All we have to do is unpause the
-+                        // device -- eis_device_add() leaves it paused, and eis_device_start_emulating()
-+                        // is receiver-side API that libeis rejects for a sender client.
-+                        eis_device_resume(dev);
-+                        Debug::log(LOG, "[remotedesktop] EIS pointer device added & resumed");
-                     }
-                 }
-                 if (eis_event_seat_has_capability(event, EIS_DEVICE_CAP_KEYBOARD)) {
-@@ -515,8 +533,8 @@
-                             }
-                         }
-                         eis_device_add(dev);
--                        eis_device_start_emulating(dev, 0);
--                        Debug::log(LOG, "[remotedesktop] EIS keyboard device added & emulating");
-+                        eis_device_resume(dev);
-+                        Debug::log(LOG, "[remotedesktop] EIS keyboard device added & resumed");
-                     }
-                 }
-                 break;
-        '') ];
+      patches = [
+        (prev.writeText "testing-patch" ''
+          --- a/src/shared/ToplevelManager.cpp
+          +++ b/src/shared/ToplevelManager.cpp
+          @@ -56,5 +56,5 @@ void CToplevelManager::activate() {
+           
+               wl_display_roundtrip(g_pPortalManager->m_sWaylandConnection.display);
+           
+          -    Debug::log(LOG, "[toplevel] Activated, bound to {:x}, toplevels: {}", (uintptr_t)m_pManager, m_vToplevels.size());
+          +    Debug::log(LOG, "[toplevel] Activated, bound to {:x}, toplevels: {}", (uintptr_t)m_pManager.get(), m_vToplevels.size());
+           }
+          --- a/src/portals/Screencopy.cpp
+          +++ b/src/portals/Screencopy.cpp
+          @@ -631,5 +631,5 @@ void CScreencopyPortal::queueNextShareFrame(CScreencopyPortal::SSession* pSessio
+                   {std::clamp(MSTILNEXTREFRESH - 1.0 /* safezone */, 6.0, 1000.0), [pSession]() { g_pPortalManager->m_sPortals.screencopy->startFrameCopy(pSession); }});
+           }
+           bool CScreencopyPortal::hasToplevelCapabilities() {
+          -    return m_sState.toplevel;
+          +    return static_cast<bool>(m_sState.toplevel);
+           }
+          --- a/src/portals/RemoteDesktop.cpp
+          +++ b/src/portals/RemoteDesktop.cpp
+          @@ -471,9 +471,27 @@
+                                   eis_device_configure_capability(dev, EIS_DEVICE_CAP_POINTER_ABSOLUTE);
+                                   eis_device_configure_capability(dev, EIS_DEVICE_CAP_BUTTON);
+                                   eis_device_configure_capability(dev, EIS_DEVICE_CAP_SCROLL);
+          +                        // A device with EIS_DEVICE_CAP_POINTER_ABSOLUTE needs at least one region,
+          +                        // otherwise libei silently discards every absolute motion event.
+          +                        {
+          +                            uint32_t extentW = 1920, extentH = 1080;
+          +                            if (g_pPortalManager)
+          +                                g_pPortalManager->getOutputExtents(extentW, extentH);
+          +                            if (auto* region = eis_device_new_region(dev)) {
+          +                                eis_region_set_offset(region, 0, 0);
+          +                                eis_region_set_size(region, extentW, extentH);
+          +                                eis_region_set_physical_scale(region, 1.0);
+          +                                eis_region_add(region);
+          +                                eis_region_unref(region);
+          +                            }
+          +                        }
+                                   eis_device_add(dev);
+          -                        eis_device_start_emulating(dev, 0);
+          -                        Debug::log(LOG, "[remotedesktop] EIS pointer device added & emulating");
+          +                        // The libei client is a sender (ei_new_sender), so it is the one that
+          +                        // calls ei_device_start_emulating(). All we have to do is unpause the
+          +                        // device -- eis_device_add() leaves it paused, and eis_device_start_emulating()
+          +                        // is receiver-side API that libeis rejects for a sender client.
+          +                        eis_device_resume(dev);
+          +                        Debug::log(LOG, "[remotedesktop] EIS pointer device added & resumed");
+                               }
+                           }
+                           if (eis_event_seat_has_capability(event, EIS_DEVICE_CAP_KEYBOARD)) {
+          @@ -515,8 +533,8 @@
+                                       }
+                                   }
+                                   eis_device_add(dev);
+          -                        eis_device_start_emulating(dev, 0);
+          -                        Debug::log(LOG, "[remotedesktop] EIS keyboard device added & emulating");
+          +                        eis_device_resume(dev);
+          +                        Debug::log(LOG, "[remotedesktop] EIS keyboard device added & resumed");
+                               }
+                           }
+                           break;
+        '')
+      ];
       buildInputs = oldAttrs.buildInputs ++ [ prev.libei ];
     });
+
+    #brotli = prev.brotli.overrideAttrs (oldAttrs: rec {
+    #  version = "1.2.1";
+
+    #  src = prev.fetchFromGitHub {
+    #    owner = "google";
+    #    repo = "brotli";
+    #    tag = "v${version}";
+    #    hash = "sha256-llY72cYffDv0ugsH0p89xIPEbElV4L8u7U/Fe8hT3gI=";
+    #  };
+    #});
 
     #csharp-ls = prev.csharp-ls-8;
   };

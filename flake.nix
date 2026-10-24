@@ -182,9 +182,10 @@
         };
 
         "zel-mini-pc" = mkHost {
+          graphical = false;
           modules = [
             disko.nixosModules.disko
-            ./users/kopatz
+            ./users/anon
             ./systems/zel-mini-pc/configuration.nix
             nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
           ];
