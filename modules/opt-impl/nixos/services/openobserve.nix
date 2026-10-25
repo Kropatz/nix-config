@@ -83,6 +83,7 @@ in
         Environment = [
           "ZO_MEMORY_CACHE_MAX_SIZE=512" # MB
           "ZO_MEM_TABLE_MAX_SIZE=512" # MB
+          "ZO_ALLOW_USER_DEFINED_SCHEMAS=true"
         ];
       };
     };
