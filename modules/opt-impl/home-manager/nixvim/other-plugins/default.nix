@@ -1,11 +1,5 @@
 { pkgs, ... }:
 let
-  # in-buffer fit-to-width markdown table renderer
-  md-table-fit = pkgs.vimUtils.buildVimPlugin {
-    pname = "md-table-fit";
-    version = "0.1.0";
-    src = ./md-table-fit;
-  };
   cursortabSrc = pkgs.fetchFromGitHub {
     owner = "cursortab";
     repo = "cursortab.nvim";
@@ -33,11 +27,9 @@ let
 in
 {
   extraPlugins = [
-    md-table-fit
     # cursortab
   ];
   extraConfigLua = ''
-    require("md-table-fit").setup({})
     -- require("cursortab").setup({
     --   provider = {
     --     type = "zeta-2.1",
