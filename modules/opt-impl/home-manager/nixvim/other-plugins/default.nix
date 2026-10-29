@@ -34,10 +34,32 @@ in
 {
   extraPlugins = [
     md-table-fit
+    pkgs.vimPlugins.vim-fetch
     # cursortab
   ];
   extraConfigLua = ''
     require("md-table-fit").setup({})
+
+    vim.api.nvim_create_autocmd("TermOpen", {
+      callback = function(args)
+        vim.keymap.set("n", "gf", function()
+          -- read path:line:col while still in the terminal window
+          local file = vim.fn.expand("<cfile>")
+          if file == "" then return end
+          local word = vim.fn.expand("<cWORD>")
+          local _, e = word:find(file, 1, true)
+          local rest = e and word:sub(e + 1) or ""
+          local lnum, col = rest:match("^[:(](%d+)[:,]?(%d*)")
+
+          vim.cmd("wincmd p")       -- go back to previous/main window
+          vim.cmd.edit(vim.fn.fnameescape(file))
+          if lnum then
+            pcall(vim.api.nvim_win_set_cursor, 0,
+              { tonumber(lnum), math.max((tonumber(col) or 1) - 1, 0) })
+          end
+        end, { buffer = args.buf, silent = true })
+      end,
+    })
     -- require("cursortab").setup({
     --   provider = {
     --     type = "zeta-2.1",
