@@ -16,6 +16,11 @@
     };
     audio = {
       enable = lib.mkEnableOption "Enables audio";
+      keepVolumeOnSuspend = lib.mkOption {
+        type = with lib.types; listOf str;
+        default = [ ];
+        description = "Source node names whose volume is saved before suspend and restored after resume (for devices that reset on resume)";
+      };
     };
     awesome = {
       enable = lib.mkEnableOption "Enables awesome";

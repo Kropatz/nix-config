@@ -85,7 +85,10 @@
       #tablet.enable = true;
     };
     graphical = {
-      audio.enable = true;
+      audio = {
+        enable = true;
+        keepVolumeOnSuspend = [ "alsa_input.usb-Razer_Inc._Razer_Seiren_UC1713127402487-00.analog-stereo" ];
+      };
       code = {
         enable = true;
         android.enable = true;

@@ -6,6 +6,54 @@
 }:
 let
   cfg = config.custom.graphical;
+
+  # Some USB mics get reset on resume, which puts their hardware gain back to 100%
+  # without WirePlumber restoring it. Save the volume before sleep, put it back after.
+  sourceVolume = pkgs.writeShellApplication {
+    name = "source-volume-suspend";
+    runtimeInputs = with pkgs; [
+      pulseaudio
+      gawk
+      gnugrep
+      coreutils
+    ];
+    text = ''
+      XDG_RUNTIME_DIR=/run/user/$(id -u)
+      export XDG_RUNTIME_DIR
+      names=(${lib.escapeShellArgs cfg.audio.keepVolumeOnSuspend})
+      state=$XDG_RUNTIME_DIR/source-volume-suspend
+      mkdir -p "$state"
+
+      # the node can come back with a ".N" suffix after a reset
+      nodes() {
+        pactl list short sources | awk -v n="$1" '$2 == n || (index($2, n ".") == 1 && $2 !~ /\.monitor$/) { print $2 }'
+      }
+
+      case $1 in
+        save)
+          for name in "''${names[@]}"; do
+            node=$(nodes "$name" | head -n1)
+            [[ -n $node ]] || continue
+            pactl get-source-volume "$node" | grep -o '[0-9]*%' | head -n1 > "$state/$name"
+            echo "$node: saved $(cat "$state/$name")"
+          done ;;
+        restore)
+          for name in "''${names[@]}"; do
+            [[ -s $state/$name ]] || continue
+            vol=$(cat "$state/$name")
+            for _ in $(seq 20); do
+              [[ -n $(nodes "$name") ]] && break
+              sleep 1
+            done
+            # let WirePlumber finish applying its own state first
+            sleep 2
+            for node in $(nodes "$name"); do
+              pactl set-source-volume "$node" "$vol" && echo "$node: restored $vol"
+            done
+          done ;;
+      esac
+    '';
+  };
 in
 {
 
@@ -39,6 +87,22 @@ in
         alsa.support32Bit = true;
         pulse.enable = true;
         #jack.enable = true;
+      };
+
+      # runs while sleep.target is active: ExecStart before suspend, ExecStop after resume
+      systemd.services.source-volume-suspend = lib.mkIf (cfg.audio.keepVolumeOnSuspend != [ ]) {
+        description = "Save/restore audio source volume across suspend";
+        wantedBy = [ "sleep.target" ];
+        before = [ "sleep.target" ];
+        unitConfig.StopWhenUnneeded = true;
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          User = config.mainUser.name;
+          ExecStart = "-${lib.getExe sourceVolume} save";
+          ExecStop = "-${lib.getExe sourceVolume} restore";
+          TimeoutStopSec = 60;
+        };
       };
     })
     (lib.mkIf cfg.code.android.enable {
