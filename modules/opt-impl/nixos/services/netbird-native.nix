@@ -66,7 +66,7 @@ in
               "/var/lib/netbird"
             ];
             # Basic hardening
-            CapabilityBoundingSet = "";
+            CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
             NoNewPrivileges = true;
             ProtectSystem = "strict";
             # needs access to /mnt/backups, so we can't use PrivateMounts
