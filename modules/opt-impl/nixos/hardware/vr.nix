@@ -93,6 +93,17 @@ in
       defaultRuntime = true; # Register as default OpenXR runtime
       highPriority = true;
     };
+    services.wivrn = {
+      enable = true;
+      openFirewall = true; # Register as default OpenVR runtime
+      # xrizer never reports the trigger as touched for legacy (pre-SteamVR-input) games,
+      # which breaks UI clicks in games that check the touched mask
+      package = pkgs.unstable.wivrn.override {
+        xrizer = pkgs.unstable.xrizer.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [ ./xrizer-legacy-pressed-implies-touched.patch ];
+        });
+      };
+    };
     environment.systemPackages = with pkgs; [
       monado
       wayvr

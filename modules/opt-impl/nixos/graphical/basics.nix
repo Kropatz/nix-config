@@ -19,7 +19,7 @@ in
 
     environment.systemPackages = with pkgs; [
       keepassxc
-      discord
+      unstable.discord
       gvfs
       remmina
       thunderbird

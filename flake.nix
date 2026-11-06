@@ -13,6 +13,7 @@
     };
     ## stable
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable-new.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,6 +72,7 @@
       self,
       nur,
       nixpkgs,
+      nixpkgs-unstable-new,
       home-manager,
       nixos-hardware,
       #nixpkgs-stable,
@@ -92,7 +94,7 @@
         { outputs, ... }:
         {
           nixpkgs.overlays = with outputs.overlays; [
-            #unstable-packages
+            unstable-packages
             # unstable-small-packages
             #stable-packages
             additions
@@ -128,7 +130,7 @@
             ++ lib.lists.optionals (!minimal) [ specialArgs.home-manager-version.nixosModules.home-manager ]
             ++ lib.lists.optionals (!minimal && graphical) [
               stylix.nixosModules.stylix
-              inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
+              # inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
               ./modules/opt-def/graphical/stylix.nix
               ./modules/opt-impl/nixos/graphical/stylix.nix
               #nixos-cosmic.nixosModules.default

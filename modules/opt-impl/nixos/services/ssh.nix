@@ -16,10 +16,12 @@ in
     services.openssh = {
       enable = true;
       allowSFTP = true;
-      settings.PasswordAuthentication = false;
-      settings.KbdInteractiveAuthentication = false;
-      settings.X11Forwarding = false;
-      settings.PermitRootLogin = "prohibit-password";
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        X11Forwarding = false;
+        PermitRootLogin = "prohibit-password";
+      };
       extraConfig = ''
         AllowAgentForwarding no
         AllowStreamLocalForwarding no

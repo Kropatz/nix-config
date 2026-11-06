@@ -173,7 +173,7 @@
     wl-clicker
     deploy-rs
     msmtp
-    kop-llama-systray
+    # kop-llama-systray
     # crystaldisk-linux
     qdiskinfo
   ];
@@ -224,11 +224,11 @@
   # http://localhost:631
   services.printing.enable = false;
   services.printing.drivers = [ pkgs.brlaser ];
-  services.avahi = {
-    enable = false;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
+  # services.avahi = {
+  #   enable = false;
+  #   nssmdns4 = true;
+  #   openFirewall = true;
+  # };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

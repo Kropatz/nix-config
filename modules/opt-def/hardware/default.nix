@@ -54,6 +54,7 @@
     vr = {
       enable = lib.mkEnableOption "Enables amd gpus";
       overdrive = lib.mkEnableOption "Enables overdrive";
+      monado.enable = lib.mkEnableOption "Enables index support";
       rocm.enable = lib.mkEnableOption "Enables rocm";
     };
     wooting.enable = lib.mkEnableOption "Enable wooting hardware support";

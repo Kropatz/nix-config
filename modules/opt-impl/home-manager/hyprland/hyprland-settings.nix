@@ -119,7 +119,7 @@ in
             rules.workspace = "10 silent";
           }
           { command = "xrandr --monitor ${monitor1} --primary"; }
-          { command = "${pkgs.kop-llama-systray}/bin/kop-llama-systray &"; }
+          # { command = "${pkgs.kop-llama-systray}/bin/kop-llama-systray &"; }
         ]
         ++ [
           { command = "sleep 3 && ${pkgs.waybar}/bin/waybar &"; }
