@@ -46,6 +46,7 @@
       smartd.enable = true;
       smartd-exporter.enable = true;
       node-exporter.enable = true;
+      suricata.enable = true;
       #adguard = {
       #  enable = true;
       #  acme-url = "https://192.168.0.10:8443/acme/kop-acme/directory";

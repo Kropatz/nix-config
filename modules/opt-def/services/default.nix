@@ -407,6 +407,24 @@ in
     smartd-exporter.enable = lib.mkEnableOption "Enables smartd monitoring";
     ssh.enable = lib.mkEnableOption "Enables ssh";
     step-ca.enable = lib.mkEnableOption "Enables step-ca";
+    suricata = {
+      enable = lib.mkEnableOption "Enables suricata IDS and ships its eve log to openobserve";
+      interfaces = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ "br0" ];
+        description = "Interfaces to monitor with af-packet";
+      };
+      openobserveHost = lib.mkOption {
+        type = lib.types.str;
+        default = config.custom.vars.zelIp;
+        description = "OpenObserve host to ship eve events to";
+      };
+      stream = lib.mkOption {
+        type = lib.types.str;
+        default = "suricata";
+        description = "OpenObserve stream name";
+      };
+    };
     syncthing = {
       enable = lib.mkEnableOption "Enables syncthing";
       basePath = lib.mkOption {

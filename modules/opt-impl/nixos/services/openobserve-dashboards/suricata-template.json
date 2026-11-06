@@ -1,0 +1,5 @@
+{
+  "name": "suricata-discord",
+  "type": "http",
+  "body": "{\"content\": \"\ud83d\udea8 **{alert_name}**: {alert_description}\\n{alert_count} results, {alert_start_time} - {alert_end_time}\\n{rows:10}\"}"
+}

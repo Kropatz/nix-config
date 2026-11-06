@@ -30,6 +30,7 @@ in
     ./kubernetes.nix
     ./nginx.nix
     ./openobserve.nix
+    ./suricata.nix
     ./opensnitch.nix
     ./smartd.nix
     ./smartd-exporter.nix
