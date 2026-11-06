@@ -49,6 +49,9 @@ SRC_EXT = f"NOT {SRC_INT}"
 DST_EXT = f"NOT {DST_INT}"
 NOT_NOISE = f"NOT {noise('dest_ip')}"
 EGRESS = f"{SRC_INT} AND {DST_EXT}"
+# private -> private traffic. Excluded from the IDS alerts and scan detection:
+# internal http/basic auth, service discovery and monitoring are noise there.
+NOT_LAN = f"NOT ({SRC_INT} AND {DST_INT})"
 FLOW = "event_type = 'flow'"
 DNS_LIST = ", ".join(f"'{ip}'" for ip in DNS_SERVERS)
 BYTES = "(flow_bytes_toserver + flow_bytes_toclient)"
@@ -335,7 +338,7 @@ network = dashboard(
 )
 
 # =============================================================== security
-ALERT = "event_type = 'alert'"
+ALERT = f"event_type = 'alert' AND {NOT_LAN}"
 sec_alerts = [
     metric("Alerts", f"SELECT count(*) AS y_axis_1 {F} WHERE {ALERT}", 0),
     metric("High severity", f"SELECT count(*) AS y_axis_1 {F} WHERE {ALERT} AND alert_severity = 1", 48),
@@ -384,7 +387,7 @@ sec_alerts = [
 SCAN_SQL = f"""SELECT src_ip AS x_axis_1, count(DISTINCT dest_port) AS y_axis_1,
                       count(DISTINCT dest_ip) AS y_axis_2, count(*) AS y_axis_3,
                       sum(CASE WHEN proto = 'TCP' AND flow_pkts_toclient = 0 THEN 1 ELSE 0 END) AS y_axis_4
-               {F} WHERE {FLOW} AND {NOT_NOISE}
+               {F} WHERE {FLOW} AND {NOT_NOISE} AND {NOT_LAN}
                GROUP BY x_axis_1
                HAVING count(DISTINCT dest_port) > 20 OR count(DISTINCT dest_ip) > 30
                ORDER BY y_axis_1 DESC LIMIT 100"""
@@ -618,7 +621,7 @@ alerts = [
           [("src_ip", "src_ip"), ("count(DISTINCT dest_port)", "ports"), ("count(DISTINCT dest_ip)", "hosts"),
            ("sum(CASE WHEN proto = 'TCP' AND flow_pkts_toclient = 0 THEN 1 ELSE 0 END)", "unanswered"),
            (sample("dest_port", 10), "sample_ports"), (sample("dest_ip", 5), "sample_hosts")],
-          f"""{F} WHERE {FLOW} AND {NOT_NOISE}
+          f"""{F} WHERE {FLOW} AND {NOT_NOISE} AND {NOT_LAN}
               GROUP BY src_ip HAVING count(DISTINCT dest_port) > 50 OR count(DISTINCT dest_ip) > 50
               ORDER BY ports DESC LIMIT 20""",
           period=10, frequency=5, silence=60,

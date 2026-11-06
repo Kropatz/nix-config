@@ -63,7 +63,7 @@
       netbird-native.enable = true;
       fail2ban.enable = true;
       jellyfin.enable = true;
-      qbittorrent.enable = true;
+      qbittorrent.enable = false;
       grafana-log-agent.enable = true;
       ente.enable = true;
       kop-fileshare = {
@@ -74,7 +74,7 @@
         enable = true;
       };
       transmission = {
-        enable = true;
+        enable = false;
         dataDir = "/mnt/seed";
       };
       kavita = {
@@ -206,17 +206,17 @@
           "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kavita.uid},gid=${toString config.users.groups.kavita.gid}"
         ];
     };
-    "/mnt/seed" = {
-      device = "//${config.custom.vars.serverIp}/large/seed";
-      fsType = "cifs";
-      options =
-        let
-          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0775,file_mode=0775";
-        in
-        [
-          "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.transmission.uid},gid=${toString config.users.groups.torrent.gid}"
-        ];
-    };
+    # "/mnt/seed" = {
+    #   device = "//${config.custom.vars.serverIp}/large/seed";
+    #   fsType = "cifs";
+    #   options =
+    #     let
+    #       automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0775,file_mode=0775";
+    #     in
+    #     [
+    #       "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.transmission.uid},gid=${toString config.users.groups.torrent.gid}"
+    #     ];
+    # };
   };
 
   # Configure console keymap
