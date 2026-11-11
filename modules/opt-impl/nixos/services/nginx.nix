@@ -99,7 +99,7 @@ in
                 "/var/lib/acme/acme-challenge";
             quic = cfg.https;
             http3 = cfg.https;
-            extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
+            extraConfig = ''if ($reject_br) { return 415; }'';
             locations = {
               "~* ^/assets/.*\\.(jpg|png)$".extraConfig = ''
                 add_header Access-Control-Allow-Origin *;
@@ -147,8 +147,6 @@ in
                 extraConfig = ''
                   rewrite /tracker-site/api/(.*) /$1 break;
 
-                  # TODO: brotli decoder vuln
-                  ${config.custom.vars.nginx.allowOnlyInternalIps}
                 '';
                 proxyPass = "http://192.168.0.22:8081";
               };
@@ -206,8 +204,6 @@ in
                   more_set_headers       "Access-Control-Allow-Credentials: true";
                   rewrite /comms2/api/(.*) /$1 break;
 
-                  # TODO: brotli decoder vuln
-                  ${config.custom.vars.nginx.allowOnlyInternalIps}
                 '';
                 proxyPass = "http://localhost:3200/";
                 proxyWebsockets = true;
@@ -260,7 +256,7 @@ in
             useACMEHost = "kopatz.dev";
             quic = true;
             http3 = true;
-            extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
+            extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:5000";
             locations."/".extraConfig = ''
               more_clear_headers 'x-frame-options';
@@ -280,7 +276,7 @@ in
             useACMEHost = "kopatz.dev";
             quic = true;
             http3 = true;
-            extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
+            extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:8096";
             locations."/".extraConfig = ''
               more_clear_headers 'x-frame-options';
@@ -301,7 +297,7 @@ in
             useACMEHost = "kopatz.dev";
             quic = true;
             http3 = true;
-            extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
+            extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:3002";
             locations."/robots.txt" = {
               extraConfig = ''
@@ -316,7 +312,7 @@ in
             useACMEHost = "kopatz.dev";
             quic = true;
             http3 = true;
-            extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
+            extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:3002";
             locations."/robots.txt" = {
               extraConfig = ''

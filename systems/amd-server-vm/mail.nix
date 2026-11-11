@@ -67,7 +67,7 @@ in
   services.nginx.virtualHosts."${email-domain}" = {
     forceSSL = true;
     enableACME = true;
-    extraConfig = ''if ($reject_br) { return 415; }''; # TODO: brotli decoder vuln
+    extraConfig = ''if ($reject_br) { return 415; }'';
   };
   services.dovecot2 = {
     package = pkgs.dovecot_2_4;

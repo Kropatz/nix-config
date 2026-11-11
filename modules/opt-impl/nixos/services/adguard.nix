@@ -29,7 +29,7 @@ in
         extraConfig = ''
           if ($reject_br) { return 415; }
           ${config.custom.vars.nginx.allowOnlyInternalIps}
-        ''; # TODO: brotli decoder vuln
+        '';
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.adguardhome.port}";
           proxyWebsockets = true;
