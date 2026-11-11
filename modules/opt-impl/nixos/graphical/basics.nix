@@ -79,7 +79,7 @@ in
       #     openssl
       #   ];
       # })
-      brave
+      # brave
 
       # cli tools
       mesa-demos

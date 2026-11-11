@@ -153,6 +153,7 @@
       # symlinks, which dangle outside the chroot. See docs/hdd-store.md.
       # Usage: deployRebuildHdd root@192.168.0.20 --flake .#amd-server
       deployRebuildHdd = "NIX_REMOTE=/data/nix-store nixos-rebuild switch --target-host";
+      deployBootHdd = "NIX_REMOTE=/data/nix-store nixos-rebuild boot --target-host";
       gcHdd = "nix store gc --store /data/nix-store";
       optimiseHdd = "nix store optimise --store /data/nix-store";
       ll = "ls -l";
