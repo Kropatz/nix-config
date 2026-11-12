@@ -13,7 +13,7 @@
     };
     ## stable
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-unstable-new.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs-unstable-new.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,7 +25,7 @@
       inputs.home-manager.follows = "home-manager";
     };
     # nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+    # nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     #nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     #home-manager-stable = {
     #  url = "github:nix-community/home-manager/release-25.11";
@@ -72,7 +72,7 @@
       self,
       nur,
       nixpkgs,
-      nixpkgs-unstable-new,
+      # nixpkgs-unstable-new,
       home-manager,
       nixos-hardware,
       #nixpkgs-stable,
@@ -94,7 +94,7 @@
         { outputs, ... }:
         {
           nixpkgs.overlays = with outputs.overlays; [
-            unstable-packages
+            # unstable-packages
             # unstable-small-packages
             #stable-packages
             additions

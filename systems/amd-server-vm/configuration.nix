@@ -325,8 +325,8 @@
   ];
 
   networking.firewall.allowedTCPPorts = [
-    25565
-    25566
+    # 25565
+    # 25566
     # 30033 # teamspeak6 file transfer port
   ];
 

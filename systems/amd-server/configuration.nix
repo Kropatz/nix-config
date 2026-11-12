@@ -114,6 +114,7 @@
     firewall.allowedTCPPorts = [
       25565
       25566
+      25567
     ]; # localsend
 
   };

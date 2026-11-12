@@ -7,14 +7,10 @@
 
 let
   cfg = config.custom.graphical.gpu-screen-recorder-ui;
-  package = cfg.package.override {
-    inherit (config.security) wrapperDir;
-  };
 in
 {
   options = {
     custom.graphical.gpu-screen-recorder-ui = {
-      package = lib.mkPackageOption pkgs "gpu-screen-recorder-ui" { };
 
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -26,6 +22,4 @@ in
       };
     };
   };
-
-  meta.maintainers = with lib.maintainers; [ js6pak ];
 }
