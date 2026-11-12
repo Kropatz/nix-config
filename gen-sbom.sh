@@ -16,6 +16,12 @@ else
   exit 1
 fi
 
+# sbomnix >= 1.9 reads nixpkgs metadata via builtins.getFlake "path:<flake source>".
+# Nix 2.35 no longer copies the local flake source into the store on eval, so that path
+# doesn't exist and sbomnix logs "package_meta.nix scan failed" and drops licenses,
+# homepages etc. Archiving puts the source (and inputs) into the store first.
+nix flake archive . >/dev/null
+
 for host in server-vm amd-server amd-server-exposed-vm amd-server-vpn-vm; do
   mkdir -p "$OUT_DIR/$host"
   sbomnix .#nixosConfigurations.$host.config.system.build.toplevel \
