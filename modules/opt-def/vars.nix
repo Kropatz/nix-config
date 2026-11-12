@@ -23,6 +23,10 @@ in
       type = lib.types.str;
       default = "192.168.0.22";
     };
+    vpnVmIp = lib.mkOption {
+      type = lib.types.str;
+      default = "192.168.0.23";
+    };
     hostIp = lib.mkOption {
       type = lib.types.str;
       default = "192.168.0.20";
