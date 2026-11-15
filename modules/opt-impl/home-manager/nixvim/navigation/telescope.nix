@@ -56,6 +56,10 @@ let
     };
     # end LSP
     # start git
+    "<leader>gl" = {
+      action = "git_commits";
+      options.desc = "[G]it: [L]og (all commits)";
+    };
     "<leader>gc" = {
       action = "git_bcommits";
       options.desc = "[G]it: Buffer [C]ommits";
@@ -70,11 +74,51 @@ let
     };
     # end git
   };
+  # <CR> opens the commit in diffview instead of checking it out (telescope default)
+  openInDiffview = {
+    __raw = ''
+      function(prompt_bufnr)
+        local entry = require("telescope.actions.state").get_selected_entry()
+        require("telescope.actions").close(prompt_bufnr)
+        vim.cmd("DiffviewOpen " .. entry.value .. "^!")
+      end
+    '';
+  };
+  commitPickerOpts = {
+    mappings = {
+      i."<CR>" = openInDiffview;
+      n."<CR>" = openInDiffview;
+    };
+  };
 in
 {
+  # Pickaxe: find commits whose diff added/removed lines matching a regex (git log -G)
+  keymaps = [
+    {
+      mode = "n";
+      key = "<leader>gS";
+      options.desc = "[G]it: [S]earch commit contents (pickaxe)";
+      action.__raw = ''
+        function()
+          vim.ui.input({ prompt = "git log -G " }, function(query)
+            if not query or query == "" then return end
+            require("lz.n").trigger_load("telescope.nvim")
+            require("telescope.builtin").git_commits({
+              prompt_title = "Commits touching: " .. query,
+              git_command = { "git", "log", "--pretty=oneline", "--abbrev-commit", "-G", query },
+            })
+          end)
+        end
+      '';
+    }
+  ];
   plugins.telescope = {
     enable = true;
     inherit keymaps;
+    settings.pickers = {
+      git_commits = commitPickerOpts;
+      git_bcommits = commitPickerOpts;
+    };
     lazyLoad.settings.keys = builtins.attrNames keymaps;
     extensions = {
       # doesnt show up ? idk
