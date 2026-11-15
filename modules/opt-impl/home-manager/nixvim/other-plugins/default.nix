@@ -6,6 +6,7 @@ let
     version = "0.1.0";
     src = ./md-table-fit;
   };
+
   cursortabSrc = pkgs.fetchFromGitHub {
     owner = "cursortab";
     repo = "cursortab.nvim";
@@ -35,7 +36,17 @@ in
   extraPlugins = [
     md-table-fit
     pkgs.vimPlugins.vim-fetch
+    pkgs.vimPlugins.vim-markdown-toc
     # cursortab
+  ];
+
+  keymaps = [
+
+    {
+      key = "<leader>mt";
+      action = "<CMD>GenTocGitLab<CR>";
+      options.desc = "Generate markdown table of contents";
+    }
   ];
   extraConfigLua = ''
     require("md-table-fit").setup({})
