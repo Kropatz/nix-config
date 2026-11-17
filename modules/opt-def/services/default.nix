@@ -407,6 +407,14 @@ in
     smartd-exporter.enable = lib.mkEnableOption "Enables smartd monitoring";
     ssh.enable = lib.mkEnableOption "Enables ssh";
     step-ca.enable = lib.mkEnableOption "Enables step-ca";
+    scheibnmeister = {
+      enable = lib.mkEnableOption "Enables scheibnmeister";
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/home/anon/projects/github/dart_discord_bot";
+        description = "Directory to store scheibnmeister data";
+      };
+    };
     suricata = {
       enable = lib.mkEnableOption "Enables suricata IDS and ships its eve log to openobserve";
       interfaces = lib.mkOption {

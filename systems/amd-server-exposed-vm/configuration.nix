@@ -66,6 +66,7 @@
       qbittorrent.enable = false;
       grafana-log-agent.enable = true;
       ente.enable = true;
+      scheibnmeister.enable = true;
       kop-fileshare = {
         basePath = "/stash";
         dataDir = "/mnt/kop-fileshare";
@@ -177,7 +178,7 @@
       fsType = "cifs";
       options =
         let
-          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,dir_mode=0700,file_mode=0600";
 
         in
         [
@@ -200,7 +201,7 @@
       fsType = "cifs";
       options =
         let
-          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,mfsymlinks";
+          automount_opts = "x-systemd.automount,noauto,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users,mfsymlinks,dir_mode=0700,file_mode=0600";
         in
         [
           "${automount_opts},credentials=${config.age.secrets.samba-exposedvm.path},uid=${toString config.users.users.kavita.uid},gid=${toString config.users.groups.kavita.gid}"

@@ -53,6 +53,7 @@ in
     ./samba.nix
     ./netbird-native.nix
     ./kop-service-dashboard.nix
+    ./scheibnmeister.nix
   ];
 
   config = lib.mkMerge [
