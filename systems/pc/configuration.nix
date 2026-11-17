@@ -126,6 +126,10 @@
     };
   };
 
+  # Test better performance under high IO
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="nvme0n1", ATTR{queue/scheduler}="bfq"
+  '';
   services.trilium-server.enable = false; # maybe consider in the future
   services.nohang = {
     enable = true;

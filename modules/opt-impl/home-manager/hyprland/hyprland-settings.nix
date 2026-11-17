@@ -457,6 +457,15 @@ in
               match.workspace = 7;
               no_screen_share = true;
             }
+            {
+              match = {
+                class = "^Unity$";
+                title = "^(Importing.*|Hold On.*|Building.*|Exporting.*|Compiling.*|Progress.*)$";
+              };
+              no_initial_focus = true;
+              focus_on_activate = false;
+              workspace = "4 silent";
+            }
           ];
 
         };

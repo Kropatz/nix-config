@@ -42,6 +42,21 @@ in
     #     hash = "sha256-hk1rnNog5xvuIVI0M1ZJ5xrEuk0zcBiYsbROUycdi+A=";
     #   };
     # };
+    # https://github.com/NixOS/nixpkgs/pull/585986 -- drop once merged
+    intellij-idea =
+      if prev.intellij-idea.version == "2026.2.4" then
+        prev.intellij-idea.overrideAttrs (old: {
+          version = "2026.3";
+          src = prev.fetchurl {
+            url = "https://download.jetbrains.com/idea/ideaIU-2026.3.tar.gz";
+            hash = "sha256-alP/cfSgat1Ml+3E7+hsgxGf+C5bXp8dti/JWZW9ayU=";
+          };
+          passthru = old.passthru // {
+            buildNumber = "263.7307.200";
+          };
+        })
+      else
+        prev.intellij-idea;
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
     # postfix = prev.postfix.override { withSQLite = true; };

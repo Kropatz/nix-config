@@ -17,6 +17,9 @@
       compressImage () {
         magick $1 -strip -resize 1920x1080 -quality 85% compressed.jpg
       }
+      claude-evolit() {
+          CLAUDE_CONFIG_DIR=~/.config/claude-evolit claude "$@"
+      }
       function y() {
       	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
       	yazi "$@" --cwd-file="$tmp"

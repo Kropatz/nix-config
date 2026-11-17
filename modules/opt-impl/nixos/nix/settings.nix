@@ -17,6 +17,7 @@ in
 
     nix = {
       optimise.automatic = cfg.optimise;
+      optimise.dates = [ "Sun 04:00" ];
       settings = {
         allowed-users = [
           "root"

@@ -186,6 +186,14 @@ in
               "/misc-big/" = {
                 alias = "/hdd/nginx/misc-big/";
               };
+              "/misc-big/avatars/" = {
+                alias = "/hdd/nginx/misc-big/avatars/";
+                extraConfig = ''
+                  fancyindex on;
+                  fancyindex_hide_parent_dir on;
+                  fancyindex_exact_size off;
+                '';
+              };
               "/javaland/" = {
                 alias = "/var/www/javaland/";
                 extraConfig = ''

@@ -136,7 +136,7 @@
   ];
 
   services.xrdp = {
-    defaultWindowManager = "xfce4-session";
+    defaultWindowManager = "${pkgs.dbus}/bin/dbus-run-session ${pkgs.xfce4-session}/bin/xfce4-session";
     enable = true;
     openFirewall = false;
     #extraConfDirCommands = ''
