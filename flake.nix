@@ -24,7 +24,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    # nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     # nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     #nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     #home-manager-stable = {
@@ -77,7 +77,7 @@
       nixos-hardware,
       #nixpkgs-stable,
       #home-manager-stable,
-      # nixpkgs-unstable-small,
+      nixpkgs-unstable-small,
       agenix,
       #, nixos-cosmic
       nixvim,
@@ -95,7 +95,7 @@
         {
           nixpkgs.overlays = with outputs.overlays; [
             # unstable-packages
-            # unstable-small-packages
+            unstable-small-packages
             #stable-packages
             additions
             modifications
