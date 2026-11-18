@@ -25,8 +25,9 @@ in
       forceSSL = true;
       enableACME = mkIf cfg.useStepCa true;
       useACMEHost = mkIf (!cfg.useStepCa) "kopatz.dev";
-      quic = true;
-      http3 = true;
+      # quic = true;
+      # http3 = true;
+      http2 = config.custom.vars.nginx.useHttp2;
       extraConfig = ''
         if ($reject_br) { return 415; }
         ${config.custom.vars.nginx.allowOnlyInternalIps}

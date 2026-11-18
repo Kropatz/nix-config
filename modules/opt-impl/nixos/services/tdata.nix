@@ -17,6 +17,7 @@ in
     services.nginx.enable = true;
     services.nginx.virtualHosts."tdata.kopatz.dev" = {
       forceSSL = true;
+      http2 = config.custom.vars.nginx.useHttp2;
       useACMEHost = "kopatz.dev";
       extraConfig = ''
         ${config.custom.vars.nginx.allowOnlyInternalIps}
@@ -28,6 +29,7 @@ in
     };
     services.nginx.virtualHosts."tui.kopatz.dev" = {
       forceSSL = true;
+      http2 = config.custom.vars.nginx.useHttp2;
       useACMEHost = "kopatz.dev";
       extraConfig = ''
         ${config.custom.vars.nginx.allowOnlyInternalIps}

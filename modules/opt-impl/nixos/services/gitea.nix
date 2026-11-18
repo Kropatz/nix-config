@@ -138,9 +138,10 @@ in
       forceSSL = true;
       # enableACME = true;
       useACMEHost = "kopatz.dev";
-      quic = true;
-      http3 = true;
-      extraConfig = ''if ($reject_br) { return 415; }'';
+      # quic = true;
+      # http3 = true;
+      http2 = config.custom.vars.nginx.useHttp2;
+      extraConfig = "if ($reject_br) { return 415; }";
       locations."/".proxyPass = "http://localhost:3002";
       locations."/robots.txt" = {
         extraConfig = ''

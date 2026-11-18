@@ -97,8 +97,9 @@ in
                 null
               else
                 "/var/lib/acme/acme-challenge";
-            quic = cfg.https;
-            http3 = cfg.https;
+            # quic = cfg.https;
+            # http3 = cfg.https;
+            http2 = config.custom.vars.nginx.useHttp2;
             extraConfig = ''if ($reject_br) { return 415; }'';
             locations = {
               "~* ^/assets/.*\\.(jpg|png)$".extraConfig = ''
@@ -262,8 +263,9 @@ in
           "kavita.kopatz.dev" = {
             forceSSL = true;
             useACMEHost = "kopatz.dev";
-            quic = true;
-            http3 = true;
+            # quic = true;
+            # http3 = true;
+            http2 = config.custom.vars.nginx.useHttp2;
             extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:5000";
             locations."/".extraConfig = ''
@@ -282,8 +284,9 @@ in
           "jellyfin.kopatz.dev" = {
             forceSSL = true;
             useACMEHost = "kopatz.dev";
-            quic = true;
-            http3 = true;
+            # quic = true;
+            # http3 = true;
+            http2 = config.custom.vars.nginx.useHttp2;
             extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:8096";
             locations."/".extraConfig = ''
@@ -303,8 +306,9 @@ in
             forceSSL = true;
             # enableACME = true;
             useACMEHost = "kopatz.dev";
-            quic = true;
-            http3 = true;
+            # quic = true;
+            # http3 = true;
+            http2 = config.custom.vars.nginx.useHttp2;
             extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:3002";
             locations."/robots.txt" = {
@@ -318,8 +322,9 @@ in
             forceSSL = true;
             # enableACME = true;
             useACMEHost = "kopatz.dev";
-            quic = true;
-            http3 = true;
+            # quic = true;
+            # http3 = true;
+            http2 = config.custom.vars.nginx.useHttp2;
             extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:3002";
             locations."/robots.txt" = {

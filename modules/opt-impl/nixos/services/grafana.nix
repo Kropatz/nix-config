@@ -146,8 +146,9 @@ in
       forceSSL = useHttps;
       enableACME = lib.mkIf useStepCa useHttps;
       useACMEHost = lib.mkIf (!useStepCa) "kopatz.dev";
-      quic = useHttps;
-      http3 = useHttps;
+      # quic = useHttps;
+      # http3 = useHttps;
+      http2 = config.custom.vars.nginx.useHttp2;
       extraConfig = ''
         if ($reject_br) { return 415; }
         ${config.custom.vars.nginx.allowOnlyInternalIps}

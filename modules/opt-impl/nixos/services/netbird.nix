@@ -121,8 +121,9 @@ in
       # enableACME = true;
       useACMEHost = "kopatz.dev";
       forceSSL = true;
-      quic = true;
-      http3 = true;
+      # quic = true;
+      # http3 = true;
+      http2 = config.custom.vars.nginx.useHttp2;
       extraConfig = ''
         # Required for long-lived gRPC/WebSocket connections.
         client_header_timeout 1d;

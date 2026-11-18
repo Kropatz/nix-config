@@ -25,6 +25,8 @@ in
       services.nginx.enable = true;
       services.nginx.virtualHosts.${cfg.fqdn} = {
         forceSSL = cfg.useHttps;
+        http2 = config.custom.vars.nginx.useHttp2;
+
         useACMEHost = "kopatz.dev";
         extraConfig = ''
           if ($reject_br) { return 415; }
