@@ -138,6 +138,23 @@
         _hddBuildAndCopy "$@" || return 1
         nh os boot "$_HDD_OUT"
       }
+      __pet_preexec() { __pet_cmd=$1; __pet_start=$SECONDS; }
+      __pet_precmd() {
+        local code=$?
+        [ -n "$__pet_start" ] || return 0
+        local took=$((SECONDS - __pet_start)); __pet_start=
+        [ -n "$BASH_VERSION" ] && __pet_cmd=$(HISTTIMEFORMAT= history 1 | sed 's/^ *[0-9]* *//')
+        [ "$took" -ge 30 ] && ( "/home/kopatz/projects/fuck_around/wayland-3dmodels/petctl" shell done "$code" "$took" "$__pet_cmd" >/dev/null 2>&1 & )
+        return 0
+      }
+      if [ -n "$ZSH_VERSION" ]; then
+        autoload -Uz add-zsh-hook
+        add-zsh-hook preexec __pet_preexec
+        add-zsh-hook precmd __pet_precmd
+      else
+        PS0='$${__pet_x[__pet_start=SECONDS]}'"$PS0"  # sets the start, prints nothing
+        PROMPT_COMMAND="__pet_precmd$${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+      fi
     '';
     history = {
       size = 100000;
