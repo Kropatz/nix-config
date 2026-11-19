@@ -48,7 +48,8 @@ in
       };
       useHttp2 = lib.mkOption {
         type = lib.types.bool;
-        default = false; # wait until 1.31.9 https://my.f5.com/manage/s/article/K000163926,  https://my.f5.com/manage/s/article/K000163928
+        default = true;
+        # !Important netbird uses this because of gRPC, so with no http2 netbird breaks.
       };
     };
 
