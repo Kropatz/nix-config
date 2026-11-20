@@ -18,14 +18,14 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchGit {
       url = "ssh://gitea@git.kopatz.dev/oberprofis/ente.git";
       ref = "master";
-      rev = "209b40aaa24b3cfe2814807416fa17072ef81c22";
+      rev = "96f05d6e65b0013d93d1177994022991fdd743de";
     })
   }/website/tracker-site";
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-lD1iCvvQDby+epSTNO+0Qv64H3p+doq/jclx8nR5ij4=";
+    hash = "sha256-PfGTocc8sV0F1gpa9yr7nJFBm23gHy6OCYD5o5XygYc=";
   };
 
   nativeBuildInputs = [
