@@ -72,7 +72,10 @@ in
         rofi = "${pkgs.rofi}/bin/rofi";
         rofimoji = "${pkgs.rofimoji}/bin/rofimoji";
         kitty = "${pkgs.kitty}/bin/kitty";
-        thunar = "${pkgs.thunar}/bin/thunar";
+        # must match programs.thunar's wrapped package, otherwise plugins (archive, volman) aren't loaded
+        thunar = "${
+          pkgs.thunar.override { thunarPlugins = osConfig.programs.thunar.plugins; }
+        }/bin/thunar";
         lock-cmd =
           if config.custom.graphical.qylock.enable then "qylock-lock" else "${pkgs.hyprlock}/bin/hyprlock";
         hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
@@ -448,6 +451,13 @@ in
             {
               match.title = "Picture-in-Picture";
               suppress_event = "maximize";
+            }
+            {
+              # the desktop pet's clip trimmer and player (mpv --wayland-app-id); other mpv windows still tile
+              match.class = "^kop-clip$";
+              float = true;
+              size = "monitor_w*0.7 monitor_h*0.7";
+              center = true;
             }
             {
               match.workspace = 5;
