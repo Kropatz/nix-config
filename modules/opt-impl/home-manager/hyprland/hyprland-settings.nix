@@ -268,7 +268,7 @@ in
               no_donation_nag = true;
               no_update_news = true;
             };
-            xwayland = lib.mkIf isPc { force_zero_scaling = true; };
+            xwayland.force_zero_scaling = true;
             decoration = {
               rounding = 0;
               blur.enabled = false;
