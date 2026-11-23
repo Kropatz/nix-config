@@ -49,6 +49,12 @@
     misc = {
       newkernel.enable = true;
     };
+    static-ip = {
+      enable = true;
+      interface = "eth0";
+      ip = config.custom.vars.vpnVmIp;
+      dns = "${config.custom.vars.serverIp}";
+    };
     services = {
       ssh.enable = true;
       wireguard = {

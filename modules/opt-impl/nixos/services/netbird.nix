@@ -121,12 +121,15 @@ in
       # enableACME = true;
       useACMEHost = "kopatz.dev";
       forceSSL = true;
-      quic = true;
-      http3 = true;
+      # quic = true;
+      # http3 = true;
+      http2 = config.custom.vars.nginx.useHttp2;
       extraConfig = ''
         # Required for long-lived gRPC/WebSocket connections.
         client_header_timeout 1d;
         client_body_timeout 1d;
+
+        if ($reject_br) { return 415; }
 
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

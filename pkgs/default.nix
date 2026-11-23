@@ -18,12 +18,6 @@ rec {
   custom-sddm-astronaut = pkgs.callPackage ./sddm-astronaut/default.nix { };
   mangal-patched = pkgs.callPackage ./mangal/default.nix { };
   csharp-ls-8 = pkgs.callPackage ./csharp-lsp/default.nix { };
-  gpu-screen-recorder-ui = pkgs.callPackage ./gpu-screen-recorder-ui/default.nix {
-    inherit gpu-screen-recorder-notification;
-  };
-  gpu-screen-recorder-notification =
-    pkgs.callPackage ./gpu-screen-recorder-notification/default.nix
-      { };
   kavita-old = pkgs.callPackage ./kavita-old/default.nix { };
   hollow-grub = pkgs.callPackage ./hollow-grub/default.nix { };
   peframe = pkgs.callPackage ./peframe/default.nix {

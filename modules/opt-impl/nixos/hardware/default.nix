@@ -42,6 +42,7 @@ in
     })
     (lib.mkIf cfg.ssd.enable {
       services.fstrim.enable = true;
+      services.fstrim.interval = "Wed 04:00";
     })
     (lib.mkIf cfg.tablet.enable {
       hardware.opentabletdriver.enable = true;

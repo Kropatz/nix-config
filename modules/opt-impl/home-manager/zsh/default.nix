@@ -17,6 +17,9 @@
       compressImage () {
         magick $1 -strip -resize 1920x1080 -quality 85% compressed.jpg
       }
+      claude-evolit() {
+          CLAUDE_CONFIG_DIR=~/.config/claude-evolit claude "$@"
+      }
       function y() {
       	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
       	yazi "$@" --cwd-file="$tmp"
@@ -135,6 +138,23 @@
         _hddBuildAndCopy "$@" || return 1
         nh os boot "$_HDD_OUT"
       }
+      __pet_preexec() { __pet_cmd=$1; __pet_start=$SECONDS; }
+      __pet_precmd() {
+        local code=$?
+        [ -n "$__pet_start" ] || return 0
+        local took=$((SECONDS - __pet_start)); __pet_start=
+        [ -n "$BASH_VERSION" ] && __pet_cmd=$(HISTTIMEFORMAT= history 1 | sed 's/^ *[0-9]* *//')
+        [ "$took" -ge 30 ] && ( "/home/kopatz/projects/fuck_around/wayland-3dmodels/petctl" shell done "$code" "$took" "$__pet_cmd" >/dev/null 2>&1 & )
+        return 0
+      }
+      if [ -n "$ZSH_VERSION" ]; then
+        autoload -Uz add-zsh-hook
+        add-zsh-hook preexec __pet_preexec
+        add-zsh-hook precmd __pet_precmd
+      else
+        PS0='$${__pet_x[__pet_start=SECONDS]}'"$PS0"  # sets the start, prints nothing
+        PROMPT_COMMAND="__pet_precmd$${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
+      fi
     '';
     history = {
       size = 100000;
@@ -153,6 +173,7 @@
       # symlinks, which dangle outside the chroot. See docs/hdd-store.md.
       # Usage: deployRebuildHdd root@192.168.0.20 --flake .#amd-server
       deployRebuildHdd = "NIX_REMOTE=/data/nix-store nixos-rebuild switch --target-host";
+      deployBootHdd = "NIX_REMOTE=/data/nix-store nixos-rebuild boot --target-host";
       gcHdd = "nix store gc --store /data/nix-store";
       optimiseHdd = "nix store optimise --store /data/nix-store";
       ll = "ls -l";

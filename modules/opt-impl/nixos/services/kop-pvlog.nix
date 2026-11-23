@@ -25,8 +25,13 @@ in
       forceSSL = true;
       enableACME = mkIf cfg.useStepCa true;
       useACMEHost = mkIf (!cfg.useStepCa) "kopatz.dev";
-      quic = true;
-      http3 = true;
+      # quic = true;
+      # http3 = true;
+      http2 = config.custom.vars.nginx.useHttp2;
+      extraConfig = ''
+        if ($reject_br) { return 415; }
+        ${config.custom.vars.nginx.allowOnlyInternalIps}
+      '';
       locations."/".proxyPass = "http://127.0.0.1:${builtins.toString cfg.port}";
       locations."/".extraConfig = ''
         gzip_types application/octet-stream application/json text/css text/javascript application/javascript;
@@ -57,7 +62,9 @@ in
         # Security hardening
         UMask = "077";
         CapabilityBoundingSet = "";
-        InaccessiblePaths = (lib.remove "-/data" config.custom.services.hardening.dataMounts) ++ [ "-/data/synced"];
+        InaccessiblePaths = (lib.remove "-/data" config.custom.services.hardening.dataMounts) ++ [
+          "-/data/synced"
+        ];
         NoNewPrivileges = true;
         ProtectSystem = "strict";
         PrivateMounts = true;

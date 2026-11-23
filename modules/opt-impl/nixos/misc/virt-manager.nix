@@ -29,6 +29,7 @@ in
       spiceUSBRedirection.enable = true;
     };
     services.spice-vdagentd.enable = true;
+    systemd.services.libvirtd.serviceConfig.MemoryMax = "2G";
     users.users.${config.mainUser.name}.extraGroups = [
       "libvirtd"
       "kvm"

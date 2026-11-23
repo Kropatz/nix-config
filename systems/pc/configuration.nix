@@ -85,7 +85,10 @@
       #tablet.enable = true;
     };
     graphical = {
-      audio.enable = true;
+      audio = {
+        enable = true;
+        keepVolumeOnSuspend = [ "alsa_input.usb-Razer_Inc._Razer_Seiren_UC1713127402487-00.analog-stereo" ];
+      };
       code = {
         enable = true;
         android.enable = true;
@@ -123,6 +126,10 @@
     };
   };
 
+  # Test better performance under high IO
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="nvme0n1", ATTR{queue/scheduler}="bfq"
+  '';
   services.trilium-server.enable = false; # maybe consider in the future
   services.nohang = {
     enable = true;
@@ -170,7 +177,7 @@
     wl-clicker
     deploy-rs
     msmtp
-    kop-llama-systray
+    # kop-llama-systray
     # crystaldisk-linux
     qdiskinfo
   ];
@@ -221,11 +228,11 @@
   # http://localhost:631
   services.printing.enable = false;
   services.printing.drivers = [ pkgs.brlaser ];
-  services.avahi = {
-    enable = false;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
+  # services.avahi = {
+  #   enable = false;
+  #   nssmdns4 = true;
+  #   openFirewall = true;
+  # };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

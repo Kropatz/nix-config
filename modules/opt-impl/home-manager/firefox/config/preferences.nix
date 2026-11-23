@@ -70,4 +70,6 @@
   # Scrolling with middle mouse
   "middlemouse.paste" = false;
   "general.autoScroll" = true;
+  # Make sidebar not required, to better show sidebery
+  "sidebar.revamp" = false;
 }

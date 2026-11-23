@@ -160,6 +160,7 @@ in
         description = "list of domains to rewrite to this server's ip";
       };
     };
+    audit.enable = lib.mkEnableOption "Enables auditing";
     blocklist.enable = lib.mkEnableOption "Enables blocklist";
     caldav.enable = lib.mkEnableOption "Enables caldav server";
     clamav = {
@@ -234,7 +235,10 @@ in
     github-runner.enable = lib.mkEnableOption "Enables github-runner service.";
     gitolite.enable = lib.mkEnableOption "Enables ente";
     grafana.enable = lib.mkEnableOption "Enables grafana";
-    grafana-log-agent.enable = lib.mkEnableOption "Enables sending logs to grafana";
+    grafana-log-agent = {
+      enable = lib.mkEnableOption "Enables sending logs to grafana";
+      enableNginxLogs = lib.mkEnableOption "Enables sending nginx logs to grafana";
+    };
     hardening.dataMounts = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [
@@ -380,6 +384,14 @@ in
       dav = lib.mkEnableOption "Enables WebDAV support on /hdd/nginx";
     };
     node-exporter.enable = lib.mkEnableOption "Enables node-exporter";
+    openobserve = {
+      enable = lib.mkEnableOption "Enables openobserve";
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/var/lib/openobserve";
+        description = "Directory to store data";
+      };
+    };
     opensnitch.enable = lib.mkEnableOption "Enables opensnitch";
     qbittorrent = {
       enable = lib.mkEnableOption "Enables qbittorrent";
@@ -395,6 +407,32 @@ in
     smartd-exporter.enable = lib.mkEnableOption "Enables smartd monitoring";
     ssh.enable = lib.mkEnableOption "Enables ssh";
     step-ca.enable = lib.mkEnableOption "Enables step-ca";
+    scheibnmeister = {
+      enable = lib.mkEnableOption "Enables scheibnmeister";
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/home/anon/projects/github/dart_discord_bot";
+        description = "Directory to store scheibnmeister data";
+      };
+    };
+    suricata = {
+      enable = lib.mkEnableOption "Enables suricata IDS and ships its eve log to openobserve";
+      interfaces = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ "br0" ];
+        description = "Interfaces to monitor with af-packet";
+      };
+      openobserveHost = lib.mkOption {
+        type = lib.types.str;
+        default = config.custom.vars.zelIp;
+        description = "OpenObserve host to ship eve events to";
+      };
+      stream = lib.mkOption {
+        type = lib.types.str;
+        default = "suricata";
+        description = "OpenObserve stream name";
+      };
+    };
     syncthing = {
       enable = lib.mkEnableOption "Enables syncthing";
       basePath = lib.mkOption {

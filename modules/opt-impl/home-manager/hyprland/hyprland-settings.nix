@@ -57,6 +57,7 @@ in
       pkgs.hypridle
       pkgs.hyprshot
       pkgs.hyprpicker
+      pkgs.copyq
     ];
     home.file.".config/hypr/monitor-config.js".source = ../../../../.config/hypr/monitor-config.js;
     home.file.".config/hypr/hyprpaper.conf".source = pkgs.writeText "hyprpaper.conf" ''
@@ -71,12 +72,16 @@ in
         rofi = "${pkgs.rofi}/bin/rofi";
         rofimoji = "${pkgs.rofimoji}/bin/rofimoji";
         kitty = "${pkgs.kitty}/bin/kitty";
-        thunar = "${pkgs.thunar}/bin/thunar";
+        # must match programs.thunar's wrapped package, otherwise plugins (archive, volman) aren't loaded
+        thunar = "${
+          pkgs.thunar.override { thunarPlugins = osConfig.programs.thunar.plugins; }
+        }/bin/thunar";
         lock-cmd =
           if config.custom.graphical.qylock.enable then "qylock-lock" else "${pkgs.hyprlock}/bin/hyprlock";
         hyprpicker = "${pkgs.hyprpicker}/bin/hyprpicker";
         hyprshot = "${pkgs.hyprshot}/bin/hyprshot";
         playerctl = "${pkgs.playerctl}/bin/playerctl";
+        copyq = "${pkgs.copyq}/bin/copyq";
         zenity = "${pkgs.zenity}/bin/zenity";
         woomer = "${pkgs.woomer}/bin/woomer";
         brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
@@ -101,6 +106,7 @@ in
           { command = "dex --autostart --environment Hyprland"; }
           { command = "${pkgs.hypridle}/bin/hypridle &"; }
           { command = "${pkgs.ydotool}/bin/ydotoold &"; }
+          { command = "${copyq} --start-server"; }
         ]
         ++ lib.optionals isPc [
           {
@@ -116,7 +122,7 @@ in
             rules.workspace = "10 silent";
           }
           { command = "xrandr --monitor ${monitor1} --primary"; }
-          { command = "${pkgs.kop-llama-systray}/bin/kop-llama-systray &"; }
+          # { command = "${pkgs.kop-llama-systray}/bin/kop-llama-systray &"; }
         ]
         ++ [
           { command = "sleep 3 && ${pkgs.waybar}/bin/waybar &"; }
@@ -323,6 +329,7 @@ in
             (mkExecBind "XF86AudioPlay" "${playerctl} play-pause")
             (mkExecBind "XF86AudioNext" "${playerctl} next")
             (mkExecBind "XF86AudioPrev" "${playerctl} previous")
+            (mkExecBind "SUPER + semicolon" "${copyq} toggle")
             (mkBind "SUPER + U" "hl.dsp.window.pseudo()" { })
             (mkBind "SUPER + I" ''hl.dsp.layout("togglesplit")'' { })
             (mkBind "SUPER + left" ''hl.dsp.focus({ direction = "left" })'' { })
@@ -342,18 +349,6 @@ in
             (mkBind "SUPER + CTRL + k" ''hl.dsp.window.move({ direction = "up" })'' { })
             (mkBind "SUPER + CTRL + j" ''hl.dsp.window.move({ direction = "down" })'' { })
             (mkBind "SUPER + B" ''hl.dsp.global("waybar:toggle_bar")'' { })
-          ]
-          ++ map (
-            workspace:
-            mkBind "SUPER + ${workspaceKey workspace}" "hl.dsp.focus({ workspace = ${toString workspace} })" { }
-          ) (lib.range 1 10)
-          ++ map (
-            workspace:
-            mkBind "SUPER + SHIFT + ${workspaceKey workspace}"
-              "hl.dsp.window.move({ workspace = ${toString workspace} })"
-              { }
-          ) (lib.range 1 10)
-          ++ [
             (mkBind "SUPER + X" ''hl.dsp.workspace.toggle_special("")'' { })
             (mkBind "SUPER + SHIFT + X" ''hl.dsp.window.move({ workspace = "special" })'' { })
             (mkBind "SUPER + mouse_down" ''hl.dsp.focus({ workspace = "e+1" })'' { })
@@ -393,7 +388,17 @@ in
             (mkBind "SUPER + mouse:273" "hl.dsp.window.resize()" { mouse = true; })
             (mkBind "SUPER + A" ''hl.dsp.submap("notes")'' { })
             (mkBind "SUPER + W" ''hl.dsp.submap("cursor")'' { })
-          ];
+          ]
+          ++ map (
+            workspace:
+            mkBind "SUPER + ${workspaceKey workspace}" "hl.dsp.focus({ workspace = ${toString workspace} })" { }
+          ) (lib.range 1 10)
+          ++ map (
+            workspace:
+            mkBind "SUPER + SHIFT + ${workspaceKey workspace}"
+              "hl.dsp.window.move({ workspace = ${toString workspace} })"
+              { }
+          ) (lib.range 1 10);
 
           window_rule = [
             {
@@ -421,6 +426,10 @@ in
               immediate = true;
             }
             {
+              match.class = "^com.github.hluk.copyq$";
+              float = true;
+            }
+            {
               match.class = "thunar";
               opacity = "0.9";
             }
@@ -444,12 +453,28 @@ in
               suppress_event = "maximize";
             }
             {
+              # the desktop pet's clip trimmer and player (mpv --wayland-app-id); other mpv windows still tile
+              match.class = "^kop-clip$";
+              float = true;
+              size = "monitor_w*0.7 monitor_h*0.7";
+              center = true;
+            }
+            {
               match.workspace = 5;
               no_screen_share = true;
             }
             {
               match.workspace = 7;
               no_screen_share = true;
+            }
+            {
+              match = {
+                class = "^Unity$";
+                title = "^(Importing.*|Hold On.*|Building.*|Exporting.*|Compiling.*|Progress.*)$";
+              };
+              no_initial_focus = true;
+              focus_on_activate = false;
+              workspace = "4 silent";
             }
           ];
 

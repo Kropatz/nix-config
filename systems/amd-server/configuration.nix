@@ -46,6 +46,7 @@
       smartd.enable = true;
       smartd-exporter.enable = true;
       node-exporter.enable = true;
+      suricata.enable = true;
       #adguard = {
       #  enable = true;
       #  acme-url = "https://192.168.0.10:8443/acme/kop-acme/directory";
@@ -113,6 +114,7 @@
     firewall.allowedTCPPorts = [
       25565
       25566
+      25567
     ]; # localsend
 
   };
@@ -134,7 +136,7 @@
   ];
 
   services.xrdp = {
-    defaultWindowManager = "xfce4-session";
+    defaultWindowManager = "${pkgs.dbus}/bin/dbus-run-session ${pkgs.xfce4-session}/bin/xfce4-session";
     enable = true;
     openFirewall = false;
     #extraConfDirCommands = ''

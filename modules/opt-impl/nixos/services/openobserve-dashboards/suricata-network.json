@@ -1,0 +1,2629 @@
+{
+  "version": 8,
+  "dashboardId": "",
+  "title": "Suricata - network",
+  "description": "What is on the wire, from suricata eve events in the 'suricata' stream",
+  "role": "",
+  "owner": "",
+  "tabs": [
+    {
+      "tabId": "tab0",
+      "name": "Overview",
+      "panels": [
+        {
+          "id": "Panel_ID0000001",
+          "type": "metric",
+          "title": "Events",
+          "description": "",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT count(*) AS y_axis_1 FROM \"suricata\"",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [],
+                "y": [
+                  {
+                    "label": "Events",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 0,
+            "w": 48,
+            "h": 12,
+            "i": 1
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000002",
+          "type": "metric",
+          "title": "Alerts",
+          "description": "",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT count(*) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'alert'",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [],
+                "y": [
+                  {
+                    "label": "Alerts",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 48,
+            "y": 0,
+            "w": 48,
+            "h": 12,
+            "i": 2
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000003",
+          "type": "metric",
+          "title": "Traffic",
+          "description": "Bytes in both directions of all finished flows",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 2,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null,
+            "unit": "bytes"
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT sum((flow_bytes_toserver + flow_bytes_toclient)) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'flow'",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [],
+                "y": [
+                  {
+                    "label": "Traffic",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 96,
+            "y": 0,
+            "w": 48,
+            "h": 12,
+            "i": 3
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000004",
+          "type": "metric",
+          "title": "Local hosts",
+          "description": "",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT count(DISTINCT src_ip) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'flow' AND (src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1')",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [],
+                "y": [
+                  {
+                    "label": "Local hosts",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 144,
+            "y": 0,
+            "w": 48,
+            "h": 12,
+            "i": 4
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000005",
+          "type": "area-stacked",
+          "title": "Events by type",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT histogram(_timestamp) AS x_axis_1, event_type AS breakdown_1, count(*) AS y_axis_1 FROM \"suricata\" GROUP BY x_axis_1, breakdown_1 ORDER BY x_axis_1",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Time",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": "histogram",
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Events by type",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [
+                  {
+                    "label": "Type",
+                    "alias": "breakdown_1",
+                    "column": "breakdown_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 12,
+            "w": 96,
+            "h": 26,
+            "i": 5
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000006",
+          "type": "area-stacked",
+          "title": "Traffic by direction",
+          "description": "lan = private to private, egress = private to public, ingress = public to private",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 2,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null,
+            "unit": "bytes"
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT histogram(_timestamp) AS x_axis_1, CASE WHEN (src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1') AND (dest_ip LIKE '192.168.%' OR dest_ip LIKE '10.%' OR dest_ip LIKE '172.16.%' OR dest_ip LIKE '172.17.%' OR dest_ip LIKE '172.18.%' OR dest_ip LIKE '172.19.%' OR dest_ip LIKE '172.2_.%' OR dest_ip LIKE '172.30.%' OR dest_ip LIKE '172.31.%' OR dest_ip LIKE 'fe80:%' OR dest_ip LIKE 'fd%' OR dest_ip LIKE 'fc%' OR dest_ip LIKE '127.%' OR dest_ip = '::1') THEN 'lan' WHEN (src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1') THEN 'egress' WHEN (dest_ip LIKE '192.168.%' OR dest_ip LIKE '10.%' OR dest_ip LIKE '172.16.%' OR dest_ip LIKE '172.17.%' OR dest_ip LIKE '172.18.%' OR dest_ip LIKE '172.19.%' OR dest_ip LIKE '172.2_.%' OR dest_ip LIKE '172.30.%' OR dest_ip LIKE '172.31.%' OR dest_ip LIKE 'fe80:%' OR dest_ip LIKE 'fd%' OR dest_ip LIKE 'fc%' OR dest_ip LIKE '127.%' OR dest_ip = '::1') THEN 'ingress' ELSE 'transit' END AS breakdown_1, sum((flow_bytes_toserver + flow_bytes_toclient)) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'flow' GROUP BY x_axis_1, breakdown_1 ORDER BY x_axis_1",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Time",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": "histogram",
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Traffic by direction",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [
+                  {
+                    "label": "Direction",
+                    "alias": "breakdown_1",
+                    "column": "breakdown_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 96,
+            "y": 12,
+            "w": 96,
+            "h": 26,
+            "i": 6
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000007",
+          "type": "area-stacked",
+          "title": "Traffic by application protocol",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 2,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null,
+            "unit": "bytes"
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT histogram(_timestamp) AS x_axis_1, coalesce(app_proto, proto) AS breakdown_1, sum((flow_bytes_toserver + flow_bytes_toclient)) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'flow' GROUP BY x_axis_1, breakdown_1 ORDER BY x_axis_1",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Time",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": "histogram",
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Traffic by application protocol",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [
+                  {
+                    "label": "Protocol",
+                    "alias": "breakdown_1",
+                    "column": "breakdown_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 38,
+            "w": 128,
+            "h": 26,
+            "i": 7
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000008",
+          "type": "donut",
+          "title": "Protocol share",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 2,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null,
+            "unit": "bytes"
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT coalesce(app_proto, proto) AS x_axis_1, sum((flow_bytes_toserver + flow_bytes_toclient)) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'flow' GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 12",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Protocol",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Bytes",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 128,
+            "y": 38,
+            "w": 64,
+            "h": 26,
+            "i": 8
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000009",
+          "type": "h-bar",
+          "title": "Top talkers",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 2,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null,
+            "unit": "bytes"
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT src_ip AS x_axis_1, sum((flow_bytes_toserver + flow_bytes_toclient)) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'flow' GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 15",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Host",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Bytes",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 64,
+            "w": 64,
+            "h": 30,
+            "i": 9
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000010",
+          "type": "h-bar",
+          "title": "Top destinations",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 2,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null,
+            "unit": "bytes"
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT dest_ip AS x_axis_1, sum((flow_bytes_toserver + flow_bytes_toclient)) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'flow' GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 15",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Host",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Bytes",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 64,
+            "y": 64,
+            "w": 64,
+            "h": 30,
+            "i": 10
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000011",
+          "type": "h-bar",
+          "title": "Top services",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT concat(proto, '/', CAST(dest_port AS VARCHAR)) AS x_axis_1, count(*) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'flow' AND dest_port IS NOT NULL GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 15",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Port",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Flows",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 128,
+            "y": 64,
+            "w": 64,
+            "h": 30,
+            "i": 11
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000012",
+          "type": "table",
+          "title": "Top conversations",
+          "description": "",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT src_ip AS x_axis_1, dest_ip AS x_axis_2, proto AS x_axis_3, dest_port AS x_axis_4, app_proto AS x_axis_5, sum(flow_bytes_toserver) AS y_axis_1, sum(flow_bytes_toclient) AS y_axis_2, count(*) AS y_axis_3 FROM \"suricata\" WHERE event_type = 'flow' GROUP BY x_axis_1, x_axis_2, x_axis_3, x_axis_4, x_axis_5 ORDER BY y_axis_1 + y_axis_2 DESC LIMIT 200",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Source",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Destination",
+                    "alias": "x_axis_2",
+                    "column": "x_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Proto",
+                    "alias": "x_axis_3",
+                    "column": "x_axis_3",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Port",
+                    "alias": "x_axis_4",
+                    "column": "x_axis_4",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "App",
+                    "alias": "x_axis_5",
+                    "column": "x_axis_5",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Bytes sent",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Bytes received",
+                    "alias": "y_axis_2",
+                    "column": "y_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Flows",
+                    "alias": "y_axis_3",
+                    "column": "y_axis_3",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 94,
+            "w": 192,
+            "h": 36,
+            "i": 12
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        }
+      ]
+    },
+    {
+      "tabId": "tab1",
+      "name": "DNS",
+      "panels": [
+        {
+          "id": "Panel_ID0000013",
+          "type": "area-stacked",
+          "title": "Queries by record type",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT histogram(_timestamp) AS x_axis_1, dns_rrtype AS breakdown_1, count(*) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'dns' AND dns_type = 'request' GROUP BY x_axis_1, breakdown_1 ORDER BY x_axis_1",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Time",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": "histogram",
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Queries by record type",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [
+                  {
+                    "label": "Type",
+                    "alias": "breakdown_1",
+                    "column": "breakdown_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 26,
+            "i": 13
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000014",
+          "type": "donut",
+          "title": "Response codes",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT dns_rcode AS x_axis_1, count(*) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'dns' AND dns_type = 'response' GROUP BY x_axis_1 ORDER BY y_axis_1 DESC",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Rcode",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Responses",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 128,
+            "y": 0,
+            "w": 64,
+            "h": 26,
+            "i": 14
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000015",
+          "type": "table",
+          "title": "Top domains",
+          "description": "",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT dns_rrname AS x_axis_1, count(*) AS y_axis_1, count(DISTINCT src_ip) AS y_axis_2 FROM \"suricata\" WHERE event_type = 'dns' AND dns_type = 'request' GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 200",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Domain",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Queries",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Clients",
+                    "alias": "y_axis_2",
+                    "column": "y_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 26,
+            "w": 96,
+            "h": 36,
+            "i": 15
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000016",
+          "type": "h-bar",
+          "title": "Top clients",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT src_ip AS x_axis_1, count(*) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'dns' AND dns_type = 'request' GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 15",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Client",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Queries",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 96,
+            "y": 26,
+            "w": 96,
+            "h": 36,
+            "i": 16
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000017",
+          "type": "table",
+          "title": "NXDOMAIN",
+          "description": "Lots of NXDOMAIN from one client can mean a DGA / malware or a broken config",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT dns_rrname AS x_axis_1, dest_ip AS x_axis_2, count(*) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'dns' AND dns_type = 'response' AND dns_rcode = 'NXDOMAIN' GROUP BY x_axis_1, x_axis_2 ORDER BY y_axis_1 DESC LIMIT 200",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Domain",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Client",
+                    "alias": "x_axis_2",
+                    "column": "x_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Responses",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 62,
+            "w": 96,
+            "h": 34,
+            "i": 17
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000018",
+          "type": "table",
+          "title": "Resolved addresses",
+          "description": "Use this to map IPs from the flow panels back to names",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT dns_rrname AS x_axis_1, dns_answer AS x_axis_2, count(*) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'dns' AND dns_type = 'response' AND dns_answer IS NOT NULL GROUP BY x_axis_1, x_axis_2 ORDER BY y_axis_1 DESC LIMIT 200",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Domain",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Answers",
+                    "alias": "x_axis_2",
+                    "column": "x_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Responses",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 96,
+            "y": 62,
+            "w": 96,
+            "h": 34,
+            "i": 18
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        }
+      ]
+    },
+    {
+      "tabId": "tab2",
+      "name": "TLS & HTTP",
+      "panels": [
+        {
+          "id": "Panel_ID0000019",
+          "type": "table",
+          "title": "TLS server names",
+          "description": "",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT tls_sni AS x_axis_1, count(*) AS y_axis_1, count(DISTINCT src_ip) AS y_axis_2 FROM \"suricata\" WHERE event_type = 'tls' GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 200",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "SNI",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Handshakes",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Clients",
+                    "alias": "y_axis_2",
+                    "column": "y_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 0,
+            "w": 96,
+            "h": 36,
+            "i": 19
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000020",
+          "type": "table",
+          "title": "QUIC server names",
+          "description": "",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT quic_sni AS x_axis_1, count(*) AS y_axis_1, count(DISTINCT src_ip) AS y_axis_2 FROM \"suricata\" WHERE event_type = 'quic' AND quic_sni IS NOT NULL GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 200",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "SNI",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Events",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Clients",
+                    "alias": "y_axis_2",
+                    "column": "y_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 96,
+            "y": 0,
+            "w": 64,
+            "h": 36,
+            "i": 20
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000021",
+          "type": "donut",
+          "title": "TLS versions",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT tls_version AS x_axis_1, count(*) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'tls' GROUP BY x_axis_1 ORDER BY y_axis_1 DESC",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Version",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Handshakes",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 160,
+            "y": 0,
+            "w": 32,
+            "h": 36,
+            "i": 21
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000022",
+          "type": "table",
+          "title": "HTTP hosts",
+          "description": "Plaintext HTTP only",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT http_hostname AS x_axis_1, http_http_method AS x_axis_2, count(*) AS y_axis_1, count(DISTINCT src_ip) AS y_axis_2 FROM \"suricata\" WHERE event_type = 'http' GROUP BY x_axis_1, x_axis_2 ORDER BY y_axis_1 DESC LIMIT 200",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Host",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Method",
+                    "alias": "x_axis_2",
+                    "column": "x_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Requests",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Clients",
+                    "alias": "y_axis_2",
+                    "column": "y_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 36,
+            "w": 96,
+            "h": 34,
+            "i": 22
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000023",
+          "type": "table",
+          "title": "HTTP user agents",
+          "description": "",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT http_http_user_agent AS x_axis_1, count(*) AS y_axis_1, count(DISTINCT src_ip) AS y_axis_2 FROM \"suricata\" WHERE event_type = 'http' GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 200",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "User agent",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Requests",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Clients",
+                    "alias": "y_axis_2",
+                    "column": "y_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 96,
+            "y": 36,
+            "w": 96,
+            "h": 34,
+            "i": 23
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000024",
+          "type": "table",
+          "title": "SSH software",
+          "description": "",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT src_ip AS x_axis_1, dest_ip AS x_axis_2, ssh_client_software_version AS x_axis_3, ssh_server_software_version AS x_axis_4, count(*) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'ssh' GROUP BY x_axis_1, x_axis_2, x_axis_3, x_axis_4 ORDER BY y_axis_1 DESC LIMIT 200",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Client",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Server",
+                    "alias": "x_axis_2",
+                    "column": "x_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Client software",
+                    "alias": "x_axis_3",
+                    "column": "x_axis_3",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Server software",
+                    "alias": "x_axis_4",
+                    "column": "x_axis_4",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Sessions",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 70,
+            "w": 192,
+            "h": 30,
+            "i": 24
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        }
+      ]
+    },
+    {
+      "tabId": "tab3",
+      "name": "Hosts",
+      "panels": [
+        {
+          "id": "Panel_ID0000025",
+          "type": "line",
+          "title": "Egress per local host",
+          "description": "",
+          "config": {
+            "show_legends": true,
+            "legends_position": null,
+            "decimals": 2,
+            "line_thickness": null,
+            "top_results": 10,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": false,
+            "table_pagination_rows_per_page": null,
+            "unit": "bytes"
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT histogram(_timestamp) AS x_axis_1, src_ip AS breakdown_1, sum((flow_bytes_toserver + flow_bytes_toclient)) AS y_axis_1 FROM \"suricata\" WHERE event_type = 'flow' AND (src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1') AND NOT (dest_ip LIKE '192.168.%' OR dest_ip LIKE '10.%' OR dest_ip LIKE '172.16.%' OR dest_ip LIKE '172.17.%' OR dest_ip LIKE '172.18.%' OR dest_ip LIKE '172.19.%' OR dest_ip LIKE '172.2_.%' OR dest_ip LIKE '172.30.%' OR dest_ip LIKE '172.31.%' OR dest_ip LIKE 'fe80:%' OR dest_ip LIKE 'fd%' OR dest_ip LIKE 'fc%' OR dest_ip LIKE '127.%' OR dest_ip = '::1') GROUP BY x_axis_1, breakdown_1 ORDER BY x_axis_1",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Time",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": "histogram",
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Egress per local host",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [
+                  {
+                    "label": "Host",
+                    "alias": "breakdown_1",
+                    "column": "breakdown_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 0,
+            "w": 192,
+            "h": 28,
+            "i": 25
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000026",
+          "type": "table",
+          "title": "DHCP",
+          "description": "Devices seen requesting leases",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT dhcp_client_mac AS x_axis_1, max(dhcp_hostname) AS x_axis_2, max(dhcp_assigned_ip) AS x_axis_3, max(to_timestamp_micros(_timestamp)) AS y_axis_1, count(*) AS y_axis_2 FROM \"suricata\" WHERE event_type = 'dhcp' AND dhcp_client_mac IS NOT NULL GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 200",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "MAC",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Hostname",
+                    "alias": "x_axis_2",
+                    "column": "x_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Assigned IP",
+                    "alias": "x_axis_3",
+                    "column": "x_axis_3",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Last seen",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Messages",
+                    "alias": "y_axis_2",
+                    "column": "y_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 0,
+            "y": 28,
+            "w": 96,
+            "h": 34,
+            "i": 26
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        },
+        {
+          "id": "Panel_ID0000027",
+          "type": "table",
+          "title": "Public peers per local host",
+          "description": "",
+          "config": {
+            "show_legends": false,
+            "legends_position": null,
+            "decimals": 0,
+            "line_thickness": null,
+            "top_results": null,
+            "y_axis_min": null,
+            "y_axis_max": null,
+            "axis_width": null,
+            "axis_label_rotate": null,
+            "axis_label_truncate_width": null,
+            "base_map": {
+              "type": "osm"
+            },
+            "map_view": {
+              "zoom": 1,
+              "lat": 0,
+              "lng": 0
+            },
+            "connect_nulls": true,
+            "no_value_replacement": "",
+            "wrap_table_cells": false,
+            "table_pagination": true,
+            "table_pagination_rows_per_page": 15
+          },
+          "queryType": "sql",
+          "queries": [
+            {
+              "query": "SELECT src_ip AS x_axis_1, count(DISTINCT dest_ip) AS y_axis_1, count(DISTINCT dest_port) AS y_axis_2, sum(flow_bytes_toserver) AS y_axis_3 FROM \"suricata\" WHERE event_type = 'flow' AND (src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1') AND NOT (dest_ip LIKE '192.168.%' OR dest_ip LIKE '10.%' OR dest_ip LIKE '172.16.%' OR dest_ip LIKE '172.17.%' OR dest_ip LIKE '172.18.%' OR dest_ip LIKE '172.19.%' OR dest_ip LIKE '172.2_.%' OR dest_ip LIKE '172.30.%' OR dest_ip LIKE '172.31.%' OR dest_ip LIKE 'fe80:%' OR dest_ip LIKE 'fd%' OR dest_ip LIKE 'fc%' OR dest_ip LIKE '127.%' OR dest_ip = '::1') GROUP BY x_axis_1 ORDER BY y_axis_1 DESC LIMIT 100",
+              "vrlFunctionQuery": "",
+              "customQuery": true,
+              "fields": {
+                "stream": "suricata",
+                "stream_type": "logs",
+                "x": [
+                  {
+                    "label": "Host",
+                    "alias": "x_axis_1",
+                    "column": "x_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "y": [
+                  {
+                    "label": "Public peers",
+                    "alias": "y_axis_1",
+                    "column": "y_axis_1",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Distinct ports",
+                    "alias": "y_axis_2",
+                    "column": "y_axis_2",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  },
+                  {
+                    "label": "Bytes sent",
+                    "alias": "y_axis_3",
+                    "column": "y_axis_3",
+                    "type": "custom",
+                    "color": null,
+                    "functionName": null,
+                    "args": [],
+                    "isDerived": false
+                  }
+                ],
+                "z": [],
+                "breakdown": [],
+                "filter": {
+                  "filterType": "group",
+                  "logicalOperator": "AND",
+                  "conditions": []
+                }
+              },
+              "config": {
+                "promql_legend": "",
+                "limit": 0
+              }
+            }
+          ],
+          "layout": {
+            "x": 96,
+            "y": 28,
+            "w": 96,
+            "h": 34,
+            "i": 27
+          },
+          "htmlContent": "",
+          "markdownContent": ""
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "list": [],
+    "showDynamicFilters": true
+  },
+  "defaultDatetimeDuration": {
+    "type": "relative",
+    "relativeTimePeriod": "6h"
+  }
+}

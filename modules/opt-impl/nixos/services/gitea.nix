@@ -38,8 +38,7 @@ in
         server.HTTP_PORT = 3001;
         service.DISABLE_REGISTRATION = true;
         # security.ALLOWED_HOST_LIST = "external,loopback,192.168.0.11";
-        security.ALLOWED_HOST_LIST = "external";
-        server.DOMAIN = cfg.fqdn;
+        # security.ALLOWED_HOST_LIST = "external";
         server.ROOT_URL = "https://${cfg.fqdn}";
         #service.REQUIRE_SIGNIN_VIEW = true;
         mailer = {
@@ -139,8 +138,10 @@ in
       forceSSL = true;
       # enableACME = true;
       useACMEHost = "kopatz.dev";
-      quic = true;
-      http3 = true;
+      # quic = true;
+      # http3 = true;
+      http2 = config.custom.vars.nginx.useHttp2;
+      extraConfig = "if ($reject_br) { return 415; }";
       locations."/".proxyPass = "http://localhost:3002";
       locations."/robots.txt" = {
         extraConfig = ''

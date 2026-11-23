@@ -11,6 +11,10 @@ in
       type = lib.types.str;
       default = "192.168.0.10";
     };
+    zelIp = lib.mkOption {
+      type = lib.types.str;
+      default = "192.168.0.13";
+    };
     serverVpnIp = lib.mkOption {
       type = lib.types.str;
       default = "192.168.2.1";
@@ -18,6 +22,10 @@ in
     exposedServerIp = lib.mkOption {
       type = lib.types.str;
       default = "192.168.0.22";
+    };
+    vpnVmIp = lib.mkOption {
+      type = lib.types.str;
+      default = "192.168.0.23";
     };
     hostIp = lib.mkOption {
       type = lib.types.str;
@@ -27,6 +35,22 @@ in
     internalCidr = lib.mkOption {
       type = lib.types.str;
       default = "192.168.0.0/24";
+    };
+
+    nginx = {
+      allowOnlyInternalIps = lib.mkOption {
+        type = lib.types.nonEmptyStr;
+        default = ''
+            allow 192.168.0.0/24;
+            allow 192.168.2.0/24;
+            deny all;
+        '';
+      };
+      useHttp2 = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        # !Important netbird uses this because of gRPC, so with no http2 netbird breaks.
+      };
     };
 
     ports = {

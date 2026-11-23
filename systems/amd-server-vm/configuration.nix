@@ -113,7 +113,10 @@
       samba.enable = true;
       ddclient-cloudflare.enable = true;
       grafana.enable = true;
-      grafana-log-agent.enable = true;
+      grafana-log-agent = {
+        enable = true;
+        enableNginxLogs = true;
+      };
       coturn.enable = true;
       blocklist.enable = true;
       tdata.enable = true;
@@ -186,6 +189,7 @@
 
   systemd.user.services.wolke7bridge = {
     enable = true;
+    # after/wants doesn't work for user services :(
     after = [ "network-online.target" "nss-lookup.target" ];
     wants = [ "network-online.target" "nss-lookup.target" ];
     wantedBy = [ "default.target" ];
@@ -195,6 +199,15 @@
     };
     serviceConfig = {
       Type = "simple";
+      # user services can't order against system targets like nss-lookup.target, so wait for DNS manually
+      ExecStartPre = pkgs.writeShellScript "wolke7bridge-wait-dns" ''
+        for _ in $(${pkgs.coreutils}/bin/seq 60); do
+          ${pkgs.getent}/bin/getent hosts discord.com >/dev/null && exit 0
+          ${pkgs.coreutils}/bin/sleep 1
+        done
+        echo "DNS still not resolving discord.com after 60s" >&2
+        exit 1
+      '';
       ExecStart = "${pkgs.nodejs}/bin/node dist/index.js";
       WorkingDirectory = "/data/comms/discord-bridge";
       # Security hardening
@@ -312,8 +325,8 @@
   ];
 
   networking.firewall.allowedTCPPorts = [
-    25565
-    25566
+    # 25565
+    # 25566
     # 30033 # teamspeak6 file transfer port
   ];
 

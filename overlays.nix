@@ -6,30 +6,6 @@ let
     pkg.overrideAttrs (oldAttrs: {
       patches = (oldAttrs.patches or [ ]) ++ patches;
     });
-  neotestPatch = ''
-     diff --git a/tests/unit/client/strategies/integrated_spec.lua b/tests/unit/client/strategies/integrated_spec.lua
-    index 196c2e78..42a3df76 100644
-    --- a/tests/unit/client/strategies/integrated_spec.lua
-    +++ b/tests/unit/client/strategies/integrated_spec.lua
-    @@ -34,7 +34,7 @@ describe("integrated strategy", function()
-
-       a.it("stops the job", function()
-         local process = strategy({
-    -      command = { "bash", "-c", "sleep 1" },
-    +      command = { "bash", "-c", "sleep 10" },
-           strategy = {
-             height = 10,
-             width = 10,
-    @@ -47,7 +47,7 @@ describe("integrated strategy", function()
-
-       a.it("streams output", function()
-         local process = strategy({
-    -      command = { "bash", "-c", "printf hello; sleep 0; printf world" },
-    +      command = { "bash", "-c", "printf hello; sleep 0.1; printf world" },
-           strategy = {
-             height = 10,
-             width = 10,
-  '';
 in
 {
   # This one brings our custom packages from the 'pkgs' directory
@@ -66,6 +42,21 @@ in
     #     hash = "sha256-hk1rnNog5xvuIVI0M1ZJ5xrEuk0zcBiYsbROUycdi+A=";
     #   };
     # };
+    # https://github.com/NixOS/nixpkgs/pull/585986 -- drop once merged
+    intellij-idea =
+      if prev.intellij-idea.version == "2026.2.4" then
+        prev.intellij-idea.overrideAttrs (old: {
+          version = "2026.3";
+          src = prev.fetchurl {
+            url = "https://download.jetbrains.com/idea/ideaIU-2026.3.tar.gz";
+            hash = "sha256-alP/cfSgat1Ml+3E7+hsgxGf+C5bXp8dti/JWZW9ayU=";
+          };
+          passthru = old.passthru // {
+            buildNumber = "263.7307.200";
+          };
+        })
+      else
+        prev.intellij-idea;
     discord-canary = prev.discord-canary.override { withVencord = true; };
     discord = prev.discord.override { withVencord = true; };
     # postfix = prev.postfix.override { withSQLite = true; };
@@ -129,11 +120,6 @@ in
     #   doCheck = false;
     # });
 
-    # luajitPackages = prev.luajitPackages // {
-    #   neotest = prev.luajitPackages.neotest.overrideAttrs {
-    #     patches = [ (prev.writeText "neotest-patch" neotestPatch) ];
-    #   };
-    # };
     # nginxModules.dav is a real derivation (nginx-mod-dav-*), so the patch has
     # to go through overrideAttrs -- an `// { src = ...; }` update leaves
     # drvPath untouched and is silently ignored by the nginx build.
@@ -165,19 +151,19 @@ in
     # xdg-desktop-portal-hyprland =
     #   inputs.hyprland.packages.${prev.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
-    waybar = prev.waybar.overrideAttrs (oldAttrs: {
-      version = "v0.15.0";
-      src = prev.fetchFromGitHub {
-        owner = "Alexays";
-        repo = "Waybar";
-        rev = "cf19c836d3dafc1646bb60a49269d981623b680a";
-        hash = "sha256-h1ZmLmqBkm3MyShV6p83kBtpeLa9rnZUVz75kp+0Ccw=";
-      };
-      buildInputs = oldAttrs.buildInputs ++ [
-        prev.modemmanager
-        prev.libcava
-      ];
-    });
+    # waybar = prev.waybar.overrideAttrs (oldAttrs: {
+    #   version = "v0.15.0";
+    #   src = prev.fetchFromGitHub {
+    #     owner = "Alexays";
+    #     repo = "Waybar";
+    #     rev = "4e207a0cb51a9eb89b4245d90245721f5e39bf06";
+    #     hash = "sha256-0L1elPWYo9yKgEwpXWWVWQyPVU0SW36LkWUR26CksgU=";
+    #   };
+    #   buildInputs = oldAttrs.buildInputs ++ [
+    #     prev.modemmanager
+    #     prev.libcava
+    #   ];
+    # });
 
     # to add input capture protocol support (needed for kde connect)
     #hyprland = prev.hyprland.overrideAttrs (oldAttrs: {
@@ -197,102 +183,114 @@ in
     #    hash = "sha256-ULzGRSj18xOrTXnvWrkaaHUaMHaJWyXlmLDDw2jruLo=";
     #  };
     #});
-    xdg-desktop-portal-hyprland = prev.xdg-desktop-portal-hyprland.overrideAttrs (oldAttrs: {
-      src = prev.fetchFromGitHub {
-        owner = "SnotacusNexus";
-        repo = "xdg-desktop-portal-hyprland";
-        rev = "84aacf0f4fdf888eceac0f47909e2b7f690b5d43";
-        hash = "sha256-ENi7htGWHdWC7iqZW1AhevQhWc722ZkCHS4hJyJzaWk=";
-      };
+    # xdg-desktop-portal-hyprland = prev.xdg-desktop-portal-hyprland.overrideAttrs (oldAttrs: {
+    #   src = prev.fetchFromGitHub {
+    #     owner = "SnotacusNexus";
+    #     repo = "xdg-desktop-portal-hyprland";
+    #     rev = "84aacf0f4fdf888eceac0f47909e2b7f690b5d43";
+    #     hash = "sha256-ENi7htGWHdWC7iqZW1AhevQhWc722ZkCHS4hJyJzaWk=";
+    #   };
+    #
+    #   patches = [
+    #     (prev.writeText "testing-patch" ''
+    #       --- a/src/shared/ToplevelManager.cpp
+    #       +++ b/src/shared/ToplevelManager.cpp
+    #       @@ -56,5 +56,5 @@ void CToplevelManager::activate() {
+    #
+    #            wl_display_roundtrip(g_pPortalManager->m_sWaylandConnection.display);
+    #
+    #       -    Debug::log(LOG, "[toplevel] Activated, bound to {:x}, toplevels: {}", (uintptr_t)m_pManager, m_vToplevels.size());
+    #       +    Debug::log(LOG, "[toplevel] Activated, bound to {:x}, toplevels: {}", (uintptr_t)m_pManager.get(), m_vToplevels.size());
+    #        }
+    #       --- a/src/portals/Screencopy.cpp
+    #       +++ b/src/portals/Screencopy.cpp
+    #       @@ -631,5 +631,5 @@ void CScreencopyPortal::queueNextShareFrame(CScreencopyPortal::SSession* pSessio
+    #                {std::clamp(MSTILNEXTREFRESH - 1.0 /* safezone */, 6.0, 1000.0), [pSession]() { g_pPortalManager->m_sPortals.screencopy->startFrameCopy(pSession); }});
+    #        }
+    #        bool CScreencopyPortal::hasToplevelCapabilities() {
+    #       -    return m_sState.toplevel;
+    #       +    return static_cast<bool>(m_sState.toplevel);
+    #        }
+    #       --- a/src/portals/RemoteDesktop.cpp
+    #       +++ b/src/portals/RemoteDesktop.cpp
+    #       @@ -471,9 +471,27 @@
+    #                                eis_device_configure_capability(dev, EIS_DEVICE_CAP_POINTER_ABSOLUTE);
+    #                                eis_device_configure_capability(dev, EIS_DEVICE_CAP_BUTTON);
+    #                                eis_device_configure_capability(dev, EIS_DEVICE_CAP_SCROLL);
+    #       +                        // A device with EIS_DEVICE_CAP_POINTER_ABSOLUTE needs at least one region,
+    #       +                        // otherwise libei silently discards every absolute motion event.
+    #       +                        {
+    #       +                            uint32_t extentW = 1920, extentH = 1080;
+    #       +                            if (g_pPortalManager)
+    #       +                                g_pPortalManager->getOutputExtents(extentW, extentH);
+    #       +                            if (auto* region = eis_device_new_region(dev)) {
+    #       +                                eis_region_set_offset(region, 0, 0);
+    #       +                                eis_region_set_size(region, extentW, extentH);
+    #       +                                eis_region_set_physical_scale(region, 1.0);
+    #       +                                eis_region_add(region);
+    #       +                                eis_region_unref(region);
+    #       +                            }
+    #       +                        }
+    #                                eis_device_add(dev);
+    #       -                        eis_device_start_emulating(dev, 0);
+    #       -                        Debug::log(LOG, "[remotedesktop] EIS pointer device added & emulating");
+    #       +                        // The libei client is a sender (ei_new_sender), so it is the one that
+    #       +                        // calls ei_device_start_emulating(). All we have to do is unpause the
+    #       +                        // device -- eis_device_add() leaves it paused, and eis_device_start_emulating()
+    #       +                        // is receiver-side API that libeis rejects for a sender client.
+    #       +                        eis_device_resume(dev);
+    #       +                        Debug::log(LOG, "[remotedesktop] EIS pointer device added & resumed");
+    #                            }
+    #                        }
+    #                        if (eis_event_seat_has_capability(event, EIS_DEVICE_CAP_KEYBOARD)) {
+    #       @@ -515,8 +533,8 @@
+    #                                    }
+    #                                }
+    #                                eis_device_add(dev);
+    #       -                        eis_device_start_emulating(dev, 0);
+    #       -                        Debug::log(LOG, "[remotedesktop] EIS keyboard device added & emulating");
+    #       +                        eis_device_resume(dev);
+    #       +                        Debug::log(LOG, "[remotedesktop] EIS keyboard device added & resumed");
+    #                            }
+    #                        }
+    #                        break;
+    #     '')
+    #   ];
+    #   buildInputs = oldAttrs.buildInputs ++ [ prev.libei ];
+    # });
 
-        patches = [ (prev.writeText "testing-patch" ''
---- a/src/shared/ToplevelManager.cpp
-+++ b/src/shared/ToplevelManager.cpp
-@@ -56,5 +56,5 @@ void CToplevelManager::activate() {
- 
-     wl_display_roundtrip(g_pPortalManager->m_sWaylandConnection.display);
- 
--    Debug::log(LOG, "[toplevel] Activated, bound to {:x}, toplevels: {}", (uintptr_t)m_pManager, m_vToplevels.size());
-+    Debug::log(LOG, "[toplevel] Activated, bound to {:x}, toplevels: {}", (uintptr_t)m_pManager.get(), m_vToplevels.size());
- }
---- a/src/portals/Screencopy.cpp
-+++ b/src/portals/Screencopy.cpp
-@@ -631,5 +631,5 @@ void CScreencopyPortal::queueNextShareFrame(CScreencopyPortal::SSession* pSessio
-         {std::clamp(MSTILNEXTREFRESH - 1.0 /* safezone */, 6.0, 1000.0), [pSession]() { g_pPortalManager->m_sPortals.screencopy->startFrameCopy(pSession); }});
- }
- bool CScreencopyPortal::hasToplevelCapabilities() {
--    return m_sState.toplevel;
-+    return static_cast<bool>(m_sState.toplevel);
- }
---- a/src/portals/RemoteDesktop.cpp
-+++ b/src/portals/RemoteDesktop.cpp
-@@ -471,9 +471,27 @@
-                         eis_device_configure_capability(dev, EIS_DEVICE_CAP_POINTER_ABSOLUTE);
-                         eis_device_configure_capability(dev, EIS_DEVICE_CAP_BUTTON);
-                         eis_device_configure_capability(dev, EIS_DEVICE_CAP_SCROLL);
-+                        // A device with EIS_DEVICE_CAP_POINTER_ABSOLUTE needs at least one region,
-+                        // otherwise libei silently discards every absolute motion event.
-+                        {
-+                            uint32_t extentW = 1920, extentH = 1080;
-+                            if (g_pPortalManager)
-+                                g_pPortalManager->getOutputExtents(extentW, extentH);
-+                            if (auto* region = eis_device_new_region(dev)) {
-+                                eis_region_set_offset(region, 0, 0);
-+                                eis_region_set_size(region, extentW, extentH);
-+                                eis_region_set_physical_scale(region, 1.0);
-+                                eis_region_add(region);
-+                                eis_region_unref(region);
-+                            }
-+                        }
-                         eis_device_add(dev);
--                        eis_device_start_emulating(dev, 0);
--                        Debug::log(LOG, "[remotedesktop] EIS pointer device added & emulating");
-+                        // The libei client is a sender (ei_new_sender), so it is the one that
-+                        // calls ei_device_start_emulating(). All we have to do is unpause the
-+                        // device -- eis_device_add() leaves it paused, and eis_device_start_emulating()
-+                        // is receiver-side API that libeis rejects for a sender client.
-+                        eis_device_resume(dev);
-+                        Debug::log(LOG, "[remotedesktop] EIS pointer device added & resumed");
-                     }
-                 }
-                 if (eis_event_seat_has_capability(event, EIS_DEVICE_CAP_KEYBOARD)) {
-@@ -515,8 +533,8 @@
-                             }
-                         }
-                         eis_device_add(dev);
--                        eis_device_start_emulating(dev, 0);
--                        Debug::log(LOG, "[remotedesktop] EIS keyboard device added & emulating");
-+                        eis_device_resume(dev);
-+                        Debug::log(LOG, "[remotedesktop] EIS keyboard device added & resumed");
-                     }
-                 }
-                 break;
-        '') ];
-      buildInputs = oldAttrs.buildInputs ++ [ prev.libei ];
-    });
+    #brotli = prev.brotli.overrideAttrs (oldAttrs: rec {
+    #  version = "1.2.1";
+
+    #  src = prev.fetchFromGitHub {
+    #    owner = "google";
+    #    repo = "brotli";
+    #    tag = "v${version}";
+    #    hash = "sha256-llY72cYffDv0ugsH0p89xIPEbElV4L8u7U/Fe8hT3gI=";
+    #  };
+    #});
 
     #csharp-ls = prev.csharp-ls-8;
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'
-  #unstable-packages = final: _prev: {
-  #  unstable = import inputs.nixpkgs-unstable {
-  #    system = final.system;
-  #    config.allowUnfree = true;
-  #    config.permittedInsecurePackages = [ "electron-27.3.11" ];
-  #  };
-  #};
+  # unstable-packages = final: _prev: {
+  #   unstable = import inputs.nixpkgs-unstable-new {
+  #     system = final.system;
+  #     config.allowUnfree = true;
+  #   };
+  # };
   # stable-packages = final: _prev: {
   #   stable = import inputs.nixpkgs {
   #     system = final.system;
   #     config.allowUnfree = true;
   #   };
   # };
-  # unstable-small-packages = final: _prev: {
-  #   unstable-small = import inputs.nixpkgs-unstable-small {
-  #     system = final.system;
-  #     config.allowUnfree = true;
-  #   };
-  # };
+  unstable-small-packages = final: _prev: {
+    unstable-small = import inputs.nixpkgs-unstable-small {
+      system = final.system;
+      config.allowUnfree = true;
+    };
+  };
 }

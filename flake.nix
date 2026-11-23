@@ -13,6 +13,7 @@
     };
     ## stable
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs-unstable-new.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,8 +24,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    # nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+    nixpkgs-unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    # nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     #nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     #home-manager-stable = {
     #  url = "github:nix-community/home-manager/release-25.11";
@@ -71,11 +72,12 @@
       self,
       nur,
       nixpkgs,
+      # nixpkgs-unstable-new,
       home-manager,
       nixos-hardware,
       #nixpkgs-stable,
       #home-manager-stable,
-      # nixpkgs-unstable-small,
+      nixpkgs-unstable-small,
       agenix,
       #, nixos-cosmic
       nixvim,
@@ -92,8 +94,8 @@
         { outputs, ... }:
         {
           nixpkgs.overlays = with outputs.overlays; [
-            #unstable-packages
-            # unstable-small-packages
+            # unstable-packages
+            unstable-small-packages
             #stable-packages
             additions
             modifications
@@ -128,7 +130,7 @@
             ++ lib.lists.optionals (!minimal) [ specialArgs.home-manager-version.nixosModules.home-manager ]
             ++ lib.lists.optionals (!minimal && graphical) [
               stylix.nixosModules.stylix
-              inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
+              # inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
               ./modules/opt-def/graphical/stylix.nix
               ./modules/opt-impl/nixos/graphical/stylix.nix
               #nixos-cosmic.nixosModules.default
@@ -182,9 +184,10 @@
         };
 
         "zel-mini-pc" = mkHost {
+          graphical = false;
           modules = [
             disko.nixosModules.disko
-            ./users/kopatz
+            ./users/anon
             ./systems/zel-mini-pc/configuration.nix
             nixos-hardware.nixosModules.common-gpu-intel-kaby-lake
           ];

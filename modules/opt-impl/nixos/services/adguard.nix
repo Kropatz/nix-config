@@ -25,7 +25,13 @@ in
       services.nginx.enable = true;
       services.nginx.virtualHosts.${cfg.fqdn} = {
         forceSSL = cfg.useHttps;
+        http2 = config.custom.vars.nginx.useHttp2;
+
         useACMEHost = "kopatz.dev";
+        extraConfig = ''
+          if ($reject_br) { return 415; }
+          ${config.custom.vars.nginx.allowOnlyInternalIps}
+        '';
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.adguardhome.port}";
           proxyWebsockets = true;
@@ -40,6 +46,7 @@ in
 
       services.adguardhome = {
         enable = true;
+        port = 3000;
         settings = {
           schema_version = 28;
           users = [

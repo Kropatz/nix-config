@@ -1,0 +1,314 @@
+[
+  {
+    "name": "suricata-high-severity",
+    "org_id": "default",
+    "stream_type": "logs",
+    "stream_name": "suricata",
+    "is_real_time": false,
+    "query_condition": {
+      "type": "sql",
+      "conditions": null,
+      "sql": "SELECT concat('[', coalesce(CAST(alert_signature_id AS VARCHAR), '-'), '] ', coalesce(CAST(alert_signature AS VARCHAR), '-'), ' (', coalesce(CAST(alert_category AS VARCHAR), '-'), '): ', coalesce(CAST(src_ip AS VARCHAR), '-'), ' -> ', coalesce(CAST(dest_ip AS VARCHAR), '-'), ':', coalesce(CAST(dest_port AS VARCHAR), '-'), ' ', coalesce(CAST(coalesce(app_proto, proto) AS VARCHAR), '-'), ' ', coalesce(CAST(max(coalesce(tls_sni, http_hostname, dns_rrname)) AS VARCHAR), '-'), ', ', coalesce(CAST(count(*) AS VARCHAR), '-'), 'x, ', coalesce(CAST(min(community_id) AS VARCHAR), '-')) AS summary, alert_signature_id AS sid, alert_signature AS signature, alert_category AS category, src_ip AS src_ip, dest_ip AS dest_ip, dest_port AS dest_port, coalesce(app_proto, proto) AS app, max(coalesce(tls_sni, http_hostname, dns_rrname)) AS target, count(*) AS hits, min(community_id) AS community_id FROM \"suricata\" WHERE event_type = 'alert' AND NOT ((src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1') AND (dest_ip LIKE '192.168.%' OR dest_ip LIKE '10.%' OR dest_ip LIKE '172.16.%' OR dest_ip LIKE '172.17.%' OR dest_ip LIKE '172.18.%' OR dest_ip LIKE '172.19.%' OR dest_ip LIKE '172.2_.%' OR dest_ip LIKE '172.30.%' OR dest_ip LIKE '172.31.%' OR dest_ip LIKE 'fe80:%' OR dest_ip LIKE 'fd%' OR dest_ip LIKE 'fc%' OR dest_ip LIKE '127.%' OR dest_ip = '::1')) AND alert_severity = 1 GROUP BY sid, signature, category, src_ip, dest_ip, dest_port, app ORDER BY hits DESC LIMIT 20",
+      "promql": null,
+      "promql_condition": null,
+      "aggregation": null,
+      "vrl_function": null,
+      "search_event_type": null,
+      "multi_time_range": []
+    },
+    "trigger_condition": {
+      "period": 2,
+      "operator": ">=",
+      "threshold": 1,
+      "frequency": 1,
+      "frequency_type": "minutes",
+      "cron": "",
+      "silence": 30,
+      "timezone": "UTC",
+      "tolerance_in_secs": 0,
+      "align_time": true
+    },
+    "destinations": [
+      "homelab"
+    ],
+    "context_attributes": {},
+    "row_template": "[{sid}] {signature} ({category}): {src_ip} -> {dest_ip}:{dest_port} {app} {target}, {hits}x, {community_id}",
+    "row_template_type": "String",
+    "description": "Severity 1 IDS alert",
+    "enabled": true,
+    "tz_offset": 0
+  },
+  {
+    "name": "suricata-medium-severity",
+    "org_id": "default",
+    "stream_type": "logs",
+    "stream_name": "suricata",
+    "is_real_time": false,
+    "query_condition": {
+      "type": "sql",
+      "conditions": null,
+      "sql": "SELECT concat('[', coalesce(CAST(alert_signature_id AS VARCHAR), '-'), '] ', coalesce(CAST(alert_signature AS VARCHAR), '-'), ' (', coalesce(CAST(alert_category AS VARCHAR), '-'), '): ', coalesce(CAST(count(*) AS VARCHAR), '-'), 'x, ', coalesce(CAST(array_to_string(array_slice(array_agg(DISTINCT CAST(src_ip AS VARCHAR)), 1, 3), ', ') AS VARCHAR), '-'), ' -> ', coalesce(CAST(array_to_string(array_slice(array_agg(DISTINCT CAST(dest_ip AS VARCHAR)), 1, 3), ', ') AS VARCHAR), '-'), ' ', coalesce(CAST(array_to_string(array_slice(array_agg(DISTINCT CAST(coalesce(tls_sni, http_hostname, dns_rrname) AS VARCHAR)), 1, 3), ', ') AS VARCHAR), '-')) AS summary, alert_signature_id AS sid, alert_signature AS signature, alert_category AS category, count(*) AS hits, array_to_string(array_slice(array_agg(DISTINCT CAST(src_ip AS VARCHAR)), 1, 3), ', ') AS sources, array_to_string(array_slice(array_agg(DISTINCT CAST(dest_ip AS VARCHAR)), 1, 3), ', ') AS destinations, array_to_string(array_slice(array_agg(DISTINCT CAST(coalesce(tls_sni, http_hostname, dns_rrname) AS VARCHAR)), 1, 3), ', ') AS targets FROM \"suricata\" WHERE event_type = 'alert' AND NOT ((src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1') AND (dest_ip LIKE '192.168.%' OR dest_ip LIKE '10.%' OR dest_ip LIKE '172.16.%' OR dest_ip LIKE '172.17.%' OR dest_ip LIKE '172.18.%' OR dest_ip LIKE '172.19.%' OR dest_ip LIKE '172.2_.%' OR dest_ip LIKE '172.30.%' OR dest_ip LIKE '172.31.%' OR dest_ip LIKE 'fe80:%' OR dest_ip LIKE 'fd%' OR dest_ip LIKE 'fc%' OR dest_ip LIKE '127.%' OR dest_ip = '::1')) AND alert_severity = 2 GROUP BY sid, signature, category ORDER BY hits DESC LIMIT 25",
+      "promql": null,
+      "promql_condition": null,
+      "aggregation": null,
+      "vrl_function": null,
+      "search_event_type": null,
+      "multi_time_range": []
+    },
+    "trigger_condition": {
+      "period": 60,
+      "operator": ">=",
+      "threshold": 1,
+      "frequency": 60,
+      "frequency_type": "minutes",
+      "cron": "",
+      "silence": 0,
+      "timezone": "UTC",
+      "tolerance_in_secs": 0,
+      "align_time": true
+    },
+    "destinations": [
+      "homelab"
+    ],
+    "context_attributes": {},
+    "row_template": "[{sid}] {signature} ({category}): {hits}x, {sources} -> {destinations} {targets}",
+    "row_template_type": "String",
+    "description": "Severity 2 IDS alerts in the last hour",
+    "enabled": true,
+    "tz_offset": 0
+  },
+  {
+    "name": "suricata-port-scan",
+    "org_id": "default",
+    "stream_type": "logs",
+    "stream_name": "suricata",
+    "is_real_time": false,
+    "query_condition": {
+      "type": "sql",
+      "conditions": null,
+      "sql": "SELECT concat(coalesce(CAST(src_ip AS VARCHAR), '-'), ': ', coalesce(CAST(count(DISTINCT dest_port) AS VARCHAR), '-'), ' ports on ', coalesce(CAST(count(DISTINCT dest_ip) AS VARCHAR), '-'), ' hosts, ', coalesce(CAST(sum(CASE WHEN proto = 'TCP' AND flow_pkts_toclient = 0 THEN 1 ELSE 0 END) AS VARCHAR), '-'), ' unanswered. Ports ', coalesce(CAST(array_to_string(array_slice(array_agg(DISTINCT CAST(dest_port AS VARCHAR)), 1, 10), ', ') AS VARCHAR), '-'), ', hosts ', coalesce(CAST(array_to_string(array_slice(array_agg(DISTINCT CAST(dest_ip AS VARCHAR)), 1, 5), ', ') AS VARCHAR), '-')) AS summary, src_ip AS src_ip, count(DISTINCT dest_port) AS ports, count(DISTINCT dest_ip) AS hosts, sum(CASE WHEN proto = 'TCP' AND flow_pkts_toclient = 0 THEN 1 ELSE 0 END) AS unanswered, array_to_string(array_slice(array_agg(DISTINCT CAST(dest_port AS VARCHAR)), 1, 10), ', ') AS sample_ports, array_to_string(array_slice(array_agg(DISTINCT CAST(dest_ip AS VARCHAR)), 1, 5), ', ') AS sample_hosts FROM \"suricata\" WHERE event_type = 'flow' AND NOT (dest_ip LIKE '224.%' OR dest_ip LIKE '239.%' OR dest_ip = '255.255.255.255' OR dest_ip LIKE '%.255' OR dest_ip LIKE 'ff0%' OR dest_ip LIKE '169.254.%') AND NOT ((src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1') AND (dest_ip LIKE '192.168.%' OR dest_ip LIKE '10.%' OR dest_ip LIKE '172.16.%' OR dest_ip LIKE '172.17.%' OR dest_ip LIKE '172.18.%' OR dest_ip LIKE '172.19.%' OR dest_ip LIKE '172.2_.%' OR dest_ip LIKE '172.30.%' OR dest_ip LIKE '172.31.%' OR dest_ip LIKE 'fe80:%' OR dest_ip LIKE 'fd%' OR dest_ip LIKE 'fc%' OR dest_ip LIKE '127.%' OR dest_ip = '::1')) GROUP BY src_ip HAVING count(DISTINCT dest_port) > 50 OR count(DISTINCT dest_ip) > 50 ORDER BY ports DESC LIMIT 20",
+      "promql": null,
+      "promql_condition": null,
+      "aggregation": null,
+      "vrl_function": null,
+      "search_event_type": null,
+      "multi_time_range": []
+    },
+    "trigger_condition": {
+      "period": 10,
+      "operator": ">=",
+      "threshold": 1,
+      "frequency": 5,
+      "frequency_type": "minutes",
+      "cron": "",
+      "silence": 60,
+      "timezone": "UTC",
+      "tolerance_in_secs": 0,
+      "align_time": true
+    },
+    "destinations": [
+      "homelab"
+    ],
+    "context_attributes": {},
+    "row_template": "{src_ip}: {ports} ports on {hosts} hosts, {unanswered} unanswered. Ports {sample_ports}, hosts {sample_hosts}",
+    "row_template_type": "String",
+    "description": "A source touched many ports or hosts within 10 minutes",
+    "enabled": true,
+    "tz_offset": 0
+  },
+  {
+    "name": "suricata-large-upload",
+    "org_id": "default",
+    "stream_type": "logs",
+    "stream_name": "suricata",
+    "is_real_time": false,
+    "query_condition": {
+      "type": "sql",
+      "conditions": null,
+      "sql": "SELECT concat(coalesce(CAST(src_ip AS VARCHAR), '-'), ' -> ', coalesce(CAST(dest_ip AS VARCHAR), '-'), ':', coalesce(CAST(dest_port AS VARCHAR), '-'), ' ', coalesce(CAST(coalesce(max(app_proto), max(proto)) AS VARCHAR), '-'), ': ', coalesce(CAST(CAST(round(sum(flow_bytes_toserver) / 1000000.0) AS BIGINT) AS VARCHAR), '-'), ' MB in ', coalesce(CAST(count(*) AS VARCHAR), '-'), ' flows') AS summary, src_ip AS src_ip, dest_ip AS dest_ip, dest_port AS dest_port, coalesce(max(app_proto), max(proto)) AS app, CAST(round(sum(flow_bytes_toserver) / 1000000.0) AS BIGINT) AS mb_out, count(*) AS flows FROM \"suricata\" WHERE event_type = 'flow' AND (src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1') AND NOT (dest_ip LIKE '192.168.%' OR dest_ip LIKE '10.%' OR dest_ip LIKE '172.16.%' OR dest_ip LIKE '172.17.%' OR dest_ip LIKE '172.18.%' OR dest_ip LIKE '172.19.%' OR dest_ip LIKE '172.2_.%' OR dest_ip LIKE '172.30.%' OR dest_ip LIKE '172.31.%' OR dest_ip LIKE 'fe80:%' OR dest_ip LIKE 'fd%' OR dest_ip LIKE 'fc%' OR dest_ip LIKE '127.%' OR dest_ip = '::1') GROUP BY src_ip, dest_ip, dest_port HAVING sum(flow_bytes_toserver) > 500000000 ORDER BY mb_out DESC LIMIT 20",
+      "promql": null,
+      "promql_condition": null,
+      "aggregation": null,
+      "vrl_function": null,
+      "search_event_type": null,
+      "multi_time_range": []
+    },
+    "trigger_condition": {
+      "period": 60,
+      "operator": ">=",
+      "threshold": 1,
+      "frequency": 15,
+      "frequency_type": "minutes",
+      "cron": "",
+      "silence": 240,
+      "timezone": "UTC",
+      "tolerance_in_secs": 0,
+      "align_time": true
+    },
+    "destinations": [
+      "homelab"
+    ],
+    "context_attributes": {},
+    "row_template": "{src_ip} -> {dest_ip}:{dest_port} {app}: {mb_out} MB in {flows} flows",
+    "row_template_type": "String",
+    "description": "More than 500 MB uploaded to a single public address in an hour",
+    "enabled": true,
+    "tz_offset": 0
+  },
+  {
+    "name": "suricata-dns-bypass",
+    "org_id": "default",
+    "stream_type": "logs",
+    "stream_name": "suricata",
+    "is_real_time": false,
+    "query_condition": {
+      "type": "sql",
+      "conditions": null,
+      "sql": "SELECT concat(coalesce(CAST(src_ip AS VARCHAR), '-'), ' -> ', coalesce(CAST(dest_ip AS VARCHAR), '-'), ':', coalesce(CAST(dest_port AS VARCHAR), '-'), ' ', coalesce(CAST(coalesce(max(app_proto), max(proto)) AS VARCHAR), '-'), ', ', coalesce(CAST(count(*) AS VARCHAR), '-'), ' events, queried ', coalesce(CAST(array_to_string(array_slice(array_agg(DISTINCT CAST(dns_rrname AS VARCHAR)), 1, 5), ', ') AS VARCHAR), '-')) AS summary, src_ip AS src_ip, dest_ip AS dest_ip, dest_port AS dest_port, coalesce(max(app_proto), max(proto)) AS app, count(*) AS events, array_to_string(array_slice(array_agg(DISTINCT CAST(dns_rrname AS VARCHAR)), 1, 5), ', ') AS names FROM \"suricata\" WHERE event_type IN ('flow', 'dns') AND (app_proto = 'dns' OR dest_port IN (53, 853)) AND dest_ip NOT IN ('192.168.0.10') AND src_ip NOT IN ('192.168.0.10') AND (src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1') GROUP BY src_ip, dest_ip, dest_port ORDER BY events DESC LIMIT 20",
+      "promql": null,
+      "promql_condition": null,
+      "aggregation": null,
+      "vrl_function": null,
+      "search_event_type": null,
+      "multi_time_range": []
+    },
+    "trigger_condition": {
+      "period": 15,
+      "operator": ">=",
+      "threshold": 1,
+      "frequency": 15,
+      "frequency_type": "minutes",
+      "cron": "",
+      "silence": 360,
+      "timezone": "UTC",
+      "tolerance_in_secs": 0,
+      "align_time": true
+    },
+    "destinations": [
+      "homelab"
+    ],
+    "context_attributes": {},
+    "row_template": "{src_ip} -> {dest_ip}:{dest_port} {app}, {events} events, queried {names}",
+    "row_template_type": "String",
+    "description": "A client used a DNS server other than adguard",
+    "enabled": true,
+    "tz_offset": 0
+  },
+  {
+    "name": "suricata-new-egress-port",
+    "org_id": "default",
+    "stream_type": "logs",
+    "stream_name": "suricata",
+    "is_real_time": false,
+    "query_condition": {
+      "type": "sql",
+      "conditions": null,
+      "sql": "SELECT concat(coalesce(CAST(src_ip AS VARCHAR), '-'), ' -> ', coalesce(CAST(proto AS VARCHAR), '-'), '/', coalesce(CAST(dest_port AS VARCHAR), '-'), ' ', coalesce(CAST(coalesce(max(app_proto), '-') AS VARCHAR), '-'), ': ', coalesce(CAST(count(*) AS VARCHAR), '-'), ' flows, ', coalesce(CAST(CAST(round(sum((flow_bytes_toserver + flow_bytes_toclient)) / 1000.0) AS BIGINT) AS VARCHAR), '-'), ' kB to ', coalesce(CAST(count(DISTINCT dest_ip) AS VARCHAR), '-'), ' peers (', coalesce(CAST(array_to_string(array_slice(array_agg(DISTINCT CAST(dest_ip AS VARCHAR)), 1, 5), ', ') AS VARCHAR), '-'), ')') AS summary, src_ip AS src_ip, proto AS proto, dest_port AS dest_port, coalesce(max(app_proto), '-') AS app, count(*) AS flows, count(DISTINCT dest_ip) AS peers, array_to_string(array_slice(array_agg(DISTINCT CAST(dest_ip AS VARCHAR)), 1, 5), ', ') AS sample_peers, CAST(round(sum((flow_bytes_toserver + flow_bytes_toclient)) / 1000.0) AS BIGINT) AS kb FROM \"suricata\" WHERE event_type = 'flow' AND (src_ip LIKE '192.168.%' OR src_ip LIKE '10.%' OR src_ip LIKE '172.16.%' OR src_ip LIKE '172.17.%' OR src_ip LIKE '172.18.%' OR src_ip LIKE '172.19.%' OR src_ip LIKE '172.2_.%' OR src_ip LIKE '172.30.%' OR src_ip LIKE '172.31.%' OR src_ip LIKE 'fe80:%' OR src_ip LIKE 'fd%' OR src_ip LIKE 'fc%' OR src_ip LIKE '127.%' OR src_ip = '::1') AND NOT (dest_ip LIKE '192.168.%' OR dest_ip LIKE '10.%' OR dest_ip LIKE '172.16.%' OR dest_ip LIKE '172.17.%' OR dest_ip LIKE '172.18.%' OR dest_ip LIKE '172.19.%' OR dest_ip LIKE '172.2_.%' OR dest_ip LIKE '172.30.%' OR dest_ip LIKE '172.31.%' OR dest_ip LIKE 'fe80:%' OR dest_ip LIKE 'fd%' OR dest_ip LIKE 'fc%' OR dest_ip LIKE '127.%' OR dest_ip = '::1') AND dest_port < 32768 GROUP BY src_ip, proto, dest_port HAVING to_timestamp_micros(min(_timestamp)) >= now() - INTERVAL '1 hour' ORDER BY flows DESC LIMIT 25",
+      "promql": null,
+      "promql_condition": null,
+      "aggregation": null,
+      "vrl_function": null,
+      "search_event_type": null,
+      "multi_time_range": []
+    },
+    "trigger_condition": {
+      "period": 1440,
+      "operator": ">=",
+      "threshold": 1,
+      "frequency": 60,
+      "frequency_type": "minutes",
+      "cron": "",
+      "silence": 0,
+      "timezone": "UTC",
+      "tolerance_in_secs": 0,
+      "align_time": true
+    },
+    "destinations": [
+      "homelab"
+    ],
+    "context_attributes": {},
+    "row_template": "{src_ip} -> {proto}/{dest_port} {app}: {flows} flows, {kb} kB to {peers} peers ({sample_peers})",
+    "row_template_type": "String",
+    "description": "A local host talked to the internet on a port it did not use in the previous 24h",
+    "enabled": true,
+    "tz_offset": 0
+  },
+  {
+    "name": "suricata-sensor-silent",
+    "org_id": "default",
+    "stream_type": "logs",
+    "stream_name": "suricata",
+    "is_real_time": false,
+    "query_condition": {
+      "type": "sql",
+      "conditions": null,
+      "sql": "SELECT concat(coalesce(CAST(count(*) AS VARCHAR), '-'), ' stats events in 10 minutes, check suricata and suricata-eve-shipper on amd-server') AS summary, count(*) AS stats_events FROM \"suricata\" WHERE event_type = 'stats' HAVING count(*) = 0",
+      "promql": null,
+      "promql_condition": null,
+      "aggregation": null,
+      "vrl_function": null,
+      "search_event_type": null,
+      "multi_time_range": []
+    },
+    "trigger_condition": {
+      "period": 10,
+      "operator": ">=",
+      "threshold": 1,
+      "frequency": 5,
+      "frequency_type": "minutes",
+      "cron": "",
+      "silence": 60,
+      "timezone": "UTC",
+      "tolerance_in_secs": 0,
+      "align_time": true
+    },
+    "destinations": [
+      "homelab"
+    ],
+    "context_attributes": {},
+    "row_template": "{stats_events} stats events in 10 minutes, check suricata and suricata-eve-shipper on amd-server",
+    "row_template_type": "String",
+    "description": "No stats events from suricata for 10 minutes: sensor or shipper is down",
+    "enabled": true,
+    "tz_offset": 0
+  },
+  {
+    "name": "suricata-packet-drops",
+    "org_id": "default",
+    "stream_type": "logs",
+    "stream_name": "suricata",
+    "is_real_time": false,
+    "query_condition": {
+      "type": "sql",
+      "conditions": null,
+      "sql": "SELECT concat(coalesce(CAST(round(100.0 * max(stats_capture_kernel_drops) / max(stats_capture_kernel_packets), 1) AS VARCHAR), '-'), '% dropped (', coalesce(CAST(max(stats_capture_kernel_drops) AS VARCHAR), '-'), ' of ', coalesce(CAST(max(stats_capture_kernel_packets) AS VARCHAR), '-'), ' packets since suricata started)') AS summary, max(stats_capture_kernel_drops) AS drops, max(stats_capture_kernel_packets) AS packets, round(100.0 * max(stats_capture_kernel_drops) / max(stats_capture_kernel_packets), 1) AS pct FROM \"suricata\" WHERE event_type = 'stats' HAVING max(stats_capture_kernel_packets) > 0 AND 100.0 * max(stats_capture_kernel_drops) / max(stats_capture_kernel_packets) > 5",
+      "promql": null,
+      "promql_condition": null,
+      "aggregation": null,
+      "vrl_function": null,
+      "search_event_type": null,
+      "multi_time_range": []
+    },
+    "trigger_condition": {
+      "period": 15,
+      "operator": ">=",
+      "threshold": 1,
+      "frequency": 15,
+      "frequency_type": "minutes",
+      "cron": "",
+      "silence": 240,
+      "timezone": "UTC",
+      "tolerance_in_secs": 0,
+      "align_time": true
+    },
+    "destinations": [
+      "homelab"
+    ],
+    "context_attributes": {},
+    "row_template": "{pct}% dropped ({drops} of {packets} packets since suricata started)",
+    "row_template_type": "String",
+    "description": "Suricata is dropping more than 5% of packets",
+    "enabled": true,
+    "tz_offset": 0
+  }
+]

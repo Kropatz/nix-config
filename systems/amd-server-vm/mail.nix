@@ -25,19 +25,25 @@ in
 
   systemd.services.sync-acme-kopatz = {
     description = "Sync kopatz.dev ACME certs to exposedvm";
-    after = [ "acme-kopatz.dev.service" "adguardhome.service" ];
-    wants = [ "acme-kopatz.dev.service" "adguardhome.service" ];
+    after = [
+      "acme-kopatz.dev.service"
+      "adguardhome.service"
+    ];
+    wants = [
+      "acme-kopatz.dev.service"
+      "adguardhome.service"
+    ];
     wantedBy = [ "acme-kopatz.dev.service" ];
 
     serviceConfig = {
       Type = "oneshot";
       User = "root";
       ExecStart = pkgs.writeShellScript "sync-acme-kopatz" ''
-          ${pkgs.coreutils}/bin/sleep 5 && ${pkgs.openssh}/bin/scp -r \
-          -i /etc/ssh/ssh_host_ed25519_key \
-          -o StrictHostKeyChecking=accept-new \
-          /var/lib/acme/kopatz.dev \
-          synccert@exposedvm.kopatz.dev:/var/lib/acme/
+        ${pkgs.coreutils}/bin/sleep 5 && ${pkgs.openssh}/bin/scp -r \
+        -i /etc/ssh/ssh_host_ed25519_key \
+        -o StrictHostKeyChecking=accept-new \
+        /var/lib/acme/kopatz.dev \
+        synccert@exposedvm.kopatz.dev:/var/lib/acme/
       '';
     };
   };
@@ -67,6 +73,9 @@ in
   services.nginx.virtualHosts."${email-domain}" = {
     forceSSL = true;
     enableACME = true;
+    http2 = config.custom.vars.nginx.useHttp2;
+
+    extraConfig = "if ($reject_br) { return 415; }";
   };
   services.dovecot2 = {
     package = pkgs.dovecot_2_4;

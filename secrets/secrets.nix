@@ -8,6 +8,7 @@ let
   amd-server = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/t25OaQF020DZdew53gMFqoeHX1+g3um02mopke2eX root@nixos";
   amd-server-vpn-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKkTbNz36z1gGbKp+7NyyTpMslXcFLX0tOrfJ/GQFn+g root@amd-server-vpn-vm";
   amd-server-exposed-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDLYGX4eMZzIAlI41vvNTgyVikHHW7ygd6+D3yp/pIjU root@amd-server-exposed-vm";
+  zel-mini-pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHzScjLjoFF9dw45AVTQ2nv6oYRpD6/P+k78WNzsAu6c root@test-pc";
   users = [ kop ];
   systems = [
     server-vm
@@ -169,5 +170,10 @@ in
   "searxng-secrets.age".publicKeys = [
     kop
     amd-server-exposed-vm
+  ];
+
+  "openobserve-env.age".publicKeys = [
+    kop
+    zel-mini-pc
   ];
 }

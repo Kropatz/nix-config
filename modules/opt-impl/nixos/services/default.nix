@@ -11,6 +11,7 @@ in
   imports = [
     ./acme-cloudflare.nix
     ./adguard.nix
+    ./audit.nix
     ./caldav.nix
     ./clamav.nix
     ./dnsmasq.nix
@@ -28,6 +29,8 @@ in
     ./kop-sanitizer-bot.nix
     ./kubernetes.nix
     ./nginx.nix
+    ./openobserve.nix
+    ./suricata.nix
     ./opensnitch.nix
     ./smartd.nix
     ./smartd-exporter.nix
@@ -50,6 +53,7 @@ in
     ./samba.nix
     ./netbird-native.nix
     ./kop-service-dashboard.nix
+    ./scheibnmeister.nix
   ];
 
   config = lib.mkMerge [

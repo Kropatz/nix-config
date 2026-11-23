@@ -174,7 +174,27 @@
       };
       cssls.enable = true;
       ts_ls.enable = true;
-      dartls.enable = true; # handled by flutter-tools
+      dartls = {
+        enable = true;
+        # pub cache packages have a pubspec.yaml but no package_config.json, so
+        # analysed as their own project every package: import fails to resolve.
+        # keep them in the project's server, which already knows those files.
+        config = {
+          init_options.onlyAnalyzeProjectsWithOpenFiles = false;
+          root_dir.__raw = ''
+            function(bufnr, on_dir)
+              local path = vim.api.nvim_buf_get_name(bufnr)
+              if path:find("/.pub-cache/", 1, true) or vim.startswith(path, "/nix/store/") then
+                local client = vim.lsp.get_clients({ name = "dartls" })[1]
+                if client then on_dir(client.root_dir) end
+                return
+              end
+              local root = vim.fs.root(bufnr, { "pubspec.yaml" })
+              if root then on_dir(root) end
+            end
+          '';
+        };
+      };
       pylsp.enable = true;
       lua_ls.enable = true;
       csharp_ls = {

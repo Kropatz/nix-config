@@ -56,6 +56,26 @@ let
     # Make sure the module targets the same kernel as your system is using.
     kernel = config.boot.kernelPackages.kernel;
   };
+  pactl = "${pkgs.pulseaudio}/bin/pactl";
+  audio = {
+    desktopSink = "alsa_output.usb-Logitech_G733_Gaming_Headset-00.analog-stereo";
+    desktopSource = "alsa_input.usb-Razer_Inc._Razer_Seiren_UC1713127402487-00.analog-stereo";
+    gpuCard = "alsa_card.pci-0000_03_00.1";
+    gpuProfile = "output:hdmi-stereo";
+    vrProfile = "output:hdmi-stereo-extra1";
+    vrSink = "alsa_output.pci-0000_03_00.1.hdmi-stereo-extra1";
+    vrSource = "alsa_input.usb-Valve_Corporation_Valve_VR_Radio___HMD_Mic_48DE54B066-LYM-01.mono-fallback";
+  };
+  # the headset's HDMI port only shows up once monado has turned the display on
+  switchToVrSink = pkgs.writeShellScript "monado-vr-sink" ''
+    for _ in {1..30}; do
+      ${pactl} set-card-profile ${audio.gpuCard} ${audio.vrProfile} 2>/dev/null &&
+        ${pactl} set-default-sink ${audio.vrSink} 2>/dev/null &&
+        echo "default sink: ${audio.vrSink}" && exit 0
+      sleep 1
+    done
+    echo "${audio.vrSink} did not appear" >&2
+  '';
 in
 {
 
@@ -73,6 +93,17 @@ in
       defaultRuntime = true; # Register as default OpenXR runtime
       highPriority = true;
     };
+    services.wivrn = {
+      enable = true;
+      openFirewall = true; # Register as default OpenVR runtime
+      # xrizer never reports the trigger as touched for legacy (pre-SteamVR-input) games,
+      # which breaks UI clicks in games that check the touched mask
+      # package = pkgs.unstable.wivrn.override {
+      #   xrizer = pkgs.unstable.xrizer.overrideAttrs (old: {
+      #     patches = (old.patches or [ ]) ++ [ ./xrizer-legacy-pressed-implies-touched.patch ];
+      #   });
+      # };
+    };
     environment.systemPackages = with pkgs; [
       monado
       wayvr
@@ -81,6 +112,18 @@ in
       STEAMVR_LH_ENABLE = "1";
       XRT_COMPOSITOR_COMPUTE = "1";
       WMR_HANDTRACKING = "0";
+    };
+    # switch default audio devices to the headset while monado runs
+    systemd.user.services.monado.serviceConfig = {
+      ExecStartPost = [
+        "-${pactl} set-default-source ${audio.vrSource}"
+        "-${switchToVrSink}"
+      ];
+      ExecStopPost = [
+        "-${pactl} set-default-sink ${audio.desktopSink}"
+        "-${pactl} set-default-source ${audio.desktopSource}"
+        "-${pactl} set-card-profile ${audio.gpuCard} ${audio.gpuProfile}"
+      ];
     };
     programs.git = {
       enable = true;

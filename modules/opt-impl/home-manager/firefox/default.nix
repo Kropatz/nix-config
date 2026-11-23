@@ -148,6 +148,95 @@ let
       background-color: #${base16.base01} !important;
       background: #${base16.base01} !important;
     }
+
+    /* ---------- Remove rounded corners ---------- */
+
+    *,
+    *::before,
+    *::after {
+      border-radius: 0 !important;
+    }
+
+    /* ---------- Tabs ---------- */
+
+    .tabbrowser-tab,
+    .tab-background,
+    .tab-content,
+    .tab-stack,
+    .tab-label,
+    .tab-icon-stack {
+      border-radius: 0 !important;
+    }
+
+    /* Active tab */
+    .tabbrowser-tab[selected="true"] .tab-background {
+      border-radius: 0 !important;
+    }
+
+    /* ---------- URL bar ---------- */
+
+    #urlbar,
+    #urlbar-background,
+    #urlbar-input-container,
+    #searchbar,
+    .searchbar-textbox {
+      border-radius: 0 !important;
+    }
+
+    /* ---------- Menus / panels ---------- */
+
+    menupopup,
+    panel,
+    .panel-arrowcontent,
+    .popup-internal-box,
+    #appMenu-popup,
+    #unified-extensions-panel,
+    toolbarbutton,
+    .menuitem,
+    .subviewbutton {
+      border-radius: 0 !important;
+    }
+
+    /* ---------- Context menus ---------- */
+
+    menupopup > menu,
+    menupopup > menuitem {
+      border-radius: 0 !important;
+    }
+
+    /* ---------- Buttons ---------- */
+
+    button,
+    toolbarbutton,
+    #nav-bar toolbarbutton {
+      border-radius: 0 !important;
+    }
+
+    /* ---------- Find bar ---------- */
+
+    findbar,
+    .findbar-container,
+    .findbar-textbox {
+      border-radius: 0 !important;
+    }
+
+    /* ---------- Sidebar ---------- */
+
+    #sidebar-box,
+    #sidebar-header,
+    #sidebar-search-container,
+    .sidebar-panel {
+      border-radius: 0 !important;
+    }
+
+    /* ---------- Downloads / library panels ---------- */
+
+    #downloadsPanel,
+    #downloadsPanel-mainView,
+    .download-state,
+    .downloadButton {
+      border-radius: 0 !important;
+    }
   '';
 in
 {

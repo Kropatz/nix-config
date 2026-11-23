@@ -41,22 +41,24 @@
     };
     services = {
       ssh.enable = true;
+      audit.enable = true;
+      openobserve.enable = true;
     };
     graphical = {
-      audio.enable = true;
+      audio.enable = false;
       games = {
         enable = false;
       };
       #sddm.enable = true;
-      hyprland.enable = true;
-      shared.enable = true;
-      i3.enable = true;
-      stylix = {
-        enable = true;
-        base16Scheme = import ../../wallpaper/themes/ina-matugen.nix;
-        image = ../../wallpaper/ina.jpg;
-      };
-      wayvnc.enable = true;
+      hyprland.enable = false;
+      shared.enable = false;
+      # i3.enable = true;
+      # stylix = {
+      #   enable = false;
+      #   base16Scheme = import ../../wallpaper/themes/ina-matugen.nix;
+      #   image = ../../wallpaper/ina.jpg;
+      # };
+      wayvnc.enable = false;
     };
   };
 
@@ -74,13 +76,10 @@
     LIBVA_DRIVER_NAME = "iHD";
   };
 
-  programs.firefox.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.windowManager.openbox.enable = true;
 
   services.xrdp = {
     defaultWindowManager = "i3";
-    enable = true;
+    enable = false;
     openFirewall = true;
     #extraConfDirCommands = ''
     #  substituteInPlace $out/sesman.ini \
@@ -100,7 +99,7 @@
   # services.avahi.publish.userServices = true;
 
   services.displayManager.autoLogin = {
-    enable = true;
+    enable = false;
     user = "kopatz";
   };
   # == end section sunshine ==

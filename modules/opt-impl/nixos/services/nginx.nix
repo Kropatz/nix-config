@@ -59,6 +59,7 @@ in
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
       statusPage = lib.mkIf config.services.prometheus.exporters.nginx.enable true;
+      package = pkgs.unstable-small.nginx;
 
       # Only allow PFS-enabled ciphers with AES256
       sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
@@ -71,10 +72,23 @@ in
         more_set_headers "Content-Security-Policy: frame-ancestors https://kop.oasch.net https://kopatz.dev";
         more_set_headers "Referrer-Policy: same-origin";
         more_set_headers "Permissions-Policy: geolocation=(), microphone=()";
+
+        map $http_content_encoding $reject_br {
+            default   0;
+            "~*br"    1;
+        }
       '';
 
       virtualHosts =
         let
+          proxy_headers = ''
+            proxy_redirect          off;
+            proxy_set_header        Host $host;
+            proxy_set_header        X-Real-IP $remote_addr;
+            proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header        X-Forwarded-Proto $scheme;
+            proxy_set_header        X-NginX-Proxy true;
+          '';
           kopConfig = domain: {
             root = pkgs.kop-website;
             forceSSL = cfg.https;
@@ -84,8 +98,10 @@ in
                 null
               else
                 "/var/lib/acme/acme-challenge";
-            quic = cfg.https;
-            http3 = cfg.https;
+            # quic = cfg.https;
+            # http3 = cfg.https;
+            http2 = config.custom.vars.nginx.useHttp2;
+            extraConfig = ''if ($reject_br) { return 415; }'';
             locations = {
               "~* ^/assets/.*\\.(jpg|png)$".extraConfig = ''
                 add_header Access-Control-Allow-Origin *;
@@ -94,12 +110,7 @@ in
                 basicAuthFile = config.age.secrets.stash-auth.path;
                 extraConfig = ''
                   client_max_body_size    20000M;
-                  proxy_redirect          off;
-                  proxy_set_header        Host $host;
-                  proxy_set_header        X-Real-IP $remote_addr;
-                  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                  proxy_set_header        X-Forwarded-Proto $scheme;
-                  proxy_set_header        X-NginX-Proxy true;
+                  ${proxy_headers}
                   proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
                 '';
               };
@@ -115,23 +126,19 @@ in
                     return 204;
                   }
                   client_max_body_size    20000M;
-                  proxy_redirect          off;
-                  proxy_set_header        Host $host;
-                  proxy_set_header        X-Real-IP $remote_addr;
-                  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                  proxy_set_header        X-Forwarded-Proto $scheme;
-                  proxy_set_header        X-NginX-Proxy true;
+                  ${proxy_headers}
                   proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
                 '';
               };
               "/stash/files" = {
                 extraConfig = ''
-                  proxy_redirect          off;
-                  proxy_set_header        Host $host;
-                  proxy_set_header        X-Real-IP $remote_addr;
-                  proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                  proxy_set_header        X-Forwarded-Proto $scheme;
-                  proxy_set_header        X-NginX-Proxy true;
+                  ${proxy_headers}
+                  proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
+                '';
+              };
+              "/stash/status" = {
+                extraConfig = ''
+                  ${proxy_headers}
                   proxy_pass http://${config.custom.vars.exposedServerIp}:7777;
                 '';
               };
@@ -141,6 +148,7 @@ in
               "/tracker-site/api" = {
                 extraConfig = ''
                   rewrite /tracker-site/api/(.*) /$1 break;
+
                 '';
                 proxyPass = "http://192.168.0.22:8081";
               };
@@ -180,6 +188,14 @@ in
               "/misc-big/" = {
                 alias = "/hdd/nginx/misc-big/";
               };
+              "/misc-big/avatars/" = {
+                alias = "/hdd/nginx/misc-big/avatars/";
+                extraConfig = ''
+                  fancyindex on;
+                  fancyindex_hide_parent_dir on;
+                  fancyindex_exact_size off;
+                '';
+              };
               "/javaland/" = {
                 alias = "/var/www/javaland/";
                 extraConfig = ''
@@ -197,6 +213,7 @@ in
                   more_set_headers       "Access-Control-Allow-Headers: Authorization, Content-Type";
                   more_set_headers       "Access-Control-Allow-Credentials: true";
                   rewrite /comms2/api/(.*) /$1 break;
+
                 '';
                 proxyPass = "http://localhost:3200/";
                 proxyWebsockets = true;
@@ -225,9 +242,7 @@ in
                   client_body_temp_path /hdd/nginx/dav-tmp;
                   autoindex on;
 
-                  allow 192.168.0.0/24;
-                  allow 192.168.2.0/24;
-                  deny all;
+                  ${config.custom.vars.nginx.allowOnlyInternalIps}
                 '';
               };
               "/robots.txt" = {
@@ -249,8 +264,10 @@ in
           "kavita.kopatz.dev" = {
             forceSSL = true;
             useACMEHost = "kopatz.dev";
-            quic = true;
-            http3 = true;
+            # quic = true;
+            # http3 = true;
+            http2 = config.custom.vars.nginx.useHttp2;
+            extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:5000";
             locations."/".extraConfig = ''
               more_clear_headers 'x-frame-options';
@@ -268,8 +285,10 @@ in
           "jellyfin.kopatz.dev" = {
             forceSSL = true;
             useACMEHost = "kopatz.dev";
-            quic = true;
-            http3 = true;
+            # quic = true;
+            # http3 = true;
+            http2 = config.custom.vars.nginx.useHttp2;
+            extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:8096";
             locations."/".extraConfig = ''
               more_clear_headers 'x-frame-options';
@@ -288,8 +307,10 @@ in
             forceSSL = true;
             # enableACME = true;
             useACMEHost = "kopatz.dev";
-            quic = true;
-            http3 = true;
+            # quic = true;
+            # http3 = true;
+            http2 = config.custom.vars.nginx.useHttp2;
+            extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:3002";
             locations."/robots.txt" = {
               extraConfig = ''
@@ -302,8 +323,10 @@ in
             forceSSL = true;
             # enableACME = true;
             useACMEHost = "kopatz.dev";
-            quic = true;
-            http3 = true;
+            # quic = true;
+            # http3 = true;
+            http2 = config.custom.vars.nginx.useHttp2;
+            extraConfig = ''if ($reject_br) { return 415; }'';
             locations."/".proxyPass = "http://${config.custom.vars.exposedServerIp}:3002";
             locations."/robots.txt" = {
               extraConfig = ''
